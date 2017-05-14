@@ -46,7 +46,7 @@ function getGlassDoor(){
 			// var gd_queryURL = 'http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=151095&t.k=dSWk91gUjq3&action=employers&q='+ q +'&userip='+ userInfo.ip +'&useragent='+ gd_userAgent;
 
 			// var gd_queryURL = 'http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=151095&t.k=dSWk91gUjq3&action=employers&q=developer&userip=2602:306:c40d:54b0:45fe:eeaf:3f0c:b0bd&useragent=Chrome';
-			var gd_queryURL = 'http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=151095&t.k=dSWk91gUjq3&action=employers&q='+ q +'&userip='+ uIP +'&useragent='+ uBrowser;
+			var gd_queryURL = 'https://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=151095&t.k=dSWk91gUjq3&action=employers&q='+ q +'&userip='+ uIP +'&useragent='+ uBrowser;
 
 
 			console.log('gd_queryURL',gd_queryURL);
