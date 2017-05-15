@@ -4,3 +4,26 @@
 	/*border: 1px solid #ECF0F1;*/
 	
 }
+
+.diceButton{
+	width: 80px;
+	height: 50px;
+	color: white;
+	background: red;
+	border: 1px solid transparent;
+  	border-radius: 4px;
+  	padding: 6px 12px;
+  	font-size: 14px;
+  	margin-bottom: 5px;
+}
+
+.diceButton:hover,
+.diceButton:focus,
+.diceButton.focus {
+  color: #333;
+  text-decoration: none;
+}
+.diceButton:link,
+.diceButton:visited{
+	text-decoration: none;
+}

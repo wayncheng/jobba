@@ -150,9 +150,10 @@ function getDiceResponse(result){
 		
 		var detailUrl = $("<a>");
 		var detailUrlSpan = $("<span>");
-		detailUrlSpan.append("detailUrl :: ");
+		detailUrlSpan.append("DICE");
 		detailUrl.attr("href",jobsResults[i].detailUrl);
 		detailUrl.attr("name","detailUrl");
+		detailUrl.addClass("diceButton");
 		detailUrl.append(detailUrlSpan);
 
 		p.append(source);
