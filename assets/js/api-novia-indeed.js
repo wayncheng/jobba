@@ -8,8 +8,8 @@ $(document).ready(function(){
 	    event.preventDefault();
 	    $("#feed").empty();
 		q = $('#search').val();
-		url = createURL(q,"","","10");
-		doAjaxCall(url,getResponse);
+		url = createIndeedURL(q,"","","10");
+		doAjaxCall(url,getIndeedResponse);
 	});
 
 });
@@ -21,7 +21,7 @@ $(document).ready(function(){
 
 
 
-function createURL(searchString,city,state,noOfRecords){
+function createIndeedURL(searchString,city,state,noOfRecords){
 
 	var url = "https://api.indeed.com/ads/apisearch?publisher=422492215893931&sort=&radius=&st=&jt=&start=&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2&format=json";
 
@@ -64,7 +64,7 @@ function doAjaxCall(qURL, mycallback){
 
 }
 
-function getResponse(result){
+function getIndeedResponse(result){
 	console.log('done',result);
 	console.log('First Record No in this request :: ',result.start);
 	console.log('Last Record No in this request :: ',result.end);

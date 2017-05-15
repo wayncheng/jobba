@@ -8,8 +8,8 @@ $(document).ready(function(){
 	    event.preventDefault();
 	    $("#feed").empty();
 		q = $('#search').val();
-		url = createURL(q,"","","10");
-		doAjaxCall(url,getResponse);
+		url = createGitHubURL(q,"","","10");
+		doAjaxCall(url,getGitHubResponse);
 	});
 
 });
@@ -19,32 +19,26 @@ $(document).ready(function(){
 // ------------------------------------------------
 
 
-function createURL(searchString,city,state,noOfRecords){
+function createGitHubURL(searchString,city,state,noOfRecords){
 
-	var url = "https://api.indeed.com/ads/apisearch?publisher=422492215893931&sort=&radius=&st=&jt=&start=&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2&format=json";
+	var url = "https://jobs.github.com/positions.json?";
 
 	if(searchString != ""){
 		searchString = encodeURIComponent(searchString);
-		url = url + "&q=" + searchString;
+		url = url + "?description=" + searchString;
 	}
 	if(city != ""){
 		city = encodeURIComponent(city);
-		url = url + "&l=" + city;
+		url = url + "&location=" + city;
 	}
 	//Test case using San Diego
 	else{ 
-		city="san+diego";
-		url = url + "&l=" + city;
+		city="la";
+		url = url + "&location=" + city;
 	}	
-	if(state != ""){
-		state = encodeURIComponent(state);
-		url = url + "C+" + state;
-	}
-	if(noOfRecords != ""){
-		noOfRecords = encodeURIComponent(noOfRecords);
-		url = url + "&limit=" + noOfRecords;
-	}
 
+		url = url + "&full_time=true";
+	
 	console.log("URL is:"+url);
 	return url;
 }
@@ -62,52 +56,60 @@ function doAjaxCall(qURL, mycallback){
 
 }
 
-function getResponse(result){
+function getGitHubResponse(result){
 	console.log('done',result);
-	console.log('First Record No in this request :: ',result.start);
-	console.log('Last Record No in this request :: ',result.end);
-	console.log('Previous URL if any :: ',result.prevURL);
-	console.log('Next URL :: ',result.nextUrl);
 
 	console.log('-----------------JOB DETAILS-----------------');
-	var jobsResults = result.results;
+	var jobsResults = result;
+	var jobTitle;
+	var jobCompany;
+	var jobLocation;
+	var jobDate;
 
 	$("#feed").append();
 	for(var i=0; i< jobsResults.length; i++){
 		console.log(i+1);
-		console.log('jobTitle :: ',jobsResults[i].jobtitle);
-		console.log('company :: ',jobsResults[i].company);
-		console.log('location :: ',jobsResults[i].city);
-		console.log('date ::',jobsResults[i].date);
+
+		jobTitle = jobsResults[i].title;
+		jobCompany = jobsResults[i].company;
+		jobLocation = jobsResults[i].location;
+		jobDate = jobsResults[i].created_at;
+
+
+
+		console.log('jobTitle :: ',jobTitle);
+		console.log('company :: ',jobCompany);
+		console.log('location :: ',jobLocation);
+		console.log('date ::',jobDate);
 
 		var p = $("<p>");
 
 		var source = $("<span>");
 		source.append("Source:: ");
-		source.append("Indeed");
+		source.append("GitHub");
 		source.append("&nbsp;");
 		source.append("&nbsp;");
 
-		var jobTitle = $("<span>");
-		jobTitle.append("JobTitle :: ");
-		jobTitle.append(jobsResults[i].jobtitle);
-		jobTitle.append("&nbsp;");
-		jobTitle.append("&nbsp;");
+		var jobTitleDisplay = $("<span>");
+		jobTitleDisplay.append("Job Title :: ");
+		jobTitleDisplay.append(jobTitle);
+		jobTitleDisplay.append("&nbsp;");
+		jobTitleDisplay.append("&nbsp;");
 
-		var company = $("<span>");
-		company.append("Company :: ");
-		company.append(jobsResults[i].company);
-		company.append("&nbsp;");
-		company.append("&nbsp;");
+		var companyDisplay = $("<span>");
+		companyDisplay.append("Company :: ");
+		companyDisplay.append(jobCompany);
+		companyDisplay.append("&nbsp;");
+		companyDisplay.append("&nbsp;");
 
-		var location = $("<span>");
-		location.append("Location :: ");
-		location.append(jobsResults[i].city);
+		var locationDisplay = $("<span>");
+		locationDisplay.append("Location :: ");
+		locationDisplay.append(jobLocation);
 
 		p.append(source);
-		p.append(jobTitle);
-		p.append(company);
-		p.append(location);
+		p.append(jobTitleDisplay);
+		p.append(companyDisplay);
+		p.append(locationDisplay);
 
 		$("#feed").append(p);
 
