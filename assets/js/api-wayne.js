@@ -135,11 +135,23 @@ function getDiceResponse(result){
 		var location = $("<span>");
 		location.append("Location :: ");
 		location.append(jobsResults[i].location);
+		location.append("&nbsp;");
+		location.append("&nbsp;");
+
+		
+		var detailUrl = $("<a>");
+		var detailUrlSpan = $("<span>");
+		detailUrlSpan.append("detailUrl :: ");
+		detailUrl.attr("href",jobsResults[i].detailUrl);
+		detailUrl.attr("name","detailUrl");
+		detailUrl.append(detailUrlSpan);
 
 
 		p.append(jobTitle);
 		p.append(company);
 		p.append(location);
+		p.append(detailUrl);
+
 
 		$("#feed").append(p);
 
