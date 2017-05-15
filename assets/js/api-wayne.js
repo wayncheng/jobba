@@ -47,6 +47,7 @@ $(document).ready(function(){
 	//  Click Event Added By Priyanka
 	$('#submit').on('click', function(){
 	    event.preventDefault();
+	    $("#feed").empty();
 		q = $('#search').val();
 		url = createDiceReq(q,"","","","1","10");
 		doAjaxCall(url,getDiceResponse);
@@ -111,7 +112,7 @@ function getDiceResponse(result){
 	console.log('-----------------JOB DETAILS-----------------');
 	var jobsResults = result.resultItemList;
 
-	$("#feed").empty();
+	$("#feed").append();
 	for(var i=0; i< jobsResults.length; i++){
 		console.log(i+1);
 		console.log('jobTitle :: ',jobsResults[i].jobTitle);
@@ -120,6 +121,14 @@ function getDiceResponse(result){
 		console.log('date ::',jobsResults[i].date);
 
 		var p = $("<p>");
+
+		var source = $("<span>");
+		source.append("Source:: ");
+		source.append("Dice");
+		source.append("&nbsp;");
+		source.append("&nbsp;");
+
+
 		var jobTitle = $("<span>");
 		jobTitle.append("JobTitle :: ");
 		jobTitle.append(jobsResults[i].jobTitle);
@@ -136,7 +145,7 @@ function getDiceResponse(result){
 		location.append("Location :: ");
 		location.append(jobsResults[i].location);
 
-
+		p.append(source);
 		p.append(jobTitle);
 		p.append(company);
 		p.append(location);
