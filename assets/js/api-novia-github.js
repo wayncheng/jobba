@@ -8,8 +8,8 @@ $(document).ready(function(){
 	    event.preventDefault();
 	    $("#feed").empty();
 		q = $('#search').val();
-		urlGH= createGitHubURL(q,"","","10");
-		doAjaxCall(urlGH,getGitHubResponse);
+		urlGH1= createGitHubURL(q,"","","10");
+		doAjaxCall(urlGH1,getGitHubResponse);
 	});
 
 });
