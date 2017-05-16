@@ -87,6 +87,8 @@ function createDiceReq(searchString,state,city,areacode,pageNumber,noOfRecords){
 		url = url + "&pgcnt=" + noOfRecords;
 	}
 	return url;
+
+	console.log("URL is: "+url);
 }
 
 function doAjaxCall(qURL, mycallback){
