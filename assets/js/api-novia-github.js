@@ -21,7 +21,7 @@ $(document).ready(function(){
 
 function createGitHubURL(searchString,city,state,noOfRecords){
 
-	var url = "https://jobs.github.com/positions.json?";
+	var url = "https://crossorigin.me/https://jobs.github.com/positions.json?";
 
 	if(searchString != ""){
 		searchString = encodeURIComponent(searchString);
