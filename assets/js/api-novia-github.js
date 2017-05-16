@@ -8,8 +8,8 @@ $(document).ready(function(){
 	    event.preventDefault();
 	    $("#feed").empty();
 		q = $('#search').val();
-		url = createGitHubURL(q,"","","10");
-		doAjaxCall(url,getGitHubResponse);
+		urlGH= createGitHubURL(q,"","","10");
+		doAjaxCall(urlGH,getGitHubResponse);
 	});
 
 });
@@ -21,33 +21,33 @@ $(document).ready(function(){
 
 function createGitHubURL(searchString,city,state,noOfRecords){
 
-	var url = "https://crossorigin.me/https://jobs.github.com/positions.json?";
+	var urlGH = "https://crossorigin.me/https://jobs.github.com/positions.json?";
 
 	if(searchString != ""){
 		searchString = encodeURIComponent(searchString);
-		url = url + "?description=" + searchString;
+		urlGH = urlGH + "?description=" + searchString;
 	}
 	if(city != ""){
 		city = encodeURIComponent(city);
-		url = url + "&location=" + city;
+		urlGH = urlGH + "&location=" + city;
 	}
 	//Test case using San Diego
 	else{ 
 		city="la";
-		url = url + "&location=" + city;
+		urlGH = urlGH + "&location=" + city;
 	}	
 
-		url = url + "&full_time=true";
+		urlGH = urlGH + "&full_time=true";
 	
-	console.log("URL is:"+url);
-	return url;
+	console.log("GitHub URL is:"+urlGH);
+	return urlGH;
 }
 
 function doAjaxCall(qURL, mycallback){
 
 	$.ajax({
 		type:'GET',
-		url: qURL,
+		urlGH: qURL,
 	}).done(mycallback).fail(function(){
 		//Create a new function to process errors
 		console.log('fail', qURL.result);
