@@ -153,6 +153,7 @@ function getDiceResponse(result){
 		detailUrlSpan.append("DICE");
 		detailUrl.attr("href",jobsResults[i].detailUrl);
 		detailUrl.attr("name","detailUrl");
+		detailUrl.attr("target","_blank");
 		detailUrl.addClass("diceButton");
 		detailUrl.append(detailUrlSpan);
 
