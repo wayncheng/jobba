@@ -8,8 +8,8 @@ $(document).ready(function(){
 	    event.preventDefault();
 	    $("#feed").empty();
 		q = $('#search').val();
-		urlGH1= createGitHubURL(q,"","","10");
-		doAjaxCall(urlGH1,getGitHubResponse);
+		url = createGitHubURL(q,"","","10");
+		doAjaxCall(url,getGitHubResponse);
 	});
 
 });
@@ -25,7 +25,7 @@ function createGitHubURL(searchString,city,state,noOfRecords){
 
 	if(searchString != ""){
 		searchString = encodeURIComponent(searchString);
-		url = url + "?description=" + searchString;
+		url = url + "&description=" + searchString;
 	}
 	if(city != ""){
 		city = encodeURIComponent(city);
@@ -39,7 +39,7 @@ function createGitHubURL(searchString,city,state,noOfRecords){
 
 		url = url + "&full_time=true";
 	
-	console.log("GitHub URL is:"+url);
+	console.log("URL is:"+url);
 	return url;
 }
 
@@ -105,11 +105,25 @@ function getGitHubResponse(result){
 		var locationDisplay = $("<span>");
 		locationDisplay.append("Location :: ");
 		locationDisplay.append(jobLocation);
+		locationDisplay.append("&nbsp;");
+		locationDisplay.append("&nbsp;");
+
+		var detailUrl = $("<a>");
+		var detailUrlImg = $("<img>");
+		detailUrlImg.attr("src","assets/img/github-logo.png");
+		detailUrl.attr("href",jobsResults[i].url);
+		detailUrl.attr("name","detailUrl");
+		detailUrl.attr("target","_blank");
+		detailUrlImg.addClass("logo");
+		detailUrl.append(detailUrlImg);
+
+		
 
 		p.append(source);
 		p.append(jobTitleDisplay);
 		p.append(companyDisplay);
 		p.append(locationDisplay);
+		p.append(detailUrl);
 
 		$("#feed").append(p);
 

@@ -105,11 +105,23 @@ function getIndeedResponse(result){
 		var location = $("<span>");
 		location.append("Location :: ");
 		location.append(jobsResults[i].city);
+		location.append("&nbsp;");
+		location.append("&nbsp;");
+
+		var detailUrl = $("<a>");
+		var detailUrlImg = $("<img>");
+		detailUrlImg.attr("src","assets/img/logo-indeed.png");
+		detailUrl.attr("href",jobsResults[i].url);
+		detailUrl.attr("name","detailUrl");
+		detailUrl.attr("target","_blank");
+		detailUrlImg.addClass("logo");
+		detailUrl.append(detailUrlImg);
 
 		p.append(source);
 		p.append(jobTitle);
 		p.append(company);
 		p.append(location);
+		p.append(detailUrl);
 
 		$("#feed").append(p);
 
