@@ -60,7 +60,7 @@ $(document).ready(function(){
 
 function createDiceReq(searchString,state,city,areacode,pageNumber,noOfRecords){
 
-	var url = "http://service.dice.com/api/rest/jobsearch/v1/simple.json?text=";
+	var url = "https://crossorigin.me/http://service.dice.com/api/rest/jobsearch/v1/simple.json?text=";
 
 	if(searchString != ""){
 		searchString = encodeURIComponent(searchString);
