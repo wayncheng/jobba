@@ -21,33 +21,33 @@ $(document).ready(function(){
 
 function createGitHubURL(searchString,city,state,noOfRecords){
 
-	var urlGH = "https://crossorigin.me/https://jobs.github.com/positions.json?";
+	var url = "https://crossorigin.me/https://jobs.github.com/positions.json?";
 
 	if(searchString != ""){
 		searchString = encodeURIComponent(searchString);
-		urlGH = urlGH + "?description=" + searchString;
+		url = url + "?description=" + searchString;
 	}
 	if(city != ""){
 		city = encodeURIComponent(city);
-		urlGH = urlGH + "&location=" + city;
+		url = url + "&location=" + city;
 	}
 	//Test case using San Diego
 	else{ 
 		city="la";
-		urlGH = urlGH + "&location=" + city;
+		url = url + "&location=" + city;
 	}	
 
-		urlGH = urlGH + "&full_time=true";
+		url = url + "&full_time=true";
 	
-	console.log("GitHub URL is:"+urlGH);
-	return urlGH;
+	console.log("GitHub URL is:"+url);
+	return url;
 }
 
 function doAjaxCall(qURL, mycallback){
 
 	$.ajax({
 		type:'GET',
-		urlGH: qURL,
+		url: qURL,
 	}).done(mycallback).fail(function(){
 		//Create a new function to process errors
 		console.log('fail', qURL.result);
