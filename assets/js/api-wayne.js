@@ -92,7 +92,7 @@ function createDiceReq(searchString,state,city,areacode,pageNumber,noOfRecords){
 	console.log("URL is: "+url);
 }
 
-function doAjaxCallD(qURL, mycallback){
+function doAjaxCallDice(qURL, mycallback){
 
 	$.ajax({
 		type:'GET',
