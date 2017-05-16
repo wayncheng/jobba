@@ -50,7 +50,8 @@ $(document).ready(function(){
 	    $("#feed").empty();
 		q = $('#search').val();
 		url = createDiceReq(q,"","","","1","10");
-		doAjaxCall(url,getDiceResponse);
+		console.log("Wayne file URL: "+url);
+		doAjaxCallDice(url,getDiceResponse);
 	});
 
 
@@ -91,7 +92,7 @@ function createDiceReq(searchString,state,city,areacode,pageNumber,noOfRecords){
 	console.log("URL is: "+url);
 }
 
-function doAjaxCall(qURL, mycallback){
+function doAjaxCallD(qURL, mycallback){
 
 	$.ajax({
 		type:'GET',
