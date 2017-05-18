@@ -8,7 +8,8 @@ $(document).ready(function(){
 	    event.preventDefault();
 	    $("#feed").empty();
 		q = $('#search').val();
-		url = createIndeedURL(q,"","","10");
+		city = $('#q-city').val();
+		url = createIndeedURL(q,city,"","50");
 		doAjaxCall(url,getIndeedResponse);
 	});
 
@@ -23,7 +24,7 @@ $(document).ready(function(){
 
 function createIndeedURL(searchString,city,state,noOfRecords){
 
-	var url = "https://crossorigin.me/https://api.indeed.com/ads/apisearch?publisher=422492215893931&sort=&radius=&st=&jt=&start=&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2&format=json";
+	var url = "https://crossorigin.me/https://api.indeed.com/ads/apisearch?publisher=422492215893931&sort=&radius=&st=&jt=&start=&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Chrome&v=2&format=json";
 
 	if(searchString != ""){
 		searchString = encodeURIComponent(searchString);

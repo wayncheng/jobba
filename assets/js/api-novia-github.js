@@ -8,7 +8,8 @@ $(document).ready(function(){
 	    event.preventDefault();
 	    $("#feed").empty();
 		q = $('#search').val();
-		url = createGitHubURL(q,"","","10");
+		city = $('#q-city').val();
+		url = createGitHubURL(q,city,"","10");
 		doAjaxCall(url,getGitHubResponse);
 	});
 
@@ -31,7 +32,7 @@ function createGitHubURL(searchString,city,state,noOfRecords){
 		city = encodeURIComponent(city);
 		url = url + "&location=" + city;
 	}
-	//Test case using San Diego
+	//Test case using LA
 	else{ 
 		city="la";
 		url = url + "&location=" + city;
