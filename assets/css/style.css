@@ -10,6 +10,119 @@
 
 
 /*--------------------------------
+        Search Bar
+--------------------------------*/
+	#page1 {
+		padding: 0;
+		width: 100%;
+	}
+	#banner-headline {
+		color: #fff;
+		text-align: center;
+		position: relative;
+		top: 40%;
+		font-weight: 200;
+	}
+	#banner-headline em {
+		font-weight: 400;
+	}
+	div#banner {
+		width: 100%;
+		display: block;
+		height: 50vh;
+		max-height: 540px; 
+		min-height: 300px;
+		background-image: url(../img/banner-backdrop-2k.jpg);
+		background-size: cover;
+		background-position: 50% 40%;
+		margin-bottom: 40px;
+	}
+	input.main-search {
+		font-size: 20px;
+	}
+	form.main-search {
+		height: 40px;
+		line-height: 40px;
+		max-width: 700px;
+		margin: 0px auto 40px;
+		/*border: 1px solid #ccc;*/
+		border: none;
+		position: relative;
+		top: 45%;
+	}
+	#search, fieldset, .input-group, input.text.input.sub-search, button.main-search {
+		height: inherit;
+		line-height: inherit;
+		margin: 0 auto;
+	}
+	#search {
+			width: 94%;
+			padding: 0 3%;
+			font-size: 20px;
+			font-family: Roboto, 'Helvetica Neue', Helvetica, sans-serif;
+			font-weight: 500;
+			overflow: hidden;
+			border-radius: 0;
+			border: none;
+	}
+	fieldset {
+		display: block;
+		position: absolute;
+		right: 0;
+		top: 0;
+		margin-right: -2px;
+		width: 377px;
+		padding: 0;
+	}
+	
+	.input-group {
+		float: left;
+		display: inline-block;
+		border-left: 2px solid #eee;
+		padding-left: 20px;
+	}
+	input.main-search:active,
+	input.main-search:focus,
+	input.main-search:hover {
+		border: none;
+		outline: none;
+	}
+	input.text.sub-search,
+	input.text.sub-search:active,
+	input.text.sub-search:focus,
+	input.text.sub-search:hover {
+		font-size: 16px;
+		color: #666;
+		/*margin: -1px;*/
+		text-indent: 10px;
+		background-color: transparent;
+		border: none;
+		outline: none;
+	}
+	input.text.sub-search::placeholder {
+		color: #777;
+	}
+	
+	.input-submit {
+		/*float: right;*/
+		border-left: none;
+	}
+	button.main-search {
+		background-color: #27ae60;
+		border: none;
+		outline: none;
+		margin: 0;
+		font-size: inherit;
+		width: 42px;
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+	button.main-search img {
+		height: 20px;
+		margin-top: 7px;
+	}
+/*--------------------------------
         Listings
 --------------------------------*/
 	#feed {
@@ -67,7 +180,7 @@
 		margin-right: 5px;
 		background-color: #ECF0F1;
 	}
-
+	
 
 /*--------------------------------
         Dice
