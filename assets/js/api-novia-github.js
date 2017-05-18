@@ -21,11 +21,11 @@ $(document).ready(function(){
 
 function createGitHubURL(searchString,city,state,noOfRecords){
 
-	var url = "https://jobs.github.com/positions.json?";
+	var url = "https://crossorigin.me/https://jobs.github.com/positions.json?";
 
 	if(searchString != ""){
 		searchString = encodeURIComponent(searchString);
-		url = url + "?description=" + searchString;
+		url = url + "&description=" + searchString;
 	}
 	if(city != ""){
 		city = encodeURIComponent(city);
@@ -105,11 +105,25 @@ function getGitHubResponse(result){
 		var locationDisplay = $("<span>");
 		locationDisplay.append("Location :: ");
 		locationDisplay.append(jobLocation);
+		locationDisplay.append("&nbsp;");
+		locationDisplay.append("&nbsp;");
+
+		var detailUrl = $("<a>");
+		var detailUrlImg = $("<img>");
+		detailUrlImg.attr("src","assets/img/github-logo.png");
+		detailUrl.attr("href",jobsResults[i].url);
+		detailUrl.attr("name","detailUrl");
+		detailUrl.attr("target","_blank");
+		detailUrlImg.addClass("logo");
+		detailUrl.append(detailUrlImg);
+
+		
 
 		p.append(source);
 		p.append(jobTitleDisplay);
 		p.append(companyDisplay);
 		p.append(locationDisplay);
+		p.append(detailUrl);
 
 		$("#feed").append(p);
 
