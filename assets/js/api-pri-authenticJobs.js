@@ -3,7 +3,7 @@ $('#submit').on('click', function(){
 	    event.preventDefault();
 	    $("#feed").empty();
 		q = $('#search').val();
-		url = createAuthenticJobsReq(q,"","","1","10");
+		url = createAuthenticJobsReq(q,"","","1","100");
 		console.log("Wayne file URL: "+url);
 		doAjaxCall(url,getAuthenticJobsResponse);
 	});
