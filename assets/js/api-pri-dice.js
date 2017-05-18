@@ -11,7 +11,7 @@ $('#submit').on('click', function(){
 
 function createDiceReq(searchString,state,city,areacode,pageNumber,noOfRecords){
 
-	var url = "https://crossorigin.me/http://service.dice.com/api/rest/jobsearch/v1/simple.json?text=";
+	var url = "https://cors-anywhere.herokuapp.com/http://service.dice.com/api/rest/jobsearch/v1/simple.json?text=";
 
 	if(searchString != ""){
 		searchString = encodeURIComponent(searchString);
