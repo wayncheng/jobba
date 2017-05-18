@@ -2,7 +2,8 @@ $('#submit').on('click', function(){
 	    event.preventDefault();
 	    $("#feed").empty();
 		q = $('#search').val();
-		url = createDiceReq(q,"","","","1","10");
+		var city = $('#q-city').val().trim();
+		url = createDiceReq(q,"",city,"","","");
 		console.log("Wayne file URL: "+url);
 		doAjaxCallDice(url,getDiceResponse);
 	});
