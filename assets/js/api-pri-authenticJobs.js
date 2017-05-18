@@ -4,7 +4,7 @@ $('#submit').on('click', function(){
 	    $("#feed").empty();
 		q = $('#search').val();
 		var city = $('#q-city').val().trim();
-		url = createAuthenticJobsReq(q,"",city,"","");
+		url = createAuthenticJobsReq(q,"",city,"","100");
 		console.log("Wayne file URL: "+url);
 		doAjaxCall(url,getAuthenticJobsResponse);
 	});
