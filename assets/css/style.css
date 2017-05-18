@@ -1,10 +1,77 @@
-#feed {
-	background-color: #fdfdfd;
-	color: #A9A9A9;
-	/*border: 1px solid #ECF0F1;*/
-	
-}
 
+
+/*--------------------------------
+        Global
+--------------------------------*/
+	h2, h3, p {
+		margin-bottom: 10px;
+	}
+
+
+
+/*--------------------------------
+        Listings
+--------------------------------*/
+	#feed {
+		/*background-color: #fdfdfd;*/
+		color: #A9A9A9;
+		color: #333;
+		width: 100%;
+		max-width: 700px;
+		margin: 0 auto;
+	}
+	.listing {
+		border: 1px solid #ECF0F1;
+		background-color: #fdfdfd;
+		width: 96%;
+		padding: 10px 2%;
+		position: relative;
+	}
+	a.link {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.headline {
+		display: inline-block;
+		font-weight: 400;
+		font-size: 24px;
+	}
+	.company {
+		display: inline-block;
+		font-weight: 500;
+		font-size: 24px;
+	}
+	.company::before {
+		content: ", ";
+	}
+	.description {
+		padding: 0 5px;
+	}
+
+	.meta {
+		padding: 0;
+	}
+	.meta-detail {
+		display: inline-block;
+		width: initial;
+		height: 1.5em;
+		line-height: 1.5em;
+		font-size: 14px;
+		padding: 0 10px;
+		margin-right: 5px;
+		background-color: #ECF0F1;
+	}
+
+
+/*--------------------------------
+        Dice
+--------------------------------*/
 .diceButton{
 	width: 80px;
 	height: 50px;
