@@ -126,13 +126,15 @@ function getIndeedResponse(result){
 
 		// $("#feed").append(p);
 
+		// Format date using moment.js
+		var dateFormatted = moment(jobsResults[i].date).format("MMM D");
 
 		// Send to Global Print Function
 		var jobJSON = {
 			"title" :  jobsResults[i].jobtitle,
 			"company": jobsResults[i].company,
 			"location": jobsResults[i].city,
-			"date": jobsResults[i].date,
+			"date": dateFormatted,
 			"source": "Indeed",
 			
 		}

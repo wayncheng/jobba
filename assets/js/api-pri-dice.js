@@ -63,7 +63,7 @@ function getDiceResponse(result){
 	console.log('Previous URL if any :: ',result.prevURL);
 	console.log('Next URL :: ',result.nextUrl);
 
-	console.log('-----------------JOB DETAILS-----------------');
+	console.log('-----------------DICE DETAILS-----------------');
 	var jobsResults = result.resultItemList;
 
 	$("#feed").append();
@@ -120,12 +120,15 @@ function getDiceResponse(result){
 
 		// $("#feed").append(p);
 
+		// Format date using moment.js
+		var dateFormatted = moment(jobsResults[i].date).format("MMM D");
+
 		// Send to Global Print Function
 		var jobJSON = {
 			"title" :  jobsResults[i].jobTitle,
 			"company": jobsResults[i].company,
 			"location": jobsResults[i].location,
-			"date": jobsResults[i].date,
+			"date": dateFormatted,
 			"source": "Dice",
 			
 		}

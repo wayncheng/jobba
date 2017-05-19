@@ -128,13 +128,15 @@ function getGitHubResponse(result){
 
 		// $("#feed").append(p);
 
+		// Format date using moment.js
+		var dateFormatted = moment(jobDate).format("MMM D");
 
 		// Send to Global Print Function
 		var jobJSON = {
 			"title" :  jobTitle,
 			"company": jobCompany,
 			"location": jobLocation,
-			"date": jobDate,
+			"date": dateFormatted,
 			"source": "Github",
 			
 		}
