@@ -44,7 +44,6 @@ jQuery.ajaxPrefilter(function(options) {
 
 $('#submit').on('click',function(event){
 
-<<<<<<< HEAD
 	event.preventDefault();
 	var uIP, uBrowser;
 	var qURL = 'https://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=151095&t.k=dSWk91gUjq3&action=employers&q=web&userip=192.185.16.105&useragent=Chrome';
@@ -82,7 +81,7 @@ $('#submit').on('click',function(event){
 		console.log('fail', qURL.result);
 	});
 
-=======
+
 $(document).ready(function(){
 
 
@@ -98,7 +97,7 @@ $(document).ready(function(){
 		}).fail(function(){
 			console.log('fail', qURL.result);
 		});
->>>>>>> origin/master
+
 
 
 }); //////////////////////////////////////// end click event
