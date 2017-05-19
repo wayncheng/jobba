@@ -2,8 +2,7 @@ $('#submit').on('click', function(){
 	    event.preventDefault();
 	    $("#feed").empty();
 		q = $('#search').val();
-		var city = $('#q-city').val().trim();
-		url = createDiceReq(q,"",city,"","","");
+		url = createDiceReq(q,"","","","1","10");
 		console.log("Wayne file URL: "+url);
 		doAjaxCallDice(url,getDiceResponse);
 	});
@@ -12,7 +11,7 @@ $('#submit').on('click', function(){
 
 function createDiceReq(searchString,state,city,areacode,pageNumber,noOfRecords){
 
-	var url = "https://cors-anywhere.herokuapp.com/http://service.dice.com/api/rest/jobsearch/v1/simple.json?text=";
+	var url = "https://crossorigin.me/http://service.dice.com/api/rest/jobsearch/v1/simple.json?text=";
 
 	if(searchString != ""){
 		searchString = encodeURIComponent(searchString);
