@@ -8,7 +8,8 @@ $(document).ready(function(){
 	    event.preventDefault();
 	    $("#feed").empty();
 		q = $('#search').val();
-		url = createIndeedURL(q,"","","10");
+		city = $('#q-city').val();
+		url = createIndeedURL(q,city,"","50");
 		doAjaxCall(url,getIndeedResponse);
 	});
 
@@ -23,7 +24,7 @@ $(document).ready(function(){
 
 function createIndeedURL(searchString,city,state,noOfRecords){
 
-	var url = "https://crossorigin.me/https://api.indeed.com/ads/apisearch?publisher=422492215893931&sort=&radius=&st=&jt=&start=&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2&format=json";
+	var url = "https://crossorigin.me/https://api.indeed.com/ads/apisearch?publisher=422492215893931&sort=&radius=&st=&jt=&start=&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Chrome&v=2&format=json";
 
 	if(searchString != ""){
 		searchString = encodeURIComponent(searchString);
@@ -82,49 +83,61 @@ function getIndeedResponse(result){
 		console.log('location :: ',jobsResults[i].city);
 		console.log('date ::',jobsResults[i].date);
 
-		var p = $("<p>");
+		// var p = $("<p>");
 
-		var source = $("<span>");
-		source.append("Source:: ");
-		source.append("Indeed");
-		source.append("&nbsp;");
-		source.append("&nbsp;");
+		// var source = $("<span>");
+		// source.append("Source:: ");
+		// source.append("Indeed");
+		// source.append("&nbsp;");
+		// source.append("&nbsp;");
 
-		var jobTitle = $("<span>");
-		jobTitle.append("JobTitle :: ");
-		jobTitle.append(jobsResults[i].jobtitle);
-		jobTitle.append("&nbsp;");
-		jobTitle.append("&nbsp;");
+		// var jobTitle = $("<span>");
+		// jobTitle.append("JobTitle :: ");
+		// jobTitle.append(jobsResults[i].jobtitle);
+		// jobTitle.append("&nbsp;");
+		// jobTitle.append("&nbsp;");
 
-		var company = $("<span>");
-		company.append("Company :: ");
-		company.append(jobsResults[i].company);
-		company.append("&nbsp;");
-		company.append("&nbsp;");
+		// var company = $("<span>");
+		// company.append("Company :: ");
+		// company.append(jobsResults[i].company);
+		// company.append("&nbsp;");
+		// company.append("&nbsp;");
 
-		var location = $("<span>");
-		location.append("Location :: ");
-		location.append(jobsResults[i].city);
-		location.append("&nbsp;");
-		location.append("&nbsp;");
+		// var location = $("<span>");
+		// location.append("Location :: ");
+		// location.append(jobsResults[i].city);
+		// location.append("&nbsp;");
+		// location.append("&nbsp;");
 
-		var detailUrl = $("<a>");
-		var detailUrlImg = $("<img>");
-		detailUrlImg.attr("src","assets/img/logo-indeed.png");
-		detailUrl.attr("href",jobsResults[i].url);
-		detailUrl.attr("name","detailUrl");
-		detailUrl.attr("target","_blank");
-		detailUrlImg.addClass("logo");
-		detailUrl.append(detailUrlImg);
+		// var detailUrl = $("<a>");
+		// var detailUrlImg = $("<img>");
+		// detailUrlImg.attr("src","assets/img/logo-indeed.png");
+		// detailUrl.attr("href",jobsResults[i].url);
+		// detailUrl.attr("name","detailUrl");
+		// detailUrl.attr("target","_blank");
+		// detailUrlImg.addClass("logo");
+		// detailUrl.append(detailUrlImg);
 
-		p.append(source);
-		p.append(jobTitle);
-		p.append(company);
-		p.append(location);
-		p.append(detailUrl);
+		// p.append(source);
+		// p.append(jobTitle);
+		// p.append(company);
+		// p.append(location);
+		// p.append(detailUrl);
 
-		$("#feed").append(p);
+		// $("#feed").append(p);
 
+
+		// Send to Global Print Function
+		var jobJSON = {
+			"title" :  jobsResults[i].jobtitle,
+			"company": jobsResults[i].company,
+			"location": jobsResults[i].city,
+			"date": jobsResults[i].date,
+			"source": "Indeed",
+			
+		}
+		var jobStr = JSON.stringify(jobJSON);
+		globalObj.print(jobStr);
 	}
 
 

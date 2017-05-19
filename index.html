@@ -322,10 +322,10 @@
 		<!-- /////////////////// -->
 
 		<!-- Sample Listing -->
-		<div  id="post-1" class="listing">
+		<div id="post-1" class="listing">
 			<a href="#" class="link"></a>
 			<h2 class="headline">Full Stack Developer</h2>
-			<h3 class="company">Amazon</h3>
+			<h3 class="company">(Amazon)</h3>
 			<p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, amet reiciendis modi reprehenderit illo, facilis saepe aliquid. Fugit quibusdam, in quae provident ullam iste soluta maiores ducimus, impedit amet, quaerat!</p>
 			<div class="meta">
 				<p class="meta-detail location">San Diego, CA</p>
@@ -400,6 +400,54 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
 	
+	<script type="text/javascript" charset="utf-8">
+		var globalObj = {
+			print: function(jobStr){
+
+				var jobData = JSON.parse(jobStr);
+				console.log('jobData',jobData);
+
+				var title = jobData.title;
+				var company = jobData.company;
+				var location = jobData.location;
+				var date = jobData.date;
+				var source = jobData.source;
+
+				// var metaArray = [location, date, source];
+				var metaArray = [
+					{ key: "location", value: location},
+					{ key: "date", value: date},
+					{ key: "source", value: source}
+				];
+
+
+				var wrap = $('<div>').addClass('listing');
+				var h2 = $('<h2>').addClass('headline');
+				var h3 = $('<h3>').addClass('company');
+				
+				h2.text(title);
+				h3.text('('+ company +')');
+				
+				// var p = $('<p>').addClass('description');
+				// p.text(description);
+
+				var metaWrap = $('<div>').addClass('meta');
+				for (var i=0; i<metaArray.length; i++) {
+					var p = $('<p>');
+					p.addClass('meta-detail');
+					p.addClass(metaArray[i].key);
+					p.text(metaArray[i].value);
+					metaWrap.append(p);
+				};
+
+				wrap.append(h2);
+				wrap.append(h3);
+				wrap.append(metaWrap);
+
+				$('#feed').append(wrap);
+			}
+		}
+	</script>
 	<script src="assets/js/api-wayne.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/api-novia-indeed.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/api-novia-github.js" type="text/javascript" charset="utf-8"></script>

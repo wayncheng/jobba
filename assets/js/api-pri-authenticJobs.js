@@ -3,7 +3,8 @@ $('#submit').on('click', function(){
 	    event.preventDefault();
 	    $("#feed").empty();
 		q = $('#search').val();
-		url = createAuthenticJobsReq(q,"","","1","10");
+		var city = $('#q-city').val().trim();
+		url = createAuthenticJobsReq(q,"",city,"","100");
 		console.log("Wayne file URL: "+url);
 		doAjaxCall(url,getAuthenticJobsResponse);
 	});
@@ -65,59 +66,89 @@ function getAuthenticJobsResponse(result){
 	$("#feed").append();
 	for(var i=0; i< jobsResults.length; i++){
 		console.log(i+1);
-		console.log('jobTitle :: ',jobsResults[i].title);
-		console.log('company :: ',jobsResults[i].company);
-		console.log('location :: ',jobsResults[i].company.location);
-		console.log('date ::',jobsResults[i].date);
+		console.log('jobsResults[i]',jobsResults[i]);
+		// console.log('jobTitle :: ',jobsResults[i].title);
+		// console.log('company :: ',jobsResults[i].company.name);
+		// console.log('location :: ',jobsResults[i].company.location);
+		// console.log('date ::',jobsResults[i].post_date);
 
-		var p = $("<p>");
+		// var p = $("<p>");
 
-		var source = $("<span>");
-		source.append("Source:: ");
-		source.append("Authentic Jobs");
-		source.append("&nbsp;");
-		source.append("&nbsp;");
+		// var source = $("<span>");
+		// source.append("Source:: ");
+		// source.append("Authentic Jobs");
+		// source.append("&nbsp;");
+		// source.append("&nbsp;");
 
 
-		var jobTitle = $("<span>");
-		jobTitle.append("JobTitle :: ");
-		jobTitle.append(jobsResults[i].title);
-		jobTitle.append("&nbsp;");
-		jobTitle.append("&nbsp;");
+		// var jobTitle = $("<span>");
+		// jobTitle.append("JobTitle :: ");
+		// jobTitle.append(jobsResults[i].title);
+		// jobTitle.append("&nbsp;");
+		// jobTitle.append("&nbsp;");
 
-		var company = $("<span>");
-		company.append("Company :: ");
-		company.append(jobsResults[i].company.name);
-		company.append("&nbsp;");
-		company.append("&nbsp;");
+		// var company = $("<span>");
+		// company.append("Company :: ");
+		// company.append(jobsResults[i].company.name);
+		// company.append("&nbsp;");
+		// company.append("&nbsp;");
 
-		if(jobsResults[i].company.location){
-			var location = $("<span>");
-			location.append("Location :: ");
-			location.append(jobsResults[i].company.location.name);
-			location.append("&nbsp;");
-			location.append("&nbsp;");
-		}
+		// if(jobsResults[i].company.location){
+		// 	var location = $("<span>");
+		// 	location.append("Location :: ");
+		// 	location.append(jobsResults[i].company.location.name);
+		// 	location.append("&nbsp;");
+		// 	location.append("&nbsp;");
+		// }
 		
-		var detailUrl = $("<a>");
-		var detailUrlImg = $("<img>");
-		detailUrlImg.attr("src","assets/img/logo-authentic-jobs.svg");
-		// var detailUrlSpan = $("<span>");
-		// detailUrlSpan.append("DICE");
-		detailUrl.attr("href",jobsResults[i].url);
-		detailUrl.attr("name","detailUrl");
-		detailUrl.attr("target","_blank");
-		detailUrlImg.addClass("logo");
-		detailUrl.append(detailUrlImg);
+		// var detailUrl = $("<a>");
+		// var detailUrlImg = $("<img>");
+		// detailUrlImg.attr("src","assets/img/logo-authentic-jobs.svg");
+		// // var detailUrlSpan = $("<span>");
+		// // detailUrlSpan.append("DICE");
+		// detailUrl.attr("href",jobsResults[i].url);
+		// detailUrl.attr("name","detailUrl");
+		// detailUrl.attr("target","_blank");
+		// detailUrlImg.addClass("logo");
+		// detailUrl.append(detailUrlImg);
 
-		p.append(source);
-		p.append(jobTitle);
-		p.append(company);
-		p.append(location);
-		p.append(detailUrl);
+		// p.append(source);
+		// p.append(jobTitle);
+		// p.append(company);
+		// p.append(location);
+		// p.append(detailUrl);
 
 
-		$("#feed").append(p);
+		// $("#feed").append(p);
+
+	// Send to Global Print Function
+		var ji = jobsResults[i];
+		
+		// In case company info is not provided...
+		var loc, comp;
+		if ( typeof ji.company === 'undefined' ) {
+			comp = 'Company Info N/A';
+			loc = 'Location N/A';
+		}
+		else if ( typeof ji.company === 'object' && typeof ji.company.location === 'undefined' ) {
+			comp = ji.company.name;
+			loc = 'Location N/A';
+		}
+		else {
+			comp = ji.company.name;
+			loc = ji.company.location.name;
+		}
+
+		// Packaging the output values for the printer in the global object
+		var jobJSON = {
+			"title" :  ji.title,
+			"company": comp,
+			"location": loc,
+			"date": ji.post_date,
+			"source": "Authentic Jobs",
+		}
+		var jobStr = JSON.stringify(jobJSON);
+		globalObj.print(jobStr);
 
 	}
 

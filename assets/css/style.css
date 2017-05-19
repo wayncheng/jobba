@@ -139,6 +139,7 @@
 		width: 96%;
 		padding: 10px 2%;
 		position: relative;
+		margin-bottom: 20px;
 	}
 	a.link {
 		margin: 0;
@@ -152,16 +153,15 @@
 
 	.headline {
 		display: inline-block;
-		font-weight: 400;
-		font-size: 24px;
+		font-weight: 300;
+		font-size: 18px;
+		margin-right: 10px;
 	}
 	.company {
 		display: inline-block;
 		font-weight: 500;
-		font-size: 24px;
-	}
-	.company::before {
-		content: ", ";
+		font-size: 18px;
+
 	}
 	.description {
 		padding: 0 5px;
@@ -181,6 +181,9 @@
 		background-color: #ECF0F1;
 	}
 	
+	.null {
+		display: none;
+	}
 
 /*--------------------------------
         Dice

@@ -2,7 +2,8 @@ $('#submit').on('click', function(){
 	    event.preventDefault();
 	    $("#feed").empty();
 		q = $('#search').val();
-		url = createDiceReq(q,"","","","1","10");
+		var city = $('#q-city').val().trim();
+		url = createDiceReq(q,"",city,"","","");
 		console.log("Wayne file URL: "+url);
 		doAjaxCallDice(url,getDiceResponse);
 	});
@@ -11,7 +12,7 @@ $('#submit').on('click', function(){
 
 function createDiceReq(searchString,state,city,areacode,pageNumber,noOfRecords){
 
-	var url = "https://crossorigin.me/http://service.dice.com/api/rest/jobsearch/v1/simple.json?text=";
+	var url = "https://cors-anywhere.herokuapp.com/http://service.dice.com/api/rest/jobsearch/v1/simple.json?text=";
 
 	if(searchString != ""){
 		searchString = encodeURIComponent(searchString);
@@ -73,51 +74,63 @@ function getDiceResponse(result){
 		console.log('location :: ',jobsResults[i].location);
 		console.log('date ::',jobsResults[i].date);
 
-		var p = $("<p>");
+		// var p = $("<p>");
 
-		var source = $("<span>");
-		source.append("Source:: ");
-		source.append("Dice");
-		source.append("&nbsp;");
-		source.append("&nbsp;");
+		// var source = $("<span>");
+		// source.append("Source:: ");
+		// source.append("Dice");
+		// source.append("&nbsp;");
+		// source.append("&nbsp;");
 
 
-		var jobTitle = $("<span>");
-		jobTitle.append("JobTitle :: ");
-		jobTitle.append(jobsResults[i].jobTitle);
-		jobTitle.append("&nbsp;");
-		jobTitle.append("&nbsp;");
+		// var jobTitle = $("<span>");
+		// jobTitle.append("JobTitle :: ");
+		// jobTitle.append(jobsResults[i].jobTitle);
+		// jobTitle.append("&nbsp;");
+		// jobTitle.append("&nbsp;");
 
-		var company = $("<span>");
-		company.append("Company :: ");
-		company.append(jobsResults[i].company);
-		company.append("&nbsp;");
-		company.append("&nbsp;");
+		// var company = $("<span>");
+		// company.append("Company :: ");
+		// company.append(jobsResults[i].company);
+		// company.append("&nbsp;");
+		// company.append("&nbsp;");
 
-		var location = $("<span>");
-		location.append("Location :: ");
-		location.append(jobsResults[i].location);
-		location.append("&nbsp;");
-		location.append("&nbsp;");
+		// var location = $("<span>");
+		// location.append("Location :: ");
+		// location.append(jobsResults[i].location);
+		// location.append("&nbsp;");
+		// location.append("&nbsp;");
 
 		
-		var detailUrl = $("<a>");
-		var detailUrlSpan = $("<span>");
-		detailUrlSpan.append("DICE");
-		detailUrl.attr("href",jobsResults[i].detailUrl);
-		detailUrl.attr("name","detailUrl");
-		detailUrl.attr("target","_blank");
-		detailUrl.addClass("diceButton");
-		detailUrl.append(detailUrlSpan);
+		// var detailUrl = $("<a>");
+		// var detailUrlSpan = $("<span>");
+		// detailUrlSpan.append("DICE");
+		// detailUrl.attr("href",jobsResults[i].detailUrl);
+		// detailUrl.attr("name","detailUrl");
+		// detailUrl.attr("target","_blank");
+		// detailUrl.addClass("diceButton");
+		// detailUrl.append(detailUrlSpan);
 
-		p.append(source);
-		p.append(jobTitle);
-		p.append(company);
-		p.append(location);
-		p.append(detailUrl);
+		// p.append(source);
+		// p.append(jobTitle);
+		// p.append(company);
+		// p.append(location);
+		// p.append(detailUrl);
 
 
-		$("#feed").append(p);
+		// $("#feed").append(p);
+
+		// Send to Global Print Function
+		var jobJSON = {
+			"title" :  jobsResults[i].jobTitle,
+			"company": jobsResults[i].company,
+			"location": jobsResults[i].location,
+			"date": jobsResults[i].date,
+			"source": "Dice",
+			
+		}
+		var jobStr = JSON.stringify(jobJSON);
+		globalObj.print(jobStr);
 
 	}
 

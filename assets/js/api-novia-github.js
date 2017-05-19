@@ -8,7 +8,8 @@ $(document).ready(function(){
 	    event.preventDefault();
 	    $("#feed").empty();
 		q = $('#search').val();
-		url = createGitHubURL(q,"","","10");
+		city = $('#q-city').val();
+		url = createGitHubURL(q,city,"","10");
 		doAjaxCall(url,getGitHubResponse);
 	});
 
@@ -31,7 +32,7 @@ function createGitHubURL(searchString,city,state,noOfRecords){
 		city = encodeURIComponent(city);
 		url = url + "&location=" + city;
 	}
-	//Test case using San Diego
+	//Test case using LA
 	else{ 
 		city="la";
 		url = url + "&location=" + city;
@@ -82,50 +83,63 @@ function getGitHubResponse(result){
 		console.log('location :: ',jobLocation);
 		console.log('date ::',jobDate);
 
-		var p = $("<p>");
+		// var p = $("<p>");
 
-		var source = $("<span>");
-		source.append("Source:: ");
-		source.append("GitHub");
-		source.append("&nbsp;");
-		source.append("&nbsp;");
+		// var source = $("<span>");
+		// source.append("Source:: ");
+		// source.append("GitHub");
+		// source.append("&nbsp;");
+		// source.append("&nbsp;");
 
-		var jobTitleDisplay = $("<span>");
-		jobTitleDisplay.append("Job Title :: ");
-		jobTitleDisplay.append(jobTitle);
-		jobTitleDisplay.append("&nbsp;");
-		jobTitleDisplay.append("&nbsp;");
+		// var jobTitleDisplay = $("<span>");
+		// jobTitleDisplay.append("Job Title :: ");
+		// jobTitleDisplay.append(jobTitle);
+		// jobTitleDisplay.append("&nbsp;");
+		// jobTitleDisplay.append("&nbsp;");
 
-		var companyDisplay = $("<span>");
-		companyDisplay.append("Company :: ");
-		companyDisplay.append(jobCompany);
-		companyDisplay.append("&nbsp;");
-		companyDisplay.append("&nbsp;");
+		// var companyDisplay = $("<span>");
+		// companyDisplay.append("Company :: ");
+		// companyDisplay.append(jobCompany);
+		// companyDisplay.append("&nbsp;");
+		// companyDisplay.append("&nbsp;");
 
-		var locationDisplay = $("<span>");
-		locationDisplay.append("Location :: ");
-		locationDisplay.append(jobLocation);
-		locationDisplay.append("&nbsp;");
-		locationDisplay.append("&nbsp;");
+		// var locationDisplay = $("<span>");
+		// locationDisplay.append("Location :: ");
+		// locationDisplay.append(jobLocation);
+		// locationDisplay.append("&nbsp;");
+		// locationDisplay.append("&nbsp;");
 
-		var detailUrl = $("<a>");
-		var detailUrlImg = $("<img>");
-		detailUrlImg.attr("src","assets/img/github-logo.png");
-		detailUrl.attr("href",jobsResults[i].url);
-		detailUrl.attr("name","detailUrl");
-		detailUrl.attr("target","_blank");
-		detailUrlImg.addClass("logo");
-		detailUrl.append(detailUrlImg);
+		// var detailUrl = $("<a>");
+		// var detailUrlImg = $("<img>");
+		// detailUrlImg.attr("src","assets/img/github-logo.png");
+		// detailUrl.attr("href",jobsResults[i].url);
+		// detailUrl.attr("name","detailUrl");
+		// detailUrl.attr("target","_blank");
+		// detailUrlImg.addClass("logo");
+		// detailUrl.append(detailUrlImg);
 
 		
 
-		p.append(source);
-		p.append(jobTitleDisplay);
-		p.append(companyDisplay);
-		p.append(locationDisplay);
-		p.append(detailUrl);
+		// p.append(source);
+		// p.append(jobTitleDisplay);
+		// p.append(companyDisplay);
+		// p.append(locationDisplay);
+		// p.append(detailUrl);
 
-		$("#feed").append(p);
+		// $("#feed").append(p);
+
+
+		// Send to Global Print Function
+		var jobJSON = {
+			"title" :  jobTitle,
+			"company": jobCompany,
+			"location": jobLocation,
+			"date": jobDate,
+			"source": "Github",
+			
+		}
+		var jobStr = JSON.stringify(jobJSON);
+		globalObj.print(jobStr);
 
 	}
 
