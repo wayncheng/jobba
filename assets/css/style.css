@@ -181,13 +181,28 @@
 		font-size: 14px;
 		padding: 0 10px;
 		margin-right: 5px;
-		background-color: #ECF0F1;
+		background-color: #7f8c8d;
+		color: #ECF0F1;
 	}
 	
 	.null {
 		display: none;
 	}
 
+	.toggle-fold {
+		text-align: center;
+		background-color: #ECF0F1;
+		color: #333;
+		font-weight: 300;
+		padding: 2px 0;
+		font-size: 14px;
+		width: 100%;
+		cursor: pointer;
+	}
+	
+	.fold-hide {
+		display: none;
+	}
 /*--------------------------------
         Dice
 --------------------------------*/
