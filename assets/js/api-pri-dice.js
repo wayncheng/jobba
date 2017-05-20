@@ -63,16 +63,17 @@ function getDiceResponse(result){
 	console.log('Previous URL if any :: ',result.prevURL);
 	console.log('Next URL :: ',result.nextUrl);
 
-	console.log('-----------------JOB DETAILS-----------------');
+	console.log('-----------------DICE DETAILS-----------------');
 	var jobsResults = result.resultItemList;
 
 	$("#feed").append();
 	for(var i=0; i< jobsResults.length; i++){
 		console.log(i+1);
-		console.log('jobTitle :: ',jobsResults[i].jobTitle);
-		console.log('company :: ',jobsResults[i].company);
-		console.log('location :: ',jobsResults[i].location);
-		console.log('date ::',jobsResults[i].date);
+		console.log('jobsResults[i]',jobsResults[i]);
+		// console.log('jobTitle :: ',jobsResults[i].jobTitle);
+		// console.log('company :: ',jobsResults[i].company);
+		// console.log('location :: ',jobsResults[i].location);
+		// console.log('date ::',jobsResults[i].date);
 
 		// var p = $("<p>");
 
@@ -120,14 +121,18 @@ function getDiceResponse(result){
 
 		// $("#feed").append(p);
 
+		// Format date using moment.js
+		var dateFormatted = moment(jobsResults[i].date).format("MMM D");
+
 		// Send to Global Print Function
 		var jobJSON = {
 			"title" :  jobsResults[i].jobTitle,
 			"company": jobsResults[i].company,
 			"location": jobsResults[i].location,
-			"date": jobsResults[i].date,
+			"date": dateFormatted,
 			"source": "Dice",
-			
+			"description": "Description is not available. For more details, visit Dice's website.",
+			"url": jobsResults[i].detailUrl,
 		}
 		var jobStr = JSON.stringify(jobJSON);
 		globalObj.print(jobStr);

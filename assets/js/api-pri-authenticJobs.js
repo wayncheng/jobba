@@ -121,8 +121,12 @@ function getAuthenticJobsResponse(result){
 
 		// $("#feed").append(p);
 
+
 	// Send to Global Print Function
 		var ji = jobsResults[i];
+
+		// Format date using moment.js
+		var dateFormatted = moment(ji.post_date).format("MMM D");
 		
 		// In case company info is not provided...
 		var loc, comp;
@@ -144,8 +148,11 @@ function getAuthenticJobsResponse(result){
 			"title" :  ji.title,
 			"company": comp,
 			"location": loc,
-			"date": ji.post_date,
+			"date": dateFormatted,
 			"source": "Authentic Jobs",
+			"description": ji.description,
+			"url": ji.url,
+			// "apply_url": ji.apply_url,
 		}
 		var jobStr = JSON.stringify(jobJSON);
 		globalObj.print(jobStr);

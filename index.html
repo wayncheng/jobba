@@ -399,6 +399,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 	
 	<script type="text/javascript" charset="utf-8">
 		var globalObj = {
@@ -412,6 +413,7 @@
 				var location = jobData.location;
 				var date = jobData.date;
 				var source = jobData.source;
+				var description = jobData.description;
 
 				// var metaArray = [location, date, source];
 				var metaArray = [
@@ -428,8 +430,8 @@
 				h2.text(title);
 				h3.text('('+ company +')');
 				
-				// var p = $('<p>').addClass('description');
-				// p.text(description);
+				var d = $('<p>').addClass('description');
+				d.html(description);
 
 				var metaWrap = $('<div>').addClass('meta');
 				for (var i=0; i<metaArray.length; i++) {
@@ -443,6 +445,7 @@
 				wrap.append(h2);
 				wrap.append(h3);
 				wrap.append(metaWrap);
+				wrap.append(d);
 
 				$('#feed').append(wrap);
 			}
