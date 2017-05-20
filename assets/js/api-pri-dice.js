@@ -2,9 +2,12 @@ $('#submit').on('click', function(){
 	    event.preventDefault();
 	    $("#feed").empty();
 		q = $('#search').val();
+		
 		var city = $('#q-city').val().trim();
+
 		url = createDiceReq(q,"",city,"","","");
-		console.log("Wayne file URL: "+url);
+		console.log("Dice URL: "+url);
+		console.log("Dice city is: "+city);
 		doAjaxCallDice(url,getDiceResponse);
 	});
 
@@ -23,9 +26,25 @@ function createDiceReq(searchString,state,city,areacode,pageNumber,noOfRecords){
 		url = url + "&state=" + state;
 	}
 	if(city != ""){
+		var finalCity = city.split(",");
+		console.log("finalcity string length is: "+finalCity.length);
+
+		if(finalCity.length>2){
+			city = (finalCity[0]+", "+finalCity[1]);
+			console.log("FINAL CITY IS: "+city);
+		}
+
 		city = encodeURIComponent(city);
 		url = url + "&city=" + city;
+
+		console.log("the modified city is: "+city);
+
+
 	}
+	else{ 
+		city="san+diego,+CA";
+		url = url + "&city=" + city;
+	}	
 	if(areacode != ""){
 		areacode = encodeURIComponent(areacode);
 		url = url + "&areacode=" + areacode;
@@ -40,7 +59,6 @@ function createDiceReq(searchString,state,city,areacode,pageNumber,noOfRecords){
 	}
 	return url;
 
-	console.log("URL is: "+url);
 }
 
 function doAjaxCallDice(qURL, mycallback){
@@ -57,19 +75,19 @@ function doAjaxCallDice(qURL, mycallback){
 }
 
 function getDiceResponse(result){
-	console.log('done',result);
-	console.log('First Record No in this request :: ',result.firstDocument);
-	console.log('Last Record No in this request :: ',result.lastDocument);
-	console.log('Previous URL if any :: ',result.prevURL);
-	console.log('Next URL :: ',result.nextUrl);
+	// console.log('done',result);
+	// console.log('First Record No in this request :: ',result.firstDocument);
+	// console.log('Last Record No in this request :: ',result.lastDocument);
+	// console.log('Previous URL if any :: ',result.prevURL);
+	// console.log('Next URL :: ',result.nextUrl);
 
-	console.log('-----------------DICE DETAILS-----------------');
+	// console.log('-----------------DICE DETAILS-----------------');
 	var jobsResults = result.resultItemList;
 
 	$("#feed").append();
 	for(var i=0; i< jobsResults.length; i++){
-		console.log(i+1);
-		console.log('jobsResults[i]',jobsResults[i]);
+		// console.log(i+1);
+		// console.log('jobsResults[i]',jobsResults[i]);
 		// console.log('jobTitle :: ',jobsResults[i].jobTitle);
 		// console.log('company :: ',jobsResults[i].company);
 		// console.log('location :: ',jobsResults[i].location);

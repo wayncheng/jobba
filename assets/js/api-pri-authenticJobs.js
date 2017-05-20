@@ -5,10 +5,13 @@ $('#submit').on('click', function(){
 		q = $('#search').val();
 		var city = $('#q-city').val().trim();
 		url = createAuthenticJobsReq(q,"",city,"","100");
-		console.log("Wayne file URL: "+url);
+		console.log("Authentic Jobs URL: "+url);
+		console.log("Authentic Jobs city: "+city);
+
 		doAjaxCall(url,getAuthenticJobsResponse);
 	});
 
+// Sample url = https://authenticjobs.com/api/?api_key=a446a0eefe6f5699283g34f4d5b51fa0&method=aj.jobs.get&id=1569
 
 function createAuthenticJobsReq(searchString,state,city,pageNumber,noOfRecords){
 
@@ -26,6 +29,10 @@ function createAuthenticJobsReq(searchString,state,city,pageNumber,noOfRecords){
 		city = encodeURIComponent(city);
 		url = url + "&location=" + city;
 	}
+	else{ 
+		city="san+diego";
+		url = url + "&location=" + city;
+	}	
 	
 	if(pageNumber != ""){
 		pageNumber = encodeURIComponent(pageNumber);
@@ -54,9 +61,9 @@ function doAjaxCall(qURL, mycallback){
 }
 
 function getAuthenticJobsResponse(result){
-	console.log('done',result);
+	// console.log('done',result);
 	// console.log('First Record No in this request :: ',result.firstDocument);
-	console.log('Last Record No in this request :: ',result.listings.total);
+	// console.log('Last Record No in this request :: ',result.listings.total);
 	// console.log('Previous URL if any :: ',result.prevURL);
 	// console.log('Next URL :: ',result.nextUrl);
 
@@ -65,8 +72,8 @@ function getAuthenticJobsResponse(result){
 
 	$("#feed").append();
 	for(var i=0; i< jobsResults.length; i++){
-		console.log(i+1);
-		console.log('jobsResults[i]',jobsResults[i]);
+		// console.log(i+1);
+		// console.log('jobsResults[i]',jobsResults[i]);
 		// console.log('jobTitle :: ',jobsResults[i].title);
 		// console.log('company :: ',jobsResults[i].company.name);
 		// console.log('location :: ',jobsResults[i].company.location);

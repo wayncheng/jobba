@@ -58,9 +58,9 @@ function doAjaxCall(qURL, mycallback){
 }
 
 function getGitHubResponse(result){
-	console.log('done',result);
+	// console.log('done',result);
 
-	console.log('-----------------JOB DETAILS-----------------');
+	// console.log('-----------------JOB DETAILS-----------------');
 	var jobsResults = result;
 	var jobTitle;
 	var jobCompany;
@@ -69,7 +69,7 @@ function getGitHubResponse(result){
 
 	$("#feed").append();
 	for(var i=0; i< jobsResults.length; i++){
-		console.log(i+1);
+		// console.log(i+1);
 
 		jobTitle = jobsResults[i].title;
 		jobCompany = jobsResults[i].company;
@@ -77,7 +77,7 @@ function getGitHubResponse(result){
 		jobDate = jobsResults[i].created_at;
 
 
-		console.log('jobsResults[i]',jobsResults[i]);
+		// console.log('jobsResults[i]',jobsResults[i]);
 		// console.log('jobTitle :: ',jobTitle);
 		// console.log('company :: ',jobCompany);
 		// console.log('location :: ',jobLocation);

@@ -9,6 +9,7 @@ $(document).ready(function(){
 	    $("#feed").empty();
 		q = $('#search').val();
 		city = $('#q-city').val();
+		console.log("Indeed city is: "+city);
 		url = createIndeedURL(q,city,"","50");
 		doAjaxCall(url,getIndeedResponse);
 	});
@@ -66,13 +67,13 @@ function doAjaxCall(qURL, mycallback){
 }
 
 function getIndeedResponse(result){
-	console.log('done',result);
-	console.log('First Record No in this request :: ',result.start);
-	console.log('Last Record No in this request :: ',result.end);
-	console.log('Previous URL if any :: ',result.prevURL);
-	console.log('Next URL :: ',result.nextUrl);
+	// console.log('done',result);
+	// console.log('First Record No in this request :: ',result.start);
+	// console.log('Last Record No in this request :: ',result.end);
+	// console.log('Previous URL if any :: ',result.prevURL);
+	// console.log('Next URL :: ',result.nextUrl);
 
-	console.log('-----------------JOB DETAILS-----------------');
+	// console.log('-----------------JOB DETAILS-----------------');
 	var jobsResults = result.results;
 
 	$("#feed").append();
