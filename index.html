@@ -413,6 +413,7 @@
 				var location = jobData.location;
 				var date = jobData.date;
 				var source = jobData.source;
+				var description = jobData.description;
 
 				// var metaArray = [location, date, source];
 				var metaArray = [
@@ -429,8 +430,8 @@
 				h2.text(title);
 				h3.text('('+ company +')');
 				
-				// var p = $('<p>').addClass('description');
-				// p.text(description);
+				var d = $('<p>').addClass('description');
+				d.html(description);
 
 				var metaWrap = $('<div>').addClass('meta');
 				for (var i=0; i<metaArray.length; i++) {
@@ -444,6 +445,7 @@
 				wrap.append(h2);
 				wrap.append(h3);
 				wrap.append(metaWrap);
+				wrap.append(d);
 
 				$('#feed').append(wrap);
 			}

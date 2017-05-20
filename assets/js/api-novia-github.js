@@ -77,11 +77,11 @@ function getGitHubResponse(result){
 		jobDate = jobsResults[i].created_at;
 
 
-
-		console.log('jobTitle :: ',jobTitle);
-		console.log('company :: ',jobCompany);
-		console.log('location :: ',jobLocation);
-		console.log('date ::',jobDate);
+		console.log('jobsResults[i]',jobsResults[i]);
+		// console.log('jobTitle :: ',jobTitle);
+		// console.log('company :: ',jobCompany);
+		// console.log('location :: ',jobLocation);
+		// console.log('date ::',jobDate);
 
 		// var p = $("<p>");
 
@@ -138,7 +138,8 @@ function getGitHubResponse(result){
 			"location": jobLocation,
 			"date": dateFormatted,
 			"source": "Github",
-			
+			"description": jobsResults[i].description,
+			"url": jobsResults[i].url,
 		}
 		var jobStr = JSON.stringify(jobJSON);
 		globalObj.print(jobStr);

@@ -69,10 +69,11 @@ function getDiceResponse(result){
 	$("#feed").append();
 	for(var i=0; i< jobsResults.length; i++){
 		console.log(i+1);
-		console.log('jobTitle :: ',jobsResults[i].jobTitle);
-		console.log('company :: ',jobsResults[i].company);
-		console.log('location :: ',jobsResults[i].location);
-		console.log('date ::',jobsResults[i].date);
+		console.log('jobsResults[i]',jobsResults[i]);
+		// console.log('jobTitle :: ',jobsResults[i].jobTitle);
+		// console.log('company :: ',jobsResults[i].company);
+		// console.log('location :: ',jobsResults[i].location);
+		// console.log('date ::',jobsResults[i].date);
 
 		// var p = $("<p>");
 
@@ -130,7 +131,8 @@ function getDiceResponse(result){
 			"location": jobsResults[i].location,
 			"date": dateFormatted,
 			"source": "Dice",
-			
+			"description": "Description is not available. For more details, visit Dice's website.",
+			"url": jobsResults[i].detailUrl,
 		}
 		var jobStr = JSON.stringify(jobJSON);
 		globalObj.print(jobStr);

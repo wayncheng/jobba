@@ -150,6 +150,9 @@ function getAuthenticJobsResponse(result){
 			"location": loc,
 			"date": dateFormatted,
 			"source": "Authentic Jobs",
+			"description": ji.description,
+			"url": ji.url,
+			// "apply_url": ji.apply_url,
 		}
 		var jobStr = JSON.stringify(jobJSON);
 		globalObj.print(jobStr);
