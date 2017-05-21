@@ -323,15 +323,16 @@
 
 		<!-- Sample Listing -->
 		<div id="post-1" class="listing">
-			<a href="#" class="link"></a>
+			<!-- <a href="#" class="link"></a> -->
 			<h2 class="headline">Full Stack Developer</h2>
 			<h3 class="company">(Amazon)</h3>
-			<p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, amet reiciendis modi reprehenderit illo, facilis saepe aliquid. Fugit quibusdam, in quae provident ullam iste soluta maiores ducimus, impedit amet, quaerat!</p>
 			<div class="meta">
 				<p class="meta-detail location">San Diego, CA</p>
 				<p class="meta-detail pub-date">May 15, 2017</p>
 				<p class="meta-detail salary">$20,000,000/year</p>
 			</div>
+			<div class="toggle-fold" data-fold="closed">View Description</div>
+			<p class="description below-fold fold-hide">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, amet reiciendis modi reprehenderit illo, facilis saepe aliquid. Fugit quibusdam, in quae provident ullam iste soluta maiores ducimus, impedit amet, quaerat!</p>
 		</div>
 	</div> <!-- end div#feed -->
 
@@ -402,6 +403,27 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 	
 	<script type="text/javascript" charset="utf-8">
+
+		// function fold(event){
+		// 	event.preventDefault();
+		// 	var $t = $(this);
+
+		// 	$t.next('.below-fold').toggleClass('fold-hide');
+		// 	// $t.toggleClass('btn-view');
+
+		// 	var dataFold = $t.attr('data-fold');
+
+		// 	if(dataFold === 'closed') {
+		// 		$t.attr('data-fold','open');
+		// 		$t.text('Hide Description');
+		// 	} 
+		// 	else if (dataFold === 'open') {
+		// 		$t.attr('data-fold','closed');
+		// 		$t.attr('View Description');
+		// 	}
+
+		// }
+
 		var globalObj = {
 			print: function(jobStr){
 
@@ -430,7 +452,7 @@
 				h2.text(title);
 				h3.text('('+ company +')');
 				
-				var d = $('<p>').addClass('description');
+				var d = $('<p>').addClass('description below-fold fold-hide');
 				d.html(description);
 
 				var metaWrap = $('<div>').addClass('meta');
@@ -442,9 +464,35 @@
 					metaWrap.append(p);
 				};
 
+				// Fold toggle
+				var foldToggle = $('<div>').addClass('toggle-fold');
+				foldToggle.attr('data-fold','closed');
+				foldToggle.text('View Description');
+				foldToggle.on('click',function(event){
+					event.preventDefault();
+					var $t = $(this);
+
+					// $t.toggleClass('btn-view');
+
+					var dataFold = $t.attr('data-fold');
+
+					if(dataFold === 'closed') {
+						$t.attr('data-fold','open');
+						$t.text('Hide Description');
+						$(this).siblings('.below-fold').removeClass('fold-hide');
+					} 
+					else {
+						$t.attr('data-fold','closed');
+						$t.text('View Description');
+						$(this).siblings('.below-fold').addClass('fold-hide');
+					}
+
+				});
+
 				wrap.append(h2);
 				wrap.append(h3);
 				wrap.append(metaWrap);
+				wrap.append(foldToggle);
 				wrap.append(d);
 
 				$('#feed').append(wrap);
