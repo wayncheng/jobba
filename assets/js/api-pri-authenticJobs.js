@@ -26,6 +26,14 @@ function createAuthenticJobsReq(searchString,state,city,pageNumber,noOfRecords){
 		url = url + "&location=" + state;
 	}
 	if(city != ""){
+		var finalCity = city.split(",");
+
+		if(finalCity.length>2){
+			city = finalCity[0];
+			console.log("Authenticjobs FINAL CITY IS: "+city);
+		}
+	
+
 		city = encodeURIComponent(city);
 		url = url + "&location=" + city;
 	}
