@@ -22,3 +22,8 @@ $('#submit').on('click', function(event){
 
 
 });
+
+$('#scroll-to-top').on('click',function(event){
+	event.preventDefault();
+	$(window).scrollTop(0);
+})
