@@ -24,6 +24,11 @@ $('#submit').on('click',function(event){
 
 		console.log('done',result);
 		console.log('Title: ' + result.response.jobTitle)
+	var payHigh = result.response.payHigh;
+	var payLow = result.response.payLow;
+	var payMedian = result.response.payMedian;
+
+	console.log("pay high, low, median "+ payHigh +" "+ payLow + " "+ payMedian);
 
 	}).fail(function(){
 		console.log('fail', qURL.result);
