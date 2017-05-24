@@ -61,6 +61,9 @@ function doAjaxCall(qURL, mycallback){
 	}).done(mycallback).fail(function(){
 		//Create a new function to process errors
 		console.log('fail', qURL.result);
+
+		// Change status to fail.
+		globalObj.apiStatus.indeed = 'fail';
 	});
 
 
@@ -73,60 +76,13 @@ function getIndeedResponse(result){
 	// console.log('Previous URL if any :: ',result.prevURL);
 	// console.log('Next URL :: ',result.nextUrl);
 
-	// console.log('-----------------JOB DETAILS-----------------');
+	console.log('-----------------INDEED DETAILS-----------------');
 	var jobsResults = result.results;
 
 	$("#feed").append();
 	for(var i=0; i< jobsResults.length; i++){
 		console.log(i+1);
 		console.log('jobsResults[i]',jobsResults[i]);
-		// console.log('jobTitle :: ',jobsResults[i].jobtitle);
-		// console.log('company :: ',jobsResults[i].company);
-		// console.log('location :: ',jobsResults[i].city);
-		// console.log('date ::',jobsResults[i].date);
-
-		// var p = $("<p>");
-
-		// var source = $("<span>");
-		// source.append("Source:: ");
-		// source.append("Indeed");
-		// source.append("&nbsp;");
-		// source.append("&nbsp;");
-
-		// var jobTitle = $("<span>");
-		// jobTitle.append("JobTitle :: ");
-		// jobTitle.append(jobsResults[i].jobtitle);
-		// jobTitle.append("&nbsp;");
-		// jobTitle.append("&nbsp;");
-
-		// var company = $("<span>");
-		// company.append("Company :: ");
-		// company.append(jobsResults[i].company);
-		// company.append("&nbsp;");
-		// company.append("&nbsp;");
-
-		// var location = $("<span>");
-		// location.append("Location :: ");
-		// location.append(jobsResults[i].city);
-		// location.append("&nbsp;");
-		// location.append("&nbsp;");
-
-		// var detailUrl = $("<a>");
-		// var detailUrlImg = $("<img>");
-		// detailUrlImg.attr("src","assets/img/logo-indeed.png");
-		// detailUrl.attr("href",jobsResults[i].url);
-		// detailUrl.attr("name","detailUrl");
-		// detailUrl.attr("target","_blank");
-		// detailUrlImg.addClass("logo");
-		// detailUrl.append(detailUrlImg);
-
-		// p.append(source);
-		// p.append(jobTitle);
-		// p.append(company);
-		// p.append(location);
-		// p.append(detailUrl);
-
-		// $("#feed").append(p);
 
 		// Format date using moment.js
 		var dateFormatted = moment(jobsResults[i].date).format("MMM D");
@@ -142,8 +98,12 @@ function getIndeedResponse(result){
 			"url": jobsResults[i].url,
 		}
 		var jobStr = JSON.stringify(jobJSON);
-		globalObj.print(jobStr);
-	}
+		// globalObj.print(jobStr);
+		globalObj.printManager(jobStr);
+	} // end for loop
+
+	// Change status to done.
+	globalObj.apiStatus.indeed = 'done';
 
 
 }

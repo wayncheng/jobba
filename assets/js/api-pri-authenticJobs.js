@@ -63,6 +63,9 @@ function doAjaxCall(qURL, mycallback){
 	}).done(mycallback).fail(function(){
 		//Create a new function to process errors
 		console.log('fail', qURL.result);
+
+		// Change status to fail.
+		globalObj.apiStatus.authentic = 'fail';
 	});
 
 
@@ -75,67 +78,13 @@ function getAuthenticJobsResponse(result){
 	// console.log('Previous URL if any :: ',result.prevURL);
 	// console.log('Next URL :: ',result.nextUrl);
 
-	console.log('-----------------JOB DETAILS-----------------');
+	console.log('-----------------AUTHENTIC JOB DETAILS-----------------');
 	var jobsResults = result.listings.listing;
 
 	$("#feed").append();
 	for(var i=0; i< jobsResults.length; i++){
 		// console.log(i+1);
 		// console.log('jobsResults[i]',jobsResults[i]);
-		// console.log('jobTitle :: ',jobsResults[i].title);
-		// console.log('company :: ',jobsResults[i].company.name);
-		// console.log('location :: ',jobsResults[i].company.location);
-		// console.log('date ::',jobsResults[i].post_date);
-
-		// var p = $("<p>");
-
-		// var source = $("<span>");
-		// source.append("Source:: ");
-		// source.append("Authentic Jobs");
-		// source.append("&nbsp;");
-		// source.append("&nbsp;");
-
-
-		// var jobTitle = $("<span>");
-		// jobTitle.append("JobTitle :: ");
-		// jobTitle.append(jobsResults[i].title);
-		// jobTitle.append("&nbsp;");
-		// jobTitle.append("&nbsp;");
-
-		// var company = $("<span>");
-		// company.append("Company :: ");
-		// company.append(jobsResults[i].company.name);
-		// company.append("&nbsp;");
-		// company.append("&nbsp;");
-
-		// if(jobsResults[i].company.location){
-		// 	var location = $("<span>");
-		// 	location.append("Location :: ");
-		// 	location.append(jobsResults[i].company.location.name);
-		// 	location.append("&nbsp;");
-		// 	location.append("&nbsp;");
-		// }
-		
-		// var detailUrl = $("<a>");
-		// var detailUrlImg = $("<img>");
-		// detailUrlImg.attr("src","assets/img/logo-authentic-jobs.svg");
-		// // var detailUrlSpan = $("<span>");
-		// // detailUrlSpan.append("DICE");
-		// detailUrl.attr("href",jobsResults[i].url);
-		// detailUrl.attr("name","detailUrl");
-		// detailUrl.attr("target","_blank");
-		// detailUrlImg.addClass("logo");
-		// detailUrl.append(detailUrlImg);
-
-		// p.append(source);
-		// p.append(jobTitle);
-		// p.append(company);
-		// p.append(location);
-		// p.append(detailUrl);
-
-
-		// $("#feed").append(p);
-
 
 	// Send to Global Print Function
 		var ji = jobsResults[i];
@@ -170,9 +119,13 @@ function getAuthenticJobsResponse(result){
 			// "apply_url": ji.apply_url,
 		}
 		var jobStr = JSON.stringify(jobJSON);
-		globalObj.print(jobStr);
+		// globalObj.print(jobStr);
+		globalObj.printManager(jobStr);
 
-	}
+	} // end for loop
+
+	// Change status to done.
+	globalObj.apiStatus.authentic = 'done';
 
 
 }

@@ -17,6 +17,9 @@
 	<!-- <link href="assets/css/bootswatch-flatly.min.css" rel="stylesheet"> -->
 	<link href="assets/css/bootswatch-flatly.css" rel="stylesheet">
 	<link href="assets/css/boot-style.css" rel="stylesheet">
+	<link href="assets/css/feed.css" rel="stylesheet">
+	<link href="assets/css/dice.css" rel="stylesheet">
+	<link href="assets/css/login.css" rel="stylesheet">
 
 </head>
 <body>
@@ -43,23 +46,47 @@
 	</form>
 	</div>
 </div>
-<div id="page1" class="container-fluid feed-container">
-	<div id="feed" class="col-md-6 col-md-offset-3"> 
-		<!-- /////////////////// -->
-		<!-- TARGET RESULTS HERE -->
-		<!-- /////////////////// -->
-	</div>
-	<div class="container-fluid pagination-container col-md-6 col-md-offset-3">
-		<ul class="pagination">
-		 	<li class="disabled"><a href="#">&laquo;</a></li>
-		 	<li class="active"><a href="#">1</a></li>
-		 	<li><a href="#">2</a></li>
-		 	<li><a href="#">3</a></li>
-		 	<li><a href="#">4</a></li>
-		 	<li><a href="#">5</a></li>
-		 	<li><a href="#">&raquo;</a></li>
-		</ul>
-	</div>
+<div id="page1" class="container-fluid">
+	<!-- Feed container (controls width of all feed-related elements) -->
+	<div class="container-fluid feed-container col-md-8 col-md-offset-2">
+
+		<!-- Feed Controls ==============================-->
+			<form id="feed-controls" class="form-horizontal">
+				<fieldset>
+				    <div class="form-group feed-control">
+				      <label for="select" class="col-md-3 col-md-offset-7 control-label">Items Per Page</label>
+				      <div class="col-md-2 form-input-wrap">
+					        <select class="form-control" id="items-per-page">
+					          <option>10</option>
+					          <option>20</option>
+					          <option>30</option>
+					        </select>
+				      </div>
+				    </div>
+				</fieldset>
+			</form>
+
+		<!-- Feed ==============================-->
+			<div id="feed"> 
+				<!-- /////////////////// -->
+				<!-- TARGET RESULTS HERE -->
+				<!-- /////////////////// -->
+			</div>
+
+		<!-- Pagination ==============================-->
+			<div class="pagination-container">
+				<ul class="pagination">
+				 	<li class="disabled"><a href="#feed">&laquo;</a></li>
+				 	<li class="active"><a href="#feed">1</a></li>
+				 	<li><a href="#feed">2</a></li>
+				 	<li><a href="#feed">3</a></li>
+				 	<li><a href="#feed">4</a></li>
+				 	<li><a href="#feed">5</a></li>
+				 	<li><a href="#feed">&raquo;</a></li>
+				</ul>
+			</div>
+	</div> <!-- end feed-container -->
+
 	<div id="scroll-to-top">&uarr;</div>
 </div>
 
@@ -74,111 +101,12 @@
 
 	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
 	
-	<script type="text/javascript" charset="utf-8">
-
-		// function fold(event){
-		// 	event.preventDefault();
-		// 	var $t = $(this);
-
-		// 	$t.next('.below-fold').toggleClass('fold-hide');
-		// 	// $t.toggleClass('btn-view');
-
-		// 	var dataFold = $t.attr('data-fold');
-
-		// 	if(dataFold === 'closed') {
-		// 		$t.attr('data-fold','open');
-		// 		$t.text('Hide Description');
-		// 	} 
-		// 	else if (dataFold === 'open') {
-		// 		$t.attr('data-fold','closed');
-		// 		$t.attr('View Description');
-		// 	}
-
-		// }
-
-		var globalObj = {
-			print: function(jobStr){
-
-				var jobData = JSON.parse(jobStr);
-				// console.log('jobData',jobData);
-
-				var title = jobData.title;
-				var company = jobData.company;
-				var location = jobData.location;
-				var date = jobData.date;
-				var source = jobData.source;
-				var description = jobData.description;
-
-				// Convert date to days ago
-				var daysAgo = moment(date,'MMM-DD').fromNow();
-
-				// var metaArray = [location, date, source];
-				var metaArray = [
-					{ key: "location", value: location},
-					{ key: "date", value: daysAgo},
-					{ key: "source", value: source}
-				];
-
-
-				var wrap = $('<div>').addClass('listing panel panel-default');
-				var body = $('<div>').addClass('panel-body');
-				var h2 = $('<h2>').addClass('headline');
-				var h3 = $('<h3>').addClass('company');
-				
-				h2.text(title);
-				h3.text('('+ company +')');
-				
-				var d = $('<p>').addClass('description below-fold fold-hide');
-				d.html(description);
-
-				var metaWrap = $('<div>').addClass('meta');
-				for (var i=0; i<metaArray.length; i++) {
-					var p = $('<p>');
-					p.addClass('meta-detail');
-					p.addClass(metaArray[i].key);
-					p.text(metaArray[i].value);
-					metaWrap.append(p);
-				};
-
-				// Fold toggle
-				var foldToggle = $('<div>').addClass('toggle-fold');
-				foldToggle.attr('data-fold','closed');
-				// foldToggle.text('View Description');
-				foldToggle.on('click',function(event){
-					event.preventDefault();
-					var $t = $(this);
-
-					// $t.toggleClass('btn-view');
-
-					var dataFold = $t.attr('data-fold');
-
-					if(dataFold === 'closed') {
-						$t.attr('data-fold','open');
-						// $t.text('Hide Description');
-						$(this).siblings('.below-fold').removeClass('fold-hide');
-					} 
-					else {
-						$t.attr('data-fold','closed');
-						// $t.text('View Description');
-						$(this).siblings('.below-fold').addClass('fold-hide');
-					}
-
-				});
-
-				body.append(h2);
-				body.append(h3);
-				body.append(metaWrap);
-				body.append(foldToggle);
-				body.append(d);
-				wrap.append(body);
-				$('#feed').append(wrap);
-			}
-		}
-	</script>
+	<script src="assets/js/global.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/script.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/api-wayne.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/api-feed.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/api-novia-indeed.js" type="text/javascript" charset="utf-8"></script>
-	<script src="assets/js/api-novia-github.js" type="text/javascript" charset="utf-8"></script>
+	<!-- <script src="assets/js/api-novia-github.js" type="text/javascript" charset="utf-8"></script> -->
 	<script src="assets/js/api-pri-authenticJobs.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/api-pri-dice.js" type="text/javascript" charset="utf-8"></script>
 
@@ -186,7 +114,17 @@
 	<script src="assets/js/benchmark-email-form.js" type="text/javascript"></script>
 
 	<!-- <script src="assets/libs/bowser.min.js" type="text/javascript" charset="utf-8"></script> -->
-
+<script type="text/javascript" charset="utf-8">
+	// $(document).ready(function(){
+	// 	console.log('items-per-page val',$('#items-per-page').val());
+	// });
+	// $('#items-per-page').on('change', function(event){
+	// 	// event.preventDefault();
+	// 	// globalObj.itemsPerPage = $('#items-per-page').val();
+	// 		console.log('change!!!');
+	// 		console.log('items-per-page val',$('#items-per-page').val());
+	// });
+</script>
 <!-- Cities autocomplete -->
 	<script>
       
