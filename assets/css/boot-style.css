@@ -1,0 +1,54 @@
+
+#banner {
+	height: 100vh;
+	background-image: url(../img/banner-sd-day.jpg);
+	background-size: cover;
+	background-position: 50% 40%;
+	text-align: center;
+	margin-bottom: 0;
+	color: #fff;
+
+}
+.banner-body {
+	margin-top: 10%;
+	position: relative;
+}
+#banner-headline {
+	font-size: 30px;
+}
+
+.searchbar-main-wrap,
+.searchbar-loc-wrap {
+	padding: 0;
+	border-radius: 0;
+	z-index: 100;
+}
+
+.searchbar-group input.form-control {
+	border-radius: 0;
+	border-width: 0;
+}
+input#search {
+	border-right-width: 1px;
+}
+input#q-loc {
+	/*border-left-width: 1px;*/
+}
+
+.searchbar-group input.form-control:focus {
+	border-color: #dce4ec;
+}
+
+/* Submit Button */
+.searchbar-submit-wrap {
+	padding: 0;
+}
+#submit {
+	border-radius: 0;
+}
+/* Search Icon in Search bar */
+img#search-icon {
+	height: 18px;
+	margin-top: -4px;
+	display: inline-block;
+}

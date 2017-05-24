@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Jobba</title>
+	<meta charset="UTF-8">
+	<meta name="author" content="Wayne Cheng">	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="assets/img/jobba-black-white-simple-3.png">
+
+	<!-- Google Font Links -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+	<!-- <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700" rel="stylesheet"> -->
+	<!-- <link href="https://fonts.googleapis.com/css?family=Cutive+Mono" rel="stylesheet"> -->
+
+	<!-- CSS Links -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet">
+	<link href="assets/css/bootswatch-flatly.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/boot-style.css">
+
+</head>
+<body>
+
+<div id="banner" class="jumbotron">
+	<div class="container banner-body">
+		<h1 id="banner-headline">These <em>are</em> the jobs you're looking for.</h1>
+	<form class="form-horizontal main-search">
+	  <fieldset>
+	    <div class="form-group searchbar-group">
+	      <div class="col-sm-3 col-sm-offset-3 searchbar-main-wrap">
+	        <input type="text" class="form-control main-search" id="search" placeholder="Search for Jobs">
+	      </div>
+	      <div class="col-sm-2 searchbar-loc-wrap"> 
+	        <input type="text" class="form-control" id="q-loc" placeholder="San Diego, CA">
+	      </div>
+	      <div class="col-sm-1 searchbar-submit-wrap">
+	        <button type="submit" class="btn btn-primary" id="submit">
+	        	<img src="assets/img/search9-white.svg" alt="Submit your search" id="search-icon">
+	        </button>
+	      </div>
+	    </div>
+	  </fieldset>
+	</form>
+	</div>
+</div>
+
+
+
+
+<!-- JS Links -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
+	<script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4nu_5UhddgajGv7lS96ri7lsyyZ3vbjQ&libraries=places&language=en"></script>
+
+	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+	
+	<script type="text/javascript" charset="utf-8">
+
+		// function fold(event){
+		// 	event.preventDefault();
+		// 	var $t = $(this);
+
+		// 	$t.next('.below-fold').toggleClass('fold-hide');
+		// 	// $t.toggleClass('btn-view');
+
+		// 	var dataFold = $t.attr('data-fold');
+
+		// 	if(dataFold === 'closed') {
+		// 		$t.attr('data-fold','open');
+		// 		$t.text('Hide Description');
+		// 	} 
+		// 	else if (dataFold === 'open') {
+		// 		$t.attr('data-fold','closed');
+		// 		$t.attr('View Description');
+		// 	}
+
+		// }
+
+		var globalObj = {
+			print: function(jobStr){
+
+				var jobData = JSON.parse(jobStr);
+				// console.log('jobData',jobData);
+
+				var title = jobData.title;
+				var company = jobData.company;
+				var location = jobData.location;
+				var date = jobData.date;
+				var source = jobData.source;
+				var description = jobData.description;
+
+				// Convert date to days ago
+				var daysAgo = moment(date,'MMM-DD').fromNow();
+
+				// var metaArray = [location, date, source];
+				var metaArray = [
+					{ key: "location", value: location},
+					{ key: "date", value: daysAgo},
+					{ key: "source", value: source}
+				];
+
+
+				var wrap = $('<div>').addClass('listing');
+				var h2 = $('<h2>').addClass('headline');
+				var h3 = $('<h3>').addClass('company');
+				
+				h2.text(title);
+				h3.text('('+ company +')');
+				
+				var d = $('<p>').addClass('description below-fold fold-hide');
+				d.html(description);
+
+				var metaWrap = $('<div>').addClass('meta');
+				for (var i=0; i<metaArray.length; i++) {
+					var p = $('<p>');
+					p.addClass('meta-detail');
+					p.addClass(metaArray[i].key);
+					p.text(metaArray[i].value);
+					metaWrap.append(p);
+				};
+
+				// Fold toggle
+				var foldToggle = $('<div>').addClass('toggle-fold');
+				foldToggle.attr('data-fold','closed');
+				// foldToggle.text('View Description');
+				foldToggle.on('click',function(event){
+					event.preventDefault();
+					var $t = $(this);
+
+					// $t.toggleClass('btn-view');
+
+					var dataFold = $t.attr('data-fold');
+
+					if(dataFold === 'closed') {
+						$t.attr('data-fold','open');
+						// $t.text('Hide Description');
+						$(this).siblings('.below-fold').removeClass('fold-hide');
+					} 
+					else {
+						$t.attr('data-fold','closed');
+						// $t.text('View Description');
+						$(this).siblings('.below-fold').addClass('fold-hide');
+					}
+
+				});
+
+				wrap.append(h2);
+				wrap.append(h3);
+				wrap.append(metaWrap);
+				wrap.append(foldToggle);
+				wrap.append(d);
+
+				$('#feed').append(wrap);
+			}
+		}
+	</script>
+	<script src="assets/js/script.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/api-wayne.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/api-novia-indeed.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/api-novia-github.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/api-pri-authenticJobs.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/api-pri-dice.js" type="text/javascript" charset="utf-8"></script>
+
+
+	<script src="assets/js/benchmark-email-form.js" type="text/javascript"></script>
+
+	<!-- <script src="assets/libs/bowser.min.js" type="text/javascript" charset="utf-8"></script> -->
+
+<!-- Cities autocomplete -->
+	<script>
+      
+      var options = {
+      types: ['(cities)']
+     };
+
+     var input = document.getElementById('q-loc');
+     var autocomplete = new google.maps.places.Autocomplete(input, options);
+
+    </script>
+
+<!-- End of Cities autocomplete -->
+
+</body>
+</html>
