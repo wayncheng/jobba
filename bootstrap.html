@@ -14,8 +14,9 @@
 
 	<!-- CSS Links -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet">
-	<link href="assets/css/bootswatch-flatly.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="assets/css/boot-style.css">
+	<!-- <link href="assets/css/bootswatch-flatly.min.css" rel="stylesheet"> -->
+	<link href="assets/css/bootswatch-flatly.css" rel="stylesheet">
+	<link href="assets/css/boot-style.css" rel="stylesheet">
 
 </head>
 <body>
@@ -30,7 +31,7 @@
 	        <input type="text" class="form-control main-search" id="search" placeholder="Search for Jobs">
 	      </div>
 	      <div class="col-sm-2 searchbar-loc-wrap"> 
-	        <input type="text" class="form-control" id="q-loc" placeholder="San Diego, CA">
+	        <input type="text" class="form-control" id="q-city" placeholder="San Diego, CA">
 	      </div>
 	      <div class="col-sm-1 searchbar-submit-wrap">
 	        <button type="submit" class="btn btn-primary" id="submit">
@@ -42,7 +43,25 @@
 	</form>
 	</div>
 </div>
-
+<div id="page1" class="container-fluid feed-container">
+	<div id="feed" class="col-md-6 col-md-offset-3"> 
+		<!-- /////////////////// -->
+		<!-- TARGET RESULTS HERE -->
+		<!-- /////////////////// -->
+	</div>
+	<div class="container-fluid pagination-container col-md-6 col-md-offset-3">
+		<ul class="pagination">
+		 	<li class="disabled"><a href="#">&laquo;</a></li>
+		 	<li class="active"><a href="#">1</a></li>
+		 	<li><a href="#">2</a></li>
+		 	<li><a href="#">3</a></li>
+		 	<li><a href="#">4</a></li>
+		 	<li><a href="#">5</a></li>
+		 	<li><a href="#">&raquo;</a></li>
+		</ul>
+	</div>
+	<div id="scroll-to-top">&uarr;</div>
+</div>
 
 
 
@@ -101,7 +120,8 @@
 				];
 
 
-				var wrap = $('<div>').addClass('listing');
+				var wrap = $('<div>').addClass('listing panel panel-default');
+				var body = $('<div>').addClass('panel-body');
 				var h2 = $('<h2>').addClass('headline');
 				var h3 = $('<h3>').addClass('company');
 				
@@ -145,12 +165,12 @@
 
 				});
 
-				wrap.append(h2);
-				wrap.append(h3);
-				wrap.append(metaWrap);
-				wrap.append(foldToggle);
-				wrap.append(d);
-
+				body.append(h2);
+				body.append(h3);
+				body.append(metaWrap);
+				body.append(foldToggle);
+				body.append(d);
+				wrap.append(body);
 				$('#feed').append(wrap);
 			}
 		}

@@ -9,6 +9,9 @@
 $('#submit').on('click', function(event){
 	event.preventDefault();
 
+	//  Show Feed
+	$('#page1').show();
+
 	// Banner Effects
 	$('#banner').css('height','40vh');
 	// $('#banner').animate({'height': '40vh'}, 1000);
@@ -18,6 +21,8 @@ $('#submit').on('click', function(event){
 	// var bannerHeight = $('#banner').height();
 	// console.log('bannerHeight',bannerHeight);
 	$('#scroll-to-top').show();
+
+
 
 
 
