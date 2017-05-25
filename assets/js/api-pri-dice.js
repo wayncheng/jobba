@@ -1,3 +1,5 @@
+var totalDiceJobs =0;
+
 $('#submit').on('click', function(){
 	    event.preventDefault();
 	    $("#feed").empty();
@@ -5,7 +7,22 @@ $('#submit').on('click', function(){
 		
 		var city = $('#q-city').val().trim();
 
-		url = createDiceReq(q,"",city,"","","");
+		url = createDiceReq(q,"",city,"",pageNumber,noOfRecords);
+		console.log("Dice URL: "+url);
+		console.log("Dice city is: "+city);
+		doAjaxCallDice(url,getDiceResponse);
+	});
+
+$('#pagination').on('click','a', function(){
+	    event.preventDefault();
+		pageNumber = $(this).attr("page");
+	    
+	    $("#feed").empty();
+		q = $('#search').val();
+		
+		var city = $('#q-city').val().trim();
+
+		url = createDiceReq(q,"",city,"",pageNumber,noOfRecords);
 		console.log("Dice URL: "+url);
 		console.log("Dice city is: "+city);
 		doAjaxCallDice(url,getDiceResponse);
@@ -84,7 +101,12 @@ function getDiceResponse(result){
 	// console.log('Previous URL if any :: ',result.prevURL);
 	// console.log('Next URL :: ',result.nextUrl);
 
+
 	var jobsResults = result.resultItemList;
+	var totalDiceJobs = result.count;
+	console.log("TOTAL NUMBER OF DICE JOBS === ",totalDiceJobs);
+
+
 	console.log('-----------------DICE RESULTS-----------------');
 	console.log('Dice jobsResults',jobsResults);
 
@@ -104,13 +126,13 @@ function getDiceResponse(result){
 			"url": jobsResults[i].detailUrl,
 		}
 		var jobStr = JSON.stringify(jobJSON);
+		globalObj.print(jobStr);
 		// globalObj.print(jobStr);
-		globalObj.printManager(jobStr);
 
 	} // end for loop
 
 	// Change status to done.
-	globalObj.apiStatus.dice = 'done';
+	// globalObj.apiStatus.dice = 'done';
 
 	// Notify console 
 	console.log('-----------------DICE DONE-----------------');

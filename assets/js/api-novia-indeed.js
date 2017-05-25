@@ -1,7 +1,10 @@
 //--------------------------------------------------
 // Indeed Job Search API - Novia
 //--------------------------------------------------
-
+var noOfRecords = 3;
+var startRecord =0;
+var totalIndeedJobs =0;
+var endOfIndeedJobs = 0;
 $(document).ready(function(){
 
 	$('#submit').on('click', function(){
@@ -10,7 +13,19 @@ $(document).ready(function(){
 		q = $('#search').val();
 		city = $('#q-city').val();
 		console.log("Indeed city is: "+city);
-		url = createIndeedURL(q,city,"","50");
+		url = createIndeedURL(q,city,"",noOfRecords,startRecord);
+		doAjaxCall(url,getIndeedResponse);
+	});
+	$('#pagination').on('click','a', function(){
+	    event.preventDefault();
+		pageNumber = $(this).attr("page");
+		startRecord = endOfIndeedJobs;
+
+	    $("#feed").empty();
+		q = $('#search').val();
+		city = $('#q-city').val();
+		console.log("Indeed city is: "+city);
+		url = createIndeedURL(q,city,"",noOfRecords,startRecord);
 		doAjaxCall(url,getIndeedResponse);
 	});
 
@@ -23,7 +38,7 @@ $(document).ready(function(){
 
 
 
-function createIndeedURL(searchString,city,state,noOfRecords){
+function createIndeedURL(searchString,city,state,noOfRecords,startRecord){
 
 	var url = "https://crossorigin.me/https://api.indeed.com/ads/apisearch?publisher=422492215893931&sort=&radius=&st=&jt=&start=&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Chrome&v=2&format=json";
 
@@ -47,6 +62,10 @@ function createIndeedURL(searchString,city,state,noOfRecords){
 	if(noOfRecords != ""){
 		noOfRecords = encodeURIComponent(noOfRecords);
 		url = url + "&limit=" + noOfRecords;
+	}
+	if(startRecord != ""){
+		noOfRecords = encodeURIComponent(startRecord);
+		url = url + "&start=" + startRecord;
 	}
 
 	console.log("URL is:"+url);
@@ -77,6 +96,9 @@ function getIndeedResponse(result){
 	// console.log('Next URL :: ',result.nextUrl);
 
 	var jobsResults = result.results;
+	endOfIndeedJobs = result.end;
+	totalIndeedJobs = result.totalResults;
+	console.log("TOTAL NUMBER OF INDEED JOBS === ",totalIndeedJobs);
 	console.log('-----------------INDEED RESULTS-----------------');
 	console.log('Indeed jobsResults',jobsResults);
 
@@ -98,12 +120,12 @@ function getIndeedResponse(result){
 			"url": jobsResults[i].url,
 		}
 		var jobStr = JSON.stringify(jobJSON);
-		// globalObj.print(jobStr);
-		globalObj.printManager(jobStr);
+		globalObj.print(jobStr);
+		// globalObj.printManager(jobStr);
 	} // end for loop
 
 	// Change status to done.
-	globalObj.apiStatus.indeed = 'done';
+	// globalObj.apiStatus.indeed = 'done';
 
 
 }

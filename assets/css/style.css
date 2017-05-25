@@ -265,3 +265,6 @@
 		color: #000;
 		visibility: hidden;
 	}
+#pagination{
+	text-align: center;
+}
