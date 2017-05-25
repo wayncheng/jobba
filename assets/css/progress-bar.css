@@ -1,0 +1,21 @@
+	
+/* Progress Bar ------------------------------*/
+	div#progress-wrap {
+		position: relative;
+			/*position: absolute;
+			top: 0;
+			left: 0;*/
+		height: initial;
+		width: 100%;
+		max-width: 768px;
+		margin: 0 auto;
+		margin-top: 15px;
+		display: inline-block;
+		display: none;
+		/*border-radius: 0;*/
+		background-color: #ECF0F1;
+		background-color: #fff;
+	}
+	.progress-bar{
+		height: 6px;
+	}

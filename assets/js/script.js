@@ -1,34 +1,74 @@
-// $('#submit').on('click', function(event){
-// 	event.preventDefault();
-// 	globalObj.reset();
-// });
+$(document).ready(function () {
+		// Get user's IP
+		jobba.getIP;
 
-// Pagination Events
-// $('.pagination > li > a').on('click',function(event){
-// 	event.preventDefault();
+	$('#feed').on('click','.save-wrap',function(event){
+		event.preventDefault();
+		var $t = $(this);
 
-// 	// Get current page number
-// 	var currentPageEl = $('.pagination').find('.active');
-// 	var currentPage = parseInt( currentPageEl.text() );
+		// Get listing data
+		var thisListing = $(this).parents('.listing');
+		var dataIndex = thisListing.attr('data-index');
+		var saveData = jobba.allResults[dataIndex];
+		console.log('saveData',saveData);
 
-// 	// Remove "active" class from current page
-// 	currentPageEl.removeClass('active');
+		// Icon Change
+		$t.toggleClass('saved');
 
-// 	// Get target page
-// 	var targetPageEl = $(this).parent('li');
-// 	var targetPage = parseInt( targetPageEl.text() );
+	}); // end listing click
 
-// 	// Add "active" class to target page
-// 	targetPageEl.addClass('active');
+	// Feature Function
+	$('#feed').on('click','.listing',function(event){
+		event.preventDefault();
 
-// 	// Set page in global variable, which will be used by pagination();
-// 	globalObj.page = targetPage;
+		// clear previous selection
+		$('.featured').removeClass('.featured');
 
-// 	// Print target page
-// 	g.pagination();
-// })
+		// Add class to new selection
+		// $(this).toggleClass('featured');
+		$(this).addClass('featured');
 
-// $('#scroll-to-top').on('click',function(event){
-// 	event.preventDefault();
-// 	$(window).scrollTop(0);
-// })
+		// read listing index and fetch listing's data using index
+		var dataIndex = $(this).attr('data-index');
+		var data = jobba.allResults[dataIndex];
+
+
+		// Description
+		var description = data.description;
+		$('#ft-description').html(description);
+
+		// Company
+		var companyName = data.company;
+		$('#ft-company-name').text(companyName);
+
+		// Make room for feature container, and reveal
+		$('.filter-container').removeClass('col-md-offset-1');
+		$('.feature-container').show();
+
+		// Position feature display
+		var windowPos = $(window).scrollTop();
+		var bannerHeight = $('#banner').height();
+		// var containerPos = $('.feature-container').scrollTop();
+		var cushion = 105;
+		var featurePos = windowPos - bannerHeight - cushion;
+
+		if ( featurePos < 0 ) {
+			featurePos = 0
+		}
+		$('#feature').css('top', featurePos+'px');
+
+	}); // end listing click
+
+
+
+
+
+
+
+
+
+
+
+
+
+}); ////////////////////////////////////////// end document.ready
