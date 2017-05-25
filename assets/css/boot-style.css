@@ -1,75 +1,176 @@
 body {
 	font-family: 'Roboto','Helvetica Neue', Helvetica, sans-serif;
-	font-weight: 400;
+	font-weight: 300;
 }
 .null {
 	display: none;
 }
-/*-------------------------------
-        Banner/Search
---------------------------------*/
-#banner {
-	height: 100vh;
-	background-image: url(../img/banner-sd-day.jpg);
-	background-size: cover;
-	background-position: 50% 65%;
-	text-align: center;
-	margin-bottom: 0;
-	color: #fff;
-}
-
-.banner-body {
-	margin-top: 10%;
-	position: relative;
-}
-
-#banner-headline {
-	font-size: 30px;
-}
-
-.searchbar-main-wrap,
-.searchbar-loc-wrap {
-	padding: 0;
-	border-radius: 0;
-	z-index: 100;
-}
-
-.searchbar-group input.form-control {
-	border-radius: 0;
-	border-width: 0;
-}
-input#search {
-	border-right-width: 1px;
-}
-input#q-city {
-	/*border-left-width: 1px;*/
-}
-
-.searchbar-group input.form-control:focus {
-	border-color: #dce4ec;
-}
-
-/* Submit Button */
-.searchbar-submit-wrap {
-	padding: 0;
-}
-#submit {
-	border-radius: 0;
-}
-/* Search Icon in Search bar */
-img#search-icon {
-	height: 18px;
-	margin-top: -4px;
-	display: inline-block;
-}
-
-/*-------------------------------
-        Grid,Rows,Cols
---------------------------------*/
-	.row {
-		
-	}
+	
+/* Grid System ------------------------------*/
 	.row-group {
 		height: inherit;
 		line-height: inherit;
+	}
+/* Banner ------------------------------*/
+	#banner {
+		height: 100vh;
+		background-image: url(../img/banner-sd-day.jpg);
+		background-size: cover;
+		background-position: 50% 65%;
+		text-align: center;
+		margin-bottom: 0;
+		color: #fff;
+		position: relative;
+	}
+
+	.banner-body {
+		margin-top: 10%;
+		position: relative;
+	}
+
+	#banner-headline {
+		font-size: 30px;
+		font-weight: 200;
+		margin-bottom: 25px;
+	}
+	#banner-headline > em {
+		font-weight: 500;
+	}
+
+
+/* Search Bar ------------------------------*/
+	
+	/* Wraps ------------------------------*/
+		.bar-wrap {
+			padding: 0;
+			border-radius: 0;
+			z-index: 100;
+			display: inline-block;
+			float: left;
+		}
+		.bar-wrap.main-wrap {
+			width: 50%;
+			/*margin-left: -45px;*/
+			border-right: 1px solid #dce4ec;
+		}
+		.bar-wrap.loc-wrap {
+			width: 50%;
+			/* compensate for submit button width */
+			margin-right: -45px;
+		}
+		.bar-wrap.submit-wrap {
+			width: 45px;
+			margin: 0;
+		}
+	
+	/* Override Defaults ------------------------------*/
+		@media all and (min-width: 767px) {
+			.bar-group .form-control {
+				border-radius: 0;
+				border-width: 0;
+			}
+			.bar-group .form-control:focus {
+				border-color: #dce4ec;
+			}
+			#submit {
+				border-radius: 0;
+			}
+		}
+	/* Submit Button ------------------------------*/
+		.bar-wrap.submit-wrap {
+			padding: 0;
+		}
+
+		#submit {
+			/*border-radius: 0;*/
+			/*position: absolute;
+			top: 0;
+			right: 0;*/
+				position: relative;
+			height: 45px;
+			width: 45px;
+			border: none;
+			background-color: #34495e;
+			border-color: #34495e;
+			/*background-color: red;*/
+		}
+		#submit:hover,
+		#submit:focus {
+			background-color: #2c3e50;
+			border-color: #2c3e50;
+
+		}
+		/* Search Icon in Search bar */
+		img#search-icon {
+			height: 18px;
+			margin-top: -4px;
+			display: inline-block;
+		}
+
+/* Search Input Conditions ------------------------------*/
+	
+
+	.has-error .form-control {
+	}
+
+/* Media Queries ------------------------------*/
+
+	@media all and (max-width: 768px) {
+
+		.bar-wrap.main-wrap, 
+		.bar-wrap.loc-wrap, 
+		.bar-wrap.submit-wrap {
+			display: block;
+			width: 100%;
+			border: none;
+			/*border-radius: 5px;*/
+			margin-bottom: 10px;
+		}
+		.main-wrap .bar-input, 
+		.loc-wrap .bar-input {
+			/*border: 2px solid #7f8c8d;*/
+			/*border-color: #2c3e50;*/
+			/*border-color: initial;*/
+		}
+
+
+		.bar-wrap .bar-input {
+			/*border-radius: inherit;*/
+		}
+		#submit {
+			width: 100%;
+		}
+		.bar-group .form-control {
+			box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px rgba(100,100,100,0.5);
+		}
+		.bar-group .form-control:focus {
+		/*border-color: #f39c12;*/
+		/*box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ffffff;*/
+		box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 12px rgba(100,100,100,0.5);
+	}
+
+	}
+
+
+/*--------------------------------
+        Login
+--------------------------------*/
+	#signInWithGithub {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		color: #000;
+	}
+
+	#signOut {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		color: #000;
+		visibility: hidden;
+	}
+
+/*[Only display save button after login]*/
+	.save-wrap{
+		visibility: hidden;
 	}

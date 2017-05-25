@@ -16,111 +16,246 @@
 	<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet"> -->
 	<!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
 	<!-- <link href="assets/css/bootswatch-flatly.min.css" rel="stylesheet"> -->
-	<!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"> -->
+	<!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGR`nGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"> -->
 	<link href="assets/css/bootswatch-flatly.css" rel="stylesheet">
 	<link href="assets/css/boot-style.css" rel="stylesheet">
+	<link href="assets/css/progress-bar.css" rel="stylesheet">
 	<link href="assets/css/feed.css" rel="stylesheet">
+	<link href="assets/css/feature.css" rel="stylesheet">
 	<link href="assets/css/dice.css" rel="stylesheet">
 	<link href="assets/css/login.css" rel="stylesheet">
+
+		<!-- Firebase UI CDN -->
+	<script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script>
+	<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" />
 
 </head>
 <body>
 
 <div id="banner" class="jumbotron">
-	<div class="container banner-body">
+
+<!-- placeholder login buttons to be integrated -->
+	<button class="btn btn-default btn-sm" id="signInWithGithub" data-toggle="tooltip" title="Sign in with Github"><i class="fa fa-github fa-lg" aria-hidden="true"></i> Login</button>
+	<button class="btn btn-danger btn-sm" id="signOut" data-toggle="tooltip" title="Sign out"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</button>
+<!-- placeholder login buttons to be integrated -->
+
+	<div class="container-fluid banner-body">
+		<!-- Banner Headline -->
 		<h1 id="banner-headline">These <em>are</em> the jobs you're looking for.</h1>
-	<form class="form-horizontal main-search">
-	  <fieldset>
-	    <div class="form-group searchbar-group">
-	      <div class="col-sm-3 col-sm-offset-3 searchbar-main-wrap">
-	        <input type="text" class="form-control main-search" id="search" placeholder="Search for Jobs">
-	      </div>
-	      <div class="col-sm-2 searchbar-loc-wrap"> 
-	        <input type="text" class="form-control" id="q-city" placeholder="e.g. San Francisco, CA">
-	      </div>
-	      <div class="col-sm-1 searchbar-submit-wrap">
-	        <button type="submit" class="btn btn-primary" id="submit">
-	        	<img src="assets/img/search9-white.svg" alt="Submit your search" id="search-icon">
-	        </button>
-	      </div>
-	    </div>
-	  </fieldset>
-	</form>
-	</div>
-</div>
-<div id="page1" class="container-fluid">
-	<!-- Feed container (controls width of all feed-related elements) -->
-	<div class="container-fluid feed-container col-md-8 col-md-offset-2">
-		<div id="above-feed" class="row">
-			<div class="col-md-2 row-group">
-				<p class="feed-detail">Total Results: <span id="total-result-count"></span></p>
-			</div>
-			<div class="col-md-3 col-md-offset-7 row-group">
-				<!-- Feed Controls ==============================-->
-					<form id="feed-controls" class="form-horizontal">
-						<fieldset>
-						    <div class="form-group feed-control">
-						      <label for="select" class="col-md-8 control-label">Items Per Page</label>
-						      <div class="col-md-4 form-input-wrap">
-							        <select class="form-control" id="items-per-page">
-							          <option>10</option>
-							          <option selected="selected">20</option>
-							          <option>30</option>
-							        </select>
-						      </div>
-						    </div>
-						</fieldset>
-					</form>
-			</div>
-				<!-- Feed Controls ==============================-->
-					<!-- <form id="feed-controls" class="col-md-2 form-horizontal">
-						<fieldset>
-						    <div class="form-group feed-control">
-						      <label for="select" class="col-md-7 control-label">Items Per Page</label>
-						      <div class="col-md-5 form-input-wrap">
-							        <select class="form-control" id="items-per-page">
-							          <option>10</option>
-							          <option selected="selected">20</option>
-							          <option>30</option>
-							        </select>
-						      </div>
-						    </div>
-						</fieldset>
-					</form> -->
-			
+		<!-- Main Search -->
+		<form class="col-xs-8 col-xs-offset-2 col-md-6 col-md-offset-3 form-horizontal main-search">
+		  <fieldset>
+		    <div class="form-group bar-group">
+		      <!-- <div class="col-xs-8 col-sm-6 col-sm-offset-1 col-lg-5 col-lg-offset-2 bar-main-wrap"> -->
+		      <!-- <div class="col-sm-6 bar-wrap bar-main-wrap"> -->
+		      
+		      <div class="bar-wrap main-wrap">
+		        <input type="text" class="bar-input form-control main-search" id="search" placeholder="Search for Jobs">
+		      </div>
+		      <!-- <div class="col-xs-8 col-sm-4 col-lg-3 bar-loc-wrap">  -->
+		      <!-- <div class="col-sm-5 bar-wrap bar-loc-wrap">  -->
+		     
+		      <div class="bar-wrap loc-wrap"> 
+		        <input type="text" class="bar-input form-control" id="q-city" placeholder="e.g. San Francisco">
+		       <!--  <button type="submit" class="btn btn-primary" id="submit">
+		        	<img src="assets/img/search9-white.svg" alt="Submit your search" id="search-icon">
+		        </button> -->
+		      </div>
+		     
+		      <div class="bar-wrap submit-wrap">
+		        <button type="submit" class="bar-input btn btn-primary" id="submit">
+		        	<img src="assets/img/search9-white.svg" alt="Submit your search" id="search-icon">
+		        </button>
+		      </div>
+		    <!-- </div> -->
+		  </fieldset>
+		</form>
+		<!-- Progress Bar -->
+		<div id="progress-wrap" class="progress progress-striped active">
+		  <div id="progress-target" class="progress-target progress-bar progress-bar-warning"></div>
 		</div>
-		<!-- Feed ==============================-->
-			<div id="feed"> 
+	</div>
+	<!-- Progress Bar -->
+	<!-- <div id="progress-wrap" class="progress progress-striped active">
+	  <div id="progress-target" class="progress-bar progress-bar-warning"></div>
+	</div> -->
+</div>
+<!--=============================================-->
+<div id="page1" class="container-fluid">
+
+<!-- Filter Container =============================================-->
+	<div class="filter-container col-xs-8 col-md-2 col-md-offset-1">
+		<form>
+		  	<fieldset>
+		    <legend>Filter + Sort</legend>
+			<!-- Sources -->
+				<div class="form-group">
+					<label class="control-label">Source</label>
+					<div class="radio"> <label>
+							<input type="radio" name="source-options" id="source-opt-1" value="github">
+							Github
+						</label> </div>
+
+					<div class="radio"> <label>
+					    <input type="radio" name="source-options" id="source-opt-2" value="indeed">
+							Indeed
+						</label> </div>
+
+					<div class="radio"> <label>
+					    <input type="radio" name="source-options" id="source-opt-3" value="dice">
+							Dice
+						</label> </div>
+
+					<div class="radio"> <label>
+					    <input type="radio" name="source-options" id="source-opt-4" value="authentic">
+							Authentic Jobs
+						</label> </div>
+				</div>
+			<!-- Company -->
+				<div class="form-group">
+					<label class="control-label">Company</label>
+					<div class="radio"> <label>
+							<input type="radio" name="company-options" id="company-opt-1" value="company-1">
+							Company-1
+						</label> </div>
+				</div>
+			<!-- XXXXXXXXXX -->
+				<div class="form-group">
+					<label class="control-label">XXXXXXXXXX</label>
+					<div class="radio"> <label>
+							<input type="radio" name="XXXXXXXXXX-options" id="XXXXXXXXXX-opt-num" value="XXXXXXXXXX-num">
+							XXXXXXXXXX-num
+						</label> </div>
+				</div>
+
+		</fieldset>
+		</form>
+	</div> <!-- /filter-container -->
+
+<!-- Feed Container =============================================-->
+	<div class="feed-container col-xs-10 col-md-6">
+		<!-- Above Feed -->
+			<div id="above-feed" class="row">
+				<!-- Total Results -->
+					<!-- <div class="col-md-3 row-group"> -->
+					<div class="col-md-5 row-group">
+						<p class="feed-detail">Total Results: <span id="total-result-count"></span></p>
+					</div>
+				<!-- Feed Controls -->
+					<!-- <div class="col-lg-4 col-lg-offset-5 col-md-3 col-md-offset-6 row-group"> -->
+					<div class="col-md-6 col-md-offset-1 row-group">
+							<form id="feed-controls" class="form-horizontal">
+								<fieldset>
+								    <div class="form-group feed-control">
+								      <label for="select" class="col-md-7 control-label">Results Per Page</label>
+								      <div class="col-md-5 form-input-wrap">
+									        <select class="form-control" id="items-per-page">
+									          <option>10</option>
+									          <option selected="selected">20</option>
+									          <option>30</option>
+									          <option>40</option>
+									          <option>50</option>
+									        </select>
+								      </div>
+								    </div>
+								</fieldset>
+							</form>
+					</div>
+			</div> <!-- /above-feed row -->
+		<!-- Feed -->
+			<div id="feed" class="row"> 
+				<!-- <div class="listing panel panel-default" data-index="0" data-company="CyberCoders"><div class="panel-body"><h2 class="headline">1. Full Stack Web Developer</h2><h3 class="company">(CyberCoders)</h3><div class="meta"><p class="meta-detail location">San Francisco, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p><p class="meta-detail save-btn">Save Job</p></div><p class="description below-fold fold-hide">Description is not available. For more details, visit Dice's website.</p></div></div><div class="listing panel panel-default" data-index="1" data-company="Amiseq Inc."><div class="panel-body"><h2 class="headline">2. Sr. Web Developer</h2><h3 class="company">(Amiseq Inc.)</h3><div class="meta"><p class="meta-detail location">Sunnyvale, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p><p class="meta-detail save-btn">Save Job</p></div><p class="description below-fold fold-hide">Description is not available. For more details, visit Dice's website.</p></div></div><div class="listing panel panel-default" data-index="2" data-company="Synechron Inc."><div class="panel-body"><h2 class="headline">3. Web Developer</h2><h3 class="company">(Synechron Inc.)</h3><div class="meta"><p class="meta-detail location">San Mateo, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p><p class="meta-detail save-btn">Save Job</p></div><p class="description below-fold fold-hide">Description is not available. For more details, visit Dice's website.</p></div></div><div class="listing panel panel-default" data-index="3" data-company="Convergent Consulting Inc"><div class="panel-body"><h2 class="headline">4. Full Stack Web Developer</h2><h3 class="company">(Convergent Consulting Inc)</h3><div class="meta"><p class="meta-detail location">Sunnyvale, CA</p><p class="meta-detail date">2 days ago</p><p class="meta-detail source">Dice</p><p class="meta-detail save-btn">Save Job</p></div><p class="description below-fold fold-hide">Description is not available. For more details, visit Dice's website.</p></div></div><div class="listing panel panel-default" data-index="4" data-company="Synechron Inc."><div class="panel-body"><h2 class="headline">5. Web developer with cloud experience</h2><h3 class="company">(Synechron Inc.)</h3><div class="meta"><p class="meta-detail location">san mateo, CA</p><p class="meta-detail date">6 days ago</p><p class="meta-detail source">Dice</p><p class="meta-detail save-btn">Save Job</p></div><p class="description below-fold fold-hide">Description is not available. For more details, visit Dice's website.</p></div></div><div class="listing panel panel-default" data-index="5" data-company="eXcell"><div class="panel-body"><h2 class="headline">6. Full Stack Web Developer - Cloud, JavaScript, Git</h2><h3 class="company">(eXcell)</h3><div class="meta"><p class="meta-detail location">San Francisco, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p><p class="meta-detail save-btn">Save Job</p></div><p class="description below-fold fold-hide">Description is not available. For more details, visit Dice's website.</p></div></div><div class="listing panel panel-default" data-index="6" data-company="Bay Area Techworkers"><div class="panel-body"><h2 class="headline">7. Freelance UI and Web Developers</h2><h3 class="company">(Bay Area Techworkers)</h3><div class="meta"><p class="meta-detail location">San Ramon, CA</p><p class="meta-detail date">3 days ago</p><p class="meta-detail source">Dice</p><p class="meta-detail save-btn">Save Job</p></div><p class="description below-fold fold-hide">Description is not available. For more details, visit Dice's website.</p></div></div><div class="listing panel panel-default" data-index="7" data-company="Software Guidance &amp; Assistance"><div class="panel-body"><h2 class="headline">8. JavaScript UI Developer</h2><h3 class="company">(Software Guidance &amp; Assistance)</h3><div class="meta"><p class="meta-detail location">San Francisco, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p><p class="meta-detail save-btn">Save Job</p></div><p class="description below-fold fold-hide">Description is not available. For more details, visit Dice's website.</p></div></div><div class="listing panel panel-default" data-index="8" data-company="VehicleHistory.com"><div class="panel-body"><h2 class="headline">9. Full Stack PHP Web Developer - CA</h2><h3 class="company">(VehicleHistory.com)</h3><div class="meta"><p class="meta-detail location">Oakland, CA</p><p class="meta-detail date">13 days ago</p><p class="meta-detail source">Dice</p><p class="meta-detail save-btn">Save Job</p></div><p class="description below-fold fold-hide">Description is not available. For more details, visit Dice's website.</p></div></div><div class="listing panel panel-default" data-index="9" data-company="CyberCoders"><div class="panel-body"><h2 class="headline">10. Web Developer - HTML, CSS, AJAX, AngularJS, React</h2><h3 class="company">(CyberCoders)</h3><div class="meta"><p class="meta-detail location">Palo Alto, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p><p class="meta-detail save-btn">Save Job</p></div><p class="description below-fold fold-hide">Description is not available. For more details, visit Dice's website.</p></div></div><div class="listing panel panel-default" data-index="10" data-company="Signature Consultants"><div class="panel-body"><h2 class="headline">11. Front End Developer</h2><h3 class="company">(Signature Consultants)</h3><div class="meta"><p class="meta-detail location">San Francisco, CA</p><p class="meta-detail date">2 hours ago</p><p class="meta-detail source">Dice</p><p class="meta-detail save-btn">Save Job</p></div><p class="description below-fold fold-hide">Description is not available. For more details, visit Dice's website.</p></div></div><div class="listing panel panel-default" data-index="11" data-company="CyberCoders"><div class="panel-body"><h2 class="headline">12. Front End Web Developer - JavaScript - JQuery - Knockout</h2><h3 class="company">(CyberCoders)</h3><div class="meta"><p class="meta-detail location">Redwood City, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p><p class="meta-detail save-btn">Save Job</p></div><p class="description below-fold fold-hide">Description is not available. For more details, visit Dice's website.</p></div></div><div class="listing panel panel-default" data-index="12" data-company="CyberCoders"><div class="panel-body"><h2 class="headline">13. Front End Web Developer - San Francisco, CA</h2><h3 class="company">(CyberCoders)</h3><div class="meta"><p class="meta-detail location">San Francisco, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p><p class="meta-detail save-btn">Save Job</p></div><p class="description below-fold fold-hide">Description is not available. For more details, visit Dice's website.</p></div></div><div class="listing panel panel-default" data-index="13" data-company="ATR International, Inc."><div class="panel-body"><h2 class="headline">14. Web Developer</h2><h3 class="company">(ATR International, Inc.)</h3><div class="meta"><p class="meta-detail location">Fremont, CA</p><p class="meta-detail date">17 days ago</p><p class="meta-detail source">Dice</p><p class="meta-detail save-btn">Save Job</p></div><p class="description below-fold fold-hide">Description is not available. For more details, visit Dice's website.</p></div></div><div class="listing panel panel-default" data-index="14" data-company="CyberCoders"><div class="panel-body"><h2 class="headline">15. Web Developer, Openstack - IT Provider to Fortune 500</h2><h3 class="company">(CyberCoders)</h3><div class="meta"><p class="meta-detail location">San Jose, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p><p class="meta-detail save-btn">Save Job</p></div><p class="description below-fold fold-hide">Description is not available. For more details, visit Dice's website.</p></div></div><div class="listing panel panel-default" data-index="15" data-company="CyberCoders"><div class="panel-body"><h2 class="headline">16. Senior Front End Web Developer - Angular</h2><h3 class="company">(CyberCoders)</h3><div class="meta"><p class="meta-detail location">San Francisco, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p><p class="meta-detail save-btn">Save Job</p></div><p class="description below-fold fold-hide">Description is not available. For more details, visit Dice's website.</p></div></div><div class="listing panel panel-default" data-index="16" data-company="Bay Area Techworkers"><div class="panel-body"><h2 class="headline">17. WEB DEVELOPER  html, Python, Django, eCommerce Website Development</h2><h3 class="company">(Bay Area Techworkers)</h3><div class="meta"><p class="meta-detail location">San Ramon, CA</p><p class="meta-detail date">14 days ago</p><p class="meta-detail source">Dice</p><p class="meta-detail save-btn">Save Job</p></div><p class="description below-fold fold-hide">Description is not available. For more details, visit Dice's website.</p></div></div><div class="listing panel panel-default" data-index="17" data-company="Amiseq Inc."><div class="panel-body"><h2 class="headline">18. Sr Front End developer/ Sr Web Developer</h2><h3 class="company">(Amiseq Inc.)</h3><div class="meta"><p class="meta-detail location">Sunnyvale, CA</p><p class="meta-detail date">7 days ago</p><p class="meta-detail source">Dice</p><p class="meta-detail save-btn">Save Job</p></div><p class="description below-fold fold-hide">Description is not available. For more details, visit Dice's website.</p></div></div><div class="listing panel panel-default" data-index="18" data-company="SUPERMICRO COMPUTER INC"><div class="panel-body"><h2 class="headline">19. Sr. Web Developer (SC16352)</h2><h3 class="company">(SUPERMICRO COMPUTER INC)</h3><div class="meta"><p class="meta-detail location">San Jose, CA</p><p class="meta-detail date">a month ago</p><p class="meta-detail source">Dice</p><p class="meta-detail save-btn">Save Job</p></div><p class="description below-fold fold-hide">Description is not available. For more details, visit Dice's website.</p></div></div><div class="listing panel panel-default" data-index="19" data-company="CyberCoders"><div class="panel-body"><h2 class="headline">20. Front End Developer - Angular, HTML5, JQuery</h2><h3 class="company">(CyberCoders)</h3><div class="meta"><p class="meta-detail location">San Francisco, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p><p class="meta-detail save-btn">Save Job</p></div><p class="description below-fold fold-hide">Description is not available. For more details, visit Dice's website.</p></div></div> -->
+				<!-- <div class="listing panel panel-default" data-index="0" data-company="BayOne Solutions"><div class="panel-body"><h2 class="headline">1. Lead Web Developer</h2><h3 class="company">(BayOne Solutions)</h3><img class="saveBtn" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"><div class="meta"><p class="meta-detail location">Redwood City, CA</p><p class="meta-detail date">9 days ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="1" data-company="Mumba Technologies"><div class="panel-body"><h2 class="headline">2. Web Automation Developer</h2><h3 class="company">(Mumba Technologies)</h3><img class="saveBtn" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"><div class="meta"><p class="meta-detail location">Sunnyvale, CA</p><p class="meta-detail date">14 days ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="2" data-company="CyberCoders"><div class="panel-body"><h2 class="headline">3. Senior Fullstack Web Engineer - JavaScript, Angular, Node, CSS</h2><h3 class="company">(CyberCoders)</h3><img class="saveBtn" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"><div class="meta"><p class="meta-detail location">San Francisco, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="3" data-company="Mainz Brady Group"><div class="panel-body"><h2 class="headline">4. Web Engineer</h2><h3 class="company">(Mainz Brady Group)</h3><img class="saveBtn" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"><div class="meta"><p class="meta-detail location">Oakland, CA</p><p class="meta-detail date">2 days ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="4" data-company="Synechron Inc."><div class="panel-body"><h2 class="headline">5. Web developer with cloud experience</h2><h3 class="company">(Synechron Inc.)</h3><img class="saveBtn" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"><div class="meta"><p class="meta-detail location">san mateo, CA</p><p class="meta-detail date">6 days ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="5" data-company="TEKsystems, Inc."><div class="panel-body"><h2 class="headline">6. QA Automation Engineer 3 - Web Services</h2><h3 class="company">(TEKsystems, Inc.)</h3><img class="saveBtn" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"><div class="meta"><p class="meta-detail location">San Ramon, CA</p><p class="meta-detail date">5 hours ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="6" data-company="CyberCoders"><div class="panel-body"><h2 class="headline">7. Senior Front End Web Developer - Angular</h2><h3 class="company">(CyberCoders)</h3><img class="saveBtn" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"><div class="meta"><p class="meta-detail location">San Francisco, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="7" data-company="CyberCoders"><div class="panel-body"><h2 class="headline">8. Web Developer, Openstack - IT Provider to Fortune 500</h2><h3 class="company">(CyberCoders)</h3><img class="saveBtn" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"><div class="meta"><p class="meta-detail location">San Jose, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="8" data-company="CyberCoders"><div class="panel-body"><h2 class="headline">9. Web Developer - HTML, CSS, AJAX, AngularJS, React</h2><h3 class="company">(CyberCoders)</h3><img class="saveBtn" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"><div class="meta"><p class="meta-detail location">Palo Alto, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="9" data-company="Bay Area Techworkers"><div class="panel-body"><h2 class="headline">10. WEB DEVELOPER  html, Python, Django, eCommerce Website Development</h2><h3 class="company">(Bay Area Techworkers)</h3><img class="saveBtn" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"><div class="meta"><p class="meta-detail location">San Ramon, CA</p><p class="meta-detail date">14 days ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="10" data-company="CyberCoders"><div class="panel-body"><h2 class="headline">11. Senior Software Engineer (Java, Web Services)</h2><h3 class="company">(CyberCoders)</h3><img class="saveBtn" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"><div class="meta"><p class="meta-detail location">San Mateo, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="11" data-company="Amiseq Inc."><div class="panel-body"><h2 class="headline">12. Sr. Web Developer</h2><h3 class="company">(Amiseq Inc.)</h3><img class="saveBtn" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"><div class="meta"><p class="meta-detail location">Sunnyvale, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="12" data-company="Walter Bacon"><div class="panel-body"><h2 class="headline">13. Manual QA / Validation Engineer (Web Apps required) ($90-140k)</h2><h3 class="company">(Walter Bacon)</h3><img class="saveBtn" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"><div class="meta"><p class="meta-detail location">San Francisco, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="13" data-company="Convergent Consulting Inc"><div class="panel-body"><h2 class="headline">14. Full Stack Web Developer</h2><h3 class="company">(Convergent Consulting Inc)</h3><img class="saveBtn" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"><div class="meta"><p class="meta-detail location">Sunnyvale, CA</p><p class="meta-detail date">2 days ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="14" data-company="Tellus Solutions"><div class="panel-body"><h2 class="headline">15. : Software Engineer IV (Web Front End Developer)</h2><h3 class="company">(Tellus Solutions)</h3><img class="saveBtn" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"><div class="meta"><p class="meta-detail location">Mountain View, CA</p><p class="meta-detail date">3 days ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="15" data-company="Delta Dental of California"><div class="panel-body"><h2 class="headline">16. SOFTWARE ENGINEERING MANAGER    (WEB/MOBILE)</h2><h3 class="company">(Delta Dental of California)</h3><img class="saveBtn" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"><div class="meta"><p class="meta-detail location">San Francisco, CA</p><p class="meta-detail date">15 days ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="16" data-company="CyberCoders"><div class="panel-body"><h2 class="headline">17. Web Development Instructor - LAMP, MEAN, PHP</h2><h3 class="company">(CyberCoders)</h3><img class="saveBtn" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"><div class="meta"><p class="meta-detail location">San Francisco, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="17" data-company="Palo Alto Networks"><div class="panel-body"><h2 class="headline">18. Full Stack Engineer (Web Applications)</h2><h3 class="company">(Palo Alto Networks)</h3><img class="saveBtn" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"><div class="meta"><p class="meta-detail location">Santa Clara, CA</p><p class="meta-detail date">5 hours ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="18" data-company="ATR International, Inc."><div class="panel-body"><h2 class="headline">19. Web Developer</h2><h3 class="company">(ATR International, Inc.)</h3><img class="saveBtn" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"><div class="meta"><p class="meta-detail location">Fremont, CA</p><p class="meta-detail date">17 days ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="19" data-company="Central Business Solutions"><div class="panel-body"><h2 class="headline">20. PR_ Sr. Software Engineer -web (Dockers/ python/GO)</h2><h3 class="company">(Central Business Solutions)</h3><img class="saveBtn" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"><div class="meta"><p class="meta-detail location">Santa Clara, CA</p><p class="meta-detail date">10 days ago</p><p class="meta-detail source">Dice</p></div></div></div> -->
+				<div class="listing panel panel-default" data-index="0" data-company="CyberCoders"><div class="panel-body"><h2 class="headline">1. Web Developer, Openstack - IT Provider to Fortune 500</h2><h3 class="company">(CyberCoders)</h3><div class="save-wrap"><img class="save-img" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"></div><div class="meta"><p class="meta-detail location">San Jose, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="1" data-company="Palo Alto Networks"><div class="panel-body"><h2 class="headline">2. Full Stack Engineer (Web Applications)</h2><h3 class="company">(Palo Alto Networks)</h3><div class="save-wrap"><img class="save-img" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"></div><div class="meta"><p class="meta-detail location">Santa Clara, CA</p><p class="meta-detail date">5 hours ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="2" data-company="eXcell"><div class="panel-body"><h2 class="headline">3. Full Stack Web Developer - Cloud, JavaScript, Git</h2><h3 class="company">(eXcell)</h3><div class="save-wrap"><img class="save-img" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"></div><div class="meta"><p class="meta-detail location">San Francisco, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="3" data-company="CyberCoders"><div class="panel-body"><h2 class="headline">4. Full Stack Web Developer</h2><h3 class="company">(CyberCoders)</h3><div class="save-wrap"><img class="save-img" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"></div><div class="meta"><p class="meta-detail location">Fremont, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="4" data-company="Skyrocket Ventures"><div class="panel-body"><h2 class="headline">5. Lead DevOps Engineer / Manager (profitable pre-IPO consumer web co.)</h2><h3 class="company">(Skyrocket Ventures)</h3><div class="save-wrap"><img class="save-img" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"></div><div class="meta"><p class="meta-detail location">San Francisco, CA</p><p class="meta-detail date">5 hours ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="5" data-company="Synechron Inc."><div class="panel-body"><h2 class="headline">6. Web developer with cloud experience</h2><h3 class="company">(Synechron Inc.)</h3><div class="save-wrap"><img class="save-img" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"></div><div class="meta"><p class="meta-detail location">san mateo, CA</p><p class="meta-detail date">6 days ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="6" data-company="CyberCoders"><div class="panel-body"><h2 class="headline">7. Senior Software Engineer (Java, Web Services)</h2><h3 class="company">(CyberCoders)</h3><div class="save-wrap"><img class="save-img" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"></div><div class="meta"><p class="meta-detail location">San Mateo, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="7" data-company="Synechron Inc."><div class="panel-body"><h2 class="headline">8. Web Developer</h2><h3 class="company">(Synechron Inc.)</h3><div class="save-wrap"><img class="save-img" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"></div><div class="meta"><p class="meta-detail location">San Mateo, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="8" data-company="Amiseq Inc."><div class="panel-body"><h2 class="headline">9. Sr Front End developer/ Sr Web Developer</h2><h3 class="company">(Amiseq Inc.)</h3><div class="save-wrap"><img class="save-img" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"></div><div class="meta"><p class="meta-detail location">Sunnyvale, CA</p><p class="meta-detail date">7 days ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="9" data-company="CyberCoders"><div class="panel-body"><h2 class="headline">10. Web Development Instructor - LAMP, MEAN, PHP</h2><h3 class="company">(CyberCoders)</h3><div class="save-wrap"><img class="save-img" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"></div><div class="meta"><p class="meta-detail location">San Francisco, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="10" data-company="BayOne Solutions"><div class="panel-body"><h2 class="headline">11. Lead Web Developer</h2><h3 class="company">(BayOne Solutions)</h3><div class="save-wrap"><img class="save-img" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"></div><div class="meta"><p class="meta-detail location">Redwood City, CA</p><p class="meta-detail date">9 days ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="11" data-company="VehicleHistory.com"><div class="panel-body"><h2 class="headline">12. Full Stack PHP Web Developer - CA</h2><h3 class="company">(VehicleHistory.com)</h3><div class="save-wrap"><img class="save-img" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"></div><div class="meta"><p class="meta-detail location">Oakland, CA</p><p class="meta-detail date">13 days ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="12" data-company="Apple Inc."><div class="panel-body"><h2 class="headline">13. Sr. Web Developer</h2><h3 class="company">(Apple Inc.)</h3><div class="save-wrap"><img class="save-img" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"></div><div class="meta"><p class="meta-detail location">Cupertino, CA</p><p class="meta-detail date">5 hours ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="13" data-company="SUPERMICRO COMPUTER INC"><div class="panel-body"><h2 class="headline">14. Sr. Web Developer (SC16352)</h2><h3 class="company">(SUPERMICRO COMPUTER INC)</h3><div class="save-wrap"><img class="save-img" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"></div><div class="meta"><p class="meta-detail location">San Jose, CA</p><p class="meta-detail date">a month ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="14" data-company="Bay Area Techworkers"><div class="panel-body"><h2 class="headline">15. Freelance UI and Web Developers</h2><h3 class="company">(Bay Area Techworkers)</h3><div class="save-wrap"><img class="save-img" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"></div><div class="meta"><p class="meta-detail location">San Ramon, CA</p><p class="meta-detail date">3 days ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="15" data-company="CyberCoders"><div class="panel-body"><h2 class="headline">16. Front End Web Developer - San Francisco, CA</h2><h3 class="company">(CyberCoders)</h3><div class="save-wrap"><img class="save-img" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"></div><div class="meta"><p class="meta-detail location">San Francisco, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="16" data-company="CyberCoders"><div class="panel-body"><h2 class="headline">17. Senior Software Engineer, Web (Front-End) - JavaScript, React</h2><h3 class="company">(CyberCoders)</h3><div class="save-wrap"><img class="save-img" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"></div><div class="meta"><p class="meta-detail location">San Francisco, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="17" data-company="CyberCoders"><div class="panel-body"><h2 class="headline">18. Front End Web Developer - JavaScript - JQuery - Knockout</h2><h3 class="company">(CyberCoders)</h3><div class="save-wrap"><img class="save-img" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"></div><div class="meta"><p class="meta-detail location">Redwood City, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="18" data-company="CyberCoders"><div class="panel-body"><h2 class="headline">19. Full-Stack Developer - Node.js, RESTful Web Services, REACT</h2><h3 class="company">(CyberCoders)</h3><div class="save-wrap"><img class="save-img" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"></div><div class="meta"><p class="meta-detail location">San Mateo, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p></div></div></div><div class="listing panel panel-default" data-index="19" data-company="CyberCoders"><div class="panel-body"><h2 class="headline">20. Full Stack Web Developer</h2><h3 class="company">(CyberCoders)</h3><div class="save-wrap"><img class="save-img" src="assets/icons/heart1s-gray-red.svg" alt="Save this job listing"></div><div class="meta"><p class="meta-detail location">San Francisco, CA</p><p class="meta-detail date">a day ago</p><p class="meta-detail source">Dice</p></div></div></div>
 				<!-- /////////////////// -->
 				<!-- TARGET RESULTS HERE -->
 				<!-- /////////////////// -->
 			</div>
-
-		<!-- Pagination ==============================-->
+		<!-- Pagination -->
 			<div class="pagination-container">
 				<nav aria-label="Search results pages">
 					<ul class="pagination">
 					 	<li class="disabled"><a href="#feed">&laquo;</a></li>
-					 	<li class="active"><a href="#feed">1</a></li>
-					 	<li><a href="#feed">2</a></li>
-					 	<li><a href="#feed">3</a></li>
-					 	<li><a href="#feed">4</a></li>
-					 	<li><a href="#feed">5</a></li>
-					 	<li><a href="#feed">6</a></li>
-					 	<li><a href="#feed">7</a></li>
-					 	<li><a href="#feed">8</a></li>
-					 	<li><a href="#feed">9</a></li>
+					 	<li id="pg-1" class="li-pg active"><a href="#feed">1</a></li>
+					 	<li id="pg-2" class="li-pg"><a href="#feed">2</a></li>
+					 	<li id="pg-3" class="li-pg"><a href="#feed">3</a></li>
+					 	<li id="pg-4" class="li-pg"><a href="#feed">4</a></li>
+					 	<li id="pg-5" class="li-pg"><a href="#feed">5</a></li>
+					 	<!-- <li id="pg-6" class="li-pg"><a href="#feed">6</a></li>
+					 	<li id="pg-7" class="li-pg"><a href="#feed">7</a></li>
+					 	<li id="pg-8" class="li-pg"><a href="#feed">8</a></li>
+					 	<li id="pg-9" class="li-pg"><a href="#feed">9</a></li> -->
 					 	<li><a href="#feed">&raquo;</a></li>
 					</ul>
 				</nav>
 			</div>
-	</div> <!-- end feed-container -->
+	</div> <!-- /feed-container -->
 
-	<div id="scroll-to-top">&uarr;</div>
-</div>
+<!-- Feature Container =============================================-->
+
+	<div class="feature-container col-xs-10 col-md-4">
+		<div id="feature" class="panel panel-primary">
+			<div id="ft-headline-wrap" class="panel-heading">
+				<h2 id="ft-headline">Job Details</p>
+			</div>
+			<div class="panel-body">
+				
+				<section class="panel panel-info description">
+					<div class="panel-heading">
+						<p class="eyebrow">Description</p>
+					</div>
+					<div class="panel-body">
+						<h2 class="headline">About the Job:</h2>
+						<div id="ft-description" class="target details">
+							<!-- /////////////////////// -->
+							<!-- Target Description Here -->
+							<!-- /////////////////////// -->
+						</div>
+					</div>
+				</section>
+				<section class="panel panel-info company">
+					<div class="panel-heading">
+						<p class="eyebrow">Company Details</p>
+					</div>
+					<div class="panel-body">
+						<h2 class="headline">Company: <span id="ft-company-name" class="target"></span></h2>
+						<div id="ft-company-details" class="target details">
+							<!-- /////////////////////////// -->
+							<!-- Target Company Details Here -->
+							<!-- /////////////////////////// -->
+						</div>
+					</div>
+
+				</section>
+				<section class="panel panel-info position">
+					<div class="panel-heading">
+						<p class="eyebrow">Job Position Details</p>
+					</div>
+					<div class="panel-body">
+						<h2 class="headline">Position: <span id="ft-position" class="target"></span></h2>
+						<div id="ft-position-details" class="target details">
+							<!-- //////////////////////////// -->
+							<!-- Target Position Details Here -->
+							<!-- //////////////////////////// -->
+						</div>
+					</div>
+				</section>
+
+			</div>
+		</div>
+	</div> <!-- /feature-container -->
 
 
 
+<!-- Free Positioned =======================================-->
+		<div id="scroll-to-top">&uarr;</div>
+
+</div> <!-- /page1 -->
+<!--=============================================-->
+
+
+
+<!--=============================================-->
 <!-- JS Links -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -128,7 +263,7 @@
 	<script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4nu_5UhddgajGv7lS96ri7lsyyZ3vbjQ&libraries=places&language=en"></script>
-
+	<!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4nu_5UhddgajGv7lS96ri7lsyyZ3vbjQk&callback=initMap"></script> -->
 <!-- Cities autocomplete -->
 		<script>
 			var locationOptions = { 
@@ -139,10 +274,14 @@
 
 	    </script>
 <!-- End of Cities autocomplete -->
-
-	
 	<script src="assets/js/global.js" type="text/javascript" charset="utf-8"></script>
-	<!-- <script src="assets/js/script.js" type="text/javascript" charset="utf-8"></script> -->
+	<script src="assets/js/devTools.js" type="text/javascript" charset="utf-8"></script>
+	
+<!-- Firebase -->
+	<script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+	<script src="assets/js/login.js" type="text/javascript" charset="utf-8"></script>
+
+	<script src="assets/js/script.js" type="text/javascript" charset="utf-8"></script>
 	<!-- <script src="assets/js/api-wayne.js" type="text/javascript" charset="utf-8"></script> -->
 	<!-- <script src="assets/js/api-feed.js" type="text/javascript" charset="utf-8"></script> -->
 	<!-- <script src="assets/js/api-novia-indeed.js" type="text/javascript" charset="utf-8"></script> -->
@@ -153,7 +292,30 @@
 	<script src="assets/js/benchmark-email-form.js" type="text/javascript"></script>
 
 	<!-- <script src="assets/libs/bowser.min.js" type="text/javascript" charset="utf-8"></script> -->
+	<script type="text/javascript" charset="utf-8">
 
+		// function success(position) {
+		// 	var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+		// 	var options = {
+		// 		zoom: 15,
+		// 		center: coords,
+		// 		mapTypeControl: false,
+		// 		navigationControlOptions: {
+		// 		style: google.maps.NavigationControlStyle.SMALL
+		// 		},
+		// 		mapTypeId: google.maps.MapTypeId.ROADMAP
+		// 	};
+		// 	var map = new google.maps;
+
+		// }
+
+		// if (navigator.geolocation) {
+		// 	navigator.geolocation.getCurrentPosition(success);
+		// } else {
+		// 	error('Geo Location is not supported');
+		// }
+	</script>
 
 </body>
 </html>

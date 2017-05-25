@@ -265,6 +265,14 @@
 		color: #000;
 		visibility: hidden;
 	}
+
+
+
+/*[Only display save button after login]*/
+	.save-wrap{
+		visibility: hidden;
+	}
+
 #pagination{
 	text-align: center;
 }
