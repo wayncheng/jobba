@@ -1,0 +1,45 @@
+ /*-------------------------------
+        Feature
+--------------------------------*/
+	/*.feature-container 	{ outline: 2px solid green; }*/
+	/*#feature		 	{ outline: 2px solid red; }*/
+
+	.feature-container {
+		position: relative;
+		/*margin-left: 20px;*/
+		color: #333;
+		display: none;
+	}
+
+	#feature {
+		min-height: initial;
+		height: initial;
+		width: 96%;		
+			/*width: 100%;*/
+		position: absolute;
+		top: 0;
+		left: 20px;
+			/*position: fixed;
+			top: 5vh;
+			right: 5vh;*/
+	
+	}
+	#ft-headline-wrap,
+	#ft-headline {
+		font-size: 18px;
+		height: 3em;
+		line-height: 3em;
+		margin: 0;
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+
+	.eyebrow {
+		font-size: 14px;
+		font-weight: 300;
+		margin: 0;
+	}
+
+	#feature section.panel {
+		width: 100%;
+	}

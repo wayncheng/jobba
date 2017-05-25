@@ -22,6 +22,99 @@ getIP:
 	        g.userIP = data.ip;
 	        console.log('jobba.userIP',g.userIP);
 	    }),
+locationSupport: false,
+userPos: {},
+userLat: '',
+userLng: '',
+userLatLng: '',
+checkLocationSupport:
+	function(){
+
+	var startPos;
+	var geoOptions = {
+		maximumAge: 5 * 60 * 1000,
+		timeout: 10 * 1000,
+	};
+
+	function geoSuccess(position) {
+		startPos = position;
+		navigator.geolocation.
+		document.getElementById('startLat').innerHTM = startPos.coords.latitude;
+		document.getElementById('startLon').innerHTML = startPos.coords.longitude;
+	};
+	function geoError(error) {
+		console.log('Error occurred. Error code: ' + error.code);
+		// error.code can be:
+		//   0: unknown error
+		//   1: permission denied
+		//   2: position unavailable (error response from location provider)
+		//   3: timed out
+	};
+	navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+		// check for Geolocation support
+		if (navigator.geolocation) {
+			console.log('Geolocation is supported!');
+			g.locationSupport =  true;
+			navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+
+		}
+		else {
+		  console.log('Geolocation is not supported for this Browser/OS.');
+		  g.locationSupport =  false;
+		  return false;
+		}
+	},
+geocodeLatLng:
+		function(LatLng) {
+			var geocoder = new google.maps.Geocoder;
+			var input = LatLng;
+			var latlngStr = input.split(',', 2);
+			var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
+			geocoder.geocode({'location': latlng}, function(results, status) {
+			if (status === 'OK') {
+				console.log(results);
+		      if (results.length > 0) {
+		        console.log(results);
+		      } 
+		      else {
+		        window.alert('No results found');
+		      }
+		    } else {
+		      window.alert('Geocoder failed due to: ' + status);
+		    }
+		  });
+		},
+
+getCurrentLocation:
+		function(){
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            infoWindow.open(map);
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+		},
 apiStatus: ['processing','processing','processing','processing'],
 apiCheckpoint: 'processing',
 apiCheck: 0,
@@ -300,37 +393,54 @@ submit:
 
 			// If location left blank, get current location
 			if ( city === '' ) {
-				alert('Enter a Location');
-				$('.loc-wrap').addClass('has-error');
-				$('#q-city').on('change',function(event){
-					event.preventDefault();
-					var loc = $('#q-city').val().trim();
-					if (loc.length > 0) {
-						$('.loc-wrap').removeClass('has-error');
-					}
-				});				
-				return;
+
+				// check for Geolocation support
+				if (g.locationSupport === true) {
+					var position = g.userPos;
+				    var lat =  String(position.coords.latitude);
+				    var lng = String(position.coords.longitude);
+				    console.log('lat','lng');
+				    g.userLatLng = lat+','+lng;
+				    console.log('g.userLatLng',g.userLatLng);
+					g.geocodeLatLng(g.userLatLng);
+				}
+				else {
+					console.log('Geolocation is not supported for this Browser/OS.');
+					console.log('enter a location');
+					$('.loc-wrap').addClass('has-error');
+					$('#q-city').on('change',function(event){
+						event.preventDefault();
+						var loc = $('#q-city').val().trim();
+						if (loc.length > 0) {
+							$('.loc-wrap').removeClass('has-error');
+						}
+					});				
+					return;
+				}
 			}
 
-			// Progress Bar
-			$('#progress-wrap').show();			
-
-				// city = 'San Francisco, CA, United States'
-			console.log('q',q);
-			console.log('city', city);
-
-			var githubURL = g.api.github.createURL(q,city,"","10");
-			g.api.github.ajaxCall(githubURL,g.api.github.getResponse);
-
-			var indeedURL = g.api.indeed.createURL(q,city,"","50");
-			g.api.indeed.ajaxCall(indeedURL,g.api.indeed.getResponse);
-
-			var diceURL = g.api.dice.createURL(q,"",city,"","","");
-			g.api.dice.ajaxCall(diceURL,g.api.dice.getResponse);
-
-			var authenticURL = g.api.authentic.createURL(q,"",city,"","100");
-			g.api.authentic.ajaxCall(authenticURL,g.api.authentic.getResponse);
 		}),
+callAPIs:
+	function(q,city){
+		// Progress Bar
+		$('#progress-wrap').show();			
+
+			// city = 'San Francisco, CA, United States'
+		console.log('q',q);
+		console.log('city', city);
+
+		var githubURL = g.api.github.createURL(q,city,"","10");
+		g.api.github.ajaxCall(githubURL,g.api.github.getResponse);
+
+		var indeedURL = g.api.indeed.createURL(q,city,"","50");
+		g.api.indeed.ajaxCall(indeedURL,g.api.indeed.getResponse);
+
+		var diceURL = g.api.dice.createURL(q,"",city,"","","");
+		g.api.dice.ajaxCall(diceURL,g.api.dice.getResponse);
+
+		var authenticURL = g.api.authentic.createURL(q,"",city,"","100");
+		g.api.authentic.ajaxCall(authenticURL,g.api.authentic.getResponse);
+	},
 api: 
 	{
 		github: {
