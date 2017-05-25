@@ -25,18 +25,27 @@ getItemsPerPage:
 
 printManager: 	
 		function(jobStr){
+			// Push to allResults
+			g.allResults.push(jobStr);
 
 			// Increment total result counter, write to page
 			g.totalResultCount++;
 			$('#total-result-count').text(g.totalResultCount);
 
-			// Push to allResults
-			g.allResults.push(jobStr);
+			// Show link in pagination nav if enough results
+			// var remainder = (g.totalResultCount - 1) % g.itemsPerPage;
+			// if ( remainder === 0 ) {
+			// 	var pageNum = (g.totalResultCount-1) / g.itemsPerPage;
+			// 	var selector = '#pg-'+pageNum;
+			// 	$(selector).css('display','initial');
+			// }
 
 			// Once there are enough results to populate 1 page, show feed elements and begin printing
 			if( g.allResults.length >= g.itemsPerPage ) {
+			// if( g.allResults.length > 0 ) {
 				// Display the feed elements;
 				$('#page1').show();
+				$('#pg-1').css('display','initial');
 				
 				// Banner Effects
 				$('#banner').css({
@@ -121,24 +130,34 @@ print:
 				{ key: "source", value: source}
 			];
 
+			var wrap = $('<div>');
+				wrap.addClass('listing panel panel-default');
+				wrap.attr('data-company',company);
 
-			var wrap = $('<div>').addClass('listing panel panel-default');
-			var body = $('<div>').addClass('panel-body');
-			var h2 = $('<h2>').addClass('headline');
-			var h3 = $('<h3>').addClass('company');
-			
-			h2.text(title);
-			h3.text('('+ company +')');
-			
-			var d = $('<p>').addClass('description below-fold fold-hide');
-			d.html(description);
+			var body = $('<div>');
+				body.addClass('panel-body');
 
-			var metaWrap = $('<div>').addClass('meta');
+			var h2 = $('<h2>');
+				h2.addClass('headline');
+				h2.text(title);
+			
+			var h3 = $('<h3>');
+				h3.addClass('company');
+				h3.text('('+ company +')');
+			
+			var d = $('<p>');
+				d.addClass('description below-fold fold-hide');
+				d.html(description);
+
+			var metaWrap = $('<div>');
+				metaWrap.addClass('meta');
+
 			for (var i=0; i<metaArray.length; i++) {
 				var p = $('<p>');
-				p.addClass('meta-detail');
-				p.addClass(metaArray[i].key);
-				p.text(metaArray[i].value);
+					p.addClass('meta-detail');
+					p.addClass(metaArray[i].key);
+					p.text(metaArray[i].value);
+					
 				metaWrap.append(p);
 			};
 
@@ -219,7 +238,7 @@ submit:
 
 			// If city left blank
 			if ( city === '') {
-				city = 'San Francisco'
+				city = 'San Francisco, CA, United States'
 			}
 
 			console.log('q',q);

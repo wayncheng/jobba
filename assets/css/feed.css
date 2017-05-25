@@ -87,7 +87,11 @@ a.link {
 	.pagination-container {
 		text-align: center;
 	}
-
+	
+	/* Hide by Default */
+	li.li-pg {
+		/*display: none;*/
+	}
 	
 	/* Pagination Colors */
 	.pagination > li > a, 
@@ -129,7 +133,7 @@ a.link {
 		line-height: 45px;
 		margin-bottom: 20px;
 	}
-	
+
 	.feed-detail,
 	#above-feed form,
 	#above-feed fieldset,

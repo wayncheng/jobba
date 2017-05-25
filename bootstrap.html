@@ -36,7 +36,7 @@
 	        <input type="text" class="form-control main-search" id="search" placeholder="Search for Jobs">
 	      </div>
 	      <div class="col-sm-2 searchbar-loc-wrap"> 
-	        <input type="text" class="form-control" id="q-city" placeholder="e.g. San Francisco, CA">
+	        <input type="text" class="form-control" id="q-city" placeholder="e.g. San Francisco">
 	      </div>
 	      <div class="col-sm-1 searchbar-submit-wrap">
 	        <button type="submit" class="btn btn-primary" id="submit">
@@ -52,10 +52,10 @@
 	<!-- Feed container (controls width of all feed-related elements) -->
 	<div class="container-fluid feed-container col-md-8 col-md-offset-2">
 		<div id="above-feed" class="row">
-			<div class="col-md-2 row-group">
+			<div class="col-md-3 row-group">
 				<p class="feed-detail">Total Results: <span id="total-result-count"></span></p>
 			</div>
-			<div class="col-md-3 col-md-offset-7 row-group">
+			<div class="col-md-3 col-md-offset-6 row-group">
 				<!-- Feed Controls ==============================-->
 					<form id="feed-controls" class="form-horizontal">
 						<fieldset>
@@ -101,15 +101,15 @@
 				<nav aria-label="Search results pages">
 					<ul class="pagination">
 					 	<li class="disabled"><a href="#feed">&laquo;</a></li>
-					 	<li class="active"><a href="#feed">1</a></li>
-					 	<li><a href="#feed">2</a></li>
-					 	<li><a href="#feed">3</a></li>
-					 	<li><a href="#feed">4</a></li>
-					 	<li><a href="#feed">5</a></li>
-					 	<li><a href="#feed">6</a></li>
-					 	<li><a href="#feed">7</a></li>
-					 	<li><a href="#feed">8</a></li>
-					 	<li><a href="#feed">9</a></li>
+					 	<li id="pg-1" class="li-pg active"><a href="#feed">1</a></li>
+					 	<li id="pg-2" class="li-pg"><a href="#feed">2</a></li>
+					 	<li id="pg-3" class="li-pg"><a href="#feed">3</a></li>
+					 	<li id="pg-4" class="li-pg"><a href="#feed">4</a></li>
+					 	<li id="pg-5" class="li-pg"><a href="#feed">5</a></li>
+					 	<li id="pg-6" class="li-pg"><a href="#feed">6</a></li>
+					 	<li id="pg-7" class="li-pg"><a href="#feed">7</a></li>
+					 	<li id="pg-8" class="li-pg"><a href="#feed">8</a></li>
+					 	<li id="pg-9" class="li-pg"><a href="#feed">9</a></li>
 					 	<li><a href="#feed">&raquo;</a></li>
 					</ul>
 				</nav>
