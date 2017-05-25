@@ -1,20 +1,44 @@
 
-var g = {
+// apiStatus: 
+// 		{
+// 			github: 'processing',
+// 			authentic: 'processing',
+// 			dice: 'processing',
+// 			indeed: 'processing'
+// 		},
 
+
+var g = {
 allResults: [],
 totalResultCount: 0,
 page: 1,
 itemsPerPage: 20,
 resultNumber: 1,
-
-apiStatus: 
-		{
-			github: 'processing',
-			authentic: 'processing',
-			dice: 'processing',
-			indeed: 'processing'
+userIP: '',
+getIP:
+		$.getJSON("http://jsonip.com/?callback=?", function (data) {
+	        g.userIP = data.ip;
+	        // console.log('data.ip',data.ip);
+	        console.log('jobba.userIP',g.userIP);
+	    }),
+apiStatus: ['processing','processing','processing','processing'],
+apiCheckpoint: 'processing',
+checkStatus:
+		function(){
+			if (g.apiStatus[0] === 'done' && g.apiStatus[0] === 'done' && g.apiStatus[0] === 'done')
+			for (var i=0; i< g.apiStatus.length; i++) {
+				var si = g.apiStatus[i];
+				// If any of the statuses are processing, do not continue
+				if ( si === 'processing') {
+					console.log('apis incomplete');
+					break;
+				}	
+			};
+			if ( g.apiCheckpoint === 'done' ) {
+				g.apiCheckpoint = 'done';
+				console.log('all apis done');
+			}
 		},
-
 getItemsPerPage: 	
 		$('#items-per-page').on('change', function(event){
 			event.preventDefault();
@@ -40,6 +64,9 @@ printManager:
 			// 	$(selector).css('display','initial');
 			// }
 
+			// Check Status of all APIs
+			g.checkStatus();
+			
 			// Once there are enough results to populate 1 page, show feed elements and begin printing
 			if( g.allResults.length >= g.itemsPerPage ) {
 			// if( g.allResults.length > 0 ) {
@@ -261,6 +288,8 @@ api:
 	{
 		github: {
 				url: "",
+				status: "processing",
+				apiIndex: 0,
 				createURL: 	
 					function(searchString,city,state,noOfRecords) {
 						// ---------------Sample Format--------------------
@@ -292,14 +321,6 @@ api:
 				getResponse: 
 					function(result){
 						var jobsResults = result;
-						var jobTitle, 
-							jobCompany, 
-							jobLocation, 
-							jobDateRaw, 
-							jobDate,
-							jobSource,
-							jobDescription,
-							jobURL;
 
 						console.log('-----------------GITHUB RESULTS-----------------');
 						console.log('Github jobsResults',jobsResults);
@@ -307,14 +328,14 @@ api:
 						for(var i=0; i< jobsResults.length; i++){
 							var ji = jobsResults[i];
 
-							jobTitle = ji.title;
-							jobCompany = ji.company;
-							jobLocation = ji.location;
-							jobDateRaw = ji.created_at;
-							jobDate = moment(jobDateRaw).format("MMM D");
-							jobSource = "Github";
-							jobDescription = ji.description;
-							jobURL = ji.url;
+							var jobTitle = ji.title;
+							var jobCompany = ji.company;
+							var jobLocation = ji.location;
+							var jobDateRaw = ji.created_at;
+							var jobDate = moment(jobDateRaw).format("MMM D");
+							var jobSource = "Github";
+							var jobDescription = ji.description;
+							var jobURL = ji.url;
 
 							// Send to Global Print Function
 							var jobJSON = {
@@ -330,11 +351,12 @@ api:
 							g.printManager(jobStr);
 						} // end for loop
 
-						// Change status to done.
-						g.apiStatus.github = 'done';
-
 						// Notify console 
 						console.log('----------------------------------GITHUB DONE');
+
+						// Change status to done.
+						var apiIndex = g.api.github.apiIndex;
+						g.apiStatus[apiIndex] = 'done';
 					},
 				ajaxCall: 
 					function(qURL, mycallback){
@@ -345,13 +367,16 @@ api:
 							//Create a new function to process errors
 							console.log('fail', qURL.result);
 							// Change status to fail.
-							g.apiStatus.authentic = 'fail';
+							var apiIndex = g.api.github.apiIndex;
+							g.apiStatus[apiIndex] = 'fail';
 						});
 					}
 			},
 
 		indeed: {
 				url: "",
+				status: "processing",
+				apiIndex: 1,
 				createURL:
 					function(searchString,city,state,noOfRecords){
 
@@ -424,7 +449,8 @@ api:
 						} // end for loop
 
 						// Change status to done.
-						g.apiStatus.indeed = 'done';
+						var apiIndex = g.api.indeed.apiIndex;
+						g.apiStatus[apiIndex] = 'done';
 
 						// Notify console
 						console.log('----------------------------------INDEED DONE');
@@ -438,13 +464,17 @@ api:
 							//Create a new function to process errors
 							console.log('fail', qURL.result);
 							// Change status to fail.
-							g.apiStatus.indeed = 'fail';
+							// g.apiStatus[g.api.indeed.apiIndex] = 'fail';
+							var apiIndex = g.api.indeed.apiIndex;
+							g.apiStatus[apiIndex] = 'fail';
 						});
 					}
 			},
 
 		dice: {
 				url: "",
+				status: "processing",
+				apiIndex: 2,
 				createURL:
 					function(searchString,state,city,areacode,pageNumber,noOfRecords){
 
@@ -522,7 +552,9 @@ api:
 						} // end for loop
 
 						// Change status to done.
-						g.apiStatus.dice = 'done';
+						// g.apiStatus[g.api.dice.apiIndex] = 'done';
+						var apiIndex = g.api.dice.apiIndex;
+						g.apiStatus[apiIndex] = 'done';
 
 						// Notify console 
 						console.log('----------------------------------DICE DONE');
@@ -536,13 +568,17 @@ api:
 							//Create a new function to process errors
 							console.log('fail', qURL.result);
 							// Change status to fail.
-							g.apiStatus.dice = 'fail';
+							// g.apiStatus[g.api.dice.apiIndex] = 'fail';
+							var apiIndex = g.api.dice.apiIndex;
+							g.apiStatus[apiIndex] = 'fail';
 						});
 					}
 			},
 
 		authentic: {
 				url: "",
+				status: "processing",
+				apiIndex: 3,
 				createURL: 
 					function(searchString,state,city,pageNumber,noOfRecords){
 						// Sample url = https://authenticjobs.com/api/?api_key=a446a0eefe6f5699283g34f4d5b51fa0&method=aj.jobs.get&id=1569
@@ -634,11 +670,12 @@ api:
 
 						} // end for loop
 
-						// Change status to done.
-						g.apiStatus.authentic = 'done';
-
 						// Notify console 
 						console.log('----------------------------------AUTHENTIC JOBS DONE');
+						
+						// Change status to done.
+						var apiIndex = g.api.authentic.apiIndex;
+						g.apiStatus[apiIndex] = 'done';
 
 					},
 				ajaxCall: 
@@ -650,14 +687,21 @@ api:
 							//Create a new function to process errors
 							console.log('fail', qURL.result);
 							// Change status to fail.
-							g.apiStatus.authentic = 'fail';
+							var apiIndex = g.api.authentic.apiIndex;
+							g.apiStatus[apiIndex] = 'fail';
 						});
 					}
 			}	
-	}
+	},
+
+documentReady:
+		$(document).ready(function() {
+			g.getIP;
+		    console.log('document ready');
+		})
 
 
 } // end g
 
 // Bind to Window
-window.globalObj = g;
+window.jobba = g;
