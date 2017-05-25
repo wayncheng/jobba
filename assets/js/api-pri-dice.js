@@ -2,9 +2,12 @@ $('#submit').on('click', function(){
 	    event.preventDefault();
 	    $("#feed").empty();
 		q = $('#search').val();
+		
 		var city = $('#q-city').val().trim();
+
 		url = createDiceReq(q,"",city,"","","");
-		console.log("Wayne file URL: "+url);
+		console.log("Dice URL: "+url);
+		console.log("Dice city is: "+city);
 		doAjaxCallDice(url,getDiceResponse);
 	});
 
@@ -23,9 +26,25 @@ function createDiceReq(searchString,state,city,areacode,pageNumber,noOfRecords){
 		url = url + "&state=" + state;
 	}
 	if(city != ""){
+		var finalCity = city.split(",");
+		console.log("finalcity string length is: "+finalCity.length);
+
+		if(finalCity.length>2){
+			city = (finalCity[0]+", "+finalCity[1]);
+			console.log("FINAL CITY IS: "+city);
+		}
+
 		city = encodeURIComponent(city);
 		url = url + "&city=" + city;
+
+		console.log("the modified city is: "+city);
+
+
 	}
+	else{ 
+		city="san+diego,+CA";
+		url = url + "&city=" + city;
+	}	
 	if(areacode != ""){
 		areacode = encodeURIComponent(areacode);
 		url = url + "&areacode=" + areacode;
@@ -40,7 +59,6 @@ function createDiceReq(searchString,state,city,areacode,pageNumber,noOfRecords){
 	}
 	return url;
 
-	console.log("URL is: "+url);
 }
 
 function doAjaxCallDice(qURL, mycallback){
@@ -51,76 +69,27 @@ function doAjaxCallDice(qURL, mycallback){
 	}).done(mycallback).fail(function(){
 		//Create a new function to process errors
 		console.log('fail', qURL.result);
+
+		// Change status to fail.
+		globalObj.apiStatus.dice = 'fail';
 	});
 
 
 }
 
 function getDiceResponse(result){
-	console.log('done',result);
-	console.log('First Record No in this request :: ',result.firstDocument);
-	console.log('Last Record No in this request :: ',result.lastDocument);
-	console.log('Previous URL if any :: ',result.prevURL);
-	console.log('Next URL :: ',result.nextUrl);
+	// console.log('done',result);
+	// console.log('First Record No in this request :: ',result.firstDocument);
+	// console.log('Last Record No in this request :: ',result.lastDocument);
+	// console.log('Previous URL if any :: ',result.prevURL);
+	// console.log('Next URL :: ',result.nextUrl);
 
-	console.log('-----------------DICE DETAILS-----------------');
 	var jobsResults = result.resultItemList;
+	console.log('-----------------DICE RESULTS-----------------');
+	console.log('Dice jobsResults',jobsResults);
 
 	$("#feed").append();
 	for(var i=0; i< jobsResults.length; i++){
-		console.log(i+1);
-		console.log('jobsResults[i]',jobsResults[i]);
-		// console.log('jobTitle :: ',jobsResults[i].jobTitle);
-		// console.log('company :: ',jobsResults[i].company);
-		// console.log('location :: ',jobsResults[i].location);
-		// console.log('date ::',jobsResults[i].date);
-
-		// var p = $("<p>");
-
-		// var source = $("<span>");
-		// source.append("Source:: ");
-		// source.append("Dice");
-		// source.append("&nbsp;");
-		// source.append("&nbsp;");
-
-
-		// var jobTitle = $("<span>");
-		// jobTitle.append("JobTitle :: ");
-		// jobTitle.append(jobsResults[i].jobTitle);
-		// jobTitle.append("&nbsp;");
-		// jobTitle.append("&nbsp;");
-
-		// var company = $("<span>");
-		// company.append("Company :: ");
-		// company.append(jobsResults[i].company);
-		// company.append("&nbsp;");
-		// company.append("&nbsp;");
-
-		// var location = $("<span>");
-		// location.append("Location :: ");
-		// location.append(jobsResults[i].location);
-		// location.append("&nbsp;");
-		// location.append("&nbsp;");
-
-		
-		// var detailUrl = $("<a>");
-		// var detailUrlSpan = $("<span>");
-		// detailUrlSpan.append("DICE");
-		// detailUrl.attr("href",jobsResults[i].detailUrl);
-		// detailUrl.attr("name","detailUrl");
-		// detailUrl.attr("target","_blank");
-		// detailUrl.addClass("diceButton");
-		// detailUrl.append(detailUrlSpan);
-
-		// p.append(source);
-		// p.append(jobTitle);
-		// p.append(company);
-		// p.append(location);
-		// p.append(detailUrl);
-
-
-		// $("#feed").append(p);
-
 		// Format date using moment.js
 		var dateFormatted = moment(jobsResults[i].date).format("MMM D");
 
@@ -135,9 +104,16 @@ function getDiceResponse(result){
 			"url": jobsResults[i].detailUrl,
 		}
 		var jobStr = JSON.stringify(jobJSON);
-		globalObj.print(jobStr);
+		// globalObj.print(jobStr);
+		globalObj.printManager(jobStr);
 
-	}
+	} // end for loop
+
+	// Change status to done.
+	globalObj.apiStatus.dice = 'done';
+
+	// Notify console 
+	console.log('-----------------DICE DONE-----------------');
 
 
 }

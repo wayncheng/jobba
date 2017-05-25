@@ -7,8 +7,6 @@
 		margin-bottom: 10px;
 	}
 
-
-
 /*--------------------------------
         Search Bar
 --------------------------------*/
@@ -32,7 +30,9 @@
 		height: 50vh;
 		max-height: 540px; 
 		min-height: 300px;
-		background-image: url(../img/banner-backdrop-2k.jpg);
+			height: 100vh;
+			max-height: 1080px;
+		background-image: url(../img/banner-sd-day.jpg);
 		background-size: cover;
 		background-position: 50% 40%;
 		margin-bottom: 40px;
@@ -71,7 +71,7 @@
 		right: 0;
 		top: 0;
 		margin-right: -2px;
-		width: 377px;
+		width: 290px;
 		padding: 0;
 	}
 	
@@ -79,7 +79,7 @@
 		float: left;
 		display: inline-block;
 		border-left: 2px solid #eee;
-		padding-left: 20px;
+		padding-left: 5px;
 	}
 	input.main-search:active,
 	input.main-search:focus,
@@ -198,6 +198,11 @@
 		font-size: 14px;
 		width: 100%;
 		cursor: pointer;
+			background: none;
+			position: absolute;
+			height: 100%;
+			top: 0;
+			left: 0;
 	}
 	
 	.fold-hide {
@@ -240,3 +245,23 @@
 .logo:visited{
 	text-decoration: none;
 }
+
+
+
+/*--------------------------------
+        Login
+--------------------------------*/
+	#signInWithGithub {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		color: #000;
+	}
+
+	#signOut {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		color: #000;
+		visibility: hidden;
+	}

@@ -5,10 +5,13 @@ $('#submit').on('click', function(){
 		q = $('#search').val();
 		var city = $('#q-city').val().trim();
 		url = createAuthenticJobsReq(q,"",city,"","100");
-		console.log("Wayne file URL: "+url);
+		console.log("Authentic Jobs URL: "+url);
+		console.log("Authentic Jobs city: "+city);
+
 		doAjaxCall(url,getAuthenticJobsResponse);
 	});
 
+// Sample url = https://authenticjobs.com/api/?api_key=a446a0eefe6f5699283g34f4d5b51fa0&method=aj.jobs.get&id=1569
 
 function createAuthenticJobsReq(searchString,state,city,pageNumber,noOfRecords){
 
@@ -23,9 +26,21 @@ function createAuthenticJobsReq(searchString,state,city,pageNumber,noOfRecords){
 		url = url + "&location=" + state;
 	}
 	if(city != ""){
+		var finalCity = city.split(",");
+
+		if(finalCity.length>2){
+			city = finalCity[0];
+			console.log("Authenticjobs FINAL CITY IS: "+city);
+		}
+	
+
 		city = encodeURIComponent(city);
 		url = url + "&location=" + city;
 	}
+	else{ 
+		city="san+diego";
+		url = url + "&location=" + city;
+	}	
 	
 	if(pageNumber != ""){
 		pageNumber = encodeURIComponent(pageNumber);
@@ -48,79 +63,28 @@ function doAjaxCall(qURL, mycallback){
 	}).done(mycallback).fail(function(){
 		//Create a new function to process errors
 		console.log('fail', qURL.result);
+
+		// Change status to fail.
+		globalObj.apiStatus.authentic = 'fail';
 	});
 
 
 }
 
 function getAuthenticJobsResponse(result){
-	console.log('done',result);
+	// console.log('done',result);
 	// console.log('First Record No in this request :: ',result.firstDocument);
-	console.log('Last Record No in this request :: ',result.listings.total);
+	// console.log('Last Record No in this request :: ',result.listings.total);
 	// console.log('Previous URL if any :: ',result.prevURL);
 	// console.log('Next URL :: ',result.nextUrl);
 
-	console.log('-----------------JOB DETAILS-----------------');
 	var jobsResults = result.listings.listing;
+	console.log('-----------------AUTHENTIC JOB RESULTS-----------------');
+	console.log('Authentic jobsResults',jobsResults);
 
-	$("#feed").append();
 	for(var i=0; i< jobsResults.length; i++){
-		console.log(i+1);
-		console.log('jobsResults[i]',jobsResults[i]);
-		// console.log('jobTitle :: ',jobsResults[i].title);
-		// console.log('company :: ',jobsResults[i].company.name);
-		// console.log('location :: ',jobsResults[i].company.location);
-		// console.log('date ::',jobsResults[i].post_date);
-
-		// var p = $("<p>");
-
-		// var source = $("<span>");
-		// source.append("Source:: ");
-		// source.append("Authentic Jobs");
-		// source.append("&nbsp;");
-		// source.append("&nbsp;");
-
-
-		// var jobTitle = $("<span>");
-		// jobTitle.append("JobTitle :: ");
-		// jobTitle.append(jobsResults[i].title);
-		// jobTitle.append("&nbsp;");
-		// jobTitle.append("&nbsp;");
-
-		// var company = $("<span>");
-		// company.append("Company :: ");
-		// company.append(jobsResults[i].company.name);
-		// company.append("&nbsp;");
-		// company.append("&nbsp;");
-
-		// if(jobsResults[i].company.location){
-		// 	var location = $("<span>");
-		// 	location.append("Location :: ");
-		// 	location.append(jobsResults[i].company.location.name);
-		// 	location.append("&nbsp;");
-		// 	location.append("&nbsp;");
-		// }
-		
-		// var detailUrl = $("<a>");
-		// var detailUrlImg = $("<img>");
-		// detailUrlImg.attr("src","assets/img/logo-authentic-jobs.svg");
-		// // var detailUrlSpan = $("<span>");
-		// // detailUrlSpan.append("DICE");
-		// detailUrl.attr("href",jobsResults[i].url);
-		// detailUrl.attr("name","detailUrl");
-		// detailUrl.attr("target","_blank");
-		// detailUrlImg.addClass("logo");
-		// detailUrl.append(detailUrlImg);
-
-		// p.append(source);
-		// p.append(jobTitle);
-		// p.append(company);
-		// p.append(location);
-		// p.append(detailUrl);
-
-
-		// $("#feed").append(p);
-
+		// console.log(i+1);
+		// console.log('jobsResults[i]',jobsResults[i]);
 
 	// Send to Global Print Function
 		var ji = jobsResults[i];
@@ -151,13 +115,20 @@ function getAuthenticJobsResponse(result){
 			"date": dateFormatted,
 			"source": "Authentic Jobs",
 			"description": ji.description,
-			"url": ji.url,
-			// "apply_url": ji.apply_url,
+			"url": ji.url
 		}
+			// "apply_url": ji.apply_url
 		var jobStr = JSON.stringify(jobJSON);
-		globalObj.print(jobStr);
+		// globalObj.print(jobStr);
+		globalObj.printManager(jobStr);
 
-	}
+	}; // end for loop
+
+	// Change status to done.
+	globalObj.apiStatus.authentic = 'done';
+
+	// Notify console 
+	console.log('-----------------AUTHENTIC JOBS DONE-----------------');
 
 
 }

@@ -1,0 +1,171 @@
+/*--------------------------------
+    Feed Listings
+--------------------------------*/
+#page1 {
+	padding-top: 30px;
+	display: none;
+}
+#feed {
+
+}
+.listing {
+	border: 1px solid #ECF0F1;
+	background-color: #fdfdfd;
+	margin-bottom: 20px;
+	position: relative;
+}
+a.link {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.headline, .company {
+	margin-top: 0;
+}
+.headline {
+	display: inline-block;
+	font-weight: 300;
+	font-size: 18px;
+	margin-right: 10px;
+}
+.company {
+	display: inline-block;
+	font-weight: 500;
+	font-size: 18px;
+}
+.description {
+	padding: 0 5px;
+	border-top: 2px solid #ECF0F1;
+	/*border-top: 2px solid #bdc3c7;*/
+	padding-top: 5px;
+	margin-bottom: 0;
+}
+.meta {
+	padding: 0;
+}
+.meta-detail {
+	display: inline-block;
+	width: initial;
+	height: 1.5em;
+	line-height: 1.5em;
+	font-size: 14px;
+	padding: 0 10px;
+	margin-right: 5px;
+	background-color: #7f8c8d;
+	color: #ECF0F1;
+	color: #eee;
+	font-weight: 300;
+}
+.toggle-fold {
+	text-align: center;
+	background-color: #ECF0F1;
+	color: #333;
+	font-weight: 300;
+	padding: 2px 0;
+	font-size: 14px;
+	width: 100%;
+	cursor: pointer;
+		background: none;
+		position: absolute;
+		height: 100%;
+		top: 0;
+		left: 0;
+}
+
+.fold-hide {
+	display: none;
+}
+
+
+/*--------------------------------
+        Pagination
+--------------------------------*/
+	.pagination-container {
+		text-align: center;
+	}
+	
+	/* Hide by Default */
+	li.li-pg {
+		/*display: none;*/
+	}
+	
+	/* Pagination Colors */
+	.pagination > li > a, 
+	.pagination > li > span 
+	{
+		background-color: #3498db;
+	}
+	.pagination > li > a:hover, 
+	.pagination > li > span:hover,
+	.pagination > li > a:focus, 
+	.pagination > li > span:focus
+	{
+		background-color: #2980b9;
+	}
+	.pagination > .active > a, 
+	.pagination > .active > span, 
+	.pagination > .active > a:hover, 
+	.pagination > .active > span:hover, 
+	.pagination > .active > a:focus, 
+	.pagination > .active > span:focus 
+	{
+		background-color: #2980b9;
+	}
+	.pagination > .disabled > span, 
+	.pagination > .disabled > span:hover, 
+	.pagination > .disabled > span:focus, 
+	.pagination > .disabled > a, 
+	.pagination > .disabled > a:hover, 
+	.pagination > .disabled > a:focus
+	{
+		background-color: #92c4e6;
+	}
+
+/*-------------------------------
+        Above Feed
+--------------------------------*/
+	#above-feed {
+		height: 45px;
+		line-height: 45px;
+		margin-bottom: 20px;
+	}
+
+	.feed-detail,
+	#above-feed form,
+	#above-feed fieldset,
+	#above-feed form-group,
+	#above-feed div.form-input-wrap,
+	#above-feed label
+	{
+		height: inherit;
+		line-height: inherit;
+	}
+	#feed-controls label {
+		padding: 0;
+	}
+	p.feed-detail {
+		margin: 0;
+	}
+
+/*-------------------------------
+        Scroll to Top
+--------------------------------*/
+	#scroll-to-top {
+		font-size: 30px;
+		width: 50px;
+		height: 50px;
+		line-height: 50px;
+		text-align: center;
+		background-color: #95a5a6;
+		color: #fff;
+		position: fixed;
+		display: none;
+		right: 10px;
+		bottom: 10px;
+		cursor: pointer;
+	}
+

@@ -52,81 +52,34 @@ function doAjaxCall(qURL, mycallback){
 	}).done(mycallback).fail(function(){
 		//Create a new function to process errors
 		console.log('fail', qURL.result);
+
+		// Change status to fail.
+		globalObj.apiStatus.github = 'fail';
 	});
 
 
 }
 
 function getGitHubResponse(result){
-	console.log('done',result);
+	// console.log('done',result);
 
-	console.log('-----------------JOB DETAILS-----------------');
 	var jobsResults = result;
 	var jobTitle;
 	var jobCompany;
 	var jobLocation;
 	var jobDate;
 
-	$("#feed").append();
+
+	console.log('-----------------GITHUB RESULTS-----------------');
+	console.log('Github jobsResults',jobsResults);
+
 	for(var i=0; i< jobsResults.length; i++){
-		console.log(i+1);
+		// console.log(i+1);
 
 		jobTitle = jobsResults[i].title;
 		jobCompany = jobsResults[i].company;
 		jobLocation = jobsResults[i].location;
 		jobDate = jobsResults[i].created_at;
-
-
-		console.log('jobsResults[i]',jobsResults[i]);
-		// console.log('jobTitle :: ',jobTitle);
-		// console.log('company :: ',jobCompany);
-		// console.log('location :: ',jobLocation);
-		// console.log('date ::',jobDate);
-
-		// var p = $("<p>");
-
-		// var source = $("<span>");
-		// source.append("Source:: ");
-		// source.append("GitHub");
-		// source.append("&nbsp;");
-		// source.append("&nbsp;");
-
-		// var jobTitleDisplay = $("<span>");
-		// jobTitleDisplay.append("Job Title :: ");
-		// jobTitleDisplay.append(jobTitle);
-		// jobTitleDisplay.append("&nbsp;");
-		// jobTitleDisplay.append("&nbsp;");
-
-		// var companyDisplay = $("<span>");
-		// companyDisplay.append("Company :: ");
-		// companyDisplay.append(jobCompany);
-		// companyDisplay.append("&nbsp;");
-		// companyDisplay.append("&nbsp;");
-
-		// var locationDisplay = $("<span>");
-		// locationDisplay.append("Location :: ");
-		// locationDisplay.append(jobLocation);
-		// locationDisplay.append("&nbsp;");
-		// locationDisplay.append("&nbsp;");
-
-		// var detailUrl = $("<a>");
-		// var detailUrlImg = $("<img>");
-		// detailUrlImg.attr("src","assets/img/github-logo.png");
-		// detailUrl.attr("href",jobsResults[i].url);
-		// detailUrl.attr("name","detailUrl");
-		// detailUrl.attr("target","_blank");
-		// detailUrlImg.addClass("logo");
-		// detailUrl.append(detailUrlImg);
-
-		
-
-		// p.append(source);
-		// p.append(jobTitleDisplay);
-		// p.append(companyDisplay);
-		// p.append(locationDisplay);
-		// p.append(detailUrl);
-
-		// $("#feed").append(p);
 
 		// Format date using moment.js
 		var dateFormatted = moment(jobDate).format("MMM D");
@@ -144,7 +97,10 @@ function getGitHubResponse(result){
 		var jobStr = JSON.stringify(jobJSON);
 		globalObj.print(jobStr);
 
-	}
+	} // end for loop
+
+	// Change status to done.
+	globalObj.apiStatus.github = 'done';
 
 
 }

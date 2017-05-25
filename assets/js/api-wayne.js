@@ -1,6 +1,3 @@
-
-
-
 $(document).ready(function(){
 
 // var uIP, uBrowser;
@@ -39,8 +36,6 @@ jQuery.ajaxPrefilter(function(options) {
     }
 });
 
-
-		
 
 $('#submit').on('click',function(event){
 
