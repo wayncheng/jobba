@@ -1,3 +1,14 @@
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyBUVssFCnGKGEypDRsWSps4-Aklr1H9Zag",
+  authDomain: "jobba-fe187.firebaseapp.com",
+  databaseURL: "https://jobba-fe187.firebaseio.com",
+  projectId: "jobba-fe187",
+  storageBucket: "jobba-fe187.appspot.com",
+  messagingSenderId: "430840990935"
+};
+firebase.initializeApp(config);
+
 
   var provider = new firebase.auth.GithubAuthProvider();
   var userId = "";
@@ -13,9 +24,10 @@
       // The signed-in user info.
       user = result.user;
 
+      $(".save-wrap").css('visibility', 'visible');
+
       // successfully signed in.... What's next?
       // alert("Welcome, "+user.displayName)
-
 
       //----------------------------------------------------
       // Add code here
@@ -35,7 +47,6 @@
       //   console.log(username);
       // });
 
-
     }).catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;
@@ -49,40 +60,43 @@
 
   }); // End of sign on with GitHub
 
+function saveJobs(jobObj){
+  console.log(jobObj);
+}
 
-$(".saveJob").on("click", function() {
-// $(".listing").on("click", ".saveJob", function() {
+// $(".saveJob").on("click", function() {
+// // $(".listing").on("click", ".saveJob", function() {
 
-    // var trainKey = $(this).parent().parent().attr('id');
-    // var newTrainName = $(this).parent().parent().find('td>.trainName').val();
-    // var newDestination = $(this).parent().parent().find('td>.destination').val();
-    // var updatedArrivalTime = $(this).parent().parent().find('td>.firstTrainTime').val();
-    var database = firebase.database();
+//     // var trainKey = $(this).parent().parent().attr('id');
+//     // var newTrainName = $(this).parent().parent().find('td>.trainName').val();
+//     // var newDestination = $(this).parent().parent().find('td>.destination').val();
+//     // var updatedArrivalTime = $(this).parent().parent().find('td>.firstTrainTime').val();
+//     var database = firebase.database();
 
-    var jobTitle = "Developer";
-    var jobCompany = "Amazon";
-    var jobLocation = "San Diego";
-    var jobDate = "01/01/2017";
-    var jobSource = "Indeed";
-    var jobDescription = "Sample Description";
-    var jobURL = "wwww.indeed.com";
+//     var jobTitle = "Developer";
+//     var jobCompany = "Amazon";
+//     var jobLocation = "San Diego";
+//     var jobDate = "01/01/2017";
+//     var jobSource = "Indeed";
+//     var jobDescription = "Sample Description";
+//     var jobURL = "wwww.indeed.com";
 
-    var addJobs = {
-      title :  jobTitle,
-      company: jobCompany,
-      location: jobLocation,
-      date: jobDate,
-      source: jobSource,
-      description: jobDescription,
-      url: jobURL
-    };
+//     var addJobs = {
+//       title :  jobTitle,
+//       company: jobCompany,
+//       location: jobLocation,
+//       date: jobDate,
+//       source: jobSource,
+//       description: jobDescription,
+//       url: jobURL
+//     };
 
-    console.log("userid: "+userId);
+//     console.log("userid: "+userId);
 
-    // Insert into database
-    database.ref("/"+userId+"/jobs").push(addJobs);
+//     // Insert into database
+//     database.ref("/"+userId+"/jobs").push(addJobs);
 
-}); // End of on click
+// }); // End of on click
 
 
 $('#signOut').on("click", function(){
@@ -94,6 +108,7 @@ $('#signOut').on("click", function(){
       
       $("#signInWithGithub").toggle();
       $("#signOut").hide();
+      $(".save-wrap").css('visibility', 'hidden');
       
     }).catch(function(error) {
       // An error happened.
@@ -122,15 +137,14 @@ $('#viewSavedJobs').on("click", function(){
           // User is signed in.
           
           var uid = user.uid;
-          window.location = '/saved-jobs.html';          
+          // window.location = '/saved-jobs.html';          
           console.log(uid);
-          
-
         }
-      });
+      }); 
       // [END authstatelistener]
 
-    }
+    } // [END initApp()]
+
     window.onload = function() {
       initApp();
     };
