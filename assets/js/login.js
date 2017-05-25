@@ -9,6 +9,7 @@ var config = {
 };
 firebase.initializeApp(config);
 
+var database = firebase.database();
 
   var provider = new firebase.auth.GithubAuthProvider();
   var userId = "";
@@ -61,7 +62,32 @@ firebase.initializeApp(config);
   }); // End of sign on with GitHub
 
 function saveJobs(jobObj){
-  console.log(jobObj);
+  // console.log(jobObj);
+
+    var jobTitle = jobObj.title;
+    var jobCompany = jobObj.company;
+    var jobLocation = jobObj.location;
+    var jobDate = jobObj.date;
+    var jobSource = jobObj.source;
+    var jobDescription = jobObj.description;
+    var jobURL = jobObj.url;
+
+  console.log("The saved job in login.js is: job title: "+jobTitle +" company: "+ jobCompany+ " location: " +jobLocation+ " Date: " +jobDate+ " Source: " +jobSource+ " Description: "+jobDescription+" URL: " +jobURL);    
+
+    var addJobs = {
+      title :  jobTitle,
+      company: jobCompany,
+      location: jobLocation,
+      date: jobDate,
+      source: jobSource,
+      description: jobDescription,
+      url: jobURL
+    };
+
+    // Insert into database
+    database.ref("/"+userId+"/jobs").push(addJobs);
+
+
 }
 
 // $(".saveJob").on("click", function() {
