@@ -63,14 +63,16 @@ function doAjaxCall(qURL, mycallback){
 function getGitHubResponse(result){
 	// console.log('done',result);
 
-	// console.log('-----------------JOB DETAILS-----------------');
 	var jobsResults = result;
 	var jobTitle;
 	var jobCompany;
 	var jobLocation;
 	var jobDate;
 
-	$("#feed").append();
+
+	console.log('-----------------GITHUB RESULTS-----------------');
+	console.log('Github jobsResults',jobsResults);
+
 	for(var i=0; i< jobsResults.length; i++){
 		// console.log(i+1);
 

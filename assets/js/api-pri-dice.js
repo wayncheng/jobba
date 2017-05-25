@@ -84,8 +84,9 @@ function getDiceResponse(result){
 	// console.log('Previous URL if any :: ',result.prevURL);
 	// console.log('Next URL :: ',result.nextUrl);
 
-	// console.log('-----------------DICE DETAILS-----------------');
 	var jobsResults = result.resultItemList;
+	console.log('-----------------DICE RESULTS-----------------');
+	console.log('Dice jobsResults',jobsResults);
 
 	$("#feed").append();
 	for(var i=0; i< jobsResults.length; i++){
@@ -110,6 +111,9 @@ function getDiceResponse(result){
 
 	// Change status to done.
 	globalObj.apiStatus.dice = 'done';
+
+	// Notify console 
+	console.log('-----------------DICE DONE-----------------');
 
 
 }

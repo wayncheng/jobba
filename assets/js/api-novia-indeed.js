@@ -76,13 +76,13 @@ function getIndeedResponse(result){
 	// console.log('Previous URL if any :: ',result.prevURL);
 	// console.log('Next URL :: ',result.nextUrl);
 
-	console.log('-----------------INDEED DETAILS-----------------');
 	var jobsResults = result.results;
+	console.log('-----------------INDEED RESULTS-----------------');
+	console.log('Indeed jobsResults',jobsResults);
 
-	$("#feed").append();
 	for(var i=0; i< jobsResults.length; i++){
-		console.log(i+1);
-		console.log('jobsResults[i]',jobsResults[i]);
+		// console.log(i+1);
+		// console.log('jobsResults[i]',jobsResults[i]);
 
 		// Format date using moment.js
 		var dateFormatted = moment(jobsResults[i].date).format("MMM D");

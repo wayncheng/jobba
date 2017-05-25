@@ -81,7 +81,6 @@ a.link {
 }
 
 
-
 /*--------------------------------
         Pagination
 --------------------------------*/
@@ -89,11 +88,80 @@ a.link {
 		text-align: center;
 	}
 
-	#feed-controls label {
-/*		height: 45px;
+	
+	/* Pagination Colors */
+	.pagination > li > a, 
+	.pagination > li > span 
+	{
+		background-color: #3498db;
+	}
+	.pagination > li > a:hover, 
+	.pagination > li > span:hover,
+	.pagination > li > a:focus, 
+	.pagination > li > span:focus
+	{
+		background-color: #2980b9;
+	}
+	.pagination > .active > a, 
+	.pagination > .active > span, 
+	.pagination > .active > a:hover, 
+	.pagination > .active > span:hover, 
+	.pagination > .active > a:focus, 
+	.pagination > .active > span:focus 
+	{
+		background-color: #2980b9;
+	}
+	.pagination > .disabled > span, 
+	.pagination > .disabled > span:hover, 
+	.pagination > .disabled > span:focus, 
+	.pagination > .disabled > a, 
+	.pagination > .disabled > a:hover, 
+	.pagination > .disabled > a:focus
+	{
+		background-color: #92c4e6;
+	}
+
+/*-------------------------------
+        Above Feed
+--------------------------------*/
+	#above-feed {
+		height: 45px;
 		line-height: 45px;
-		margin: 0;*/
-		/*padding-left: 0;*/
-		padding-right: 0;
+		margin-bottom: 20px;
+	}
+	
+	.feed-detail,
+	#above-feed form,
+	#above-feed fieldset,
+	#above-feed form-group,
+	#above-feed div.form-input-wrap,
+	#above-feed label
+	{
+		height: inherit;
+		line-height: inherit;
+	}
+	#feed-controls label {
+		padding: 0;
+	}
+	p.feed-detail {
+		margin: 0;
+	}
+
+/*-------------------------------
+        Scroll to Top
+--------------------------------*/
+	#scroll-to-top {
+		font-size: 30px;
+		width: 50px;
+		height: 50px;
+		line-height: 50px;
+		text-align: center;
+		background-color: #95a5a6;
+		color: #fff;
+		position: fixed;
+		display: none;
+		right: 10px;
+		bottom: 10px;
+		cursor: pointer;
 	}
 

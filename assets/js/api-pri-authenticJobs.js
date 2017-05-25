@@ -78,10 +78,10 @@ function getAuthenticJobsResponse(result){
 	// console.log('Previous URL if any :: ',result.prevURL);
 	// console.log('Next URL :: ',result.nextUrl);
 
-	console.log('-----------------AUTHENTIC JOB DETAILS-----------------');
 	var jobsResults = result.listings.listing;
+	console.log('-----------------AUTHENTIC JOB RESULTS-----------------');
+	console.log('Authentic jobsResults',jobsResults);
 
-	$("#feed").append();
 	for(var i=0; i< jobsResults.length; i++){
 		// console.log(i+1);
 		// console.log('jobsResults[i]',jobsResults[i]);
@@ -115,17 +115,20 @@ function getAuthenticJobsResponse(result){
 			"date": dateFormatted,
 			"source": "Authentic Jobs",
 			"description": ji.description,
-			"url": ji.url,
-			// "apply_url": ji.apply_url,
+			"url": ji.url
 		}
+			// "apply_url": ji.apply_url
 		var jobStr = JSON.stringify(jobJSON);
 		// globalObj.print(jobStr);
 		globalObj.printManager(jobStr);
 
-	} // end for loop
+	}; // end for loop
 
 	// Change status to done.
 	globalObj.apiStatus.authentic = 'done';
+
+	// Notify console 
+	console.log('-----------------AUTHENTIC JOBS DONE-----------------');
 
 
 }
