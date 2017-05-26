@@ -114,19 +114,6 @@
 			color: #fff;
 			font-weight: 300;
 		}
-
-	/* Save Button */
-		.save-btn {
-			background-color: rgba(41, 128, 185, .85);
-			z-index: 1000;
-			transition: all 500ms;
-		}
-		.save-btn:hover,
-		.save-btn:active,
-		.save-btn:focus {
-				background-color: #2980b9;
-				background-color: rgba(41, 128, 185, 1);
-		}
 	/* Toggle Fold */
 		.toggle-fold {
 			text-align: center;

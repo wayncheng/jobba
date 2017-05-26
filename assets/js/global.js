@@ -1,16 +1,9 @@
 
-// apiStatusObj: 
-// 		{
-// 			github: 'processing',
-// 			authentic: 'processing',
-// 			dice: 'processing',
-// 			indeed: 'processing'
-// 		},
-
-
 var g = {
-allResultsStr: [],
+allRawData: [],
 allResults: [],
+allResultsStr: [],
+filteredData: [],
 companyList: [],
 totalResultCount: 0,
 page: 1,
@@ -25,6 +18,7 @@ getIP:
 apiStatus: ['processing','processing','processing','processing'],
 apiCheckpoint: 'processing',
 apiCheck: 0,
+apisRunning: false,
 checkStatus:
 		function(){
 			// Update Progress Bar
@@ -34,6 +28,9 @@ checkStatus:
 			// If completely done
 			if( g.apiCheck === 4 ) {
 				console.log('all apis done');
+
+				// change run status
+				g.apisRunning = false;
 
 				// Hide progress bar
 				$('#progress-wrap').hide();
@@ -109,6 +106,9 @@ printManager:
 		},
 beginPrint: 
 		function(){
+			// Remove landing styling
+			$('.landing').removeClass('landing');
+
 			// Display the feed elements;
 			$('#page1').show();
 			$('#pg-1').css('display','initial');
@@ -178,7 +178,8 @@ print:
 
 			// Variables for details to be written
 			var title = jobData.title;
-			var title = g.resultNumber +'. '+ jobData.title;
+			// var title = g.resultNumber +'. '+ jobData.title;
+			var jobPosition = jobData.jobPosition;
 			var company = jobData.company;
 			var location = jobData.location;
 			var date = jobData.date;
@@ -198,59 +199,104 @@ print:
 				{ key: "source", value: source},
 			];
 
-			var wrap = $('<div>');
-				wrap.addClass('listing panel panel-default');
-				// wrap.attr('data-all',jobStr);
-				wrap.attr('data-index',jobIndex);
-				wrap.attr('data-company',company);
+			var listing = $('<li>');
+				listing.addClass('listing');
+				listing.attr('data-index',jobIndex)
+				listing.attr('data-company',company);
 
+			var header = $('<div>');
+				header.addClass('collapsible-header');
+			
 			var body = $('<div>');
-				body.addClass('panel-body');
+				body.addClass('collapsible-body');
 
-			var h2 = $('<h2>');
-				h2.addClass('headline');
-				h2.text(title);
-			
-			var h3 = $('<h3>');
-				h3.addClass('company');
-				h3.text('('+ company +')');
-			
-			var saveImg = $('<img>');
-				saveImg.addClass('save-img');
-				saveImg.attr('src',saveBtnImageSource);
-				saveImg.attr('alt','Save this job listing');
+			var listingNumber = $('<span>');
+				listingNumber.addClass('listing-number ghost');
+				listingNumber.text(g.resultNumber);
 
-			var saveWrap = $('<div>');
-				saveWrap.addClass('save-wrap')
-				saveWrap.html(saveImg);
+			var headline = $('<h2>');
+				headline.addClass('headline');
+				headline.text(title);
 
-			// var d = $('<p>');
-			// 	d.addClass('description below-fold fold-hide');
-			// 	d.html(description);
+			// var comopany already exists
+			var companyEl = $('<h3>');
+				companyEl.addClass('company');
+				companyEl.text(company);
 
-			var metaWrap = $('<div>');
-				metaWrap.addClass('meta');
+			var saveWrap = $('<span>');
+				saveWrap.addClass('save-wrap ghost');
 
 			for (var i=0; i<metaArray.length; i++) {
 				var p = $('<p>');
 					p.addClass('meta-detail');
 					p.addClass(metaArray[i].key);
 					p.text(metaArray[i].value);
-					metaWrap.append(p);
+					body.append(p);
 			};
-			
-			// Fold toggle
-			// var foldToggle = $('<div>').addClass('toggle-fold');
-			// 	foldToggle.attr('data-fold','closed');
 
-			body.append(h2);
-			body.append(h3);
-			body.append(saveWrap);
-			body.append(metaWrap);
-			// body.append(foldToggle);
-			// body.append(d);
-			wrap.append(body);
-			$('#feed').append(wrap);
+			header.append(listingNumber);			
+			header.append(headline);			
+			header.append(companyEl);			
+			header.append(saveWrap);
+
+			listing.append(header);
+			listing.append(body);
+
+			$('#feed').append(listing);
+
+			// var wrap = $('<div>');
+			// 	wrap.addClass('listing panel panel-default');
+			// 	// wrap.attr('data-all',jobStr);
+			// 	wrap.attr('data-index',jobIndex);
+			// 	wrap.attr('data-company',company);
+
+			// var body = $('<div>');
+			// 	body.addClass('panel-body');
+
+			// var h2 = $('<h2>');
+			// 	h2.addClass('headline');
+			// 	h2.text(title);
+			
+			// var h3 = $('<h3>');
+			// 	h3.addClass('company');
+			// 	h3.text('('+ company +')');
+			
+			// var saveImg = $('<img>');
+			// 	saveImg.addClass('save-img');
+			// 	saveImg.attr('src',saveBtnImageSource);
+			// 	saveImg.attr('alt','Save this job listing');
+
+			// var saveWrap = $('<div>');
+			// 	saveWrap.addClass('save-wrap')
+			// 	saveWrap.html(saveImg);
+
+			// // var d = $('<p>');
+			// // 	d.addClass('description below-fold fold-hide');
+			// // 	d.html(description);
+
+			// var metaWrap = $('<div>');
+			// 	metaWrap.addClass('meta');
+
+			// for (var i=0; i<metaArray.length; i++) {
+			// 	var p = $('<p>');
+			// 		p.addClass('meta-detail');
+			// 		p.addClass(metaArray[i].key);
+			// 		p.text(metaArray[i].value);
+			// 		metaWrap.append(p);
+			// };
+			
+			// // Fold toggle
+			// // var foldToggle = $('<div>').addClass('toggle-fold');
+			// // 	foldToggle.attr('data-fold','closed');
+
+			// body.append(h2);
+			// body.append(h3);
+			// body.append(saveWrap);
+			// body.append(metaWrap);
+			// // body.append(foldToggle);
+			// // body.append(d);
+			// wrap.append(body);
+			// $('#feed').append(wrap);
 		},
 
 reset: 
@@ -292,6 +338,12 @@ submit:
 		    event.preventDefault();
 			g.reset();
 
+			if ( g.apisRunning === true ) {
+				return;
+			}
+			else {
+				g.apisRunning = true;
+			}
 
 			// Search parameters
 			var q = $('#search').val();
@@ -374,25 +426,22 @@ api:
 
 						for(var i=0; i< jobsResults.length; i++){
 							var ji = jobsResults[i];
-
-							var jobTitle = ji.title;
-							var jobCompany = ji.company;
-							var jobLocation = ji.location;
-							var jobDateRaw = ji.created_at;
-							var jobDate = moment(jobDateRaw).format("MMM D");
-							var jobSource = "Github";
-							var jobDescription = ji.description;
-							var jobURL = ji.url;
+							g.allRawData.push(ji);
 
 							// Send to Global Print Function
 							var jobJSON = {
-								"title" :  jobTitle,
-								"company": jobCompany,
-								"location": jobLocation,
-								"date": jobDate,
-								"source": jobSource,
-								"description": jobDescription,
-								"url": jobURL,
+								"title":  ji.title,
+								"jobPosition": ji.title,
+								"company": ji.company,
+								"location": ji.location,
+								"date": moment(ji.created_at).format("MMM D"),
+								"source": "Github",
+								"description": ji.description,
+								"url": ji.url,
+								"applyURL": ji.url,
+								"type": ji.type,
+								"company_url": ji.company_url,
+								"company_logo": ji.company_logo,
 							}
 							var jobStr = JSON.stringify(jobJSON);
 							g.printManager(jobStr);
@@ -406,7 +455,6 @@ api:
 							g.apiStatus[apiIndex] = 'done';
 
 						// Notify console of end
-						console.log('----------------------------------');
 					},
 				ajaxCall: 
 					function(qURL, mycallback){
@@ -468,27 +516,23 @@ api:
 
 						for(var i=0; i< jobsResults.length; i++){
 
-							// var	ji = jobsResults[i],
-							// 	jobTitle = ji.jobtitle, 
-							// 	jobCompany = ji.company, 
-							// 	jobLocation = ji.city, 
-							// 	jobDateRaw = ji.date, 
-							// 	jobDate = moment(ji.date).format("MMM D"),
-							// 	jobSource = "Indeed",
-							// 	jobDescription = ji.snippet,
-							// 	jobURL = ji.url;
-
 							var ji = jobsResults[i];
+							g.allRawData.push(ji);
 
 							// Send to Global Print Function
 							var jobJSON = {
 								"title" :  ji.jobtitle,
+								"jobPosition:": ji.jobtitle,
 								"company": ji.company,
 								"location": ji.city,
 								"date": moment(ji.date).format("MMM D"),
 								"source": "Indeed",
 								"description": ji.snippet,
 								"url": ji.url,
+								"applyURL": ji.url,
+								"type": 'N/A',
+								"company_url": 'N/A',
+								"company_logo": 'N/A',
 							}
 							// Convert to string for export
 							var jobStr = JSON.stringify(jobJSON);
@@ -505,8 +549,6 @@ api:
 							var apiIndex = g.api.indeed.apiIndex;
 							g.apiStatus[apiIndex] = 'done';
 
-						// Notify console of end
-						console.log('----------------------------------');
 					},
 				ajaxCall: 
 					function(qURL, mycallback){
@@ -586,16 +628,22 @@ api:
 
 						for(var i=0; i< jobsResults.length; i++){
 							var ji = jobsResults[i];
+							g.allRawData.push(ji);
 
 							// Send to Global Print Function
 							var jobJSON = {
 								"title" :  ji.jobTitle,
+								"jobPosition:": ji.jobTitle,
 								"company": ji.company,
 								"location": ji.location,
 								"date": moment(ji.date).format("MMM D"),
 								"source": "Dice",
 								"description": "Description is not available. For more details, visit Dice's website.",
 								"url": ji.detailUrl,
+								"applyURL": ji.detailUrl,
+								"type": 'N/A',
+								"company_url": 'N/A',
+								"company_logo": 'N/A',
 							}
 
 							var jobStr = JSON.stringify(jobJSON);
@@ -611,9 +659,6 @@ api:
 						console.log('g.apiCheck',g.apiCheck);
 							var apiIndex = g.api.dice.apiIndex;
 							g.apiStatus[apiIndex] = 'done';
-
-						// Notify console of end
-						console.log('----------------------------------');
 					},
 				ajaxCall: 
 					function(qURL, mycallback){
@@ -690,33 +735,64 @@ api:
 						for(var i=0; i< jobsResults.length; i++){
 
 							var ji = jobsResults[i];
+							g.allRawData.push(ji);
 
 							// In case company info is not provided...
-							var loc, comp;
-							if ( typeof ji.company === 'undefined' ) {
-								comp = 'Company Info N/A';
-								loc = 'Location N/A';
-							}
-							else if ( typeof ji.company === 'object' && typeof ji.company.location === 'undefined' ) {
-								comp = ji.company.name;
-								loc = 'Location N/A';
-							}
-							else {
-								comp = ji.company.name;
-								loc = ji.company.location.name;
+							// Preprocess all company dependent variables
+							var locationValue, 
+								companyValue, 
+								companyURLValue, 
+								companyLogoValue;
+
+							// Set everything to N/A
+							companyValue = locationValue = companyURLValue = companyLogoValue = 'N/A'
+
+							// if ( typeof ji.company === 'undefined' ) {
+							// 	companyValue = locationValue = companyURLValue = companyLogoValue = 'N/A'
+							// }
+							// else if ( typeof ji.company === 'object' && typeof ji.company.location === 'undefined' ) {
+							// 	companyValue = ji.company.name;
+							// 	locationValue = 'N/A';
+							// 	if (typeof ji.company.location === 'undefined')
+							// }
+							// else if ( typeof ji.company === 'object' && typeof ji.company.location === 'undefined' ) {
+							// 	companyValue = ji.company.name;
+							// 	locationValue = 'N/A';
+							// }
+							// else if{
+							// 	companyValue = ji.company.name;
+							// 	locationValue = ji.company.location.name;
+							// }
+							if ( typeof ji.company != 'undefined' ) {
+								var jic = ji.company;
+								companyValue = jic.name;
+								
+								if ( typeof jic.location != 'undefined' ) {
+									locationValue = jic.location.name;
+								}
+								if ( typeof jic.url != 'undefined' ) {
+									companyURLValue = jic.url;
+								}
+								if ( typeof jic.logo != 'undefined' ) {
+									companyLogoValue = jic.logo;
+								}
 							}
 
 							// Packaging the output values for the printer in the global object
 							var jobJSON = {
 								"title" :  ji.title,
-								"company": comp,
-								"location": loc,
+								"jobPosition:": ji.title,
+								"company": companyValue,
+								"location": locationValue,
 								"date": moment(ji.post_date).format("MMM D"),
 								"source": "Authentic Jobs",
 								"description": ji.description,
-								"url": ji.url
+								"url": ji.url,
+								"applyURL": ji.apply_url,
+								"type": ji.type.name,
+								"companyURL": companyURLValue,
+								"companyLogo": companyLogoValue,
 							}
-							// "apply_url": ji.apply_url,
 
 							// Convert to string to be exported
 							var jobStr = JSON.stringify(jobJSON);
