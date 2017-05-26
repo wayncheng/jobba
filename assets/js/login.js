@@ -142,9 +142,12 @@ $('#signOut').on("click", function(){
   });
 
 
-$('#viewSavedJobs').on("click", function(){
+
+
+$('#displayjobs').on("click", function(){
 
   //How to pass userID from one page to the other?
+  window.location = '/saved-jobs.html';   
 });
 
 

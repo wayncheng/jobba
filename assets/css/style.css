@@ -266,6 +266,13 @@
 		visibility: hidden;
 	}
 
+	#displayjobs {
+		position: absolute;
+		top: 15px;
+		right: 5px;
+		color: #000;	
+	}
+
 /*[Only display save button after login]*/
 	.save-wrap{
 		visibility: hidden;
