@@ -1,0 +1,223 @@
+body {
+	position: relative;
+}
+nav.header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	box-shadow: none;
+}
+#banner {
+	width: 100%;
+	margin: 0;
+	background-color: #ECF0F1;
+	padding: 100px 0 50px;
+}
+#banner.landing {
+	height: 100vh;
+	padding: 0;
+}
+/* Search Bar ------------------------------*/
+/*.bar { outline: 2px solid green; }
+.bar .input-field { outline: 2px solid red; }
+.bar input { outline: 2px solid blue; }*/
+	.bar, .bar .input-field, .bar input {
+		/*margin-top: 0;*/
+		margin-bottom: 0;
+	}
+	.bar,
+	.bar .input-field {
+		/*margin-top: 5px;*/
+	}
+	.bar {
+		margin-bottom: 20px;
+	}
+
+	.bar .input-field {
+
+	}
+	.bar input {
+
+	}
+
+
+/* Input Text Field Colors ------------------------------*/
+	/* text input color */
+	.input-field input[type=text] {
+		color: #eee;
+		/*border-bottom-width: 2px;*/
+	}
+	/* placeholder color */
+	.input-field input[type=text]::placeholder {
+		color: #999;
+	}
+	/* label color */
+	.input-field label {
+	 color: #ccc;
+	}
+	/* label focus color */
+	.input-field input[type=text]:focus + label {
+	 color: #ddd;
+	}
+	/* label underline focus color */
+	.input-field input[type=text]:focus {
+	 border-bottom: 1px solid #ccc;
+	 box-shadow: 0 1px 0 0 #ccc;
+	}
+	/* valid color */
+	.input-field input[type=text].valid {
+	 border-bottom: 1px solid #2ecc71;
+	 box-shadow: 0 1px 0 0 #2ecc71;
+	}
+	/* invalid color */
+	.input-field input[type=text].invalid {
+	 border-bottom: 1px solid #e74c3c;
+	 box-shadow: 0 1px 0 0 #e74c3c;
+	}
+	/* icon prefix focus color */
+	.input-field .prefix.active {
+	 color: #ccc;
+	}
+
+
+/* Submit Button ------------------------------*/
+	#submit {
+		width: 100%;
+	}
+
+/* Page 1 ------------------------------*/
+	#page1 {
+		background-color: #eee;
+		min-height: 100vh;
+		/*padding-top: 40px;*/
+		padding: 40px 0;
+	}
+/* Feed ------------------------------*/
+	.collapsible-header {
+		padding: 1rem;
+	}
+	.collapsible li {
+		position: relative;
+	}
+	.headline, .company {
+		/* Match indent */
+		margin: 0;
+		margin-left: 35px;
+		overflow: hidden;
+	}
+	.headline {
+		display: block;
+		font-weight: 500;
+		font-size: 16px;
+		margin-right: 10px;
+		height: 20px;
+		line-height: 20px;
+	}
+	.company {
+		display: block;
+		font-weight: 300;
+		font-size: 14px;
+		height: 16px;
+		line-height: 16px;
+	}
+	span.ghost {
+		display: inline-block;
+		position: absolute;
+	}
+	/* Listing number */
+	.listing-number {
+		height: 20px;
+		line-height: 20px;
+		width: 20px;
+		color: rgba(0,0,0,0.4);
+		text-align: right
+	}
+
+	.location::before {
+		content: "Location: "
+	}
+	.date::before {
+		content: "Posted: "
+	}
+	.source::before {
+		content: "Source: "
+	}
+/* Save Button ------------------------------*/
+		.save-wrap {
+			display: inline-block;
+			font-size: 20px;
+			height: 1em;
+			width: 1em;
+			overflow: hidden;
+				position: absolute;
+				top: 15px;
+				right: 15px;
+			background-image: url(../icons/heart1sq-grayl-red.svg);
+			background-size: cover;
+			background-position-y: 0%; 
+		}
+		.save-wrap.saved {
+			background-position-y: 100%;
+		}
+		.save-img {
+			display: none;
+		}
+
+/* Pagination ------------------------------*/
+	.pagination li.active {
+		background-color: #78909c;
+	}
+
+/* Filtering ------------------------------*/
+	#show-filters {
+		margin-left: 24px;
+	}
+
+	.sideNavForm {
+
+	}
+	.filterSourceInput {
+		background-color: #cfd8dc;
+		color: #cfd8dc;
+
+	}
+
+
+
+/* All Checkboxes ------------------------------*/
+
+	.input-field input[type=checkbox] + label {
+		 color: #666;
+	}
+	.input-field  input[type=checkbox]:hover + label, 
+	.input-field  input[type=checkbox]:focus + label {
+		 color: #111;
+		 text-decoration: underline;
+	}
+
+/* Dropdown Checkboxes ------------------------------*/
+	
+	.input-field.thin {
+		margin-top: 0;
+	}
+
+/* Side Nav ------------------------------*/
+	.side-nav .collapsible-body form li, 
+	.side-nav.fixed .collapsible-body form li {
+		padding: 0 23.5px 0 31px;
+	}
+	.side-nav .input-field {
+		margin-top: 0;
+	}
+	.side-nav.input-field input[type=checkbox] + label {
+		 width: 100%;
+	}
+
+
+
+
+
+
+
+
+/*------------------------------------------------------------*/
