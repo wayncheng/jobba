@@ -12,6 +12,16 @@ $(document).ready(function(){
 		url = createGitHubURL(q,city,"","10");
 		doAjaxCall(url,getGitHubResponse);
 	});
+	$('#pagination').on('click','a', function(){
+	    event.preventDefault();
+		pageNumber = $(this).attr("page");
+
+	    $("#feed").empty();
+		q = $('#search').val();
+		city = $('#q-city').val();
+		url = createGitHubURL(q,city,"");
+		doAjaxCall(url,getGitHubResponse);
+	});
 
 });
 
@@ -100,7 +110,7 @@ function getGitHubResponse(result){
 	} // end for loop
 
 	// Change status to done.
-	globalObj.apiStatus.github = 'done';
+	// globalObj.apiStatus.github = 'done';
 
 
 }
