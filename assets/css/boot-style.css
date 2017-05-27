@@ -150,3 +150,35 @@ body {
 	}
 
 	}
+
+
+/*--------------------------------
+        Login
+--------------------------------*/
+	#signInWithGithub {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		color: #000;
+	}
+
+	#signOut {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		color: #000;
+		visibility: hidden;
+	}
+
+	#displayjobs {
+		position: absolute;
+		top: 45px;
+		right: 5px;
+		color: #000;	
+	}
+
+
+/*[Only display save button after login]*/
+	.save-wrap{
+		visibility: hidden;
+	}

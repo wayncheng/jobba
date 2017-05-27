@@ -11,7 +11,7 @@ itemsPerPage: 20,
 resultNumber: 1,
 userIP: '',
 getIP:
-		$.getJSON("http://jsonip.com/?callback=?", function (data) {
+		$.getJSON("https://jsonip.com/?callback=?", function (data) {
 	        g.userIP = data.ip;
 	        console.log('jobba.userIP',g.userIP);
 	    }),

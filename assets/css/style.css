@@ -265,3 +265,23 @@
 		color: #000;
 		visibility: hidden;
 	}
+
+<<<<<<< HEAD
+	#displayjobs {
+		position: absolute;
+		top: 15px;
+		right: 5px;
+		color: #000;	
+	}
+=======
+
+>>>>>>> 82fa064543dbd551d502ccbed9bbe059cda2ef9f
+
+/*[Only display save button after login]*/
+	.save-wrap{
+		visibility: hidden;
+	}
+
+#pagination{
+	text-align: center;
+}

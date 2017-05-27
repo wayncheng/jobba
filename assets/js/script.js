@@ -12,8 +12,10 @@ $(document).ready(function () {
 		var saveData = jobba.allResults[dataIndex];
 		console.log('saveData',saveData);
 
+		saveJobs(saveData);
+
 		// Icon Change
-		$t.toggleClass('saved');
+		$t.toggleClass('saved'); //How can we only only click this one time? - Novia
 
 	}); // end listing click
 

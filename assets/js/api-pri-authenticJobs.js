@@ -1,10 +1,27 @@
 
+var totalAJJobs = 0;
+var pageNumber = 1;
+
 $('#submit').on('click', function(){
 	    event.preventDefault();
 	    $("#feed").empty();
 		q = $('#search').val();
 		var city = $('#q-city').val().trim();
-		url = createAuthenticJobsReq(q,"",city,"","100");
+		url = createAuthenticJobsReq(q,"",city,pageNumber,noOfRecords);
+		console.log("Authentic Jobs URL: "+url);
+		console.log("Authentic Jobs city: "+city);
+
+		doAjaxCall(url,getAuthenticJobsResponse);
+	});
+
+$('#pagination').on('click','a', function(){
+	    event.preventDefault();
+		pageNumber = $(this).attr("page");
+	    
+	    $("#feed").empty();
+		q = $('#search').val();
+		var city = $('#q-city').val().trim();
+		url = createAuthenticJobsReq(q,"",city,pageNumber,noOfRecords);
 		console.log("Authentic Jobs URL: "+url);
 		console.log("Authentic Jobs city: "+city);
 
@@ -79,6 +96,8 @@ function getAuthenticJobsResponse(result){
 	// console.log('Next URL :: ',result.nextUrl);
 
 	var jobsResults = result.listings.listing;
+	totalAJJobs = result.listings.total;
+	console.log("TOTAL NUMBER OF AJ JOBS === ",totalAJJobs);
 	console.log('-----------------AUTHENTIC JOB RESULTS-----------------');
 	console.log('Authentic jobsResults',jobsResults);
 
@@ -119,13 +138,13 @@ function getAuthenticJobsResponse(result){
 		}
 			// "apply_url": ji.apply_url
 		var jobStr = JSON.stringify(jobJSON);
-		// globalObj.print(jobStr);
-		globalObj.printManager(jobStr);
+		globalObj.print(jobStr);
+		// globalObj.printManager(jobStr);
 
 	}; // end for loop
 
 	// Change status to done.
-	globalObj.apiStatus.authentic = 'done';
+	// globalObj.apiStatus.authentic = 'done';
 
 	// Notify console 
 	console.log('-----------------AUTHENTIC JOBS DONE-----------------');

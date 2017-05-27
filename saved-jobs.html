@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Jobba</title>
+	<meta charset="UTF-8">
+	<meta name="author" content="Novia">	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="assets/img/jobba-black-white-simple-3.png">
+
+	<!-- Google Font Links -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+	<link href="assets/css/bootswatch-flatly.css" rel="stylesheet">
+	<link href="assets/css/boot-style.css" rel="stylesheet">
+	<link href="assets/css/progress-bar.css" rel="stylesheet">
+	<link href="assets/css/feed.css" rel="stylesheet">
+	<link href="assets/css/feature.css" rel="stylesheet">
+	<link href="assets/css/dice.css" rel="stylesheet">
+	<link href="assets/css/login.css" rel="stylesheet">
+
+		<!-- Firebase UI CDN -->
+	<script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script>
+	<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" />
+
+</head>
+<body>
+
+<div id="banner" class="jumbotron">
+
+<!-- placeholder login buttons to be integrated -->
+	<button class="btn btn-default btn-sm" id="signInWithGithub" data-toggle="tooltip" title="Sign in with Github"><i class="fa fa-github fa-lg" aria-hidden="true"></i> Login</button>
+	<button class="btn btn-danger btn-sm" id="signOut" data-toggle="tooltip" title="Sign out"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</button>
+<!-- placeholder login buttons to be integrated -->
+
+	<div class="container-fluid banner-body">
+		<!-- Banner Headline -->
+		<h1 id="banner-headline">These <em>are</em> the jobs you're looking for.</h1>
+		<!-- Main Search -->
+		<form class="col-xs-8 col-xs-offset-2 col-md-6 col-md-offset-3 form-horizontal main-search">
+		  <fieldset>
+		    <div class="form-group bar-group">
+		      <!-- <div class="col-xs-8 col-sm-6 col-sm-offset-1 col-lg-5 col-lg-offset-2 bar-main-wrap"> -->
+		      <!-- <div class="col-sm-6 bar-wrap bar-main-wrap"> -->
+		      
+		      <div class="bar-wrap main-wrap">
+		        <input type="text" class="bar-input form-control main-search" id="search" placeholder="Search for Jobs">
+		      </div>
+		      <!-- <div class="col-xs-8 col-sm-4 col-lg-3 bar-loc-wrap">  -->
+		      <!-- <div class="col-sm-5 bar-wrap bar-loc-wrap">  -->
+		     
+		      <div class="bar-wrap loc-wrap"> 
+		        <input type="text" class="bar-input form-control" id="q-city" placeholder="e.g. San Francisco">
+		       <!--  <button type="submit" class="btn btn-primary" id="submit">
+		        	<img src="assets/img/search9-white.svg" alt="Submit your search" id="search-icon">
+		        </button> -->
+		      </div>
+		     
+		      <div class="bar-wrap submit-wrap">
+		        <button type="submit" class="bar-input btn btn-primary" id="submit">
+		        	<img src="assets/img/search9-white.svg" alt="Submit your search" id="search-icon">
+		        </button>
+		      </div>
+		    <!-- </div> -->
+		  </fieldset>
+		</form>
+		
+	</div>
+	<!-- Progress Bar -->
+	<!-- <div id="progress-wrap" class="progress progress-striped active">
+	  <div id="progress-target" class="progress-bar progress-bar-warning"></div>
+	</div> -->
+</div>
+<!--=============================================-->
+<div id="page1" class="container-fluid">
+
+<!-- Filter Container =============================================-->
+	<div class="filter-container col-xs-8 col-md-2 col-md-offset-1">
+		<form>
+		  	<fieldset>
+		    <legend>Filter + Sort</legend>
+			<!-- Sources -->
+				<div class="form-group">
+					<label class="control-label">Source</label>
+					<div class="radio"> <label>
+							<input type="radio" name="source-options" id="source-opt-1" value="github">
+							Github
+						</label> </div>
+
+					<div class="radio"> <label>
+					    <input type="radio" name="source-options" id="source-opt-2" value="indeed">
+							Indeed
+						</label> </div>
+
+					<div class="radio"> <label>
+					    <input type="radio" name="source-options" id="source-opt-3" value="dice">
+							Dice
+						</label> </div>
+
+					<div class="radio"> <label>
+					    <input type="radio" name="source-options" id="source-opt-4" value="authentic">
+							Authentic Jobs
+						</label> </div>
+				</div>
+			<!-- Company -->
+				<div class="form-group">
+					<label class="control-label">Company</label>
+					<div class="radio"> <label>
+							<input type="radio" name="company-options" id="company-opt-1" value="company-1">
+							Company-1
+						</label> </div>
+				</div>
+			<!-- XXXXXXXXXX -->
+				<div class="form-group">
+					<label class="control-label">XXXXXXXXXX</label>
+					<div class="radio"> <label>
+							<input type="radio" name="XXXXXXXXXX-options" id="XXXXXXXXXX-opt-num" value="XXXXXXXXXX-num">
+							XXXXXXXXXX-num
+						</label> </div>
+				</div>
+
+		</fieldset>
+		</form>
+	</div> <!-- /filter-container -->
+
+<!-- Feed Container =============================================-->
+	<div class="feed-container col-xs-10 col-md-6">
+		<!-- Above Feed -->
+			<div id="above-feed" class="row">
+				<!-- Total Results -->
+					<!-- <div class="col-md-3 row-group"> -->
+					<div class="col-md-5 row-group">
+						<p class="feed-detail">Total Results: <span id="total-result-count"></span></p>
+					</div>
+				<!-- Feed Controls -->
+					<!-- <div class="col-lg-4 col-lg-offset-5 col-md-3 col-md-offset-6 row-group"> -->
+					<div class="col-md-6 col-md-offset-1 row-group">
+							<form id="feed-controls" class="form-horizontal">
+								<fieldset>
+								    <div class="form-group feed-control">
+								      <label for="select" class="col-md-7 control-label">Results Per Page</label>
+								      <div class="col-md-5 form-input-wrap">
+									        <select class="form-control" id="items-per-page">
+									          <option>10</option>
+									          <option selected="selected">20</option>
+									          <option>30</option>
+									          <option>40</option>
+									          <option>50</option>
+									        </select>
+								      </div>
+								    </div>
+								</fieldset>
+							</form>
+					</div>
+			</div> <!-- /above-feed row -->
+		<!-- Feed -->
+
+
+
+		<!-- Feed ==============================-->
+			<div id="savedJobsFeed"> 
+				<!-- /////////////////// -->
+				<!-- TARGET RESULTS HERE -->
+				<!-- /////////////////// -->
+			</div>
+
+
+
+
+			
+		<!-- Pagination -->
+			<div class="pagination-container">
+				<nav aria-label="Search results pages">
+					<ul class="pagination">
+					 	<li class="disabled"><a href="#feed">&laquo;</a></li>
+					 	<li id="pg-1" class="li-pg active"><a href="#feed">1</a></li>
+					 	<li id="pg-2" class="li-pg"><a href="#feed">2</a></li>
+					 	<li id="pg-3" class="li-pg"><a href="#feed">3</a></li>
+					 	<li id="pg-4" class="li-pg"><a href="#feed">4</a></li>
+					 	<li id="pg-5" class="li-pg"><a href="#feed">5</a></li>
+					 	<!-- <li id="pg-6" class="li-pg"><a href="#feed">6</a></li>
+					 	<li id="pg-7" class="li-pg"><a href="#feed">7</a></li>
+					 	<li id="pg-8" class="li-pg"><a href="#feed">8</a></li>
+					 	<li id="pg-9" class="li-pg"><a href="#feed">9</a></li> -->
+					 	<li><a href="#feed">&raquo;</a></li>
+					</ul>
+				</nav>
+			</div>
+	</div> <!-- /feed-container -->
+
+<!-- Feature Container =============================================-->
+
+	<div class="feature-container col-xs-10 col-md-4">
+		<div id="feature" class="panel panel-primary">
+			<div id="ft-headline-wrap" class="panel-heading">
+				<h2 id="ft-headline">Job Details</p>
+			</div>
+			<div class="panel-body">
+				
+				<section class="panel panel-info description">
+					<div class="panel-heading">
+						<p class="eyebrow">Description</p>
+					</div>
+					<div class="panel-body">
+						<h2 class="headline">About the Job:</h2>
+						<div id="ft-description" class="target details">
+							<!-- /////////////////////// -->
+							<!-- Target Description Here -->
+							<!-- /////////////////////// -->
+						</div>
+					</div>
+				</section>
+				<section class="panel panel-info company">
+					<div class="panel-heading">
+						<p class="eyebrow">Company Details</p>
+					</div>
+					<div class="panel-body">
+						<h2 class="headline">Company: <span id="ft-company-name" class="target"></span></h2>
+						<div id="ft-company-details" class="target details">
+							<!-- /////////////////////////// -->
+							<!-- Target Company Details Here -->
+							<!-- /////////////////////////// -->
+						</div>
+					</div>
+
+				</section>
+				<section class="panel panel-info position">
+					<div class="panel-heading">
+						<p class="eyebrow">Job Position Details</p>
+					</div>
+					<div class="panel-body">
+						<h2 class="headline">Position: <span id="ft-position" class="target"></span></h2>
+						<div id="ft-position-details" class="target details">
+							<!-- //////////////////////////// -->
+							<!-- Target Position Details Here -->
+							<!-- //////////////////////////// -->
+						</div>
+					</div>
+				</section>
+
+			</div>
+		</div>
+	</div> <!-- /feature-container -->
+
+
+
+<!-- Free Positioned =======================================-->
+		<div id="scroll-to-top">&uarr;</div>
+
+</div> <!-- /page1 -->
+<!--=============================================-->
+
+
+
+<!--=============================================-->
+<!-- JS Links -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script> -->
+	<script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4nu_5UhddgajGv7lS96ri7lsyyZ3vbjQ&libraries=places&language=en"></script>
+	<!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4nu_5UhddgajGv7lS96ri7lsyyZ3vbjQk&callback=initMap"></script> -->
+<!-- Cities autocomplete -->
+		<script>
+			var locationOptions = { 
+				types: ['(cities)'] 
+			};
+	    var locationInput = document.getElementById('q-city');
+	    var autocomplete = new google.maps.places.Autocomplete(locationInput, locationOptions);
+
+	    </script>
+<!-- End of Cities autocomplete -->
+	<script src="assets/js/global.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/devTools.js" type="text/javascript" charset="utf-8"></script>
+	
+<!-- Firebase -->
+	<script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+	<script src="assets/js/login.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/displayjobs.js" type="text/javascript" charset="utf-8"></script>
+
+	<script src="assets/js/script.js" type="text/javascript" charset="utf-8"></script>
+
+	<script src="assets/js/benchmark-email-form.js" type="text/javascript"></script>
+
+	<!-- <script src="assets/libs/bowser.min.js" type="text/javascript" charset="utf-8"></script> -->
+	<script type="text/javascript" charset="utf-8">
+
+	</script>
+
+</body>
+</html>
