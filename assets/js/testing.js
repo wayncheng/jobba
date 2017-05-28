@@ -1,3 +1,115 @@
+
+function generateFirebaseID(){
+  // Modeled after base64 web-safe chars, but ordered by ASCII.
+  var PUSH_CHARS = '-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz';
+
+  // Timestamp of last push, used to prevent local collisions if you push twice in one ms.
+  var lastPushTime = 0;
+
+  // We generate 72-bits of randomness which get turned into 12 characters and appended to the
+  // timestamp to prevent collisions with other clients.  We store the last characters we
+  // generated because in the event of a collision, we'll use those same characters except
+  // "incremented" by one.
+  var lastRandChars = [];
+
+  return function() {
+    var now = new Date().getTime();
+    var duplicateTime = (now === lastPushTime);
+    lastPushTime = now;
+
+    var timeStampChars = new Array(8);
+    for (var i = 20; i >= 0; i--) {
+      timeStampChars[i] = PUSH_CHARS.charAt(now % 64);
+      // NOTE: Can't use << here because javascript will convert to int and lose the upper bits.
+      now = Math.floor(now / 64);
+    }
+    if (now !== 0) throw new Error('We should have converted the entire timestamp.');
+
+    var id = timeStampChars.join('');
+
+    if (!duplicateTime) {
+      for (i = 0; i < 12; i++) {
+        lastRandChars[i] = Math.floor(Math.random() * 64);
+      }
+    } else {
+      // If the timestamp hasn't changed since last push, use the same random number, except incremented by 1.
+      for (i = 28; i >= 0 && lastRandChars[i] === 63; i--) {
+        lastRandChars[i] = 0;
+      }
+      lastRandChars[i]++;
+    }
+    for (i = 0; i < 29; i++) {
+      id += PUSH_CHARS.charAt(lastRandChars[i]);
+    }
+    // if(id.length != 20) throw new Error('Length should be 20.');
+
+    return id;
+  };
+};
+var gFunc = generateID();
+var gID = gFunc();
+console.log('gID',gID);
+
+
+function makeIDs(){
+	var charBank = '-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz';
+	var idLength = 50;
+	var charBankLength = 64;
+	var idStr = '';
+	var idArr = [];
+
+	function getRandomIntInclusive(min, max) {
+	  min = Math.ceil(min);
+	  max = Math.floor(max);
+	  return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+
+	for (var i=0; i<idLength; i++) {
+		var charIndex = getRandomIntInclusive(0,63);
+		var char = charBank[charIndex];
+
+		idStr += char;
+	};
+	console.log('idStr',idStr);
+}
+// makeIDs();
+
+
+
+
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBUVssFCnGKGEypDRsWSps4-Aklr1H9Zag",
+    authDomain: "jobba-fe187.firebaseapp.com",
+    databaseURL: "https://jobba-fe187.firebaseio.com",
+    projectId: "jobba-fe187",
+    storageBucket: "jobba-fe187.appspot.com",
+    messagingSenderId: "430840990935"
+  };
+  firebase.initializeApp(config);
+
+var database = firebase.database();
+
+var ref  = database.ref('/id').
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var allRawDataArray = [
 		{"detailUrl":"http://www.dice.com/job/result/cybercod/SB8-13733761?src=19","jobTitle":"Senior Fullstack Web Engineer - JavaScript, Angular, Node, CSS","company":"CyberCoders","location":"San Francisco, CA","date":"2017-05-25"},
 			{"detailUrl":"http://www.dice.com/job/result/applecup/57067160?src=19","jobTitle":"Sr. Web Developer","company":"Apple Inc.","location":"Cupertino, CA","date":"2017-05-25"},
@@ -196,3 +308,15 @@ var allRawDataArray = [
 		"logo":"https://d2fcz5no062gar.cloudfront.net/logos/telmate_1420746109.png","tagline":"Leading provider of inmate communications"},
 		"keywords":"software,team,experience,their,work,including,custom,hardware,teams,android,product,engineering,about,coding,through,professional,code,many,status,bike,were,projects,your,applications,them,video,much,help,care,leadership","apply_url":"http://grnh.se/70xnly1","url":"https://authenticjobs.com/jobs/29062/software-engineering-manager-telmate"}
 	]
+
+
+
+
+
+
+
+
+
+
+
+

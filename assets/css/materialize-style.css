@@ -10,34 +10,27 @@ nav.header {
 #banner {
 	width: 100%;
 	margin: 0;
-	background-color: #ECF0F1;
+	/*background-color: #ECF0F1;*/
+	/*background-color: #455a64;*/
+	/*background-color: #9b59b6;*/
+	/*background-color: #5d516a;*/
+	/*background-color: #ff8f00;*/
 	padding: 100px 0 50px;
+	overflow: hidden;
+	position: relative;
 }
 #banner.landing {
 	height: 100vh;
 	padding: 0;
 }
+
+
+
+
 /* Search Bar ------------------------------*/
-/*.bar { outline: 2px solid green; }
-.bar .input-field { outline: 2px solid red; }
-.bar input { outline: 2px solid blue; }*/
 	.bar, .bar .input-field, .bar input {
 		/*margin-top: 0;*/
 		margin-bottom: 0;
-	}
-	.bar,
-	.bar .input-field {
-		/*margin-top: 5px;*/
-	}
-	.bar {
-		margin-bottom: 20px;
-	}
-
-	.bar .input-field {
-
-	}
-	.bar input {
-
 	}
 
 
@@ -80,10 +73,74 @@ nav.header {
 	}
 
 
+
+
+
+/* Search Bar Overhaul ------------------------------*/
+	
+	.bar input[type=text] {
+		background-color: #ECF0F1;
+		border-bottom-color: #ECF0F1;
+		color: #333;
+		text-indent: 10px;
+		/*padding: 0 10px;*/
+	}
+	.bar input[type=text]:focus {
+		/*border-bottom: none;*/
+		box-shadow: none;
+	}
+	.bar input[type=text]::placeholder {
+		color: #666;
+	}
+
 /* Submit Button ------------------------------*/
 	#submit {
 		width: 100%;
+		height: 45px;
+		line-height: 45px;
+		font-size: 1.5rem;
+		padding: 0 1rem;
+		/*background-color: #0277bd;*/
+		background-color: #0288d1;
+		background-color: #039be5;
+		background-color: #e53935;
+		/*background-color: #1e88e5;*/
+		background-color: #00acc1;
+		/*background-color: #00897b;*/
+		background-color: #43a047;
+		/*background-color: #7cb342;*/
+		/*background-color: #fdd835;*/
+		/*background-color: #ffb300;*/
+		background-color: #fb8c00;
+		background-color: #f4511e;
+		/*background-color: #546e7a;*/
+		/*background-color: #757575;*/
 	}
+	#submit i.material-icons {
+		font-size: 1.75rem;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Page 1 ------------------------------*/
 	#page1 {
@@ -215,9 +272,72 @@ nav.header {
 
 
 
+/*------------------------------------------------------------*/
 
-
-
+	#saved-modal-trigger {
+		margin-left: 40px;
+	}
 
 
 /*------------------------------------------------------------*/
+
+
+
+div.loading-icon-piece-wrap {
+	height: 600px;
+	width: 600px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	background-image: url(../icons/loadingicons/grid.svg);
+	background-repeat: space;
+	height: 100%;
+	width: 100%;
+	opacity: 0.1;
+}
+
+img.loading-icon-piece {
+	outline: 1px solid red;
+	margin: 5px;
+}
+
+div.loading-wrap {
+	position: absolute;
+	width: 100%;
+	/*height: 50px;*/
+	bottom: 0;
+	left: 0;
+	background-color: #6a516a
+}
+
+
+#rolling-cube-load {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	height: 125px;
+	width: 150px;
+	overflow: hidden;
+	background-image: url(../icons/loading-icon-sticky-cube-roll.gif);
+	background-position: 50% 40%;
+}
+
+
+
+#banner-logo {
+	width: 75%;
+	margin: 0 auto;
+	max-width: 300px;
+	height: initial; 
+	display: block;
+	margin-bottom: 25px;
+}
+#fox-trot-load.loading-wrap {
+	left: initial;
+	right: 0;
+}
+#fox-trot-load img {
+	height: 150px;
+	line-height: 150px;
+	bottom-right: 2px solid #bdc3c7;
+}
