@@ -13,6 +13,21 @@ nav.header {
 	visibility: hidden;
 	display: none;
 }
+#signInWithGithub {
+	/*background-color: rgba(0,0,0,0.7);*/
+}
+.header ul.right li {
+	/*float: right;*/
+}
+nav.brand-logo {
+	padding-top: 5px;
+}
+nav .brand-logo .logo-image {
+	height: 35px;
+	width: initial;
+	display: inline-block;
+}
+
 /* Banner ------------------------------*/
 #banner {
 	width: 100%;

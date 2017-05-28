@@ -11,54 +11,74 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
     <!-- <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700" rel="stylesheet"> -->
     <!-- <link href="https://fonts.googleapis.com/css?family=Cutive+Mono" rel="stylesheet"> -->
-	<!-- Font awesome cdn -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
     <!-- CSS Links -->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css" media="screen,projection" />
+    <!-- Font awesome cdn -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Jobbacon CSS -->
+    <link rel="stylesheet" href="assets/fonts/jobbacon-1.2/jobbacon.ttf">
+    <link rel="stylesheet" href="assets/fonts/jobbacon-1.2/style.css">
+    <!-- Materialize CSS -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
-    <link href="assets/css/materialize-style.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css" media="screen,projection" />
     <!-- Firebase UI CDN -->
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" />
-    <!-- <link href="assets/css/progress-bar.css" rel="stylesheet"> -->
-    <!-- <link href="assets/css/feed.css" rel="stylesheet"> -->
-    <!-- <link href="assets/css/feature.css" rel="stylesheet"> -->
-    <link href="assets/css/dice.css" rel="stylesheet">
-    <!-- <link href="assets/css/login.css" rel="stylesheet">	 -->
+    <!-- Jobba CSS -->
+    <link href="assets/css/materialize-style.css" rel="stylesheet">
+
 </head>
 
 <body>
     <!--=============================================-->
     <nav class="transparent header" role="navigation">
         <div class="nav-wrapper container">
-            <a id="logo-container" href="index.html" class="brand-logo">Jobba</a>
-            <ul class="right hide-on-med-and-down">
-	            <li>
-	            	<a href="#" class="header-link login sign-in" id="signInWithGithub" data-toggle="tooltip" title="Sign in with Github">
-            		<!-- <i class="fa fa-github fa-lg" aria-hidden="true"></i>  -->
-            		Login </a>
-	        		</li>
+            <!-- <a id="logo-container" href="index.html" class="brand-logo right"> </a> -->
+            <ul class="left hide-on-med-and-down">
+                <li>
+                    <a href="#" class="blue-grey header-link login sign-in btn" id="signInWithGithub" data-toggle="tooltip" title="Sign in with Github">
+                    <!-- <i class="fa fa-github fa-lg" aria-hidden="true"></i>  -->
+                    <!-- <i class="jba jba-github jba-left"></i> -->
+                    Github Login </a>
+                    </li>
+                <li>
+                    <a href="#saved-jobs-modal" class="amber darken-3 header-link btn" id="displayJobs" title="View Saved Jobs">
+                    <!-- <i class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>  -->
+                    <!-- <i class="material-icons jba jba-star"></i> -->
+                    Saved Jobs </a>
+                    </li>
 				<li>
-					<a href="#" class="header-link login sign-out" id="signOut" data-toggle="tooltip" title="Sign out">
+					<a href="#" class="header-link login sign-out btn" id="signOut" data-toggle="tooltip" title="Sign out">
 					<!-- <i class="fa fa-sign-out" aria-hidden="true"></i>  -->
+                    <!-- <i class="jba jba-logout jba-left"></i> -->
 					Sign Out </a>
 					</li>
-				<li><a href="#" class="header-link " id="displayjobs" data-toggle="tooltip" title="View Saved Jobs">
-					<!-- <i class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>  -->
-					Saved Jobs
-					</a></li>
             </ul>
             <ul id="nav-mobile" class="side-nav">
-                <li><a href="#">Navbar Link</a></li>
+                <li>
+                    <a href="#">Jobba</a>
+                </li>
+                <li>
+                    <a href="#" class="header-link login sign-in btn" id="signInWithGithub" data-toggle="tooltip" title="Sign in with Github">
+                    <!-- <i class="fa fa-github fa-lg" aria-hidden="true"></i>  -->
+                    <!-- <i class="jba jba-github material-icons"></i> -->
+                    Github Login </a>
+                    </li>
+                <li>
+                    <a href="#saved-jobs-modal" class="header-link" id="displayJobs" title="View Saved Jobs">
+                    <!-- <i class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>  -->
+                    <!-- <i class="material-icons jba jba-star"></i> -->
+                    Saved Jobs </a>
+                    </li>
+                <li>
+                    <a href="#" class="header-link login sign-out btn" id="signOut" data-toggle="tooltip" title="Sign out">
+                    <!-- <i class="fa fa-sign-out" aria-hidden="true"></i>  -->
+                    <!-- <i class="jba jba-logout jba-left"></i> -->
+                    Sign Out </a>
+                    </li>
             </ul>
-            <a href="#" data-activates="nav-mobile" class="button-collapse">
-                <i class="material-icons">menu</i>
-            </a>	
-            <!-- <button class="btn btn-default btn-sm" id="signInWithGithub" data-toggle="tooltip" title="Sign in with Github"><i class="fa fa-github fa-lg" aria-hidden="true"></i> Login</button> -->
-			<!-- <button class="btn btn-danger btn-sm" id="signOut" data-toggle="tooltip" title="Sign out"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</button> -->
-
-			<!-- <button class="btn btn-default btn-sm" id="displayjobs" data-toggle="tooltip" title="View Saved Jobs"><i class="fa fa-floppy-o fa-lg" aria-hidden="true"></i> Saved Jobs</button> -->
-
+            <a href="#" data-activates="nav-mobile" class="button-collapse"> <i class="material-icons">menu</i> </a>
+          
         </div>
     </nav>
     <!--=============================================-->
@@ -98,7 +118,9 @@
         </div> -->
     </div>
     <!--=============================================-->
+
     <div id="page1">
+
         <div class="row">
             <!-- col sizes should match feed -->
             <div class="col s12 m10 offset-m1 xl6 offset-xl3">
@@ -160,64 +182,65 @@
             </div>
         </div>
         <!-- /row -->
-        <ul id="slide-out" class="side-nav">
-            <li><a href="#!">First Sidebar Link</a></li>
-            <li class="no-padding">
-                <ul class="collapsible collapsible-accordion">
-                    <li>
-                        <a class="collapsible-header">Sort By:<i class="material-icons">arrow_drop_down</i></a>
-                        <div class="collapsible-body">
-                            <ul>
-                                <li><a href="#!">Date</a></li>
-                                <li><a href="#!">Distance</a></li>
-                                <li><a href="#!">Salary</a></li>
-                                <li><a href="#!">Coolest Name</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-            <li class="no-padding">
-                <ul class="collapsible collapsible-accordion">
-                    <li>
-                        <a class="collapsible-header">Filter Source:<i class="material-icons">arrow_drop_down</i></a>
-                        <div class="collapsible-body">
-                            <form class="sideNavForm">
+        <!-- Side Nav -->
+            <!-- <ul id="slide-out" class="side-nav">
+                <li><a href="#!">First Sidebar Link</a></li>
+                <li class="no-padding">
+                    <ul class="collapsible collapsible-accordion">
+                        <li>
+                            <a class="collapsible-header">Sort By:<i class="material-icons">arrow_drop_down</i></a>
+                            <div class="collapsible-body">
                                 <ul>
-                                    <li class="input-field">
-                                        <input type="checkbox" id="sourceGithub" class="filterSourceInput filled-in" checked="checked" />
-                                        <label for="sourceGithub">Github</label>
-                                    </li>
-                                    <li class="input-field">
-                                        <input type="checkbox" id="sourceIndeed" class="filterSourceInput filled-in" checked="checked" />
-                                        <label for="sourceIndeed">Indeed</label>
-                                    </li>
-                                    <li class="input-field">
-                                        <input type="checkbox" id="sourceDice" class="filterSourceInput filled-in" checked="checked" />
-                                        <label for="sourceDice">Dice</label>
-                                    </li>
-                                    <li class="input-field">
-                                        <input type="checkbox" id="sourceAuthenticJobs" class="filterSourceInput filled-in" checked="checked" />
-                                        <label for="sourceAuthenticJobs">Authentic Jobs</label>
-                                    </li>
+                                    <li><a href="#!">Date</a></li>
+                                    <li><a href="#!">Distance</a></li>
+                                    <li><a href="#!">Salary</a></li>
+                                    <li><a href="#!">Coolest Name</a></li>
                                 </ul>
-                            </form>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="no-padding">
+                    <ul class="collapsible collapsible-accordion">
+                        <li>
+                            <a class="collapsible-header">Filter Source:<i class="material-icons">arrow_drop_down</i></a>
+                            <div class="collapsible-body">
+                                <form class="sideNavForm">
+                                    <ul>
+                                        <li class="input-field">
+                                            <input type="checkbox" id="sourceGithub" class="filterSourceInput filled-in" checked="checked" />
+                                            <label for="sourceGithub">Github</label>
+                                        </li>
+                                        <li class="input-field">
+                                            <input type="checkbox" id="sourceIndeed" class="filterSourceInput filled-in" checked="checked" />
+                                            <label for="sourceIndeed">Indeed</label>
+                                        </li>
+                                        <li class="input-field">
+                                            <input type="checkbox" id="sourceDice" class="filterSourceInput filled-in" checked="checked" />
+                                            <label for="sourceDice">Dice</label>
+                                        </li>
+                                        <li class="input-field">
+                                            <input type="checkbox" id="sourceAuthenticJobs" class="filterSourceInput filled-in" checked="checked" />
+                                            <label for="sourceAuthenticJobs">Authentic Jobs</label>
+                                        </li>
+                                    </ul>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul> -->
         <!-- /sideNav -->
         <!-- Tap Target Structure -->
-        <div class="tap-target" data-activates="saved-modal-trigger">
-            <div class="tap-target-content">
-                <h5>View your saved jobs here</h5>
-                <p>Click here to open the modal that holds your most prized listings.</p>
-            </div>
-        </div>
+            <!-- <div class="tap-target" data-activates="saved-modal-trigger">
+                <div class="tap-target-content">
+                    <h5>View your saved jobs here</h5>
+                    <p>Click here to open the modal that holds your most prized listings.</p>
+                </div>
+            </div> -->
         <!-- Modal Trigger -->
-        <a id="saved-modal-trigger" href="#saved-jobs-modal" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">star</i></a>
-        <!-- <a class="waves-effect waves-light btn" href="#saved-jobs-modal">View Saved Jobs</a> -->
+            <!-- <a id="saved-modal-trigger" href="#saved-jobs-modal" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">star</i></a> -->
+            <!-- <a class="waves-effect waves-light btn" href="#saved-jobs-modal">View Saved Jobs</a> -->
         <!-- Modal Structure -->
         <div id="saved-jobs-modal" class="modal bottom-sheet">
             <div class="modal-content">
@@ -227,7 +250,7 @@
                 </ul>
             </div>
             <div class="modal-footer">
-                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+                <!-- <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a> -->
             </div>
         </div>
     </div>

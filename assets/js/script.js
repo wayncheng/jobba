@@ -17,7 +17,8 @@ $(document).ready(function () {
 			$('.tap-target').tapTarget('open');
 			// Bind click event to whatever it is being featured,
 			// so when user does click, the element goes away
-			$('#saved-modal-trigger').on('click', function(event){
+			// $('#saved-modal-trigger').on('click', function(event){
+			$('#displayJobs').on('click', function(event){
 				event.preventDefault();
 				$('.tap-target').tapTarget('close');
 			})
@@ -91,7 +92,7 @@ $(document).ready(function () {
 // Materialize Inits
 
 	// Initialize collapse button
-	$('.side-nav-btn').sideNav({
+	$('.button-collapse').sideNav({
 		menuWidth: 300, // Default is 300
 		edge: 'left', // Choose the horizontal origin
 		closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
