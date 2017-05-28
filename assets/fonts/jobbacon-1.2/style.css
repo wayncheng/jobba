@@ -1,0 +1,121 @@
+@font-face {
+  font-family: 'jobbacon';
+  src: url('jobbacon.ttf?ihp9jd') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.jba-left, .jba-right,
+.jba {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'jobbacon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: inherit !important;
+  display: inline-block;
+
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.jba-left { 
+  float:left;
+  margin-right: 8px; 
+}
+.jba-right { 
+  float: right ;
+  margin-left: 8px;
+}
+
+.jba-sort:before {
+  content: "\f0dc";
+}
+.jba-unsorted:before {
+  content: "\f0dc";
+}
+.jba-sort-desc:before {
+  content: "\f0dd";
+}
+.jba-sort-down:before {
+  content: "\f0dd";
+}
+.jba-sort-asc:before {
+  content: "\f0de";
+}
+.jba-sort-up:before {
+  content: "\f0de";
+}
+.jba-sort-abc:before {
+  content: "\f15d";
+}
+.jba-sort-alpha-asc:before {
+  content: "\f15d";
+}
+.jba-sort-cba:before {
+  content: "\f15e";
+}
+.jba-sort-alpha-desc:before {
+  content: "\f15e";
+}
+.jba-sort-amount-asc:before {
+  content: "\f160";
+}
+.jba-sort-amount-desc:before {
+  content: "\f161";
+}
+.jba-sort-123:before {
+  content: "\f162";
+}
+.jba-sort-numeric-asc:before {
+  content: "\f162";
+}
+.jba-sort-321:before {
+  content: "\f163";
+}
+.jba-sort-numeric-desc:before {
+  content: "\f163";
+}
+.jba-filter:before {
+  content: "\f0b0";
+}
+.jba-bookmark:before {
+  content: "\f02e";
+}
+.jba-bookmark-o:before {
+  content: "\f097";
+}
+.jba-github:before {
+  content: "\f09b";
+}
+.jba-move-up:before {
+  content: "\ea46";
+}
+.jba-move-down:before {
+  content: "\ea47";
+}
+.jba-github-text:before {
+  content: "\f092";
+}
+.jba-star:before {
+  content: "\e901";
+}
+.jba-star-o:before {
+  content: "\e902";
+}
+.jba-heart-o:before {
+  content: "\e903";
+}
+.jba-heart:before {
+  content: "\e904";
+}
+.jba-logout:before {
+  content: "\e905";
+}
+.jba-login:before {
+  content: "\e906";
+}
