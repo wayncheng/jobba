@@ -1,12 +1,19 @@
 body {
 	position: relative;
 }
+/* Header ------------------------------*/
 nav.header {
 	position: absolute;
 	top: 0;
 	left: 0;
 	box-shadow: none;
+	z-index: 1000;
 }
+#signOut {
+	visibility: hidden;
+	display: none;
+}
+/* Banner ------------------------------*/
 #banner {
 	width: 100%;
 	margin: 0;
