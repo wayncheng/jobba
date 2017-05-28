@@ -249,9 +249,9 @@ print:
 			headerEl.append(listingNumberEl);			
 			headerEl.append(headlineEl);			
 			headerEl.append(companyEl);			
-			headerEl.append(saveWrap);
 
 			listingEl.append(headerEl);
+			listingEl.append(saveWrap);
 			listingEl.append(bodyEl);
 
 			$('#feed').append(listingEl);

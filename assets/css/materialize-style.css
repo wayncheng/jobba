@@ -234,9 +234,14 @@ nav .brand-logo .logo-image {
 			background-image: url(../icons/heart1sq-grayl-red.svg);
 			background-size: cover;
 			background-position-y: 0%; 
+			cursor: pointer;
 		}
+		.save-wrap:hover,
 		.save-wrap.saved {
 			background-position-y: 100%;
+		}
+		.save-wrap.saved:hover {
+			/*background-position-y: 0%; */
 		}
 		.save-img {
 			display: none;
