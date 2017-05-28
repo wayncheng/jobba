@@ -184,6 +184,7 @@ print:
 			var location = jobData.location;
 			var date = jobData.date;
 			var source = jobData.source;
+			var sourceID = jobData.sourceID;
 			var description = jobData.description;
 			var jobIndex = jobData.index;
 			var saveBtnText = 'Save Job';
@@ -196,29 +197,32 @@ print:
 			var metaArray = [
 				{ key: "location", value: location},
 				{ key: "date", value: daysAgo},
-				{ key: "source", value: source},
+				{ key: "source", value: source}
 			];
 
-			var listing = $('<li>');
-				listing.addClass('listing');
-				listing.attr('data-index',jobIndex)
-				listing.attr('data-company',company);
+			var listingEl = $('<li>');
+				listingEl.addClass('listing');
+				listingEl.attr('data-index',jobIndex)
+				listingEl.attr('data-company',company);
+				listingEl.attr('data-source',source);
+				listingEl.attr('data-source-id',sourceID);
 
-			var header = $('<div>');
-				header.addClass('collapsible-header');
+
+			var headerEl = $('<div>');
+				headerEl.addClass('collapsible-header');
 			
-			var body = $('<div>');
-				body.addClass('collapsible-body');
+			var bodyEl = $('<div>');
+				bodyEl.addClass('collapsible-body');
 
-			var listingNumber = $('<span>');
-				listingNumber.addClass('listing-number ghost');
-				listingNumber.text(g.resultNumber);
+			var listingNumberEl = $('<span>');
+				listingNumberEl.addClass('listing-number ghost');
+				listingNumberEl.text(g.resultNumber);
 
-			var headline = $('<h2>');
-				headline.addClass('headline');
-				headline.text(title);
+			var headlineEl = $('<h2>');
+				headlineEl.addClass('headline');
+				headlineEl.text(title);
 
-			// var comopany already exists
+			// var company already exists
 			var companyEl = $('<h3>');
 				companyEl.addClass('company');
 				companyEl.text(company);
@@ -226,23 +230,31 @@ print:
 			var saveWrap = $('<span>');
 				saveWrap.addClass('save-wrap ghost');
 
+			// Meta Details
 			for (var i=0; i<metaArray.length; i++) {
 				var p = $('<p>');
 					p.addClass('meta-detail');
 					p.addClass(metaArray[i].key);
 					p.text(metaArray[i].value);
-					body.append(p);
+					bodyEl.append(p);
 			};
 
-			header.append(listingNumber);			
-			header.append(headline);			
-			header.append(companyEl);			
-			header.append(saveWrap);
+			// Listing description
+			var descriptionEl = $('<div>');
+				descriptionEl.addClass('meta-detail description');
+				descriptionEl.html(description);
+				bodyEl.append(descriptionEl);
 
-			listing.append(header);
-			listing.append(body);
+			// All Appends
+			headerEl.append(listingNumberEl);			
+			headerEl.append(headlineEl);			
+			headerEl.append(companyEl);			
+			headerEl.append(saveWrap);
 
-			$('#feed').append(listing);
+			listingEl.append(headerEl);
+			listingEl.append(bodyEl);
+
+			$('#feed').append(listingEl);
 
 			// var wrap = $('<div>');
 			// 	wrap.addClass('listing panel panel-default');
@@ -436,6 +448,7 @@ api:
 								"location": ji.location,
 								"date": moment(ji.created_at).format("MMM D"),
 								"source": "Github",
+								"sourceID": ji.id,
 								"description": ji.description,
 								"url": ji.url,
 								"applyURL": ji.url,
@@ -527,6 +540,7 @@ api:
 								"location": ji.city,
 								"date": moment(ji.date).format("MMM D"),
 								"source": "Indeed",
+								"sourceID": ji.jobkey,
 								"description": ji.snippet,
 								"url": ji.url,
 								"applyURL": ji.url,
@@ -630,6 +644,15 @@ api:
 							var ji = jobsResults[i];
 							g.allRawData.push(ji);
 
+							// Convert URL into ID (urls are variable lengths)
+							// from: http://www.dice.com/job/result/10111699/01201702WBDCA?src=19
+							// to: 10111699-01201702WBDCA
+							var urlEnd = ji.detailUrl.slice(31,);
+							var queryStartIndex = urlEnd.indexOf('?')
+							var urlExtracted = urlEnd.slice(0,queryStartIndex);
+							var sourceID = urlExtracted.replace('/','_');
+
+
 							// Send to Global Print Function
 							var jobJSON = {
 								"title" :  ji.jobTitle,
@@ -638,6 +661,7 @@ api:
 								"location": ji.location,
 								"date": moment(ji.date).format("MMM D"),
 								"source": "Dice",
+								"sourceID": sourceID,
 								"description": "Description is not available. For more details, visit Dice's website.",
 								"url": ji.detailUrl,
 								"applyURL": ji.detailUrl,
@@ -786,6 +810,7 @@ api:
 								"location": locationValue,
 								"date": moment(ji.post_date).format("MMM D"),
 								"source": "Authentic Jobs",
+								"sourceID": ji.id,
 								"description": ji.description,
 								"url": ji.url,
 								"applyURL": ji.apply_url,
