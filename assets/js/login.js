@@ -59,7 +59,7 @@ var database = firebase.database();
         console.log("Error - " + errorCode + "  " + errorMessage + "  " + email + "  " + credential);
     });
 
-  }); // End of sign on with GitHub
+  }); // End of sign on with GitHub  
 
 function saveJobs(jobObj){
   // console.log(jobObj);
@@ -71,6 +71,8 @@ function saveJobs(jobObj){
     var jobSource = jobObj.source;
     var jobDescription = jobObj.description;
     var jobURL = jobObj.url;
+    var sourceJobID = jobObj.source+"="+jobObj.sourceID;
+
 
   console.log("The saved job in login.js is: job title: "+jobTitle +" company: "+ jobCompany+ " location: " +jobLocation+ " Date: " +jobDate+ " Source: " +jobSource+ " Description: "+jobDescription+" URL: " +jobURL);    
 
@@ -85,8 +87,20 @@ function saveJobs(jobObj){
     };
 
     // Insert into database
-    database.ref("/"+userId+"/jobs").push(addJobs);
+    // jobcon = database.ref("/"+userId+"/jobs/"+sourceJobID).push();
+    if(userId!=""){
+      database.ref("/"+userId+"/jobs/"+sourceJobID).set(addJobs);
+    }
 
+}
+
+function removeJob(){
+
+  //   $("#scheduleDetails").on("click", ".deleteBtn", function() {
+  //   var trainKey = $(this).parent().parent().attr('id');
+
+  //   database.ref("/"+trainKey).remove();
+  // });
 
 }
 
@@ -140,8 +154,6 @@ $('#signOut').on("click", function(){
       // An error happened.
     }); 
   });
-
-
 
 
 $('#displayjobs').on("click", function(){
