@@ -31,7 +31,7 @@ function CreateLinkupUrl(searchString,city,state,noOfRecords){
 
 	var url = "";
 
-	if(searchString != ""){
+	if(searchString != "http://www.linkup.com/developers/v-1/search-handler.js?api_key=6681AB844790FB012488B9027B231749&embedded_search_key=b599c6a6e9b2178c2e673516252cad2a&orig_ip=127.0.0.1&keyword=sales&location=55344&distance=50"){
 		searchString = encodeURIComponent(searchString);
 		url = url + "&description=" + searchString;
 	}

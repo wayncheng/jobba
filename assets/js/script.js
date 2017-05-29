@@ -128,13 +128,25 @@ $(document).ready(function () {
     	event.preventDefault();
 	    var el = $('#main-body-nav');
 	    var ref = $('#banner');
+	    var targetEl = $('.pin-target');
 	    var scrollPos = $(window).scrollTop();
+	    var lastPos = scrollPos
+
+
+
 
 	    if ( scrollPos >= ref.outerHeight()) {
-	    	el.css('position','fixed');
+	    	// el.css('position','fixed');
+	    	el.addClass('pos-fixed');
+	    	el.css('background-color','rgba(0,0,0,0.7)');
+	    	// targetEl.show();
+	    	targetEl.addClass('pos-fixed');
+	    	// $('#main-nav-menu-icon').css('color','#333');
 	    }
 	    else {
-	    	el.css('position','absolute');
+	    	el.removeClass('pos-fixed');
+	    	el.css('background-color','initial');
+	    	targetEl.removeClass('pos-fixed');
 	    }
     });
 
@@ -176,7 +188,8 @@ $(document).ready(function () {
       	} 
     });
 
-
+	// close side nav when link pressed.
+	$('.close-btn').sideNav('hide');
 
 
 

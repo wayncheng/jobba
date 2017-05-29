@@ -1,0 +1,49 @@
+
+
+/* Search Bar ------------------------------*/
+	.bar, .bar .input-field, .bar input {
+		/*margin-top: 0;*/
+		margin-bottom: 0;
+	}
+
+
+/* Search Bar Overhaul ------------------------------*/
+	
+	.bar input[type=text] {
+		background-color: #ECF0F1;
+		border-bottom-color: #ECF0F1;
+		color: #333;
+		text-indent: 10px;
+		/*padding: 0 10px;*/
+	}
+	.bar input[type=text]:focus {
+		/*border-bottom: none;*/
+		box-shadow: none;
+	}
+	.bar input[type=text]::placeholder {
+		color: #666;
+	}
+
+/* Submit Button ------------------------------*/
+
+	#submit {
+		width: 100%;
+		height: 45px;
+		line-height: 45px;
+		font-size: 1.5rem;
+		padding: 0;
+		background-color: #f4511e;
+		display: inline-block;
+		/*width: 45px;*/
+		/*margin-top: 14px;*/
+		/*height: 43px;*/
+	}
+	#submit i.material-icons {
+		font-size: 1.75rem;
+	}
+
+	@media all and (max-width: 880px){
+		.input-button {
+			/*display: block;*/
+		}
+	}
