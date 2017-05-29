@@ -190,6 +190,9 @@ print:
 			var saveBtnText = 'Save Job';
 			var saveBtnImageSource = 'assets/icons/heart1s-gray-red.svg';
 
+			// Combine source and sourceID
+			var completeSourceID = source.replace(/\s/g,'') + '=' + sourceID; 
+
 			// Convert date to days ago
 			var daysAgo = moment(date,'MMM-DD').fromNow();
 
@@ -205,7 +208,7 @@ print:
 				listingEl.attr('data-index',jobIndex)
 				listingEl.attr('data-company',company);
 				listingEl.attr('data-source',source);
-				listingEl.attr('data-source-id',sourceID);
+				listingEl.attr('data-source-id',completeSourceID);
 
 
 			var headerEl = $('<div>');
@@ -229,6 +232,7 @@ print:
 
 			var saveWrap = $('<span>');
 				saveWrap.addClass('save-wrap ghost');
+				saveWrap.attr('data-saved','false');
 
 			// Meta Details
 			for (var i=0; i<metaArray.length; i++) {

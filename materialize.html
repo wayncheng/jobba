@@ -11,22 +11,22 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
     <!-- <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700" rel="stylesheet"> -->
     <!-- <link href="https://fonts.googleapis.com/css?family=Cutive+Mono" rel="stylesheet"> -->
-    
     <!-- CSS Links -->
     <!-- Font awesome cdn -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <!-- Jobbacon CSS -->
-    <link rel="stylesheet" href="assets/fonts/jobbacon-1.2/jobbacon.ttf">
-    <link rel="stylesheet" href="assets/fonts/jobbacon-1.2/style.css">
+    <!-- <link rel="stylesheet" href="assets/fonts/jobbacon-1.2/jobbacon.ttf"> -->
+    <!-- <link rel="stylesheet" href="assets/fonts/jobbacon-1.2/style.css"> -->
     <!-- Materialize CSS -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
-    <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css" media="screen,projection" />
+    <!-- <link type="text/css" rel="stylesheet" href="assets/libs/materialize.min.css" media="screen,projection" /> -->
     <!-- Firebase UI CDN -->
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" />
     <!-- Jobba CSS -->
     <link href="assets/css/materialize-style.css" rel="stylesheet">
-
+    <link href="assets/css/materialize-feed.css" rel="stylesheet">
+    <link href="assets/css/loading-icon.css" rel="stylesheet">
 </head>
 
 <body>
@@ -36,81 +36,73 @@
             <!-- <a id="logo-container" href="index.html" class="brand-logo right"> </a> -->
             <ul class="left hide-on-med-and-down">
                 <li>
-                    <a href="#" class="blue-grey header-link login sign-in btn" id="signInWithGithub" data-toggle="tooltip" title="Sign in with Github">
-                    <!-- <i class="fa fa-github fa-lg" aria-hidden="true"></i>  -->
-                    <!-- <i class="jba jba-github jba-left"></i> -->
-                    Github Login </a>
-                    </li>
+                    <a href="#" class="blue-grey header-link login sign-in btn" id="signInWithGithub" title="Sign in with Github">
+                        <!-- <i class="fa fa-github fa-lg" aria-hidden="true"></i>  -->
+                        <!-- <i class="jba jba-github jba-left"></i> -->
+                        Github Login </a>
+                </li>
                 <li>
                     <a href="#saved-jobs-modal" class="amber darken-3 header-link btn" id="displayJobs" title="View Saved Jobs">
-                    <!-- <i class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>  -->
-                    <!-- <i class="material-icons jba jba-star"></i> -->
-                    Saved Jobs </a>
-                    </li>
-				<li>
-					<a href="#" class="header-link login sign-out btn" id="signOut" data-toggle="tooltip" title="Sign out">
-					<!-- <i class="fa fa-sign-out" aria-hidden="true"></i>  -->
-                    <!-- <i class="jba jba-logout jba-left"></i> -->
-					Sign Out </a>
-					</li>
+                        <!-- <i class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>  -->
+                        <!-- <i class="material-icons jba jba-star"></i> -->
+                        Saved Jobs </a>
+                </li>
+                <li>
+                    <a href="#" class="header-link login sign-out btn" id="signOut" title="Sign out">
+                        <!-- <i class="fa fa-sign-out" aria-hidden="true"></i>  -->
+                        <!-- <i class="jba jba-logout jba-left"></i> -->
+                        Sign Out </a>
+                </li>
             </ul>
             <ul id="nav-mobile" class="side-nav">
                 <li>
                     <a href="#">Jobba</a>
                 </li>
                 <li>
-                    <a href="#" class="header-link login sign-in btn" id="signInWithGithub" data-toggle="tooltip" title="Sign in with Github">
-                    <!-- <i class="fa fa-github fa-lg" aria-hidden="true"></i>  -->
-                    <!-- <i class="jba jba-github material-icons"></i> -->
+                    <a href="#" class="header-link login sign-in btn" id="signInWithGithub" title="Sign in with Github">
                     Github Login </a>
-                    </li>
+                </li>
                 <li>
-                    <a href="#saved-jobs-modal" class="header-link" id="displayJobs" title="View Saved Jobs">
-                    <!-- <i class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>  -->
-                    <!-- <i class="material-icons jba jba-star"></i> -->
+                    <a href="#saved-jobs-modal" class="amber darken-3 header-link btn" id="displayJobs" title="View Saved Jobs">
                     Saved Jobs </a>
-                    </li>
+                </li>
                 <li>
-                    <a href="#" class="header-link login sign-out btn" id="signOut" data-toggle="tooltip" title="Sign out">
-                    <!-- <i class="fa fa-sign-out" aria-hidden="true"></i>  -->
-                    <!-- <i class="jba jba-logout jba-left"></i> -->
+                    <a href="#" class="header-link login sign-out btn" id="signOut" title="Sign out">
                     Sign Out </a>
-                    </li>
+                </li>
             </ul>
-            <a href="#" data-activates="nav-mobile" class="button-collapse"> <i class="material-icons">menu</i> </a>
-          
+            <a id="header-side-nav-link" href="#" data-activates="nav-mobile" class="button-collapse"> <i class="material-icons">menu</i> </a>
         </div>
     </nav>
     <!--=============================================-->
     <div id="banner" class="blue-grey darken-3 landing valign-wrapper row">
+        <span id="banner-cover" class="ghost photo-tint"></span>
         <!-- <div id="banner" class="blue-grey darken-2 valign-wrapper row"> -->
         <form class="col s12 xl8 offset-xl2">
             <img id="banner-logo" class="logo logo-text feature-logo" src="assets/icons/jobba-final-text-only-white.png" alt="Jobba">
             <div class="row">
-                <div class="bar input-field input-text-wrap col s10 offset-s1 m6 offset-m1 l6 offset-l1 xl7">
+                <!-- <div class="bar input-field input-text-wrap col s10 offset-s1 m6 offset-m1 l6 offset-l1 xl7"> -->
+                <div class="bar input-field input-text-wrap col s10 offset-s1 m8 offset-m2 l6 offset-l1 xl6">
                     <input id="search" placeholder="Search for Jobs" type="text" class="bar validate">
-                    <!-- <label for="search">Job</label> -->
                 </div>
-                <div class="bar input-field input-text-wrap col s10 offset-s1 m3 l3 xl4">
+                <!-- <div class="bar input-field input-text-wrap col s10 offset-s1 m3 l3 xl4"> -->
+                <div class="bar input-field input-text-wrap col s10 offset-s1 m6 offset-m2 l3 xl4">
                     <input id="q-city" placeholder="Location" type="text" class="bar validate">
-                    <!-- <label for="q-city">Location</label> -->
                 </div>
-                <div class="bar input-button input-field col s10 offset-s1 m1 l1 xl1">
-                    <!-- <button id="submit" class="bar blue-grey btn waves-effect waves-light" type="submit" name="action">Search
-                        <i class="material-icons right">search</i>
-                    </button> -->
+                <!-- <div class="bar input-button input-field col s10 offset-s1 m1 l1 xl1"> -->
+                <div class="bar input-button input-field col s10 offset-s1 m2 l1 xl2">
                     <button id="submit" class="bar btn waves-effect waves-light" type="submit" name="action">
                         <i class="material-icons">search</i>
                     </button>
                 </div>
             </div>
             <!-- <div class="row">
-				<div class="col s10 offset-s1 m8 offset-m2 l2 offset-l5">
-					<button id="submit" class="blue-grey btn waves-effect waves-light" type="submit" name="action">Search
-						<i class="material-icons right">send</i>
-					</button>
-				</div>
-			</div> -->
+                <div class="col s10 offset-s1 m8 offset-m2 l2 offset-l5">
+                    <button id="submit" class="blue-grey btn waves-effect waves-light" type="submit" name="action">Search
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div> -->
         </form>
         <!-- <div id="rolling-cube-load" class="loading-wrap"> </div> -->
         <!-- <div id="fox-trot-load" class="loading-wrap">
@@ -118,56 +110,42 @@
         </div> -->
     </div>
     <!--=============================================-->
-
     <div id="page1">
-
-        <div class="row">
-            <!-- col sizes should match feed -->
+        <!-- Body Navigation ========================-->
+        <div id="main-body-nav" class="row body-nav pushpin" data-target="page1">
             <div class="col s12 m10 offset-m1 xl6 offset-xl3">
-                <div class="col s4">
-                    <a id="show-filters" class="btn side-nav-btn button-collapse deep-orange darken-2 waves-effect waves-light" href="#" data-activates="slide-out">Filter&nbsp;+&nbsp;Sort</a>
-                </div>
-                <div class="input-field col s8 thin">
-                    <select multiple>
-                        <option value="" disabled selected>Choose your Sources</option>
-                        <option value="1">Github</option>
-                        <option value="2">Indeed</option>
-                        <option value="3">Dice</option>
-                        <option value="4">AuthenticJobs</option>
-                    </select>
-                </div>
+                <a id="filter-side-nav-link" href="#" data-activates="filter-side-nav" class="btn button-collapse float-right">Filter / Sort</a>
             </div>
         </div>
+        <div id="feed-details" class="row">
+            <div class="col s12 m10 offset-m1 xl6 offset-xl3">
+                <p id="result-number" class="result-detail popout-comp-left"><span class="target">365</span> results found</p>
+            </div>
+        </div>
+        <!-- Feed =================================-->
         <div class="row">
             <!-- Feed -->
             <div class="col s12 m10 offset-m1 xl6 offset-xl3">
-                <!-- /////////////////// -->
-                <!-- TARGET RESULTS HERE -->
-                <!-- /////////////////// -->
                 <ul id="feed" class="collapsible popout" data-collapsible="accordion">
-                    <li class="listing">
-                        <div class="collapsible-header">
-                            <span class="listing-number ghost">8</span>
-                            <h2 class="headline">Manhattan DOM Consultant</h2>
-                            <h3 class="company">MW Partners LLC</h3>
-                        </div>
-                        <span class="save-wrap ghost"></span>
+                    <!-- /////////////////// -->
+                    <!-- TARGET RESULTS HERE -->
+                    <!-- /////////////////// -->
+                    <li class="listing" data-index="0" data-company="SolutionIT, Inc." data-source="Dice" data-source-id="Dice=10290916_Web-Dev-Angl_NY">
+                        <div class="collapsible-header"><span class="listing-number ghost">1</span>
+                            <h2 class="headline">Web developer - AngularJS</h2>
+                            <h3 class="company">SolutionIT, Inc.</h3></div>
+                        <span class="save-wrap ghost" data-saved="false"></span>
                         <div class="collapsible-body">
-                            <p class="meta-detail location">New York City, NY</p>
-                            <p class="meta-detail date">2 days ago</p>
+                            <p class="meta-detail location">Sydney</p>
+                            <p class="meta-detail date">3 days ago</p>
                             <p class="meta-detail source">Dice</p>
-                            <div class="meta-description">
-                            	
-                            </div>
-
+                            <div class="meta-detail description">Description is not available. For more details, visit Dice's website.</div>
                         </div>
                     </li>
-                    
                 </ul>
             </div>
-        </div>
-        <!-- /row -->
-        <!-- Pagination -->
+        </div> <!-- /row -->
+        <!-- Pagination ===========================-->
         <div class="row center-align">
             <div class="col s12">
                 <ul class="pagination">
@@ -180,67 +158,92 @@
                     <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
                 </ul>
             </div>
-        </div>
-        <!-- /row -->
-        <!-- Side Nav -->
-            <!-- <ul id="slide-out" class="side-nav">
-                <li><a href="#!">First Sidebar Link</a></li>
-                <li class="no-padding">
-                    <ul class="collapsible collapsible-accordion">
-                        <li>
-                            <a class="collapsible-header">Sort By:<i class="material-icons">arrow_drop_down</i></a>
-                            <div class="collapsible-body">
+        </div> <!-- /row -->
+        <!-- Filter Side Nav ======================-->
+        <ul id="filter-side-nav" class="side-nav">
+            <li><a href="#!">First Sidebar Link</a></li>
+            <li class="no-padding">
+                <ul class="collapsible collapsible-accordion">
+                    <li>
+                        <a class="collapsible-header">Results per Page<i class="material-icons">arrow_drop_down</i></a>
+                        <div class="collapsible-body sideNavForm">
+                            <!-- <form class="sideNavForm">
                                 <ul>
-                                    <li><a href="#!">Date</a></li>
-                                    <li><a href="#!">Distance</a></li>
-                                    <li><a href="#!">Salary</a></li>
-                                    <li><a href="#!">Coolest Name</a></li>
+                                    <li class="input-field" id="numResultsShown1"><input type="radio"><label for="numResultsShown1">10</label></li>
+                                    <li class="input-field" id="numResultsShown2"><input type="radio" checked><label for="numResultsShown2">20</label></li>
+                                    <li class="input-field" id="numResultsShown3"><input type="radio"><label for="numResultsShown3">30</label></li>
+                                    <li class="input-field" id="numResultsShown4"><input type="radio"><label for="numResultsShown4">40</label></li>
                                 </ul>
+                            </form> -->
+                            <div id="pagination-num-sel" class="input-field">
+                                <select>
+                                    <option value="10">10</option>
+                                    <option value="20" selected>20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                </select>
+                                <!-- <label>No. per Page</label> -->
                             </div>
-                        </li>
-                    </ul>
-                </li>
-                <li class="no-padding">
-                    <ul class="collapsible collapsible-accordion">
-                        <li>
-                            <a class="collapsible-header">Filter Source:<i class="material-icons">arrow_drop_down</i></a>
-                            <div class="collapsible-body">
-                                <form class="sideNavForm">
-                                    <ul>
-                                        <li class="input-field">
-                                            <input type="checkbox" id="sourceGithub" class="filterSourceInput filled-in" checked="checked" />
-                                            <label for="sourceGithub">Github</label>
-                                        </li>
-                                        <li class="input-field">
-                                            <input type="checkbox" id="sourceIndeed" class="filterSourceInput filled-in" checked="checked" />
-                                            <label for="sourceIndeed">Indeed</label>
-                                        </li>
-                                        <li class="input-field">
-                                            <input type="checkbox" id="sourceDice" class="filterSourceInput filled-in" checked="checked" />
-                                            <label for="sourceDice">Dice</label>
-                                        </li>
-                                        <li class="input-field">
-                                            <input type="checkbox" id="sourceAuthenticJobs" class="filterSourceInput filled-in" checked="checked" />
-                                            <label for="sourceAuthenticJobs">Authentic Jobs</label>
-                                        </li>
-                                    </ul>
-                                </form>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul> -->
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li class="no-padding">
+                <ul class="collapsible collapsible-accordion">
+                    <li>
+                        <a class="collapsible-header">Sort By<i class="material-icons">arrow_drop_down</i></a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="#!">Date</a></li>
+                                <li><a href="#!">Distance</a></li>
+                                <li><a href="#!">Salary</a></li>
+                                <li><a href="#!">Coolest Name</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li class="no-padding">
+                <ul class="collapsible collapsible-accordion">
+                    <li>
+                        <a class="collapsible-header">Filter Source<i class="material-icons">arrow_drop_down</i></a>
+                        <div class="collapsible-body">
+                            <form class="sideNavForm">
+                                <ul>
+                                    <li class="input-field">
+                                        <input type="checkbox" id="sourceGithub" class="filterSourceInput filled-in" checked="checked" />
+                                        <label for="sourceGithub">Github</label>
+                                    </li>
+                                    <li class="input-field">
+                                        <input type="checkbox" id="sourceIndeed" class="filterSourceInput filled-in" checked="checked" />
+                                        <label for="sourceIndeed">Indeed</label>
+                                    </li>
+                                    <li class="input-field">
+                                        <input type="checkbox" id="sourceDice" class="filterSourceInput filled-in" checked="checked" />
+                                        <label for="sourceDice">Dice</label>
+                                    </li>
+                                    <li class="input-field">
+                                        <input type="checkbox" id="sourceAuthenticJobs" class="filterSourceInput filled-in" checked="checked" />
+                                        <label for="sourceAuthenticJobs">Authentic Jobs</label>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
         <!-- /sideNav -->
         <!-- Tap Target Structure -->
-            <!-- <div class="tap-target" data-activates="saved-modal-trigger">
+        <!-- <div class="tap-target" data-activates="saved-modal-trigger">
                 <div class="tap-target-content">
                     <h5>View your saved jobs here</h5>
                     <p>Click here to open the modal that holds your most prized listings.</p>
                 </div>
             </div> -->
         <!-- Modal Trigger -->
-            <!-- <a id="saved-modal-trigger" href="#saved-jobs-modal" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">star</i></a> -->
-            <!-- <a class="waves-effect waves-light btn" href="#saved-jobs-modal">View Saved Jobs</a> -->
+        <!-- <a id="saved-modal-trigger" href="#saved-jobs-modal" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">star</i></a> -->
+        <!-- <a class="waves-effect waves-light btn" href="#saved-jobs-modal">View Saved Jobs</a> -->
         <!-- Modal Structure -->
         <div id="saved-jobs-modal" class="modal bottom-sheet">
             <div class="modal-content">
@@ -278,27 +281,27 @@
     <script src="assets/js/login.js" type="text/javascript" charset="utf-8"></script>
     <script src="assets/js/benchmark-email-form.js" type="text/javascript"></script>
     <!-- <script src="assets/js/devTools.js" type="text/javascript" charset="utf-8"></script> -->
-    <script src="assets/js/testing.js" type="text/javascript" charset="utf-8"></script>
+    <!-- <script src="assets/js/testing.js" type="text/javascript" charset="utf-8"></script> -->
     <!-- Color Testing -->
     <!-- 
-		<a class="amber darken-3 waves-effect waves-light btn">Filter</a>
-		<a class="blue darken-1 waves-effect waves-light btn">Filter</a>
-		<a class="blue darken-2 waves-effect waves-light btn">Filter</a>
-		<a class="blue darken-3 waves-effect waves-light btn">Filter</a>
-		<a class="light-blue darken-1 waves-effect waves-light btn">Filter</a>
-		<a class="light-blue darken-2 waves-effect waves-light btn">Filter</a>
-		<a class="light-blue darken-3 waves-effect waves-light btn">Filter</a>
-		<a class="cyan darken-1 waves-effect waves-light btn">Filter</a>
-		<a class="cyan darken-2 waves-effect waves-light btn">Filter</a>
-		<a class="cyan darken-3 waves-effect waves-light btn">Filter</a>
-		<a class="yellow darken-2 waves-effect waves-light btn">Filter</a>
-		<a class="yellow darken-3 waves-effect waves-light btn">Filter</a>
-		<a class="amber darken-2 waves-effect waves-light btn">Filter</a>
-		<a class="red darken-1 waves-effect waves-light btn">Filter</a>
-		<a class="red darken-2 waves-effect waves-light btn">Filter</a>
-		<a class="red darken-3 waves-effect waves-light btn">Filter</a>
-		<a class="red darken-4 waves-effect waves-light btn">Filter</a> 
-		-->
+        <a class="amber darken-3 waves-effect waves-light btn">Filter</a>
+        <a class="blue darken-1 waves-effect waves-light btn">Filter</a>
+        <a class="blue darken-2 waves-effect waves-light btn">Filter</a>
+        <a class="blue darken-3 waves-effect waves-light btn">Filter</a>
+        <a class="light-blue darken-1 waves-effect waves-light btn">Filter</a>
+        <a class="light-blue darken-2 waves-effect waves-light btn">Filter</a>
+        <a class="light-blue darken-3 waves-effect waves-light btn">Filter</a>
+        <a class="cyan darken-1 waves-effect waves-light btn">Filter</a>
+        <a class="cyan darken-2 waves-effect waves-light btn">Filter</a>
+        <a class="cyan darken-3 waves-effect waves-light btn">Filter</a>
+        <a class="yellow darken-2 waves-effect waves-light btn">Filter</a>
+        <a class="yellow darken-3 waves-effect waves-light btn">Filter</a>
+        <a class="amber darken-2 waves-effect waves-light btn">Filter</a>
+        <a class="red darken-1 waves-effect waves-light btn">Filter</a>
+        <a class="red darken-2 waves-effect waves-light btn">Filter</a>
+        <a class="red darken-3 waves-effect waves-light btn">Filter</a>
+        <a class="red darken-4 waves-effect waves-light btn">Filter</a> 
+        -->
 </body>
 
 </html>

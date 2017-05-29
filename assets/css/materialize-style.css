@@ -1,6 +1,25 @@
 body {
 	position: relative;
 }
+.float-left {
+	float:left;
+}
+.float-right {
+	float:right;
+}
+p {
+	margin: 0;
+}
+/* Grid Modification -------------------*/
+	.popout-comp-left {
+		margin-left: 24px;
+	}
+	.popout-comp-right {
+		margin-right: 24px;
+	}
+	.thin-row {
+
+	}
 /* Header ------------------------------*/
 nav.header {
 	position: absolute;
@@ -29,23 +48,49 @@ nav .brand-logo .logo-image {
 }
 
 /* Banner ------------------------------*/
-#banner {
-	width: 100%;
-	margin: 0;
-	/*background-color: #ECF0F1;*/
-	/*background-color: #455a64;*/
-	/*background-color: #9b59b6;*/
-	/*background-color: #5d516a;*/
-	/*background-color: #ff8f00;*/
-	padding: 100px 0 50px;
-	overflow: hidden;
-	position: relative;
-}
-#banner.landing {
-	height: 100vh;
-	padding: 0;
-}
+	#banner {
+		width: 100%;
+		margin: 0;
+		/*background-color: #ECF0F1;*/
+		/*background-color: #455a64;*/
+		/*background-color: #9b59b6;*/
+		/*background-color: #5d516a;*/
+		/*background-color: #ff8f00;*/
+		padding: 100px 0 50px;
+		overflow: hidden;
+		position: relative;
+		z-index: 900;
+		background-image: url(../img/banner-dune.jpg);
+		background-size: cover;
+		background-position: 50% 50%;
+	}
+	#banner.landing {
+		height: 100vh;
+		padding: 0;
+	}
+	.photo-tint {
+		height: 100%;
+		width: 100%;
+		background-color: #000;
+		opacity: 0.1;
+		z-index: 901;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+	#banner form {
+		z-index: 902;
+	}
 
+	#banner-logo {
+		width: 75%;
+		margin: 0 auto;
+		max-width: 200px;
+		height: initial; 
+		display: block;
+		margin-bottom: 25px;
+	}
 
 
 
@@ -96,8 +141,6 @@ nav .brand-logo .logo-image {
 
 
 
-
-
 /* Search Bar Overhaul ------------------------------*/
 	
 	.bar input[type=text] {
@@ -116,111 +159,53 @@ nav .brand-logo .logo-image {
 	}
 
 /* Submit Button ------------------------------*/
+
 	#submit {
 		width: 100%;
 		height: 45px;
 		line-height: 45px;
 		font-size: 1.5rem;
-		padding: 0 1rem;
-		/*background-color: #0277bd;*/
-		background-color: #0288d1;
-		background-color: #039be5;
-		background-color: #e53935;
-		/*background-color: #1e88e5;*/
-		background-color: #00acc1;
-		/*background-color: #00897b;*/
-		background-color: #43a047;
-		/*background-color: #7cb342;*/
-		/*background-color: #fdd835;*/
-		/*background-color: #ffb300;*/
-		background-color: #fb8c00;
+		padding: 0;
 		background-color: #f4511e;
-		/*background-color: #546e7a;*/
-		/*background-color: #757575;*/
+		display: inline-block;
+		/*width: 45px;*/
+		/*margin-top: 14px;*/
+		/*height: 43px;*/
 	}
 	#submit i.material-icons {
 		font-size: 1.75rem;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Page 1 ------------------------------*/
-	#page1 {
-		background-color: #eee;
-		min-height: 100vh;
-		/*padding-top: 40px;*/
-		padding: 40px 0;
-	}
-/* Feed ------------------------------*/
-	.collapsible-header {
-		padding: 1rem;
-	}
-	.collapsible li {
-		position: relative;
-	}
-	.headline, .company {
-		/* Match indent */
-		margin: 0;
-		margin-left: 35px;
-		overflow: hidden;
-	}
-	.headline {
-		display: block;
-		font-weight: 500;
-		font-size: 16px;
-		margin-right: 10px;
-		height: 20px;
-		line-height: 20px;
-	}
-	.company {
-		display: block;
-		font-weight: 300;
-		font-size: 14px;
-		height: 16px;
-		line-height: 16px;
-	}
-	span.ghost {
-		display: inline-block;
-		position: absolute;
-	}
-	/* Listing number */
-	.listing-number {
-		height: 20px;
-		line-height: 20px;
-		width: 20px;
-		color: rgba(0,0,0,0.4);
-		text-align: right
+	@media all and (max-width: 880px){
+		.input-button {
+			/*display: block;*/
+		}
 	}
 
-	.location::before {
-		content: "Location: "
-	}
-	.date::before {
-		content: "Posted: "
-	}
-	.source::before {
-		content: "Source: "
-	}
+
+
+
+
+
+
+		/*background-color: #0277bd;*/
+		/*background-color: #0288d1;*/
+		/*background-color: #039be5;*/
+		/*background-color: #e53935;*/
+		/*background-color: #1e88e5;*/
+		/*background-color: #00acc1;*/
+		/*background-color: #00897b;*/
+		/*background-color: #43a047;*/
+		/*background-color: #7cb342;*/
+		/*background-color: #fdd835;*/
+		/*background-color: #ffb300;*/
+		/*background-color: #fb8c00;*/
+		/*background-color: #f4511e;*/
+		/*background-color: #546e7a;*/
+		/*background-color: #757575;*/
+
+
+
 /* Save Button ------------------------------*/
 		.save-wrap {
 			display: inline-block;
@@ -253,13 +238,10 @@ nav .brand-logo .logo-image {
 	}
 
 /* Filtering ------------------------------*/
-	#show-filters {
-		margin-left: 24px;
+	.body-nav .input-field input {
+		color: #000;
 	}
 
-	.sideNavForm {
-
-	}
 	.filterSourceInput {
 		background-color: #cfd8dc;
 		color: #cfd8dc;
@@ -307,64 +289,3 @@ nav .brand-logo .logo-image {
 
 
 /*------------------------------------------------------------*/
-
-
-
-div.loading-icon-piece-wrap {
-	height: 600px;
-	width: 600px;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	background-image: url(../icons/loadingicons/grid.svg);
-	background-repeat: space;
-	height: 100%;
-	width: 100%;
-	opacity: 0.1;
-}
-
-img.loading-icon-piece {
-	outline: 1px solid red;
-	margin: 5px;
-}
-
-div.loading-wrap {
-	position: absolute;
-	width: 100%;
-	/*height: 50px;*/
-	bottom: 0;
-	left: 0;
-	background-color: #6a516a
-}
-
-
-#rolling-cube-load {
-	position: absolute;
-	bottom: 0;
-	right: 0;
-	height: 125px;
-	width: 150px;
-	overflow: hidden;
-	background-image: url(../icons/loading-icon-sticky-cube-roll.gif);
-	background-position: 50% 40%;
-}
-
-
-
-#banner-logo {
-	width: 75%;
-	margin: 0 auto;
-	max-width: 300px;
-	height: initial; 
-	display: block;
-	margin-bottom: 25px;
-}
-#fox-trot-load.loading-wrap {
-	left: initial;
-	right: 0;
-}
-#fox-trot-load img {
-	height: 150px;
-	line-height: 150px;
-	bottom-right: 2px solid #bdc3c7;
-}

@@ -90,7 +90,7 @@ function makeIDs(){
 
 var database = firebase.database();
 
-var ref  = database.ref('/id').
+var ref  = database.ref('/id');
 
 
 
