@@ -2,10 +2,13 @@ $(document).ready(function () {
 		// Get user's IP
 		jobba.getIP;
 
-	$('#feed').on('click','.save-wrap',function(event){
+	$('#feed, #saved-feed').on('click','.save-wrap',function(event){
 		event.preventDefault();
 		var $t = $(this);
 		
+		// Icon Change
+		$t.toggleClass('saved'); //How can we only only click this one time? - Novia
+
 		// Check how many items are saved currently, if there are none
 		// and this is the user's first save, trigger featureDiscovery
 		// (Must do this before cloning listing, since it would obviously
@@ -24,10 +27,35 @@ $(document).ready(function () {
 			})
 		}
 
-		// Basically copy paste the saved listing into the saved feed
-		$(this).parents('.listing').clone().appendTo('#saved-feed');
+		// If you are unsaving an already saved job
+		if ( $t.attr('data-saved') === 'true' ) {
+			// Check source id in listing data attribute
+			var dataSource = $t.parents('.listing').attr('data-source');
+			var dataSourceID = $t.parents('.listing').attr('data-source-id');
+			
+			// Navigate to chosen listing in the saved feed and remove
+			var sel = '#saved-feed .listing[data-source-id="'+dataSourceID+'"]';
+			console.log('sel',sel);
+			$(sel).remove();
 
+			// Change data-saved attribute to false
+			$t.attr('data-saved','false');
 
+			// Remove saved styling from normal feed
+			var feedSel = $('#feed .listing[data-source-id="'+dataSourceID+'"] .save-wrap');
+			feedSel.removeClass('saved');
+			feedSel.attr('data-saved','false');
+		}
+		else { // When the listing had not been saved
+
+			// Reset data attributes before clone
+			$t.attr('data-saved','true');
+			$t.parents('.listing').removeClass('active');
+			$t.parents('.collapsible-header').removeClass('active');
+
+			// Basically copy paste the saved listing into the saved feed
+			$(this).parents('.listing').clone().appendTo('#saved-feed');
+		}
 		// Get listing data
 		var thisListing = $(this).parents('.listing');
 		var dataIndex = thisListing.attr('data-index');
@@ -38,8 +66,6 @@ $(document).ready(function () {
 								// but I commented it out for now because it was getting an error
 								// and stopping everything else
 
-		// Icon Change
-		$t.toggleClass('saved'); //How can we only only click this one time? - Novia
 
 	}); // end listing click
 
@@ -89,12 +115,38 @@ $(document).ready(function () {
 
 
 // ------------------------------------------------------------ 
+
+
+//  Body Navigation Pushpin
+    $(window).on('scroll',function(event){
+    	event.preventDefault();
+	    var el = $('#main-body-nav');
+	    var ref = $('#banner');
+	    var scrollPos = $(window).scrollTop();
+
+	    if ( scrollPos >= ref.outerHeight()) {
+	    	el.css('position','fixed');
+	    }
+	    else {
+	    	el.css('position','absolute');
+	    }
+    });
+
+
+// ------------------------------------------------------------ 
 // Materialize Inits
 
-	// Initialize collapse button
-	$('.button-collapse').sideNav({
+	// Initialize header collapse button
+	$('#header-side-nav-link').sideNav({
 		menuWidth: 300, // Default is 300
 		edge: 'left', // Choose the horizontal origin
+		closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+		draggable: true // Choose whether you can drag to open on touch screens
+	});
+	// Initialize filter collapse button
+	$('#filter-side-nav-link').sideNav({
+		menuWidth: 300, // Default is 300
+		edge: 'right', // Choose the horizontal origin
 		closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
 		draggable: true // Choose whether you can drag to open on touch screens
 	});
@@ -117,8 +169,6 @@ $(document).ready(function () {
       	// Callback for Modal close
       	} 
     });
-
-
 
 
 
