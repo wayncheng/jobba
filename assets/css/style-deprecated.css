@@ -1,0 +1,287 @@
+
+
+/*--------------------------------
+        Global
+--------------------------------*/
+	h2, h3, p {
+		margin-bottom: 10px;
+	}
+
+/*--------------------------------
+        Search Bar
+--------------------------------*/
+	#page1 {
+		padding: 0;
+		width: 100%;
+	}
+	#banner-headline {
+		color: #fff;
+		text-align: center;
+		position: relative;
+		top: 40%;
+		font-weight: 200;
+	}
+	#banner-headline em {
+		font-weight: 400;
+	}
+	div#banner {
+		width: 100%;
+		display: block;
+		height: 50vh;
+		max-height: 540px; 
+		min-height: 300px;
+			height: 100vh;
+			max-height: 1080px;
+		background-image: url(../img/banner-sd-day.jpg);
+		background-size: cover;
+		background-position: 50% 40%;
+		margin-bottom: 40px;
+	}
+	input.main-search {
+		font-size: 20px;
+	}
+	form.main-search {
+		height: 40px;
+		line-height: 40px;
+		max-width: 700px;
+		margin: 0px auto 40px;
+		/*border: 1px solid #ccc;*/
+		border: none;
+		position: relative;
+		top: 45%;
+	}
+	#search, fieldset, .input-group, input.text.input.sub-search, button.main-search {
+		height: inherit;
+		line-height: inherit;
+		margin: 0 auto;
+	}
+	#search {
+			width: 94%;
+			padding: 0 3%;
+			font-size: 20px;
+			font-family: Roboto, 'Helvetica Neue', Helvetica, sans-serif;
+			font-weight: 500;
+			overflow: hidden;
+			border-radius: 0;
+			border: none;
+	}
+	fieldset {
+		display: block;
+		position: absolute;
+		right: 0;
+		top: 0;
+		margin-right: -2px;
+		width: 290px;
+		padding: 0;
+	}
+	
+	.input-group {
+		float: left;
+		display: inline-block;
+		border-left: 2px solid #eee;
+		padding-left: 5px;
+	}
+	input.main-search:active,
+	input.main-search:focus,
+	input.main-search:hover {
+		border: none;
+		outline: none;
+	}
+	input.text.sub-search,
+	input.text.sub-search:active,
+	input.text.sub-search:focus,
+	input.text.sub-search:hover {
+		font-size: 16px;
+		color: #666;
+		/*margin: -1px;*/
+		text-indent: 10px;
+		background-color: transparent;
+		border: none;
+		outline: none;
+	}
+	input.text.sub-search::placeholder {
+		color: #777;
+	}
+	
+	.input-submit {
+		/*float: right;*/
+		border-left: none;
+	}
+	button.main-search {
+		background-color: #27ae60;
+		border: none;
+		outline: none;
+		margin: 0;
+		font-size: inherit;
+		width: 42px;
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+	button.main-search img {
+		height: 20px;
+		margin-top: 7px;
+	}
+/*--------------------------------
+        Listings
+--------------------------------*/
+	#feed {
+		/*background-color: #fdfdfd;*/
+		color: #A9A9A9;
+		color: #333;
+		width: 100%;
+		max-width: 700px;
+		margin: 0 auto;
+	}
+	.listing {
+		border: 1px solid #ECF0F1;
+		background-color: #fdfdfd;
+		width: 96%;
+		padding: 10px 2%;
+		position: relative;
+		margin-bottom: 20px;
+	}
+	a.link {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.headline {
+		display: inline-block;
+		font-weight: 300;
+		font-size: 18px;
+		margin-right: 10px;
+	}
+	.company {
+		display: inline-block;
+		font-weight: 500;
+		font-size: 18px;
+
+	}
+	.description {
+		padding: 0 5px;
+		border-top: 2px solid #ECF0F1;
+		/*border-top: 2px solid #bdc3c7;*/
+		padding-top: 5px;
+	}
+
+	.meta {
+		padding: 0;
+	}
+	.meta-detail {
+		display: inline-block;
+		width: initial;
+		height: 1.5em;
+		line-height: 1.5em;
+		font-size: 14px;
+		padding: 0 10px;
+		margin-right: 5px;
+		background-color: #7f8c8d;
+		color: #ECF0F1;
+	}
+	
+	.null {
+		display: none;
+	}
+
+	.toggle-fold {
+		text-align: center;
+		background-color: #ECF0F1;
+		color: #333;
+		font-weight: 300;
+		padding: 2px 0;
+		font-size: 14px;
+		width: 100%;
+		cursor: pointer;
+			background: none;
+			position: absolute;
+			height: 100%;
+			top: 0;
+			left: 0;
+	}
+	
+	.fold-hide {
+		display: none;
+	}
+/*--------------------------------
+        Dice
+--------------------------------*/
+.diceButton{
+	width: 80px;
+	height: 50px;
+	color: white;
+	background: red;
+	border: 1px solid transparent;
+  	border-radius: 4px;
+  	padding: 6px 12px;
+  	font-size: 14px;
+  	margin-bottom: 5px;
+}
+
+.diceButton:hover,
+.diceButton:focus,
+.diceButton.focus {
+  color: #333;
+  text-decoration: none;
+}
+.diceButton:link,
+.diceButton:visited{
+	text-decoration: none;
+}
+
+.logo{
+	width: 80px;
+	height: 20px;
+}
+
+.logo:hover,
+.logo:focus,
+.logo:link,
+.logo:visited{
+	text-decoration: none;
+}
+
+
+
+/*--------------------------------
+        Login
+--------------------------------*/
+	#signInWithGithub {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		color: #000;
+	}
+
+	#signOut {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		color: #000;
+		visibility: hidden;
+	}
+
+<<<<<<< HEAD
+	#displayjobs {
+		position: absolute;
+		top: 15px;
+		right: 5px;
+		color: #000;	
+	}
+=======
+
+>>>>>>> 82fa064543dbd551d502ccbed9bbe059cda2ef9f
+
+/*[Only display save button after login]*/
+	.save-wrap{
+		visibility: hidden;
+	}
+
+#pagination{
+	text-align: center;
+}

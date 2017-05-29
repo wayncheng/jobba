@@ -1,0 +1,64 @@
+
+/* Body Navigation -----------------------------*/
+	.body-nav {
+		line-height: 40px;
+		padding: 12px 0;
+		/*height: 46px;*/
+		/*background-color: rgba(255,255,255,0.9);*/
+		background-color: rgba(255,255,255,1);
+		/*background-color: rgba(0,0,0,0.7);*/
+		transition: background-color 200ms;
+		border-bottom: 1px solid #ddd;
+		box-shadow: 0px -5px 15px rgba(0,0,0,0.5);
+		z-index: 800;
+		width: 100%;
+		margin: 0;
+		/* positioned absolute so siblings don't shift 
+			when the nav becomes fixed.
+			Compensate for height with padding in parent*/
+		position: absolute;
+		top: 0;
+		left: 0;
+
+	}
+
+	.body-nav .btn {
+		z-index: 1001;
+	}
+/*	.body-nav .col, .body-nav .input-field, .body-nav p.result-detail,
+	.body-nav {
+		height: 46px;
+		line-height: 46px;
+	}*/
+
+	.body-nav a.btn,
+	.body-nav p.result-detail {
+		display: inline-block;
+		line-height: inherit;
+		height: inherit;
+		margin: 0;
+	}
+
+	.body-nav .nav-title {
+		font-size: 20px;
+		height: inherit;
+		line-height: inherit;
+		margin: 0;
+		display: inline-block;
+		float: left;
+	}
+
+	.filter-nav .input-field {
+		width: 100px;
+		margin-left: 10px;
+		/*float: left;*/
+	}
+	.filter-nav .input-field .dropdown-content.select-dropdown.active {
+		width: 200px !important;
+	}
+
+	#pagination-num-sel {
+		width: 50px;
+	}
+
+
