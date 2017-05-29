@@ -12,6 +12,7 @@ $('#submit').on('click',function(event){
 
 
 	// var uIP, uBrowser;
+	console.log("TESTING!")
 
 	var searchTerm = $('#search').val().trim();
 	var qURL = 'http://api.glassdoor.com/api/api.htm?t.p=151095&t.k=dSWk91gUjq3&userip=192.168.1.190&useragent=&format=json&v=1&action=jobs-prog&countryId=1&jobTitle='+searchTerm;
