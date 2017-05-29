@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="landing">
 
 <head>
     <title>Jobba</title>
@@ -24,25 +24,33 @@
     <!-- Firebase UI CDN -->
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" />
     <!-- Jobba CSS -->
-    <link href="assets/css/materialize-style.css" rel="stylesheet">
-    <link href="assets/css/materialize-feed.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link href="assets/css/materialize-overrides.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/header.css" rel="stylesheet">
+    <link href="assets/css/banner.css" rel="stylesheet">
+    <link href="assets/css/searchbar.css" rel="stylesheet">
+    <link href="assets/css/feed.css" rel="stylesheet">
+    <link href="assets/css/body-nav.css" rel="stylesheet">
+    <link href="assets/css/side-navs.css" rel="stylesheet">
+    <link href="assets/css/do-not-disturb.css" rel="stylesheet">
     <link href="assets/css/loading-icon.css" rel="stylesheet">
 </head>
 
 <body>
-    <!--=============================================-->
-    <nav class="transparent header" role="navigation">
+<!--=============================================-->
+    <nav id="main-nav" class="transparent header" role="navigation">
         <div class="nav-wrapper container">
             <!-- <a id="logo-container" href="index.html" class="brand-logo right"> </a> -->
-            <ul class="left hide-on-med-and-down">
+            <ul id="main-nav-body" class="pin-target left hide-on-med-and-down">
                 <li>
-                    <a href="#" class="blue-grey header-link login sign-in btn" id="signInWithGithub" title="Sign in with Github">
+                    <a href="#" class="blue header-link login sign-in btn" id="signInWithGithub" title="Sign in with Github">
                         <!-- <i class="fa fa-github fa-lg" aria-hidden="true"></i>  -->
                         <!-- <i class="jba jba-github jba-left"></i> -->
                         Github Login </a>
                 </li>
                 <li>
-                    <a href="#saved-jobs-modal" class="amber darken-3 header-link btn" id="displayJobs" title="View Saved Jobs">
+                    <a href="#saved-jobs-modal" class="blue header-link btn" id="displayJobs" title="View Saved Jobs">
                         <!-- <i class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>  -->
                         <!-- <i class="material-icons jba jba-star"></i> -->
                         Saved Jobs </a>
@@ -56,14 +64,14 @@
             </ul>
             <ul id="nav-mobile" class="side-nav">
                 <li>
-                    <a href="#">Jobba</a>
+                    <a class="close-btn" href="#">Close Main Menu</a>
                 </li>
                 <li>
-                    <a href="#" class="header-link login sign-in btn" id="signInWithGithub" title="Sign in with Github">
+                    <a href="#!" class="blue header-link login sign-in btn" id="signInWithGithub" title="Sign in with Github">
                     Github Login </a>
                 </li>
                 <li>
-                    <a href="#saved-jobs-modal" class="amber darken-3 header-link btn" id="displayJobs" title="View Saved Jobs">
+                    <a href="#saved-jobs-modal" class="blue header-link btn" id="displayJobs" title="View Saved Jobs">
                     Saved Jobs </a>
                 </li>
                 <li>
@@ -71,10 +79,10 @@
                     Sign Out </a>
                 </li>
             </ul>
-            <a id="header-side-nav-link" href="#" data-activates="nav-mobile" class="button-collapse"> <i class="material-icons">menu</i> </a>
+            <a id="header-side-nav-link" href="#" data-activates="nav-mobile" class="pin-target button-collapse"> <i class="main-nav-menu-icon material-icons">menu</i> </a>
         </div>
     </nav>
-    <!--=============================================-->
+<!--=============================================-->
     <div id="banner" class="blue-grey darken-3 landing valign-wrapper row">
         <span id="banner-cover" class="ghost photo-tint"></span>
         <!-- <div id="banner" class="blue-grey darken-2 valign-wrapper row"> -->
@@ -105,32 +113,39 @@
             </div> -->
         </form>
         <!-- <div id="rolling-cube-load" class="loading-wrap"> </div> -->
-        <!-- <div id="fox-trot-load" class="loading-wrap">
-            <img src="assets/icons/loadingicons/fox-trot.gif" alt="">
-        </div> -->
+        <div id="fox-trot-load" class="loading-wrap progress-wrap">
+            <div class="progress-target">
+                <img src="assets/icons/loadingicons/fox-trot-right@0.8.gif" alt="">
+            </div>
+            <span class="loading-text ghost">Fetching Results...</span>
+        </div>
     </div>
-    <!--=============================================-->
+<!--=============================================-->
     <div id="page1">
-        <!-- Body Navigation ========================-->
-        <div id="main-body-nav" class="row body-nav pushpin" data-target="page1">
+    <!-- Body Navigation ========================-->
+        <div id="main-body-nav" class="row body-nav">
             <div class="col s12 m10 offset-m1 xl6 offset-xl3">
-                <a id="filter-side-nav-link" href="#" data-activates="filter-side-nav" class="btn button-collapse float-right">Filter / Sort</a>
+                <!-- <a id="main-side-nav-link" href="#!" data-activates="nav-mobile" class="pin-target button-collapse float-left"> <i class="main-nav-menu-icon material-icons">menu</i> </a> -->
+                <a id="filter-side-nav-link" href="#!" data-activates="filter-side-nav" class="blue btn button-collapse float-right">Filter / Sort</a>
             </div>
         </div>
+    <!-- Feed Details ========================-->
         <div id="feed-details" class="row">
             <div class="col s12 m10 offset-m1 xl6 offset-xl3">
-                <p id="result-number" class="result-detail popout-comp-left"><span class="target">365</span> results found</p>
+                <p id="result-number" class="result-detail popout-comp-left"><span id="total-result-count" class="target">0</span> results found</p>
             </div>
         </div>
-        <!-- Feed =================================-->
-        <div class="row">
+    <!-- Feed =================================-->
+        <div id="feed-row" class="row">
             <!-- Feed -->
             <div class="col s12 m10 offset-m1 xl6 offset-xl3">
                 <ul id="feed" class="collapsible popout" data-collapsible="accordion">
+                    <!-- Sample Feed -->
+                    <li class="listing" data-index="0" data-company="Deluxe Entertainment Group" data-source="Github" data-source-id="Github=9468e176-6279-11e6-9cc9-0b8b22a2b3ed"> <div class="collapsible-header"><span class="listing-number ghost">1</span> <h2 class="headline">Senior Ruby on Rails Developer</h2> <h3 class="company">Deluxe Entertainment Group</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">burbank, ca</p> <p class="meta-detail date">14 days ago</p> <p class="meta-detail source">Github</p> <div class="meta-detail description"> <p>Deluxe OnDemand™ is transforming content sourcing, processing and distribution.&nbsp; With our advanced video workflow management and turnkey content-supply solutions, Deluxe OnDemand makes it easier for service providers to offer premium content quickly and cost-effectively across more devices.&nbsp; Deluxe OnDemand addresses a range of customer requirements to optimize or supplement existing VOD workflows, support IP-VOD applications, expand VOD/SVOD libraries, and quickly launch EST services and 4K UHD. &nbsp;Our cloud-based solutions are a more scalable, cost-effective, and futureproof alternative to building-out new infrastructure.&nbsp; Deluxe OnDemand is commercially deployed by leading cable, telco, and OTT providers.</p> <p>This is a fantastic opportunity to join a company in the hottest industry that offers an exciting, challenging and dynamic work environment.&nbsp; We focus on innovation, creativity, and cutting edge technology.</p> <p>Due to unprecedented growth and increasing demand for our services we are seeking Senior Ruby on Rails Developers with 5+ years of RoR development experience to work out of our Burbank or Solana Beach, CA facilities. </p> <p>If you are interested in joining a disruptive entertainment company that pushes the envelope and definitely cares about providing a great working environment for its employees, then apply immediately!</p> <p>Top Reasons to Work with Us</p> <ol> <li> High caliber colleagues and projects.</li> <li> Fun and collaborative environment.</li> <li> Well established Entertainment Company working on exciting new things.</li> </ol> <p>What You Will Be Doing</p> <ul> <li>Own major aspects of product functionality from back-end algorithms to front-end user experience.</li> <li>Work closely with stakeholders and peers to develop software that meets the business objectives of the organization.</li> <li>Make significant contributions to ensure a cohesive and integrated team, defining and advocating engineering best practices.</li> <li>Writing superb code and associated unit/acceptance tests.</li> <li>Think about how you can best tailor a user experience, but you must also be capable of creating highly scalable infrastructure. What You Need for this Position</li> </ul> <p>MUST HAVES:</p> <ul> <li>Ruby on Rails</li> <li>HTML5</li> <li>CSS3</li> <li>JavaScript</li> <li>REST APIs</li> </ul> <p>STRONG PLUSES:</p> <ul> <li>Modern JavaScript (Ember, Angular, etc.)</li> <li>Test-Driven Development</li> <li>Github</li> <li>Amazon EC2</li> <li>Heroku</li> </ul> <p>What's In It for You?</p> <ul> <li>A very competitive base salary</li> <li>401(k)</li> <li>Vacation/PTO</li> <li>Medical</li> <li>Dental</li> <li>Vision</li> <li>Select the hardware and equipment you want to get your work done!</li> </ul> <p>We offer competitive pay and benefits program, including: medical, dental &amp; vision coverage, vacation &amp; sick leave, 401(k), company health screenings and more.</p> <p>To view other open positions and for more information on our company, please visit our website at <a href="http://www.bydeluxe.com">http://www.bydeluxe.com</a></p> <p>Deluxe is an Equal Opportunity Employer.</p> </div> </div> </li> <li class="listing" data-index="1" data-company="Parallel6" data-source="Indeed" data-source-id="Indeed=36b9b614dd4ae222"> <div class="collapsible-header"><span class="listing-number ghost">2</span> <h2 class="headline">Junior JavaScript Developer</h2> <h3 class="company">Parallel6</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Diego</p> <p class="meta-detail date">18 days ago</p> <p class="meta-detail source">Indeed</p> <div class="meta-detail description">Junior JavaScript <b>Developer</b>. 2+ years industry experience with background in Agile methodology. We are looking for a Junior JavaScript <b>Developer</b> who is...</div> </div> </li> <li class="listing" data-index="2" data-company="VizExplorer" data-source="Indeed" data-source-id="Indeed=d1b49dd1f067c782"> <div class="collapsible-header"><span class="listing-number ghost">3</span> <h2 class="headline">Web Developer (Contract)</h2> <h3 class="company">VizExplorer</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Diego</p> <p class="meta-detail date">11 days ago</p> <p class="meta-detail source">Indeed</p> <div class="meta-detail description">The San-Diego based marketing team seeks a part-time (~20 hours/week) multi-talented front-end web <b>developer</b> with an eye for good design....</div> </div> </li> <li class="listing" data-index="3" data-company="Synthetic Genomics, Inc." data-source="Indeed" data-source-id="Indeed=a797663dfe83670b"> <div class="collapsible-header"><span class="listing-number ghost">4</span> <h2 class="headline">Database Developer/ Architect</h2> <h3 class="company">Synthetic Genomics, Inc.</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">La Jolla</p> <p class="meta-detail date">13 days ago</p> <p class="meta-detail source">Indeed</p> <div class="meta-detail description">Experience working as part of a high velocity Agile enterprise-class project. At Synthetic Genomics, Inc., we are dedicated to developing and commercializing...</div> </div> </li> <li class="listing" data-index="4" data-company="General Atomics and Affiliated Companies" data-source="Indeed" data-source-id="Indeed=d1bdb440852c1acb"> <div class="collapsible-header"><span class="listing-number ghost">5</span> <h2 class="headline">Entry Level Software Developer</h2> <h3 class="company">General Atomics and Affiliated Companies</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Diego</p> <p class="meta-detail date">17 days ago</p> <p class="meta-detail source">Indeed</p> <div class="meta-detail description">Entry Level Software <b>Developer</b>. We have an exciting opportunity for a Software <b>Developer</b> to join our Special Projects Software Team....</div> </div> </li> <li class="listing" data-index="5" data-company="C2S Technologies, Inc" data-source="Indeed" data-source-id="Indeed=201cec24d8f0e6b5"> <div class="collapsible-header"><span class="listing-number ghost">6</span> <h2 class="headline">Junior Software Engineer</h2> <h3 class="company">C2S Technologies, Inc</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Diego</p> <p class="meta-detail date">3 months ago</p> <p class="meta-detail source">Indeed</p> <div class="meta-detail description">We are looking for someone who has a passion for technology, desire to grow as a part of <b>developers</b> team and open to learn. Jr....</div> </div> </li> <li class="listing" data-index="6" data-company="Curematch" data-source="Indeed" data-source-id="Indeed=367a06460d91bbd0"> <div class="collapsible-header"><span class="listing-number ghost">7</span> <h2 class="headline">Full Stack Java Developer</h2> <h3 class="company">Curematch</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Diego</p> <p class="meta-detail date">3 days ago</p> <p class="meta-detail source">Indeed</p> <div class="meta-detail description">Master computer Science or Bachelor with 5 years experience of development. Excellent core java, good SQL and UI (HTML, CSS, JavaScript) skills. Hibernate,</div> </div> </li> <li class="listing" data-index="7" data-company="MRP" data-source="Indeed" data-source-id="Indeed=784a68a6e0385b71"> <div class="collapsible-header"><span class="listing-number ghost">8</span> <h2 class="headline">C# Server-Side and .NET Full-Stack Web Developers - Energy Solutions (W2)</h2> <h3 class="company">MRP</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Diego</p> <p class="meta-detail date">a month ago</p> <p class="meta-detail source">Indeed</p> <div class="meta-detail description">This company is a premiere consultancy in the Greater San Diego Area, working onsite at the one of the largest energy providers in the U.S. - located Downtown</div> </div> </li> <li class="listing" data-index="8" data-company="ServiceNow" data-source="Indeed" data-source-id="Indeed=fc7090117ca47ca4"> <div class="collapsible-header"><span class="listing-number ghost">9</span> <h2 class="headline">Software Engineer Intern</h2> <h3 class="company">ServiceNow</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Diego</p> <p class="meta-detail date">5 days ago</p> <p class="meta-detail source">Indeed</p> <div class="meta-detail description">Platform component owners and application <b>developers</b> build applications using these core services to deliver the leading enterprise platform offering on the...</div> </div> </li> <li class="listing" data-index="9" data-company="Faulkner Media Group (FMG)" data-source="Indeed" data-source-id="Indeed=eb5cc26bca99e120"> <div class="collapsible-header"><span class="listing-number ghost">10</span> <h2 class="headline">Front End Web Developer</h2> <h3 class="company">Faulkner Media Group (FMG)</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Diego</p> <p class="meta-detail date">4 days ago</p> <p class="meta-detail source">Indeed</p> <div class="meta-detail description">We’re a growing company with a love for creativity and dedication to quality. We operate within a proven business strategy and have a secure foothold in our</div> </div> </li> <li class="listing" data-index="10" data-company="Perspectium Corp" data-source="Indeed" data-source-id="Indeed=6d82b6109bc3528e"> <div class="collapsible-header"><span class="listing-number ghost">11</span> <h2 class="headline">Software Developer</h2> <h3 class="company">Perspectium Corp</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Diego</p> <p class="meta-detail date">5 days ago</p> <p class="meta-detail source">Indeed</p> <div class="meta-detail description">*Responsibilities: * * Design, develop new features and applications using various development environment and tools. * Participate in scrum teams for product</div> </div> </li> <li class="listing" data-index="11" data-company="SOLUTE Careers" data-source="Indeed" data-source-id="Indeed=5818b9e219bc0b1f"> <div class="collapsible-header"><span class="listing-number ghost">12</span> <h2 class="headline">UI / UX Designer</h2> <h3 class="company">SOLUTE Careers</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Diego</p> <p class="meta-detail date">2 days ago</p> <p class="meta-detail source">Indeed</p> <div class="meta-detail description">Portfolio demonstrating your experience in software application design Create personas, journey maps wireframes, storyboards, user flows, process flows, site...</div> </div> </li> <li class="listing" data-index="12" data-company="CGI" data-source="Indeed" data-source-id="Indeed=e98f54cb426cdbfd"> <div class="collapsible-header"><span class="listing-number ghost">13</span> <h2 class="headline">Software Developer</h2> <h3 class="company">CGI</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Diego</p> <p class="meta-detail date">4 days ago</p> <p class="meta-detail source">Indeed</p> <div class="meta-detail description"> Experience with Agile methodologies and working in an Agile team environment. CGI Federal is seeking an Software <b>Developer</b> to work in our San Diego location....</div> </div> </li> <li class="listing" data-index="13" data-company="Shipware, LLC" data-source="Indeed" data-source-id="Indeed=2b14b83ecdda4376"> <div class="collapsible-header"><span class="listing-number ghost">14</span> <h2 class="headline">Software Developer</h2> <h3 class="company">Shipware, LLC</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Diego</p> <p class="meta-detail date">7 days ago</p> <p class="meta-detail source">Indeed</p> <div class="meta-detail description">Software <b>Developer</b> - Shipware, LLC – San Diego, CA 92128*. Shipware, LLC is looking for a Software <b>Developer</b> to join our team. LOCAL CANDIDATES ONLY*....</div> </div> </li> <li class="listing" data-index="14" data-company="MINCA, Inc." data-source="Indeed" data-source-id="Indeed=722a209b206d2893"> <div class="collapsible-header"><span class="listing-number ghost">15</span> <h2 class="headline">Full Stack Developer</h2> <h3 class="company">MINCA, Inc.</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Diego</p> <p class="meta-detail date">24 days ago</p> <p class="meta-detail source">Indeed</p> <div class="meta-detail description">Full Stack <b>Developer</b>*. MCN Group, a division of MINCA, Inc., is looking for a full time *Full Stack <b>Developer</b>*. Agile and Waterfall methodologies;...</div> </div> </li> <li class="listing" data-index="15" data-company="BAE Systems" data-source="Indeed" data-source-id="Indeed=6238011ad7b7f98c"> <div class="collapsible-header"><span class="listing-number ghost">16</span> <h2 class="headline">Jr. Software Engineer - Web Client Developer</h2> <h3 class="company">BAE Systems</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Diego</p> <p class="meta-detail date">4 days ago</p> <p class="meta-detail source">Indeed</p> <div class="meta-detail description">Experience with agile methodologies. GXP is looking for a junior level software engineer....</div> </div> </li> <li class="listing" data-index="16" data-company="BAE Systems" data-source="Indeed" data-source-id="Indeed=1dee4be327ab2b9e"> <div class="collapsible-header"><span class="listing-number ghost">17</span> <h2 class="headline">Jr. Software Engineer - Server-Side Developer</h2> <h3 class="company">BAE Systems</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Diego</p> <p class="meta-detail date">4 days ago</p> <p class="meta-detail source">Indeed</p> <div class="meta-detail description"><b>Developers</b> are expected to prototype/design to the goals of functionality and operational utility while considering ease of component re-use, connectivity, long...</div> </div> </li> <li class="listing" data-index="17" data-company="SysIntelli" data-source="Indeed" data-source-id="Indeed=bf2bfe49a9845e02"> <div class="collapsible-header"><span class="listing-number ghost">18</span> <h2 class="headline">Software Developer</h2> <h3 class="company">SysIntelli</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Diego</p> <p class="meta-detail date">a day ago</p> <p class="meta-detail source">Indeed</p> <div class="meta-detail description">Software Developer analyze business requirements and design, develop, code, test, and implement software applications; prepare Functional Specification</div> </div> </li> <li class="listing" data-index="18" data-company="General Atomics and Affiliated Companies" data-source="Indeed" data-source-id="Indeed=ad8c34a1475b670f"> <div class="collapsible-header"><span class="listing-number ghost">19</span> <h2 class="headline">Junior Software Developer</h2> <h3 class="company">General Atomics and Affiliated Companies</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Diego</p> <p class="meta-detail date">a month ago</p> <p class="meta-detail source">Indeed</p> <div class="meta-detail description">Junior Software <b>Developer</b>. We have an exciting opportunity for a Junior Software <b>Developer</b>, to join our Software- Cockpit (CA) group, within Missions Systems,...</div> </div> </li> <li class="listing" data-index="19" data-company="TapHunter" data-source="Indeed" data-source-id="Indeed=24dee5e871106dfe"> <div class="collapsible-header"><span class="listing-number ghost">20</span> <h2 class="headline">Software Development Apprentice</h2> <h3 class="company">TapHunter</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Diego</p> <p class="meta-detail date">a month ago</p> <p class="meta-detail source">Indeed</p> <div class="meta-detail description">We are looking for 1-2 San Diego based rock stars to join the Summer <b>Developer</b> Apprenticeship and work out of our downtown office....</div> </div> </li>
                     <!-- /////////////////// -->
                     <!-- TARGET RESULTS HERE -->
                     <!-- /////////////////// -->
-                    <li class="listing" data-index="0" data-company="SolutionIT, Inc." data-source="Dice" data-source-id="Dice=10290916_Web-Dev-Angl_NY">
+                    <!-- <li class="listing" data-index="0" data-company="SolutionIT, Inc." data-source="Dice" data-source-id="Dice=10290916_Web-Dev-Angl_NY">
                         <div class="collapsible-header"><span class="listing-number ghost">1</span>
                             <h2 class="headline">Web developer - AngularJS</h2>
                             <h3 class="company">SolutionIT, Inc.</h3></div>
@@ -141,11 +156,11 @@
                             <p class="meta-detail source">Dice</p>
                             <div class="meta-detail description">Description is not available. For more details, visit Dice's website.</div>
                         </div>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div> <!-- /row -->
-        <!-- Pagination ===========================-->
+    <!-- Pagination ===========================-->
         <div class="row center-align">
             <div class="col s12">
                 <ul class="pagination">
@@ -159,9 +174,35 @@
                 </ul>
             </div>
         </div> <!-- /row -->
-        <!-- Filter Side Nav ======================-->
+        <!-- Tap Target Structure -->
+        <!-- <div class="tap-target" data-activates="saved-modal-trigger">
+                <div class="tap-target-content">
+                    <h5>View your saved jobs here</h5>
+                    <p>Click here to open the modal that holds your most prized listings.</p>
+                </div>
+            </div> -->
+        <!-- Modal Trigger -->
+        <!-- <a id="saved-modal-trigger" href="#saved-jobs-modal" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">star</i></a> -->
+        <!-- <a class="waves-effect waves-light btn" href="#saved-jobs-modal">View Saved Jobs</a> -->
+        <!-- Modal Structure -->
+        <div id="saved-jobs-modal" class="modal bottom-sheet">
+            <div class="modal-content">
+                <h4>Saved Jobs</h4>
+                <p>The job listings you have favorited can be found here.</p>
+                <div id="saved-feed-row" class="row">
+                    <div class="col s12 m10 offset-m1 xl6 offset-xl3">
+                        <ul id="saved-feed" class="collapsible" data-collapsible='expandable'> </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!-- <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a> -->
+            </div>
+        </div>
+    </div> <!-- /page1 -->
+<!-- Filter Side Nav ======================-->
         <ul id="filter-side-nav" class="side-nav">
-            <li><a href="#!">First Sidebar Link</a></li>
+            <li><a class="close-btn" href="#!">Close Filter Menu</a></li>
             <li class="no-padding">
                 <ul class="collapsible collapsible-accordion">
                     <li>
@@ -234,34 +275,13 @@
             </li>
         </ul>
         <!-- /sideNav -->
-        <!-- Tap Target Structure -->
-        <!-- <div class="tap-target" data-activates="saved-modal-trigger">
-                <div class="tap-target-content">
-                    <h5>View your saved jobs here</h5>
-                    <p>Click here to open the modal that holds your most prized listings.</p>
-                </div>
-            </div> -->
-        <!-- Modal Trigger -->
-        <!-- <a id="saved-modal-trigger" href="#saved-jobs-modal" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">star</i></a> -->
-        <!-- <a class="waves-effect waves-light btn" href="#saved-jobs-modal">View Saved Jobs</a> -->
-        <!-- Modal Structure -->
-        <div id="saved-jobs-modal" class="modal bottom-sheet">
-            <div class="modal-content">
-                <h4>Saved Jobs</h4>
-                <p>The job listings you have favorited can be found here.</p>
-                <ul id="saved-feed" class="collapsible" data-collapsible='expandable'>
-                </ul>
-            </div>
-            <div class="modal-footer">
-                <!-- <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a> -->
-            </div>
-        </div>
-    </div>
-    <!--=============================================-->
-    <!-- JS Links -->
+
+<!--=============================================-->
+<!-- JS Links -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <!-- firebase, firebase UI -->
     <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
     <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script>
@@ -276,9 +296,11 @@
     var autocomplete = new google.maps.places.Autocomplete(locationInput, locationOptions);
     </script>
     <!-- End of Cities autocomplete -->
+
+    <!-- <script src="assets/js/firebase-init.js" type="text/javascript" charset="utf-8"></script> -->
+    <script src="assets/js/login.js" type="text/javascript" charset="utf-8"></script>
     <script src="assets/js/global.js" type="text/javascript" charset="utf-8"></script>
     <script src="assets/js/script.js" type="text/javascript" charset="utf-8"></script>
-    <script src="assets/js/login.js" type="text/javascript" charset="utf-8"></script>
     <script src="assets/js/benchmark-email-form.js" type="text/javascript"></script>
     <!-- <script src="assets/js/devTools.js" type="text/javascript" charset="utf-8"></script> -->
     <!-- <script src="assets/js/testing.js" type="text/javascript" charset="utf-8"></script> -->

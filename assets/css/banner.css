@@ -1,0 +1,33 @@
+
+/* Banner ------------------------------*/
+	#banner {
+		width: 100%;
+		height: 50vh;
+		min-height: 400px;
+		margin: 0;
+		padding: 100px 0 50px;
+		overflow: hidden;
+		position: relative;
+		z-index: 900;
+		background-image: url(../img/banner-dune.jpg);
+		background-size: cover;
+		background-position: 50% 50%;
+
+	}
+	.landing #banner {
+		height: 100vh;
+		padding: 0;
+	}
+	#banner form {
+		z-index: 902;
+	}
+
+	#banner-logo {
+		width: 75%;
+		margin: 0 auto;
+		max-width: 200px;
+		height: initial; 
+		display: block;
+		margin-bottom: 25px;
+	}
+

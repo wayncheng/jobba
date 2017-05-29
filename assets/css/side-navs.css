@@ -1,0 +1,56 @@
+	
+	#main-side-nav-link {
+		/*display: none;*/
+		color: #333;
+		float: left;
+	}
+
+
+/* Side Navigation -----------------------------------------------*/
+	/* Headers  */
+	.side-nav .collapsible-header {
+		background-color: rgba(0,0,0,0.05);
+		/*background-color: rgba(0,0,0,0.6);*/
+		/*background-color: rgba(100,100,100,0.8);*/
+		border-top: 1px solid rgba(0,0,0,0.1);
+		/*color: #fff;*/
+	}
+	.side-nav .collapsible-header:hover {
+		background-color: rgba(0,0,0,0.1);
+		/*background-color: rgba(0,0,0,0.7);*/
+		/*background-color: rgba(100,100,100,0.9);*/
+	}
+	.side-nav .collapsible-header.active {
+		background-color: rgba(50,50,50,0.1);
+		background-color: rgba(0,0,0,0.15);
+		/*background-color: rgba(0,0,0,0.8);*/
+	}
+
+
+/* Side Navigation Dropdowns -------------------------------------*/
+	/* Dropdown select wrapper (side nav) */
+		.sideNavForm .input-field .select-wrapper {
+			line-height: 48px;
+			height: 48px;
+		}
+	/* Displayed text value of dropdowns in sidenavs */
+		.sideNavForm .input-field input[type=text] {
+			color: #333;
+			/*text-indent: 30px;*/
+			text-align: center;
+		}
+	/* dropdown content (side nav) */
+		.sideNavForm .input-field .dropdown-content li span {
+			text-align: center;
+		}
+	/* Dropdown Caret (Side Nav) */
+		.sideNavForm .input-field .caret {
+			margin-right: 20px;
+		}
+	/* Dropdown portion of dropdown in side nav? 
+		Removes bottom border and margin which is important */
+		.sideNavForm .input-field .select-dropdown {
+			margin: 0;
+			line-height: inherit;
+			border-bottom: none;
+		}
