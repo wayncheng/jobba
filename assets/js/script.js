@@ -62,7 +62,7 @@ $(document).ready(function () {
 		var saveData = jobba.allResults[dataIndex];
 		console.log('saveData',saveData);
 
-		saveJobs(saveData); 	// Was this you, Novia? I can't remember if I wrote this,
+		// saveJobs(saveData); 	// Was this you, Novia? I can't remember if I wrote this,
 								// but I commented it out for now because it was getting an error
 								// and stopping everything else
 
