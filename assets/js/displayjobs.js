@@ -42,12 +42,8 @@ function printSavedJobs() {
 
 					$("#saved-feed").empty();
 
-					for(var i =0; i<allJobs.length; i++){	
-						console.log(allJobs[i][1].company);
-					}
-
-
 					allJobs.forEach(function(jobData){
+
 
 
 						// Variables for details to be written
@@ -128,8 +124,7 @@ function printSavedJobs() {
 						// body.append(d);
 						wrap.append(body);
 						$('#saved-feed').append(wrap);
-
-
+						$('#saved-feed').append("<hr>");
 
 						console.log(jobData[1],jobData[0]);
 					});			
