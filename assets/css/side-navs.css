@@ -42,6 +42,13 @@
 		color: #fff;
 	}
 
+	.side-nav .collapsible-body #filter-source {
+		padding-bottom: 1.5rem;
+	}
+	.side-nav label {
+		width: 100%;
+	}
+
 
 /* Side Navigation Dropdowns -------------------------------------*/
 	/* Dropdown select wrapper (side nav) */
