@@ -3,8 +3,9 @@ var g = {
 allRawData: [],
 allResults: [],
 allResultsStr: [],
-filteredData: [],
+partData: [],
 companyList: [],
+printFrom: 'allResults',
 totalResultCount: 0,
 page: 1,
 itemsPerPage: 20,
@@ -20,20 +21,34 @@ apiCheckpoint: 'processing',
 apiCheck: 0,
 apisRunning: false,
 prevCheck: 0,
+filteredCount: 0,
 resultFilter: 
 		function(hideList){
-			var res = g.allResults;
+			var all = g.allResults;
 
-			res.filter(function(r){
+			g.partData = all.filter(function(res){
 				// Return if not found in hideList array
-				console.log('r',r);
-				var src = r.source;
-				console.log('src',src);
-				var iof = r.indexOf(src);
-				if ( iof === -1 )
-					return this;
-			})
+				var iof = hideList.indexOf(res.source);
+				return iof === -1;
+			});
+			
+			// Count the number of items in filtered data for comparison
+			g.filteredCount = g.partData.length;
 
+			// In event there are no results after filtering
+			if( g.filteredCount === 0 )
+				alert("No results that fit what you are searching for.");
+			// In event filtering didn't remove anything
+			else if ( g.filteredCount === g.totalResultsCount ) {
+				alert("The filters did not remove any results");
+			}
+			console.log('g.filteredCount',g.filteredCount);
+			console.log('g.partData',g.partData);
+
+			// Update where to print from
+			g.printFrom = 'partData';
+
+			g.pagination();
 		},
 checkStatus:
 		function(){
@@ -41,7 +56,7 @@ checkStatus:
 			var oldStatus = g.prevCheck;
 			var newStatus = g.apiCheck;
 			if ( newStatus > oldStatus ) {
-				var pct = g.apiCheck/4*100 + 10;
+				var pct = g.apiCheck/5*100 + 10;
 				console.log('pct',pct);
 				// $('.progress-target').css('width',pct+'%');
 				$('.progress-target').animate({
@@ -52,7 +67,7 @@ checkStatus:
 			g.prevCheck = g.apiCheck;
 
 			// If completely done
-			if( g.apiCheck === 4 ) {
+			if( g.apiCheck === 5 ) {
 				console.log('all apis done');
 
 				// change run status
@@ -79,7 +94,7 @@ getItemsPerPage:
 		}),
 dedup:
 		function(jobObj){
-			console.log('dedup start')
+			// console.log('dedup start')
 			var isDup = false;
 
 			// // If a duplicate...
@@ -107,7 +122,6 @@ firebaseCount:
 		},
 writeToFirebaseArchive:
 		function(jobObj){
-			console.log('writeToFirebaseArchive start');
 			var database = firebase.database();
 
 			// var dataSourceID = jobObj.sourceID;
@@ -115,7 +129,6 @@ writeToFirebaseArchive:
 			var jobSourceID = jobObj.sourceID;
 			// Combine source and sourceID
 			var sourceID = jobSource.replace(/\s/g,'') + '=' + jobSourceID; 
-			console.log('sourceID',sourceID);
 
 			// Write every listing to this archive.
 			var allArchiveDataRef = database.ref('allArchive/data');			
@@ -168,7 +181,8 @@ writeToFirebaseArchive:
 
 
 					var dedupReturn = g.dedup(jobObj); // Send jobObj to be deduped. Currently return everything as not duplicated
-					console.log('dedupReturn',dedupReturn);
+					// console.log('dedupReturn',dedupReturn);
+					
 					if ( dedupReturn === null ) {
 						// All the code for when the listing is unique
 						
@@ -249,7 +263,7 @@ printManager:
 			g.checkStatus();
 			
 			// Once there are enough results to populate 1 page, show feed elements and begin printing
-			if( g.apiCheck === 4 ) {
+			if( g.apiCheck === 5 ) {
 			// if( g.allResults.length >= g.itemsPerPage ) {
 
 			}
@@ -274,7 +288,7 @@ beginPrint:
 			$('#scroll-to-top').show();
 
 			// Begin printing
-			g.pagination();
+			g.pagination(g.allResults);
 		},
 paginationHandler: 
 		$('.pagination > li > a').on('click',function(event){
@@ -319,8 +333,6 @@ paginationHandler:
 				targetData = currentPage + 1
 			}
 
-
-
 			// Add "active" class to target page
 			targetPageEl.addClass('active');
 
@@ -340,12 +352,13 @@ pagination:
 			// Clear feed
 			$('#feed').empty();          
 
+			// var printFrom = g.printFrom;
 			// Loop through listings from start to end in allResultsStr array
 			for (var i=start; i<end; i++) {
 				// Set current index in global
 				g.resultNumber = i+1;
 				// Print each listing
-				g.print(g.allResults[i]);
+				g.print(g[g.printFrom][i]);
 			};
 		},
 print: 	
@@ -414,35 +427,50 @@ print:
 				saveWrap.attr('data-saved','false');
 
 			// Meta Details
-			for (var i=0; i<metaArray.length; i++) {
-				var p = $('<p>');
-					p.addClass('meta-detail');
-					p.addClass(metaArray[i].key);
-					p.text(metaArray[i].value);
-					bodyEl.append(p);
-			};
+			// for (var i=0; i<metaArray.length; i++) {
+			// 	var p = $('<p>');
+			// 		p.addClass('meta-detail');
+			// 		p.addClass(metaArray[i].key);
+			// 		p.text(metaArray[i].value);
+			// 		bodyEl.append(p);
+			// };
+			var locationWrap = $('<p>');
+				locationWrap.addClass('meta-detail');
+				locationWrap.addClass('location');
+				locationWrap.text(location);
+
+			var dateWrap = $('<p>');
+				dateWrap.addClass('meta-detail');
+				dateWrap.addClass('date');
+				dateWrap.text(date);
+			
+			// Original Source URL
+			var sourceWrap = $('<p>');
+				sourceWrap.addClass('meta-detail');
+				sourceWrap.addClass('source sourceURL');
+
+				var sourceURLLink = $('<a>');
+					sourceURLLink.attr('href',sourceURL);
+					sourceURLLink.attr('alt', 'View this job listing on the original site');
+					sourceURLLink.text(source);
+					sourceWrap.append(sourceURLLink);
+
+
+			
+			// meta
+			bodyEl.append(locationWrap);
+			bodyEl.append(dateWrap);
+			bodyEl.append(sourceWrap);
 
 			// Listing description except dice
 			if ( source != "Dice" ) {
 				var descriptionEl = $('<div>');
 					descriptionEl.addClass('meta-detail description');
 					descriptionEl.html(description);
+
+					bodyEl.append($('<p>').addClass('meta-detail description-label'));
 					bodyEl.append(descriptionEl);
 			}
-
-			// Original Source URL
-			var sourceURLWrap = $('<p>');
-				sourceURLWrap.addClass('meta-detail');
-				sourceURLWrap.addClass('sourceURL');
-
-				var sourceURLLink = $('<a>');
-					sourceURLLink.attr('href',sourceURL);
-					sourceURLLink.attr('alt', 'View this job listing on the original site');
-					sourceURLLink.text(source);
-					sourceURLWrap.append(sourceURLLink);
-				bodyEl.append(sourceURLWrap);
-
-
 
 			// All Appends
 			headerEl.append(listingNumberEl);			
@@ -475,6 +503,7 @@ reset:
 
 			// Clear previous results
 			g.allResultsStr = [];
+			g.allResults = [];
 
 			// Reset Pagination: Remove active class from current page
 			$('.pagination').find('.active').removeClass('active');
@@ -1006,10 +1035,10 @@ api:
 							g.apiStatus[apiIndex] = 'fail';
 						});
 					}
-		},	
+			},	
 			
 
-			linkup: {
+		linkup: {
 				url: "",
 				status: "processing",
 				apiIndex: 4,
@@ -1084,7 +1113,7 @@ api:
 								"company": jobCompany,
 								"location": jobLocation,
 								"date": dateFormatted,
-								"source": "Linkup",
+								"source": "LinkUp",
 								"sourceID": sourceID,
 								"description": jobsResults[i].job_description,
 								"url": jobsResults[i].job_title_link,

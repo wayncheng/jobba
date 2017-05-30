@@ -148,7 +148,7 @@ $(document).ready(function () {
 	    }
 	    else {
 	    	el.removeClass('pos-fixed');
-	    	el.css('background-color','initial');
+	    	el.css('background-color','#ffffff');
 	    	targetEl.removeClass('pos-fixed');
 	    }
     });

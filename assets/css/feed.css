@@ -9,11 +9,18 @@
 	}
 
 /* Feed ------------------------------*/
-	.collapsible-header {
+	#feed .collapsible-header {
 		padding: 1rem;
+		background-color: #ffffff;
+		/*background-color: #fefefe;*/
 	}
-	.collapsible li {
+	#feed .collapsible li {
 		position: relative;
+	}
+	#feed .collapsible-body {
+		background-color: #ffffff;
+		/*background-color: #fdfdfd;*/
+		padding: 1.5rem 4rem;
 	}
 	.headline, .company {
 		/* Match indent */
@@ -46,28 +53,36 @@
 		line-height: 20px;
 		width: 20px;
 		color: rgba(0,0,0,0.4);
-		text-align: right
+		text-align: right;
 	}
 
-	.location::before {
-		content: "Location: "
+/* Meta Details ------------------------------*/
+	.meta-detail {
+		/*font-family: "cutive mono";*/
+		/*font-family: 'Roboto Slab';*/
+		line-height: 2em;
+		font-weight: 400;
 	}
-	.date::before {
-		content: "Posted: "
+	.meta-detail::before {
+		font-weight: 500;
+		margin-right: 8px;
+		color: #333;
+		/*text-decoration: underline;*/
+		/*font-style: italic;*/
 	}
-	.source::before {
-		content: "Source: "
-	}
-	.sourceURL::before {
-		content: "Source URL: "
-	}
+	.location::before { content: "Location:" }
+	.date::before { content: "Posted:" }
+	.source::before { content: "Source:" }
+	.description-label::before { content: "Description:" }
+	/*.sourceURL::before { content: "Source URL:" }*/
 
 	/* Source URL Meta Link */
 	.sourceURL {
 		max-width: 100%;
 		overflow: hidden;
-		height: 1.5em;
+		height: inherit;
 	}
+
 
 /* Save Button (in listing) ------------------------------*/
 	.save-wrap {
