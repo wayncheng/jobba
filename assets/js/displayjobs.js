@@ -42,7 +42,13 @@ function printSavedJobs() {
 
 					$("#saved-feed").empty();
 
+					for(var i =0; i<allJobs.length; i++){	
+						console.log(jobData[i][1].company);
+					}
+
+
 					allJobs.forEach(function(jobData){
+
 
 						// Variables for details to be written
 						var title = jobData[1].title;
@@ -53,6 +59,7 @@ function printSavedJobs() {
 						var source = jobData[1].source;
 						var description = jobData[1].description;
 						var url = jobData[1].url;
+						// var jobIndex = jobData.index;
 						
 						// Convert date to days ago
 						var daysAgo = moment(jobData[1].date,'MMM-DD').fromNow();
@@ -71,7 +78,7 @@ function printSavedJobs() {
 						var wrap = $('<div>');
 							wrap.addClass('listing panel panel-default');
 							// wrap.attr('data-all',jobStr);
-							// wrap.attr('data-index',jobIndex);
+							wrap.attr('data-index',jobIndex);
 							wrap.attr('data-company',company);
 
 						var body = $('<div>');

@@ -27,13 +27,13 @@ $(document).ready(function(){
 
 
 
-function CreateLinkupUrl(searchString,city,state,noOfRecords){
+function CreateLinkupUrl(searchString,city,state){
 
-	var url = "";
+	var url = "https://cors-anywhere.herokuapp.com/http://www.linkup.com/developers/v-1/search-handler.js?api_key=6681AB844790FB012488B9027B231749&embedded_search_key=b599c6a6e9b2178c2e673516252cad2a&orig_ip=j"+jobba.userIP;
 
-	if(searchString != "http://www.linkup.com/developers/v-1/search-handler.js?api_key=6681AB844790FB012488B9027B231749&embedded_search_key=b599c6a6e9b2178c2e673516252cad2a&orig_ip=127.0.0.1&keyword=sales&location=55344&distance=50"){
+	if(searchString != ""){
 		searchString = encodeURIComponent(searchString);
-		url = url + "&description=" + searchString;
+		url = url + "&keyword=" + searchString;
 	}
 	if(city != ""){
 		city = encodeURIComponent(city);
@@ -63,14 +63,13 @@ function doAjaxCall(qURL, mycallback){
 		// Change status to fail.
 		// globalObj.apiStatus.github = 'fail'; //  ADD STATUS!
 	});
-
-
 }
+
 
 function getLinkupResponse(result){
 	// console.log('done',result);
 
-	var jobsResults = result;
+	var jobsResults = result.jobs;
 	var jobTitle;
 	var jobCompany;
 	var jobLocation;
@@ -83,10 +82,10 @@ function getLinkupResponse(result){
 	for(var i=0; i< jobsResults.length; i++){
 		// console.log(i+1);
 
-		jobTitle = jobsResults[i].title;
-		jobCompany = jobsResults[i].company;
-		jobLocation = jobsResults[i].location;
-		jobDate = jobsResults[i].created_at;
+		jobTitle = jobsResults[i].job_title;
+		jobCompany = jobsResults[i].job_company;
+		jobLocation = jobsResults[i].job_location;
+		jobDate = jobsResults[i].job_date_added;
 
 		// Format date using moment.js
 		var dateFormatted = moment(jobDate).format("MMM D");
@@ -98,16 +97,44 @@ function getLinkupResponse(result){
 			"location": jobLocation,
 			"date": dateFormatted,
 			"source": "Linkup",
-			"description": jobsResults[i].description,
-			"url": jobsResults[i].url,
+			"description": jobsResults[i].job_description,
+			"url": jobsResults[i].job_title_link,
 		}
 		var jobStr = JSON.stringify(jobJSON);
-		globalObj.print(jobStr);
+		console.log(jobStr);
 
 	} // end for loop
 
-
-
-
 }
 
+
+
+//=============================================
+// 					TESTING 
+//=============================================
+
+
+
+ var qURL = CreateLinkupUrl("software","san diego","california");
+	console.log("url "+ qURL);
+	
+	$.ajax({
+		type:'GET',
+		url: qURL,
+	}).done(function(result){
+		
+
+		console.log('done',result);
+		console.log('Title: ' + result.job_title)
+		getLinkupResponse(result);
+
+	}).fail(function(){
+		console.log('fail', qURL.result);
+	});
+
+	
+
+
+//=============================================
+// 					
+//=============================================
