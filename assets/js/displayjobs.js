@@ -78,7 +78,7 @@ function printSavedJobs() {
 						var wrap = $('<div>');
 							wrap.addClass('listing panel panel-default');
 							// wrap.attr('data-all',jobStr);
-							wrap.attr('data-index',jobIndex);
+							// wrap.attr('data-index',jobIndex);
 							wrap.attr('data-company',company);
 
 						var body = $('<div>');
