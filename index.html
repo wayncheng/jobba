@@ -64,7 +64,7 @@
             </ul>
             <ul id="nav-mobile" class="side-nav">
                 <li>
-                    <a class="close-btn" href="#!">Close Main Menu</a>
+                    <a class="close-btn" href="#!">Close Main Menu<i class="material-icons">clear_all</i></a>
                 </li>
                 <li>
                     <a href="#!" class="blue header-link login sign-in btn" id="signInWithGithub" title="Sign in with Github">
@@ -164,13 +164,13 @@
         <div class="row center-align">
             <div class="col s12">
                 <ul class="pagination">
-                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                    <li class="active"><a href="#!">1</a></li>
-                    <li class="waves-effect"><a href="#!">2</a></li>
-                    <li class="waves-effect"><a href="#!">3</a></li>
-                    <li class="waves-effect"><a href="#!">4</a></li>
-                    <li class="waves-effect"><a href="#!">5</a></li>
-                    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                    <li class="pg-control waves-effect disabled" data-pg="0"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                    <li class="pg-control waves-effect" data-pg="1"><a href="#!">1</a></li>
+                    <li class="pg-control waves-effect" data-pg="2"><a href="#!">2</a></li>
+                    <li class="pg-control waves-effect" data-pg="3"><a href="#!">3</a></li>
+                    <li class="pg-control waves-effect" data-pg="4"><a href="#!">4</a></li>
+                    <li class="pg-control waves-effect" data-pg="5"><a href="#!">5</a></li>
+                    <li class="pg-control waves-effect" data-pg="-1"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
                 </ul>
             </div>
         </div> <!-- /row -->
@@ -202,12 +202,18 @@
     </div> <!-- /page1 -->
 <!-- Filter Side Nav ======================-->
         <ul id="filter-side-nav" class="side-nav">
-            <li><a class="close-btn" href="#!">Close Filter Menu</a></li>
+            <li class="no-padding"><a class="close-btn" href="#!"><i class="material-icons">clear_all</i> Close Filter Menu</a></li>
             <li class="no-padding">
                 <ul class="collapsible collapsible-accordion">
                     <li>
                         <a class="collapsible-header">Results per Page<i class="material-icons">arrow_drop_down</i></a>
-                        <div class="collapsible-body sideNavForm">
+                        <div class="collapsible-body sideNavForm horizontal-options">
+                            <ul>
+                                <li class=""><a href="#!" class="pagination-num-opt">10</a></li>
+                                <li class="selected"><a href="#!" class="pagination-num-opt">20</a></li>
+                                <li class=""><a href="#!" class="pagination-num-opt">30</a></li>
+                                <li class=""><a href="#!" class="pagination-num-opt">40</a></li>
+                            </ul>
                             <!-- <form class="sideNavForm">
                                 <ul>
                                     <li class="input-field" id="numResultsShown1"><input type="radio"><label for="numResultsShown1">10</label></li>
@@ -216,15 +222,18 @@
                                     <li class="input-field" id="numResultsShown4"><input type="radio"><label for="numResultsShown4">40</label></li>
                                 </ul>
                             </form> -->
-                            <div id="pagination-num-sel" class="input-field">
+                            <!-- <a href="#!" class="pagination-num-opt">10</a>
+                            <a href="#!" class="pagination-num-opt">20</a>
+                            <a href="#!" class="pagination-num-opt">30</a>
+                            <a href="#!" class="pagination-num-opt">40</a> -->
+                            <!-- <div id="pagination-num-sel" class="input-field">
                                 <select>
                                     <option value="10">10</option>
-                                    <option value="20" selected>20</option>
+                                    <option value="20">20</option>
                                     <option value="30">30</option>
                                     <option value="40">40</option>
                                 </select>
-                                <!-- <label>No. per Page</label> -->
-                            </div>
+                            </div> -->
                         </div>
                     </li>
                 </ul>
@@ -252,19 +261,19 @@
                             <form class="sideNavForm">
                                 <ul id="filter-source" class="filter-listener">
                                     <li class="input-field">
-                                        <input type="checkbox" id="sourceGithub" class="filterSourceInput filterInput filled-in" name="filterSource" value="github" checked />
+                                        <input type="checkbox" id="sourceGithub" class="filterSourceInput filterInput filled-in" name="filterSource" value="github" data-select="true" checked="checked"/>
                                         <label for="sourceGithub">Github</label>
                                     </li>
                                     <li class="input-field">
-                                        <input type="checkbox" id="sourceIndeed" class="filterSourceInput filterInput filled-in" name="filterSource" value="indeed" checked />
+                                        <input type="checkbox" id="sourceIndeed" class="filterSourceInput filterInput filled-in" name="filterSource" value="indeed" data-select="true" checked="checked" />
                                         <label for="sourceIndeed">Indeed</label>
                                     </li>
                                     <li class="input-field">
-                                        <input type="checkbox" id="sourceDice" class="filterSourceInput filterInput filled-in" name="filterSource" value="dice" checked />
+                                        <input type="checkbox" id="sourceDice" class="filterSourceInput filterInput filled-in" name="filterSource" value="dice" data-select="true" checked="checked"  />
                                         <label for="sourceDice">Dice</label>
                                     </li>
                                     <li class="input-field">
-                                        <input type="checkbox" id="sourceAuthenticJobs" class="filterSourceInput filterInput filled-in" name="filterSource" value="authenticJobs" checked />
+                                        <input type="checkbox" id="sourceAuthenticJobs" class="filterSourceInput filterInput filled-in" name="filterSource" value="authenticJobs" data-select="true" checked="checked"  />
                                         <label for="sourceAuthenticJobs">Authentic Jobs</label>
                                     </li>
                                 </ul>

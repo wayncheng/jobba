@@ -20,8 +20,19 @@ apiCheckpoint: 'processing',
 apiCheck: 0,
 apisRunning: false,
 prevCheck: 0,
-filter: 
-		function(){
+resultFilter: 
+		function(hideList){
+			var res = g.allResults;
+
+			res.filter(function(r){
+				// Return if not found in hideList array
+				console.log('r',r);
+				var src = r.source;
+				console.log('src',src);
+				var iof = r.indexOf(src);
+				if ( iof === -1 )
+					return this;
+			})
 
 		},
 checkStatus:
@@ -60,9 +71,9 @@ checkStatus:
 
 		},
 getItemsPerPage: 	
-		$('#items-per-page').on('change', function(event){
+		$('#pagination-num-sel input').on('change', function(event){
 			event.preventDefault();
-			g.itemsPerPage = parseInt( $('#items-per-page').val() );
+			g.itemsPerPage = parseInt( $(this).val() );
 			g.pagination();
 			// Bug! -- Need to return to 1st page
 		}),
@@ -272,19 +283,31 @@ paginationHandler:
 			// Get current page number
 			var currentPageEl = $('.pagination').find('.active');
 			var currentPage = parseInt( currentPageEl.text() );
+			console.log('currentPage',currentPage);
 
 			// Remove "active" class from current page
 			currentPageEl.removeClass('active');
 
 			// Get target page
 			var targetPageEl = $(this).parent('li');
-			var targetPage = parseInt( targetPageEl.text() );
+			var targetData = parseInt(targetPageEl.attr('data-pg'));
+			// var targetPage = parseInt( targetPageEl.text() );
+			console.log('targetData',targetData);
+			
+			if ( targetData === 0 ) {
+				targetData = currentPage - 1
+			}
+			if ( targetData === -1 ) {
+				targetData = currentPage + 1
+			}
+
+
 
 			// Add "active" class to target page
 			targetPageEl.addClass('active');
 
 			// Set page in global variable, which will be used by pagination();
-			g.page = targetPage;
+			g.page = targetData;
 
 			// Print target page
 			g.pagination();
@@ -297,7 +320,7 @@ pagination:
 			var end = g.page * g.itemsPerPage;
 
 			// Clear feed
-			$('#feed').empty();
+			$('#feed').empty();          
 
 			// Loop through listings from start to end in allResultsStr array
 			for (var i=start; i<end; i++) {
@@ -381,11 +404,13 @@ print:
 					bodyEl.append(p);
 			};
 
-			// Listing description
-			var descriptionEl = $('<div>');
-				descriptionEl.addClass('meta-detail description');
-				descriptionEl.html(description);
-				bodyEl.append(descriptionEl);
+			// Listing description except dice
+			if ( source != "Dice" ) {
+				var descriptionEl = $('<div>');
+					descriptionEl.addClass('meta-detail description');
+					descriptionEl.html(description);
+					bodyEl.append(descriptionEl);
+			}
 
 			// Original Source URL
 			var sourceURLWrap = $('<p>');
