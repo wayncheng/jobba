@@ -1,0 +1,16 @@
+/* For all changes when do not disturb sign is up */
+
+.do-not-disturb .loading-wrap {
+	display: block;
+}
+
+.do-not-disturb #page1 {
+	display: none;
+}
+
+.do-not-disturb #submit {
+	background-color: #666;
+	opacity: .8;
+	cursor: not-allowed;
+	pointer-events: none;
+}

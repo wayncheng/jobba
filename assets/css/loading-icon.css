@@ -1,41 +1,22 @@
 
-div.loading-icon-piece-wrap {
-	height: 600px;
-	width: 600px;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	background-image: url(../icons/loadingicons/grid.svg);
-	background-repeat: space;
-	height: 100%;
-	width: 100%;
-	opacity: 0.1;
-}
-
-img.loading-icon-piece {
-	outline: 1px solid red;
-	margin: 5px;
-}
-
 div.loading-wrap {
+	display: none;
 	position: absolute;
 	width: 100%;
 	/*height: 50px;*/
 	bottom: 0;
 	left: 0;
-	background-color: #6a516a
+	z-index: 910;
+	font-size: 20px;
+	height: 8em;
+	line-height: 8em;
 }
-
-
-#rolling-cube-load {
-	position: absolute;
-	bottom: 0;
-	right: 0;
-	height: 125px;
-	width: 150px;
-	overflow: hidden;
-	background-image: url(../icons/loading-icon-sticky-cube-roll.gif);
-	background-position: 50% 40%;
+.progress-wrap {
+}
+.progress-target {
+	height: 100%;
+	width: 0%;
+	position: relative;
 }
 
 
@@ -46,5 +27,21 @@ div.loading-wrap {
 #fox-trot-load img {
 	height: 150px;
 	line-height: 150px;
-	bottom-right: 2px solid #bdc3c7;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	/*bottom-right: 2px solid #bdc3c7;*/
+}
+
+
+.loading-text {
+	font-size: inherit;
+	width: 100%;
+	text-align: center;
+	height: inherit;
+	line-height: inherit;
+	top: 0;
+	color: #ddd;
+	font-weight: 200;
+	letter-spacing: .5px;
 }

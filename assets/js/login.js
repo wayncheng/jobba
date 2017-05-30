@@ -26,6 +26,7 @@ var database = firebase.database();
       user = result.user;
 
       $(".save-wrap").css('visibility', 'visible');
+      $("#displayJobs").css('visibility', 'visible');
 
       // successfully signed in.... What's next?
       // alert("Welcome, "+user.displayName)
@@ -59,7 +60,7 @@ var database = firebase.database();
         console.log("Error - " + errorCode + "  " + errorMessage + "  " + email + "  " + credential);
     });
 
-  }); // End of sign on with GitHub
+  }); // End of sign on with GitHub  
 
 function saveJobs(jobObj){
   // console.log(jobObj);
@@ -71,6 +72,7 @@ function saveJobs(jobObj){
     var jobSource = jobObj.source;
     var jobDescription = jobObj.description;
     var jobURL = jobObj.url;
+    var sourceJobID = jobObj.source.replace(/\s/g,'') + '=' +jobObj.sourceID;
 
   console.log("The saved job in login.js is: job title: "+jobTitle +" company: "+ jobCompany+ " location: " +jobLocation+ " Date: " +jobDate+ " Source: " +jobSource+ " Description: "+jobDescription+" URL: " +jobURL);    
 
@@ -85,8 +87,20 @@ function saveJobs(jobObj){
     };
 
     // Insert into database
-    database.ref("/"+userId+"/jobs").push(addJobs);
+    // jobcon = database.ref("/"+userId+"/jobs/"+sourceJobID).push();
+    if(userId!=""){
+      database.ref("/"+userId+"/jobs/"+sourceJobID).set(addJobs);
+    }
 
+}
+
+function removeJob(){
+
+  //   $("#scheduleDetails").on("click", ".deleteBtn", function() {
+  //   var trainKey = $(this).parent().parent().attr('id');
+
+  //   database.ref("/"+trainKey).remove();
+  // });
 
 }
 
@@ -135,22 +149,12 @@ $('#signOut').on("click", function(){
       $("#signInWithGithub").toggle();
       $("#signOut").hide();
       $(".save-wrap").css('visibility', 'hidden');
+      $("#displayJobs").css('visibility', 'hidden');
       
     }).catch(function(error) {
       // An error happened.
     }); 
   });
-
-
-
-
-$('#displayjobs').on("click", function(){
-
-  //How to pass userID from one page to the other?
-  window.location = '/saved-jobs.html';   
-});
-
-
 
     // When user logs in, direct to saved-jobs.html
 

@@ -122,7 +122,7 @@ function getDiceResponse(result){
 			"location": jobsResults[i].location,
 			"date": dateFormatted,
 			"source": "Dice",
-			"description": "Description is not available. For more details, visit Dice's website.",
+			"description": "For job details, visit Dice's website.",
 			"url": jobsResults[i].detailUrl,
 		}
 		var jobStr = JSON.stringify(jobJSON);

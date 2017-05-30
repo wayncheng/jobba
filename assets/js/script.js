@@ -23,6 +23,7 @@ $(document).ready(function () {
 			// $('#saved-modal-trigger').on('click', function(event){
 			$('#displayJobs').on('click', function(event){
 				event.preventDefault();
+				printSavedJobs();
 				$('.tap-target').tapTarget('close');
 			})
 		}
@@ -54,7 +55,9 @@ $(document).ready(function () {
 			$t.parents('.collapsible-header').removeClass('active');
 
 			// Basically copy paste the saved listing into the saved feed
-			$(this).parents('.listing').clone().appendTo('#saved-feed');
+			// $(this).parents('.listing').clone().appendTo('#saved-feed');
+			printSavedJobs(); // Novia: Trigger retrieval of jobs from Firebase accordingly to logged in userID
+
 		}
 		// Get listing data
 		var thisListing = $(this).parents('.listing');
@@ -62,9 +65,15 @@ $(document).ready(function () {
 		var saveData = jobba.allResults[dataIndex];
 		console.log('saveData',saveData);
 
-		// saveJobs(saveData); 	// Was this you, Novia? I can't remember if I wrote this,
+		saveJobs(saveData); 	// Was this you, Novia? I can't remember if I wrote this,
 								// but I commented it out for now because it was getting an error
 								// and stopping everything else
+
+								// Novia: This calls the saveJobs function in login.js 
+								// Need to log in on Github to trigger correctly. 
+								// Commenting it out for now ;)
+
+
 
 
 	}); // end listing click
@@ -122,13 +131,25 @@ $(document).ready(function () {
     	event.preventDefault();
 	    var el = $('#main-body-nav');
 	    var ref = $('#banner');
+	    var targetEl = $('.pin-target');
 	    var scrollPos = $(window).scrollTop();
+	    var lastPos = scrollPos
+
+
+
 
 	    if ( scrollPos >= ref.outerHeight()) {
-	    	el.css('position','fixed');
+	    	// el.css('position','fixed');
+	    	el.addClass('pos-fixed');
+	    	el.css('background-color','rgba(0,0,0,0.7)');
+	    	// targetEl.show();
+	    	targetEl.addClass('pos-fixed');
+	    	// $('#main-nav-menu-icon').css('color','#333');
 	    }
 	    else {
-	    	el.css('position','absolute');
+	    	el.removeClass('pos-fixed');
+	    	el.css('background-color','initial');
+	    	targetEl.removeClass('pos-fixed');
 	    }
     });
 
@@ -170,7 +191,8 @@ $(document).ready(function () {
       	} 
     });
 
-
+	// close side nav when link pressed.
+	$('.close-btn').sideNav('hide');
 
 
 

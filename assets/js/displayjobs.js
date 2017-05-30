@@ -1,7 +1,6 @@
-
 var uid;
 
-function initApp() {
+function printSavedJobs() {
 	// Listening for auth state changes.
 	// [START authstatelistener]
 	firebase.auth().onAuthStateChanged(function(user) {
@@ -13,15 +12,10 @@ function initApp() {
 			if (user) {
 				// User is signed in.
 
-
 				uid = user.uid;
-				console.log("uid2: "+uid);
-
 
 				// Retrieve and display results from Firebase
 				var allJobs = [];
-				// var user=null;
-
 
 				userId = uid;
 				console.log("userid 3 is: "+userId);
@@ -36,14 +30,21 @@ function initApp() {
 					for(var i in jobs_data) {
 
 						// Print the initial data to the console.
-						console.log("Jobs " +i+ ":" +jobs_data[i]);
+						// console.log("Jobs " +i+ ":" +jobs_data[i]);
+						// i is source+JobID
 
 						allJobs.push([i,jobs_data[i]]);
 					}
 
-					$("#savedJobsFeed").empty();
+					$("#saved-feed").empty();
+
+					var index = 0;
 
 					allJobs.forEach(function(jobData){
+
+						index++;
+
+						console.log("Did index increase: " +index);
 
 						// Variables for details to be written
 						var title = jobData[1].title;
@@ -54,13 +55,17 @@ function initApp() {
 						var source = jobData[1].source;
 						var description = jobData[1].description;
 						var url = jobData[1].url;
+						var jobIndex = index;
 						
 						// Convert date to days ago
 						var daysAgo = moment(jobData[1].date,'MMM-DD').fromNow();
 
 
-					  console.log("The saved job in display.js is: job title: "+title +" company: "+ company+ " location: " +location+ " Date: " +daysAgo+ " Source: " +source+ " Description: "+description+ "URL: "+url);    
+					  // console.log("The saved job in display.js is: job title: "+title +" company: "+ company+ " location: " +location+ " Date: " +daysAgo+ " Source: " +source+ " Description: "+description+ "URL: "+url);    
 
+					  	var listingNumberEl = $('<span>');
+						listingNumberEl.addClass('listing-number ghost');
+						listingNumberEl.text(index);
 
 						// var metaArray = [location, date, source];
 						var metaArray = [
@@ -72,7 +77,7 @@ function initApp() {
 						var wrap = $('<div>');
 							wrap.addClass('listing panel panel-default');
 							// wrap.attr('data-all',jobStr);
-							// wrap.attr('data-index',jobIndex);
+							wrap.attr('data-index',jobIndex);
 							wrap.attr('data-company',company);
 
 						var body = $('<div>');
@@ -114,6 +119,7 @@ function initApp() {
 						// var foldToggle = $('<div>').addClass('toggle-fold');
 						// 	foldToggle.attr('data-fold','closed');
 
+						body.append(listingNumberEl);
 						body.append(h2);
 						body.append(h3);
 						// body.append(saveWrap);
@@ -121,11 +127,10 @@ function initApp() {
 						// body.append(foldToggle);
 						// body.append(d);
 						wrap.append(body);
-						$('#savedJobsFeed').append(wrap);
+						$('#saved-feed').append(wrap);
+						$('#saved-feed').append("<hr>");
 
-
-
-						console.log(jobData[1],jobData[0]);
+						// console.log(jobData[1],jobData[0]);
 					});			
 				});			
 
@@ -135,10 +140,10 @@ function initApp() {
 		
 }
 
-window.onload = function() {
-	initApp();
-	// Register the callback to be fired every time auth state changes
-};
+// window.onload = function() {
+// 	initApp();
+// 	// Register the callback to be fired every time auth state changes
+// };
 
 
 

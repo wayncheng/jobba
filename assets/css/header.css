@@ -1,0 +1,23 @@
+
+/* Header ------------------------------*/
+	nav.header {
+		/*position: fixed;*/
+		position: absolute;
+		top: 0;
+		left: 0;
+		box-shadow: none;
+		z-index: 1000;
+	}
+	#signOut {
+		visibility: hidden;
+		display: none;
+	}
+
+
+	.pin-target .main-nav-menu-icon { /* menu icon size in nav */
+		font-size: 36px;
+		height: inherit;
+		line-height: inherit;
+	}
+
+
