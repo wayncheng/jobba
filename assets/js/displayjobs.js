@@ -35,16 +35,21 @@ function printSavedJobs() {
 					for(var i in jobs_data) {
 
 						// Print the initial data to the console.
-						console.log("Jobs " +i+ ":" +jobs_data[i]);
+						// console.log("Jobs " +i+ ":" +jobs_data[i]);
+						// i is source+JobID
 
 						allJobs.push([i,jobs_data[i]]);
 					}
 
 					$("#saved-feed").empty();
 
+					var index = 0;
+
 					allJobs.forEach(function(jobData){
 
+						index++;
 
+						console.log("Did index increase: " +index);
 
 						// Variables for details to be written
 						var title = jobData[1].title;
@@ -55,14 +60,17 @@ function printSavedJobs() {
 						var source = jobData[1].source;
 						var description = jobData[1].description;
 						var url = jobData[1].url;
-						// var jobIndex = jobData.index;
+						var jobIndex = index;
 						
 						// Convert date to days ago
 						var daysAgo = moment(jobData[1].date,'MMM-DD').fromNow();
 
 
-					  console.log("The saved job in display.js is: job title: "+title +" company: "+ company+ " location: " +location+ " Date: " +daysAgo+ " Source: " +source+ " Description: "+description+ "URL: "+url);    
+					  // console.log("The saved job in display.js is: job title: "+title +" company: "+ company+ " location: " +location+ " Date: " +daysAgo+ " Source: " +source+ " Description: "+description+ "URL: "+url);    
 
+					  	var listingNumberEl = $('<span>');
+						listingNumberEl.addClass('listing-number ghost');
+						listingNumberEl.text(index);
 
 						// var metaArray = [location, date, source];
 						var metaArray = [
@@ -74,7 +82,7 @@ function printSavedJobs() {
 						var wrap = $('<div>');
 							wrap.addClass('listing panel panel-default');
 							// wrap.attr('data-all',jobStr);
-							// wrap.attr('data-index',jobIndex);
+							wrap.attr('data-index',jobIndex);
 							wrap.attr('data-company',company);
 
 						var body = $('<div>');
@@ -116,6 +124,7 @@ function printSavedJobs() {
 						// var foldToggle = $('<div>').addClass('toggle-fold');
 						// 	foldToggle.attr('data-fold','closed');
 
+						body.append(listingNumberEl);
 						body.append(h2);
 						body.append(h3);
 						// body.append(saveWrap);
@@ -126,7 +135,7 @@ function printSavedJobs() {
 						$('#saved-feed').append(wrap);
 						$('#saved-feed').append("<hr>");
 
-						console.log(jobData[1],jobData[0]);
+						// console.log(jobData[1],jobData[0]);
 					});			
 				});			
 
