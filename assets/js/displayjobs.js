@@ -1,4 +1,3 @@
-
 var uid;
 
 function printSavedJobs() {
@@ -14,13 +13,9 @@ function printSavedJobs() {
 				// User is signed in.
 
 				uid = user.uid;
-				console.log("uid2: "+uid);
-
 
 				// Retrieve and display results from Firebase
 				var allJobs = [];
-				// var user=null;
-
 
 				userId = uid;
 				console.log("userid 3 is: "+userId);

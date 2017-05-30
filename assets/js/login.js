@@ -156,15 +156,6 @@ $('#signOut').on("click", function(){
     }); 
   });
 
-
-$('#displayjobs').on("click", function(){
-
-  //How to pass userID from one page to the other?
-  window.location = '/saved-jobs.html';   
-});
-
-
-
     // When user logs in, direct to saved-jobs.html
 
     function initApp() {

@@ -269,6 +269,27 @@ paginationHandler:
 		$('.pagination > li > a').on('click',function(event){
 			event.preventDefault();
 
+			// Testing code
+			var userId;
+			var externalUserID;
+
+			firebase.auth().onAuthStateChanged(function(user) {
+	        
+	        if(user){
+		        // to retrieve current user unique ID
+		        userId = firebase.auth().currentUser.uid;
+		        
+				if(userId!=="undefined"){
+					$(".save-wrap").css('visibility', 'visible');
+				}	     
+			}   
+
+	        console.log("If user is logged on, what is your ID? : "+userId);
+	      	}); 	
+
+			
+			// End of testing code
+
 			// Get current page number
 			var currentPageEl = $('.pagination').find('.active');
 			var currentPage = parseInt( currentPageEl.text() );
