@@ -58,6 +58,16 @@
 	.source::before {
 		content: "Source: "
 	}
+	.sourceURL::before {
+		content: "Source URL: "
+	}
+
+	/* Source URL Meta Link */
+	.sourceURL {
+		max-width: 100%;
+		overflow: hidden;
+		height: 1.5em;
+	}
 
 /* Save Button (in listing) ------------------------------*/
 	.save-wrap {
