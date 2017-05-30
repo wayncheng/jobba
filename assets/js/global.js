@@ -417,6 +417,7 @@ reset:
 
 			// Hide feed until ready
 			$('#page1').hide();
+
 		},
 
 scrollToTop: 

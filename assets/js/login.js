@@ -26,6 +26,7 @@ var database = firebase.database();
       user = result.user;
 
       $(".save-wrap").css('visibility', 'visible');
+      $("#displayJobs").css('visibility', 'visible');
 
       // successfully signed in.... What's next?
       // alert("Welcome, "+user.displayName)
@@ -148,6 +149,7 @@ $('#signOut').on("click", function(){
       $("#signInWithGithub").toggle();
       $("#signOut").hide();
       $(".save-wrap").css('visibility', 'hidden');
+      $("#displayJobs").css('visibility', 'hidden');
       
     }).catch(function(error) {
       // An error happened.

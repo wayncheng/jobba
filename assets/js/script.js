@@ -23,6 +23,7 @@ $(document).ready(function () {
 			// $('#saved-modal-trigger').on('click', function(event){
 			$('#displayJobs').on('click', function(event){
 				event.preventDefault();
+				printSavedJobs();
 				$('.tap-target').tapTarget('close');
 			})
 		}

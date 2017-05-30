@@ -40,7 +40,7 @@ function printSavedJobs() {
 						allJobs.push([i,jobs_data[i]]);
 					}
 
-					$("#savedJobsFeed").empty();
+					$("#saved-feed").empty();
 
 					allJobs.forEach(function(jobData){
 
