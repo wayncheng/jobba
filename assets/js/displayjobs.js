@@ -43,7 +43,7 @@ function printSavedJobs() {
 					$("#saved-feed").empty();
 
 					for(var i =0; i<allJobs.length; i++){	
-						console.log(jobData[i][1].company);
+						console.log(allJobs[i][1].company);
 					}
 
 
