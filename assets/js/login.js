@@ -71,8 +71,7 @@ function saveJobs(jobObj){
     var jobSource = jobObj.source;
     var jobDescription = jobObj.description;
     var jobURL = jobObj.url;
-    var sourceJobID = jobObj.source+"="+jobObj.sourceID;
-
+    var sourceJobID = jobObj.source.replace(/\s/g,'') + '=' +jobObj.sourceID;
 
   console.log("The saved job in login.js is: job title: "+jobTitle +" company: "+ jobCompany+ " location: " +jobLocation+ " Date: " +jobDate+ " Source: " +jobSource+ " Description: "+jobDescription+" URL: " +jobURL);    
 

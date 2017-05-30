@@ -54,7 +54,9 @@ $(document).ready(function () {
 			$t.parents('.collapsible-header').removeClass('active');
 
 			// Basically copy paste the saved listing into the saved feed
-			$(this).parents('.listing').clone().appendTo('#saved-feed');
+			// $(this).parents('.listing').clone().appendTo('#saved-feed');
+			printSavedJobs(); // Novia: Trigger retrieval of jobs from Firebase accordingly to logged in userID
+
 		}
 		// Get listing data
 		var thisListing = $(this).parents('.listing');
@@ -62,7 +64,7 @@ $(document).ready(function () {
 		var saveData = jobba.allResults[dataIndex];
 		console.log('saveData',saveData);
 
-		// saveJobs(saveData); 	// Was this you, Novia? I can't remember if I wrote this,
+		saveJobs(saveData); 	// Was this you, Novia? I can't remember if I wrote this,
 								// but I commented it out for now because it was getting an error
 								// and stopping everything else
 
