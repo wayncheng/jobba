@@ -64,7 +64,7 @@
             </ul>
             <ul id="nav-mobile" class="side-nav">
                 <li>
-                    <a class="close-btn" href="#">Close Main Menu</a>
+                    <a class="close-btn" href="#!">Close Main Menu</a>
                 </li>
                 <li>
                     <a href="#!" class="blue header-link login sign-in btn" id="signInWithGithub" title="Sign in with Github">
@@ -79,7 +79,7 @@
                     Sign Out </a>
                 </li>
             </ul>
-            <a id="header-side-nav-link" href="#" data-activates="nav-mobile" class="pin-target button-collapse"> <i class="main-nav-menu-icon material-icons">menu</i> </a>
+            <a id="header-side-nav-link" href="#!" data-activates="nav-mobile" class="pin-target button-collapse"> <i class="main-nav-menu-icon material-icons">menu</i> </a>
         </div>
     </nav>
 <!--=============================================-->
@@ -250,21 +250,21 @@
                         <a class="collapsible-header">Filter Source<i class="material-icons">arrow_drop_down</i></a>
                         <div class="collapsible-body">
                             <form class="sideNavForm">
-                                <ul>
+                                <ul id="filter-source" class="filter-listener">
                                     <li class="input-field">
-                                        <input type="checkbox" id="sourceGithub" class="filterSourceInput filled-in" checked="checked" />
+                                        <input type="checkbox" id="sourceGithub" class="filterSourceInput filterInput filled-in" name="filterSource" value="github" checked />
                                         <label for="sourceGithub">Github</label>
                                     </li>
                                     <li class="input-field">
-                                        <input type="checkbox" id="sourceIndeed" class="filterSourceInput filled-in" checked="checked" />
+                                        <input type="checkbox" id="sourceIndeed" class="filterSourceInput filterInput filled-in" name="filterSource" value="indeed" checked />
                                         <label for="sourceIndeed">Indeed</label>
                                     </li>
                                     <li class="input-field">
-                                        <input type="checkbox" id="sourceDice" class="filterSourceInput filled-in" checked="checked" />
+                                        <input type="checkbox" id="sourceDice" class="filterSourceInput filterInput filled-in" name="filterSource" value="dice" checked />
                                         <label for="sourceDice">Dice</label>
                                     </li>
                                     <li class="input-field">
-                                        <input type="checkbox" id="sourceAuthenticJobs" class="filterSourceInput filled-in" checked="checked" />
+                                        <input type="checkbox" id="sourceAuthenticJobs" class="filterSourceInput filterInput filled-in" name="filterSource" value="authenticJobs" checked />
                                         <label for="sourceAuthenticJobs">Authentic Jobs</label>
                                     </li>
                                 </ul>
@@ -296,12 +296,15 @@
     var autocomplete = new google.maps.places.Autocomplete(locationInput, locationOptions);
     </script>
     <!-- End of Cities autocomplete -->
-
     <!-- <script src="assets/js/firebase-init.js" type="text/javascript" charset="utf-8"></script> -->
     <script src="assets/js/login.js" type="text/javascript" charset="utf-8"></script>
     <script src="assets/js/global.js" type="text/javascript" charset="utf-8"></script>
     <script src="assets/js/script.js" type="text/javascript" charset="utf-8"></script>
+
+    <script src="assets/js/filter-sort.js" type="text/javascript" charset="utf-8"></script>
+
     <script src="assets/js/displayjobs.js" type="text/javascript" charset="utf-8"></script>
+
     <script src="assets/js/benchmark-email-form.js" type="text/javascript"></script>
      <script src="assets/js/salaries.js" type="text/javascript" charset="utf-8"></script>
       <script src="assets/js/company_info.js" type="text/javascript" charset="utf-8"></script>

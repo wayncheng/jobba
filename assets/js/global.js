@@ -20,6 +20,10 @@ apiCheckpoint: 'processing',
 apiCheck: 0,
 apisRunning: false,
 prevCheck: 0,
+filter: 
+		function(){
+
+		},
 checkStatus:
 		function(){
 			// Check for change in progress, update bar if there is
@@ -78,10 +82,16 @@ dedup:
 			// }
 			return null;
 		},
-firebaseReport:
-		function(){
-			console.log('firebaseReport');
-			var database = firebase.database();
+firebaseCount:
+		function(path){
+			$.ajax({
+				type: 'GET',
+				url: 'https://jobba-fe187.firebaseio.com/'+ path +'/.json?shallow=true'
+			}).done(function(res) {
+				var n = Object.keys(res).length;
+				console.log('n', n);
+				return n;
+			})
 
 		},
 writeToFirebaseArchive:
@@ -279,7 +289,6 @@ paginationHandler:
 			// Print target page
 			g.pagination();
 		}),
-
 pagination: 
 		function(){
 			// Determine start and end indeces of print range
@@ -298,7 +307,6 @@ pagination:
 				g.print(g.allResults[i]);
 			};
 		},
-
 print: 	
 		function(jobObj){
 			// Convert data passed as string back to JSON form
@@ -315,6 +323,7 @@ print:
 			var source = jobData.source;
 			var sourceID = jobData.sourceID;
 			var description = jobData.description;
+			var sourceURL = jobData.url;
 			var jobIndex = jobData.index;
 			var saveBtnText = 'Save Job';
 			var saveBtnImageSource = 'assets/icons/heart1s-gray-red.svg';
@@ -378,6 +387,20 @@ print:
 				descriptionEl.html(description);
 				bodyEl.append(descriptionEl);
 
+			// Original Source URL
+			var sourceURLWrap = $('<p>');
+				sourceURLWrap.addClass('meta-detail');
+				sourceURLWrap.addClass('sourceURL');
+
+				var sourceURLLink = $('<a>');
+					sourceURLLink.attr('href',sourceURL);
+					sourceURLLink.attr('alt', 'View this job listing on the original site');
+					sourceURLLink.text(source);
+					sourceURLWrap.append(sourceURLLink);
+				bodyEl.append(sourceURLWrap);
+
+
+
 			// All Appends
 			headerEl.append(listingNumberEl);			
 			headerEl.append(headlineEl);			
@@ -390,7 +413,6 @@ print:
 			$('#feed').append(listingEl);
 
 		},
-
 reset: 
 		function(){
 			// Reset API Status
@@ -401,6 +423,11 @@ reset:
 			// 	dice: 'processing',
 			// 	indeed: 'processing'
 			// };
+
+			// Reset result count
+			g.totalResultCount = 0;
+
+
 			g.apiStatus = ['processing','processing','processing','processing'];
 
 			// Clear previous results
@@ -418,13 +445,11 @@ reset:
 			// Hide feed until ready
 			$('#page1').hide();
 		},
-
 scrollToTop: 
 		$('#scroll-to-top').on('click',function(event){
 			event.preventDefault();
 			$(window).scrollTop(0);
 		}),
-
 submit: 
 		$('#submit').on('click', function(event){
 		    event.preventDefault();
