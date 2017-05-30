@@ -1,7 +1,7 @@
 
 var uid;
 
-function initApp() {
+function printSavedJobs() {
 	// Listening for auth state changes.
 	// [START authstatelistener]
 	firebase.auth().onAuthStateChanged(function(user) {
@@ -12,7 +12,6 @@ function initApp() {
 			
 			if (user) {
 				// User is signed in.
-
 
 				uid = user.uid;
 				console.log("uid2: "+uid);
@@ -121,7 +120,7 @@ function initApp() {
 						// body.append(foldToggle);
 						// body.append(d);
 						wrap.append(body);
-						$('#savedJobsFeed').append(wrap);
+						$('#saved-feed').append(wrap);
 
 
 
@@ -135,10 +134,10 @@ function initApp() {
 		
 }
 
-window.onload = function() {
-	initApp();
-	// Register the callback to be fired every time auth state changes
-};
+// window.onload = function() {
+// 	initApp();
+// 	// Register the callback to be fired every time auth state changes
+// };
 
 
 
