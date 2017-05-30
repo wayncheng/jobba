@@ -792,7 +792,7 @@ api:
 								"date": moment(ji.date).format("MMM D"),
 								"source": "Dice",
 								"sourceID": sourceID,
-								"description": "Description is not available. For more details, visit Dice's website.",
+								"description": "For job details, visit Dice's website.",
 								"url": ji.detailUrl,
 								"applyURL": ji.detailUrl,
 								"type": 'N/A',
@@ -1031,7 +1031,19 @@ api:
 						console.log('linkup jobsResults',jobsResults);
 
 						for(var i=0; i< jobsResults.length; i++){
-							// console.log(i+1);
+							// var ji = jobsResults[i];
+							// g.allRawData.push(ji);
+
+							// Convert URL into ID (urls are variable lengths)
+							// from: http://www.linkup.com/job/eea3d25a7127f2f365a8d924e3411ffabaad/software-developer-job-in-san-diego-ca?embedded-search=b599c6a6e9b2178c2e673516252cad2a
+							// to: eea3d25a7127f2f365a8d924e3411ffabaad
+
+							var urlEnd = jobsResults[i].job_title_link.slice(26,62);
+							// console.log("can we use this??"+ urlEnd);
+							// var queryStartIndex = urlEnd.indexOf('?')
+							// var urlExtracted = urlEnd.slice(0,queryStartIndex);
+							// var sourceID = urlExtracted.replace(/[#/]/g,'_');
+							var sourceID = urlEnd.replace(/[#/]/g,'_');
 
 							jobTitle = jobsResults[i].job_title;
 							jobCompany = jobsResults[i].job_company;
@@ -1048,6 +1060,7 @@ api:
 								"location": jobLocation,
 								"date": dateFormatted,
 								"source": "Linkup",
+								"sourceID": sourceID,
 								"description": jobsResults[i].job_description,
 								"url": jobsResults[i].job_title_link,
 							}
