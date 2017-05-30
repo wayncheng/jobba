@@ -269,9 +269,8 @@ paginationHandler:
 		$('.pagination > li > a').on('click',function(event){
 			event.preventDefault();
 
-			// Testing code
+			// Novia: Display .save-wrap when user is logged on
 			var userId;
-			var externalUserID;
 
 			firebase.auth().onAuthStateChanged(function(user) {
 	        
@@ -283,12 +282,10 @@ paginationHandler:
 					$(".save-wrap").css('visibility', 'visible');
 				}	     
 			}   
-
-	        console.log("If user is logged on, what is your ID? : "+userId);
 	      	}); 	
 
 			
-			// End of testing code
+			// End .save-wrap display code
 
 			// Get current page number
 			var currentPageEl = $('.pagination').find('.active');
