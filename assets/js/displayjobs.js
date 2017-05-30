@@ -1,7 +1,7 @@
 
 var uid;
 
-function initApp() {
+function printSavedJobs() {
 	// Listening for auth state changes.
 	// [START authstatelistener]
 	firebase.auth().onAuthStateChanged(function(user) {
@@ -12,7 +12,6 @@ function initApp() {
 			
 			if (user) {
 				// User is signed in.
-
 
 				uid = user.uid;
 				console.log("uid2: "+uid);
@@ -41,9 +40,15 @@ function initApp() {
 						allJobs.push([i,jobs_data[i]]);
 					}
 
-					$("#savedJobsFeed").empty();
+					$("#saved-feed").empty();
+
+					for(var i =0; i<allJobs.length; i++){	
+						console.log(allJobs[i][1].company);
+					}
+
 
 					allJobs.forEach(function(jobData){
+
 
 						// Variables for details to be written
 						var title = jobData[1].title;
@@ -54,6 +59,7 @@ function initApp() {
 						var source = jobData[1].source;
 						var description = jobData[1].description;
 						var url = jobData[1].url;
+						// var jobIndex = jobData.index;
 						
 						// Convert date to days ago
 						var daysAgo = moment(jobData[1].date,'MMM-DD').fromNow();
@@ -121,7 +127,7 @@ function initApp() {
 						// body.append(foldToggle);
 						// body.append(d);
 						wrap.append(body);
-						$('#savedJobsFeed').append(wrap);
+						$('#saved-feed').append(wrap);
 
 
 
@@ -135,10 +141,10 @@ function initApp() {
 		
 }
 
-window.onload = function() {
-	initApp();
-	// Register the callback to be fired every time auth state changes
-};
+// window.onload = function() {
+// 	initApp();
+// 	// Register the callback to be fired every time auth state changes
+// };
 
 
 

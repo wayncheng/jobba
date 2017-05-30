@@ -26,6 +26,7 @@ var database = firebase.database();
       user = result.user;
 
       $(".save-wrap").css('visibility', 'visible');
+      $("#displayJobs").css('visibility', 'visible');
 
       // successfully signed in.... What's next?
       // alert("Welcome, "+user.displayName)
@@ -71,8 +72,7 @@ function saveJobs(jobObj){
     var jobSource = jobObj.source;
     var jobDescription = jobObj.description;
     var jobURL = jobObj.url;
-    var sourceJobID = jobObj.source+"="+jobObj.sourceID;
-
+    var sourceJobID = jobObj.source.replace(/\s/g,'') + '=' +jobObj.sourceID;
 
   console.log("The saved job in login.js is: job title: "+jobTitle +" company: "+ jobCompany+ " location: " +jobLocation+ " Date: " +jobDate+ " Source: " +jobSource+ " Description: "+jobDescription+" URL: " +jobURL);    
 
@@ -149,6 +149,7 @@ $('#signOut').on("click", function(){
       $("#signInWithGithub").toggle();
       $("#signOut").hide();
       $(".save-wrap").css('visibility', 'hidden');
+      $("#displayJobs").css('visibility', 'hidden');
       
     }).catch(function(error) {
       // An error happened.

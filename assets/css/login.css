@@ -15,3 +15,7 @@
 		color: #000;
 		visibility: hidden;
 	}
+
+	#displayJobs{
+		visibility: hidden;	
+	}
