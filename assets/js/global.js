@@ -477,6 +477,9 @@ submit:
 
 			var authenticURL = g.api.authentic.createURL(q,"",city,"","100");
 			g.api.authentic.ajaxCall(authenticURL,g.api.authentic.getResponse);
+
+			var linkupURL = g.api.linkup.createURL(q,city,"","100");
+			g.api.linkup.ajaxCall(linkupURL,g.api.linkup.getResponse);
 		}),
 api: 
 	{
@@ -934,9 +937,103 @@ api:
 							g.apiStatus[apiIndex] = 'fail';
 						});
 					}
-			}	
-	}
+		},	
+			
 
+			linkup: {
+				url: "",
+				status: "processing",
+				apiIndex: 4,
+				createURL: 
+					function CreateLinkupUrl(searchString,city,state,noOfRecords){
+
+						var url = "https://cors-anywhere.herokuapp.com/http://www.linkup.com/developers/v-1/search-handler.js?api_key=6681AB844790FB012488B9027B231749&embedded_search_key=b599c6a6e9b2178c2e673516252cad2a&";  //orig_ip=";
+
+						if(searchString != ""){
+							searchString = encodeURIComponent(searchString);
+							url = url + "&keyword=" + searchString;
+						}
+						if(city != ""){
+							city = encodeURIComponent(city);
+							url = url + "&location=" + city;
+						}
+						//Test case using LA
+						else{ 
+							city="la";
+							url = url + "&location=" + city;
+						}	
+
+							url = url + "&full_time=true";
+						if(noOfRecords != ""){
+							noOfRecords = encodeURIComponent(noOfRecords);
+							url = url + "&limit=" + noOfRecords;
+
+						console.log("URL is:"+url);
+						return url;
+						}
+					},
+				getResponse: 
+					function getLinkupResponse(result){
+						// console.log('done',result);
+
+						var jobsResults = result.jobs;
+						var jobTitle;
+						var jobCompany;
+						var jobLocation;
+						var jobDate;
+
+
+						console.log('-----------------Linkup RESULTS-----------------');
+						console.log('linkup jobsResults',jobsResults);
+
+						for(var i=0; i< jobsResults.length; i++){
+							// console.log(i+1);
+
+							jobTitle = jobsResults[i].job_title;
+							jobCompany = jobsResults[i].job_company;
+							jobLocation = jobsResults[i].job_location;
+							jobDate = jobsResults[i].job_date_added;
+
+							// Format date using moment.js
+							var dateFormatted = moment(jobDate).format("MMM D");
+
+							// Send to Global Print Function
+							var jobJSON = {
+								"title" :  jobTitle,
+								"company": jobCompany,
+								"location": jobLocation,
+								"date": dateFormatted,
+								"source": "Linkup",
+								"description": jobsResults[i].job_description,
+								"url": jobsResults[i].job_title_link,
+							}
+							var jobStr = JSON.stringify(jobJSON);
+							g.printManager(jobStr);
+
+						} // end for loop
+
+						// Change status to done.
+						g.apiCheck++;
+						g.checkStatus();
+						console.log('g.apiCheck',g.apiCheck);
+						var apiIndex = g.api.linkup.apiIndex;
+						g.apiStatus[apiIndex] = 'done';
+					},
+				ajaxCall: 
+					function(qURL, mycallback){
+						$.ajax({
+							type:'GET',
+							url: qURL,
+						}).done(mycallback).fail(function(){
+							//Create a new function to process errors
+							console.log('fail', qURL.result);
+							// Change status to fail.
+							var apiIndex = g.api.linkup.apiIndex;
+							g.apiStatus[apiIndex] = 'fail';
+						});
+					}
+			}
+	}
 
 } // end g
 
