@@ -9,13 +9,13 @@
 	}
 
 /* Feed ------------------------------*/
+	#feed.collapsible li.listing {
+		position: relative;
+	}
 	#feed .collapsible-header {
 		padding: 1rem;
 		background-color: #ffffff;
 		/*background-color: #fefefe;*/
-	}
-	#feed .collapsible li {
-		position: relative;
 	}
 	#feed .collapsible-body {
 		background-color: #ffffff;

@@ -21,7 +21,94 @@ apiCheckpoint: 'processing',
 apiCheck: 0,
 apisRunning: false,
 prevCheck: 0,
+sort:
+		function(){
+
+		},
 filteredCount: 0,
+filterTerms:
+		function(inTerms,exTerms){
+			var data = g.partData;
+			if (data.length === 0) data = g.allResults; // If data already filtered, use it. Else, use all results
+			var data = g.allResults;
+			
+			// var x = exTerms.map(function(term){
+			// 	var iof = t.indexOf(term);
+			// 	return iof;
+			// })
+			// exTerms = ['abc','def','GHI','jkl'];
+			// var str = "abcd efgJkL";
+			// var term = 'def';
+
+			// var yay = str.includes(term);
+			// console.log('yay',yay);
+
+			// var m = exTerms.map(function(term){
+			// 	term = term.toUpperCase().trim();
+
+			// 	var filtered = data.filter(function(res){
+			// 		var str = res.title.toUpperCase();
+			// 		console.log('term',term,'str',str);
+
+			// 		// Term vs. Title String comparison
+			// 		var bool = str.includes(term);
+			// 		console.log('bool',bool);
+					
+			// 		// Only return if there are no matches
+			// 		return bool === false ;
+			// 	})
+			// 	console.log('filtered',filtered);
+			// 	return filtered;
+
+			// })
+
+			// console.log('m',m);
+
+			var filtered = data.filter(function(res){
+				var str = res.title.toUpperCase();
+
+				var m = exTerms.map(function(term){
+					term = term.toUpperCase().trim();
+
+					// Term vs. Title String comparison
+					var bool = str.includes(term);
+				
+					// Only return if there are no matches
+					return bool;
+				});
+
+				// var final = m.filter(function(){
+				// Return if can't find any match
+				var neg1 = m.indexOf(true); 
+				return neg1 === -1;
+				// });
+				// console.log('final',final);
+				// return final;
+			})
+			console.log('filtered',filtered);
+			return filtered;
+
+
+
+
+
+			// g.partData = data.filter(function(res){
+			// 	var str = res.title;
+			// 	var iof;
+
+			// 	// For each term... search for term against string
+			// 	// Return an array of 
+			// 	var ix = exTerms.map(function(terms){
+			// 		return str.indexOf(terms)
+			// 	})
+			// 	console.log('ix',ix);
+				
+
+			// 	return ix;
+			// });
+
+			// console.log('g.partData',g.partData);
+		},
 resultFilter: 
 		function(hideList){
 			var all = g.allResults;
@@ -315,7 +402,7 @@ paginationHandler:
 			// Get current page number
 			var currentPageEl = $('.pagination').find('.active');
 			var currentPage = parseInt( currentPageEl.text() );
-			console.log('currentPage',currentPage);
+			// console.log('currentPage',currentPage);
 
 			// Remove "active" class from current page
 			currentPageEl.removeClass('active');
@@ -324,7 +411,9 @@ paginationHandler:
 			var targetPageEl = $(this).parent('li');
 			var targetData = parseInt(targetPageEl.attr('data-pg'));
 			// var targetPage = parseInt( targetPageEl.text() );
-			console.log('targetData',targetData);
+
+			// console.log('targetData',targetData);
+
 			
 			if ( targetData === 0 ) {
 				targetData = currentPage - 1
@@ -360,6 +449,8 @@ pagination:
 				// Print each listing
 				g.print(g[g.printFrom][i]);
 			};
+
+			g.markTerms();
 		},
 print: 	
 		function(jobObj){
@@ -482,6 +573,48 @@ print:
 			listingEl.append(bodyEl);
 
 			$('#feed').append(listingEl);
+
+		},
+markTerms:
+		function(){
+			var q = $('#search').val().split(' ');
+			$(".meta-detail.description").mark(q);
+
+			// var options = {
+			//     "element": "mark",
+			//     "className": "",
+			//     "exclude": [],
+			//     "separateWordSearch": true,
+			//     "accuracy": "partially",
+			//     "diacritics": true,
+			//     "synonyms": {},
+			//     "iframes": false,
+			//     "iframesTimeout": 5000,
+			//     "acrossElements": false,
+			//     "caseSensitive": false,
+			//     "ignoreJoiners": false,
+			//     "wildcards": "disabled",
+			//     "each": function(node){
+			//         // node is the marked DOM element
+			//     },
+			//     "filter": function(textNode, foundTerm, totalCounter, counter){
+			//         // textNode is the text node which contains the found term
+			//         // foundTerm is the found search term
+			//         // totalCounter is a counter indicating the total number of all marks
+			//         //              at the time of the function call
+			//         // counter is a counter indicating the number of marks for the found term
+			//         return true; // must return either true or false
+			//     },
+			//     "noMatch": function(term){
+			//         // term is the not found term
+			//     },
+			//     "done": function(counter){
+			//         // counter is a counter indicating the total number of all marks
+			//     },
+			//     "debug": false,
+			//     "log": window.console
+			// };
+			// $(".context").mark("test", options);
 
 		},
 reset: 

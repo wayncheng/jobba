@@ -6,7 +6,8 @@
 	}
 	
 	#filter-side-nav {
-		background-color: rgba(255,255,255,0.9);
+		/*background-color: rgba(255,255,255,0.9);*/
+		background-color: #fff;
 	}
 
 /* Close Button -----------------------------------------------*/
@@ -88,6 +89,7 @@
 		/*margin-left: -2px;*/
 	}
 	.sideNavForm.horizontal-options li a {
+
 		padding: 0;
 	}
 
@@ -102,4 +104,60 @@
 	}
 
 
+/*------------------------------------------------------------*/
+/* Text Inputs */
+	.side-nav .collapsible-body li {
+		position: relative;
+		line-height: 42px;
+	}
+	.side-nav .filterTermInput {
+		width: 90%;
+		margin-left: 5%;
+		text-indent: 26px;
+		margin-bottom: 15px;
+	}
+	#termFilters .collapsible-body ul {
+		padding-bottom: 20px;
+	}
+	/* label underline focus color */
+	.side-nav .input-field input[type=text]:focus {
+	 border-bottom: 1px solid #ccc;
+	 box-shadow: 0 1px 0 0 #ccc;
+	}
+	/* valid color */
+	.side-nav .input-field input[type=text].valid {
+	 /*border-bottom: 1px solid #2ecc71;*/
+	 /*box-shadow: 0 1px 0 0 #2ecc71;*/
+	}
+	/* invalid color */
+	.side-nav .input-field input[type=text].invalid {
+	 /*border-bottom: 1px solid #e74c3c;*/
+	 /*box-shadow: 0 1px 0 0 #e74c3c;*/
+	}
+	
+/*------------------------------------------------------------*/
+/* Icon before Text Input */
+	.side-nav .icon.beforeFormInput {
+		position: absolute;
+		line-height: 42px;
+		height: 42px;
+		left: 0;
+		top: 1px;
+		width: 18px;
+		margin-left: 5%;
+		display: inline-block;
+	}
+/*------------------------------------------------------------*/
+/* Instructions */
+	.side-nav .collapsible-body .instructions {
+		font-size: 14px;
+		font-style: italic;
+		color: #666;
+		line-height: 1.2em;
+		padding: 1em;
+	}
+/*------------------------------------------------------------*/
+
+/*------------------------------------------------------------*/
+/*------------------------------------------------------------*/
 /*------------------------------------------------------------*/
