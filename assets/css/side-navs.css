@@ -12,7 +12,6 @@
 
 /* Close Button -----------------------------------------------*/
 	.close-btn {
-		color: #fff;
 	}
 
 /* First List Child in Nav -----------------------------------------------*/
@@ -29,16 +28,16 @@
 		background-color: #656565;
 		background-color: #fff;
 		/*border-top: 1px solid rgba(0,0,0,0.2);*/
-		/*border-bottom: 1px solid rgba(0,0,0,0.2);*/
-		/*margin-top: 4px;*/
+		border-bottom: 2px solid rgba(0,0,0,0.8);
+		margin-top: 4px;
 		transition: background-color 300ms;
 	}
 
 
 	.side-nav .collapsible-header i.material-icons,
 	.side-nav .collapsible-header {
-		color: #666;
-		color: #fff;
+		color: #333;
+		/*color: #fff;*/
 	}
 
 	.side-nav .collapsible-body #filter-source {
@@ -98,7 +97,7 @@
 	}
 /*------------------------------------------------------------*/
 	.side-nav li.no-padding {
-		/*margin-bottom: 5px;*/
+		margin-bottom: 10px;
 	}
 
 

@@ -2,6 +2,11 @@ $(document).ready(function () {
 		// Get user's IP
 		jobba.getIP;
 
+
+	jobba.sortDateNewest();
+
+
+
 	$('#feed, #saved-feed').on('click','.save-wrap',function(event){
 		event.preventDefault();
 		var $t = $(this);
@@ -72,9 +77,6 @@ $(document).ready(function () {
 								// Novia: This calls the saveJobs function in login.js 
 								// Need to log in on Github to trigger correctly. 
 								// Commenting it out for now ;)
-
-
-
 
 	}); // end listing click
 
@@ -213,7 +215,7 @@ $(document).ready(function () {
 
 	// Tag Chips
 	$('.chips').material_chip();
-	
+
 
 
 
