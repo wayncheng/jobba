@@ -31,38 +31,6 @@ filterTerms:
 			var data = g.partData;
 			if (data.length === 0) data = g.allResults; // If data already filtered, use it. Else, use all results
 			var data = g.allResults;
-			
-			// var x = exTerms.map(function(term){
-			// 	var iof = t.indexOf(term);
-			// 	return iof;
-			// })
-			// exTerms = ['abc','def','GHI','jkl'];
-			// var str = "abcd efgJkL";
-			// var term = 'def';
-
-			// var yay = str.includes(term);
-			// console.log('yay',yay);
-
-			// var m = exTerms.map(function(term){
-			// 	term = term.toUpperCase().trim();
-
-			// 	var filtered = data.filter(function(res){
-			// 		var str = res.title.toUpperCase();
-			// 		console.log('term',term,'str',str);
-
-			// 		// Term vs. Title String comparison
-			// 		var bool = str.includes(term);
-			// 		console.log('bool',bool);
-					
-			// 		// Only return if there are no matches
-			// 		return bool === false ;
-			// 	})
-			// 	console.log('filtered',filtered);
-			// 	return filtered;
-
-			// })
-
-			// console.log('m',m);
 
 			var filtered = data.filter(function(res){
 				var str = res.title.toUpperCase();
@@ -85,29 +53,16 @@ filterTerms:
 				// console.log('final',final);
 				// return final;
 			})
-			console.log('filtered',filtered);
-			return filtered;
+			// console.log('filtered',filtered);
 
+			g.partData = filtered;
+			console.log('g.partData',g.partData);
 
+			g.printFrom = 'partData';
 
+			Materialize.toast('Removed listings containing your blacklisted terms!', 2000);
 
-
-			// g.partData = data.filter(function(res){
-			// 	var str = res.title;
-			// 	var iof;
-
-			// 	// For each term... search for term against string
-			// 	// Return an array of 
-			// 	var ix = exTerms.map(function(terms){
-			// 		return str.indexOf(terms)
-			// 	})
-			// 	console.log('ix',ix);
-				
-
-			// 	return ix;
-			// });
-
-			// console.log('g.partData',g.partData);
+			g.pagination();
 		},
 resultFilter: 
 		function(hideList){
@@ -134,6 +89,8 @@ resultFilter:
 
 			// Update where to print from
 			g.printFrom = 'partData';
+
+			Materialize.toast('Result sources filtered!', 2000);
 
 			g.pagination();
 		},
@@ -167,6 +124,9 @@ checkStatus:
 				$('#progress-wrap').hide();
 				$('.progress-target').css('width','0%');
 
+				// Toast!
+				Materialize.toast(g.totalResultCount + ' job listings found!',4000);
+				
 				// Prepare to print
 				g.beginPrint();
 			}

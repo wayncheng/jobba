@@ -67,3 +67,24 @@
 		 color: #111;
 		 text-decoration: underline;
 	}
+	
+	/* checkbox */
+	[type="checkbox"].filled-in:checked+label:after {
+		border: 2px solid #333;
+		background-color: #333;
+		margin-top: 3px;
+	}
+
+	[type="checkbox"]+label:before, 
+	[type="checkbox"]:not(.filled-in)+label:after,
+	[type="checkbox"].filled-in:not(:checked)+label:after {
+		border: 2px solid #333;
+
+	}
+	/* checkmark */
+	[type="checkbox"].filled-in:checked+label:before,
+	[type="checkbox"]:checked+label:before {
+		border-right: 2px solid #fff;
+		border-bottom: 2px solid #fff;
+		margin-top: 5px;
+	 }
