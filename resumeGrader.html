@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		input[type="file"]{
+			width: 200px;
+			margin-left: 30px;
+
+		}
+	</style>
+</head>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="assets/css/resumeGrader.css">
+<body>
+
+
+<section id="uploaderCont" class="text-center">
+  <div class="container">
+
+    <h1>How does your resume score? Find out now!</h1>
+    <div id="uploadResume">
+      <div class="dropCont step1">
+        <div class="dropMessage">
+          
+		<form id="file-form" method="POST">
+          <h2>Upload <br>Your Resume(.doc/.txt)</h2>
+          <span id="uploadButton" class="btn btn-primary fileinput-button">
+				<input type="file" name="resume"  id="file-select">
+          </span>
+		  <p>Or Drop your file contents here</p>
+          <textarea name="resume" id="resumeText"></textarea><br>
+
+		  <input type="submit" class="btn btn-info" id="upload-button" />
+		</form>
+        </div>
+
+		<div id="pregressBar" style="display: none;position: relative;" class="previewMessage">
+			<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" style="position: relative;
+    margin-top: 40%;">
+              <div class="progress-bar progress-bar-success" style="width:100%;" data-dz-uploadprogress></div>
+            </div>
+
+            <p class="name" ></p>
+		</div>
+		
+
+        <div class="previewTemplate hidden">
+          <div class="previewMessage">
+            <p class="name" data-dz-name></p>
+            	
+            <span data-dz-errormessage>
+            </span>
+          </div>
+        </div>
+      </div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script type="text/javascript">
+
+
+	$(document).ready(function(){
+      		var form = document.getElementById('file-form');
+			var fileSelect = document.getElementById('file-select');
+			var uploadButton = document.getElementById('upload-button');
+			var formData ="";
+			var rText = "";
+
+			var fileContent = "";
+		$("#upload-button").on("click",function(evt){
+		      evt.preventDefault();
+		      uploadButton.innerHTML = 'Uploading...';
+  				var files = fileSelect.files;
+  				
+  				// Loop through each of the selected files.
+				for (var i = 0; i < files.length; i++) {
+				  var file = files[i];
+				  	var fr = new FileReader(); // FileReader instance
+				  	fr.readAsText( file );
+					fr.onload = function () {
+						fileContent = fr.result;
+						console.log("FILE CONTENT ======",fileContent);
+						ajaxCall(fileContent);
+					}
+				}
+		      	rText = document.getElementById('resumeText').value;
+				console.log('resumeText:'+rText);
+		      	$(".dropMessage").hide();
+				$("#pregressBar").show();
+
+				if(files.length === 0){
+					ajaxCall(rText);
+				}
+		});
+      	
+      	
+
+		function ajaxCall(fileContent){
+			console.log("FILE CONTENT BEFORE AJAX CALL ===",fileContent);
+			$.ajax({
+				type:'POST',
+				url: 'https://cors-anywhere.herokuapp.com/https://rezscore.com/a/9a65ac/grade.xml?resume='+encodeURIComponent(fileContent),
+				async: true,
+					
+					
+			}).done(function(response){
+				var jsonResponse = JSON.parse(JSON.stringify(xml2json(response)));
+				 $(".progress").hide();
+				 $(".name").text("Your grade is : "+jsonResponse.rezscore.score.grade);
+			}).fail(function(error){
+				//Create a new function to process errors
+				console.log('fail', error.code);
+				$(".name").text("Error ocurred : "+error.code);
+				console.log("RESPONSE ==== ",JSON.stringify(XML2jsobj(response)));
+
+				// Change status to fail.
+			});
+		}
+
+		});
+
+
+		function xml2json(xml) {
+		  try {
+		    var obj = {};
+		    if (xml.children.length > 0) {
+		      for (var i = 0; i < xml.children.length; i++) {
+		        var item = xml.children.item(i);
+		        var nodeName = item.nodeName;
+
+		        if (typeof (obj[nodeName]) == "undefined") {
+		          obj[nodeName] = xml2json(item);
+		        } else {
+		          if (typeof (obj[nodeName].push) == "undefined") {
+		            var old = obj[nodeName];
+
+		            obj[nodeName] = [];
+		            obj[nodeName].push(old);
+		          }
+		          obj[nodeName].push(xml2json(item));
+		        }
+		      }
+		    } else {
+		      obj = xml.textContent;
+		    }
+		    return obj;
+		  } catch (e) {
+		      console.log(e.message);
+		  }
+		}
+
+
+
+			function XML2jsobj(node) {
+					var	data = {};
+					// append a value
+				function Add(name, value) {
+					if (data[name]) {
+						if (data[name].constructor != Array) {
+							data[name] = [data[name]];
+						}
+						data[name][data[name].length] = value;
+					}
+					else {
+						data[name] = value;
+					}
+				};
+				// element attributes
+				var c, cn;
+				for (c = 0; cn = node.attributes
+			; c++) {
+					Add(cn.name, cn.value);
+				}
+				// child elements
+				for (c = 0; cn = node.childNodes
+			; c++) {
+					if (cn.nodeType == 1) {
+						if (cn.childNodes.length == 1 && cn.firstChild.nodeType == 3) {
+							// text value
+							Add(cn.nodeName, cn.firstChild.nodeValue);
+						}
+						else {
+							// sub-object
+							Add(cn.nodeName, XML2jsobj(cn));
+						}
+					}
+				}
+				return data;
+
+		}
+
+      </script>
+
+
+</body>
+</html>
