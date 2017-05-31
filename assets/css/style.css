@@ -122,10 +122,13 @@ p {
 /* Chips */
 	.chip {
 		font-size: 12px;
-		height: 24px;
-		line-height: 24px;
-		border-radius: 12px;
-		padding: 0 4px 0 8px;
+		height: 25px;
+		line-height: 25px;
+		border-radius: 15px;
+		padding: 0 5px 0 10px;
+		display: inline-block;
+		position: relative;
+		/*float: left;*/
 	}
 
 	.chip .close {
@@ -133,7 +136,11 @@ p {
 		line-height: 24px;
 		padding-left: 4px;
 	}
-
+	.side-nav .collapsible .chip-bag,
 	.chip-bag {
 		padding: 0 5%;
+		margin-bottom: 15px;
+		position: relative;
+		line-height: 25px;
+		min-height: 0;
 	}
