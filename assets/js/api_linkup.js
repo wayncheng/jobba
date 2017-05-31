@@ -27,7 +27,7 @@ $(document).ready(function(){
 
 
 
-function CreateLinkupUrl(searchString,city,state){
+function CreateLinkupUrl(searchString,city,state,noOfRecords){
 
 	var url = "https://cors-anywhere.herokuapp.com/http://www.linkup.com/developers/v-1/search-handler.js?api_key=6681AB844790FB012488B9027B231749&embedded_search_key=b599c6a6e9b2178c2e673516252cad2a&orig_ip=j"+jobba.userIP;
 
@@ -104,6 +104,13 @@ function getLinkupResponse(result){
 		console.log(jobStr);
 
 	} // end for loop
+
+	// Change status to done.
+	g.apiCheck++;
+	g.checkStatus();
+	console.log('g.apiCheck',g.apiCheck);
+	var apiIndex = g.api.linkup.apiIndex;
+	g.apiStatus[apiIndex] = 'done';
 
 }
 
