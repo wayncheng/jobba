@@ -20,9 +20,77 @@ $('#filter-source').on('click','.filterSourceInput',function(event){
 	jobba.resultFilter(sourceHidden);
 });
 
+// Array of tags to filter out
+var whiteList = [];
+var blackList = [];
 
-// $('.filterSourceInput').on('click',function(event){
-// 	event.preventDefault();
-// 	console.log('filterSourceInput clicked');
-// 	console.log('$(this)',$(this));
-// });
+$('.filterTermInput').on('keyup',function(event){
+	event.preventDefault();
+	var c = event.keyCode
+
+	// Bail unless key pressed is comma or return 
+	if ( c !== (13 || 44) ) return;
+
+// If right key pressed, save tag
+	// Text inputs
+	var excludeInput = $('#excludeTerms').val().trim();
+	// var includeInput = $('#includeTerms').val().trim();
+
+	// Push to lists
+	blackList.push(excludeInput);
+	// whiteList.push(includeInput);
+
+	// Clear input fields
+	$('#excludeTerms').val('');
+	// $('#includeTerms').val('');
+
+	// Add chip for term
+	// Sample: <div class="chip"> Tag <i class="close material-icons">close</i> </div>
+	var chip = $('<div>').addClass('chip');
+	var x = $('<i>').addClass('close material-icons').text('close');
+	chip.text(excludeInput);
+	chip.append(x);
+	$('.chip-bag').append(chip);
+
+	// Pass on
+	jobba.filterTerms(whiteList, blackList);
+
+
+
+	// // Split terms
+	// var exSplit = excludeInput.split(','); 
+	// var inSplit = includeInput.split(',');
+	// console.log('inSplit',inSplit);
+	// console.log('exSplit',exSplit);
+
+	// Pass to filter
+	// jobba.filterTerms(inSplit,exSplit);
+
+
+
+
+
+
+});
+
+// Term Removal
+	$('.chip-bag').on('click','.close',function(e){
+		e.preventDefault();
+		var $t = $(this);
+		var term = $t.text();
+		var targetList = blackList;
+
+	 	// Remove term from term list 
+		blackList = targetList.filter(function(eachTerm){
+			return eachTerm !== term;
+		});
+
+		// Remove from DOM
+		$t.remove();
+
+		// Refilter new terms --- (refine this in the future to just restore the difference)
+		jobba.filterTerms(whiteList,blackList);
+	})
+
+// Print when they close side nav
+$('')
