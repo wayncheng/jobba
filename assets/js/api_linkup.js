@@ -47,7 +47,7 @@ function CreateLinkupUrl(searchString,city,state,noOfRecords){
 
 		url = url + "&full_time=true";
 	
-	console.log("URL is:"+url);
+	console.log("Linkup URL is:"+url);
 	return url;
 }
 
