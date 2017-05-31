@@ -74,6 +74,8 @@
 	.date::before { content: "Posted:" }
 	.source::before { content: "Source:" }
 	.description-label::before { content: "Description:" }
+
+	.details::before { content: "Details:" } /*Novia: Added this for details and URL*/
 	/*.sourceURL::before { content: "Source URL:" }*/
 
 	/* Source URL Meta Link */

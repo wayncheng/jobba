@@ -542,6 +542,7 @@ print:
 
 				var sourceURLLink = $('<a>');
 					sourceURLLink.attr('href',sourceURL);
+					sourceURLLink.attr('target',"_blank");
 					sourceURLLink.attr('alt', 'View this job listing on the original site');
 					sourceURLLink.text(source);
 					sourceWrap.append(sourceURLLink);

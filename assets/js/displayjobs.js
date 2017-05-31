@@ -67,11 +67,11 @@ function printSavedJobs() {
 						listingNumberEl.addClass('listing-number ghost');
 						listingNumberEl.text(index);
 
-						// var metaArray = [location, date, source];
+						// var metaArray = [location, date, source, url];
 						var metaArray = [
 							{ key: "location", value: location},
 							{ key: "date", value: daysAgo},
-							{ key: "source", value: source},
+							{ key: "source", value: source}
 						];
 
 						var wrap = $('<div>');
@@ -104,6 +104,19 @@ function printSavedJobs() {
 						// 	d.addClass('description below-fold fold-hide');
 						// 	d.html(description);
 
+
+						// Original Source URL
+						var sourceWrap = $('<p>');
+							sourceWrap.addClass('meta-detail');
+							sourceWrap.addClass('details sourceURL');
+
+							var sourceURLLink = $('<a>');
+								sourceURLLink.attr('href',url);
+								sourceURLLink.attr('target',"_blank");
+								sourceURLLink.attr('alt', 'View this job listing on the original site');
+								sourceURLLink.text("Apply here");
+								sourceWrap.append(sourceURLLink);
+
 						var metaWrap = $('<div>');
 							metaWrap.addClass('meta');
 
@@ -124,6 +137,7 @@ function printSavedJobs() {
 						body.append(h3);
 						// body.append(saveWrap);
 						body.append(metaWrap);
+						body.append(sourceWrap);
 						// body.append(foldToggle);
 						// body.append(d);
 						wrap.append(body);
