@@ -81,7 +81,6 @@
 				  	fr.readAsText( file );
 					fr.onload = function () {
 						fileContent = fr.result;
-						console.log("FILE CONTENT ======",fileContent);
 						ajaxCall(fileContent);
 					}
 				}
@@ -98,7 +97,6 @@
       	
 
 		function ajaxCall(fileContent){
-			console.log("FILE CONTENT BEFORE AJAX CALL ===",fileContent);
 			$.ajax({
 				type:'POST',
 				url: 'https://cors-anywhere.herokuapp.com/https://rezscore.com/a/9a65ac/grade.xml?resume='+encodeURIComponent(fileContent),
@@ -109,6 +107,8 @@
 				var jsonResponse = JSON.parse(JSON.stringify(xml2json(response)));
 				 $(".progress").hide();
 				 $(".name").text("Your grade is : "+jsonResponse.rezscore.score.grade);
+				 $(".name").append("<br>"+jsonResponse.rezscore.advice.tip.long);
+
 			}).fail(function(error){
 				//Create a new function to process errors
 				console.log('fail', error.code);
