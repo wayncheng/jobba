@@ -607,14 +607,15 @@ reset:
 			// 	github: 'processing',
 			// 	authentic: 'processing',
 			// 	dice: 'processing',
-			// 	indeed: 'processing'
+			// 	indeed: 'processing',
+			// 	linkup: 'processing'
 			// };
 
 			// Reset result count
 			g.totalResultCount = 0;
 
 
-			g.apiStatus = ['processing','processing','processing','processing'];
+			g.apiStatus = ['processing','processing','processing','processing','processing'];
 
 			// Clear previous results
 			g.allResultsStr = [];
@@ -679,6 +680,19 @@ submit:
 			console.log('q',q);
 			console.log('city', city);
 
+			// Testing abort methods
+			// var githubxhr = null;
+			// var githubURL = g.api.github.createURL(q,city,"","10");
+			// function goGithub(){
+			// 	console.log('goGithub()');
+			// 	if (githubxhr != null) {
+			// 		githubxhr.abort();
+			// 		githubxhr = null;
+			// 	}
+			// 	githubxhr = g.api.github.ajaxCall(githubURL,g.api.github.getResponse);
+			// } 
+			// goGithub();
+
 			var githubURL = g.api.github.createURL(q,city,"","10");
 			g.api.github.ajaxCall(githubURL,g.api.github.getResponse);
 
@@ -694,6 +708,14 @@ submit:
 			var linkupURL = g.api.linkup.createURL(q,city,"","100");
 			g.api.linkup.ajaxCall(linkupURL,g.api.linkup.getResponse);
 		}),
+apiError:
+		function(){
+			console.log('apiError');
+			// Change status to fail.
+			g.apiCheck++;
+			g.checkStatus();
+			console.log('g.apiCheck',g.apiCheck);
+		},
 api: 
 	{
 		github: {
@@ -775,7 +797,8 @@ api:
 							url: qURL,
 						}).done(mycallback).fail(function(){
 							//Create a new function to process errors
-							console.log('fail', qURL.result);
+							console.log('ajaxCall fail');
+							g.apiError();
 							// Change status to fail.
 							var apiIndex = g.api.github.apiIndex;
 							g.apiStatus[apiIndex] = 'fail';
@@ -870,7 +893,8 @@ api:
 							url: qURL,
 						}).done(mycallback).fail(function(){
 							//Create a new function to process errors
-							console.log('fail', qURL.result);
+							console.log('ajaxCall fail');
+							g.apiError();
 							// Change status to fail.
 							// g.apiStatus[g.api.indeed.apiIndex] = 'fail';
 							var apiIndex = g.api.indeed.apiIndex;
@@ -990,7 +1014,8 @@ api:
 							url: qURL,
 						}).done(mycallback).fail(function(){
 							//Create a new function to process errors
-							console.log('fail', qURL.result);
+							console.log('ajaxCall fail');
+							g.apiError();
 							// Change status to fail.
 							// g.apiStatus[g.api.dice.apiIndex] = 'fail';
 							var apiIndex = g.api.dice.apiIndex;
@@ -1144,7 +1169,8 @@ api:
 							url: qURL,
 						}).done(mycallback).fail(function(){
 							//Create a new function to process errors
-							console.log('fail', qURL.result);
+							console.log('ajaxCall fail');
+							g.apiError();
 							// Change status to fail.
 							var apiIndex = g.api.authentic.apiIndex;
 							g.apiStatus[apiIndex] = 'fail';
@@ -1252,7 +1278,8 @@ api:
 							url: qURL,
 						}).done(mycallback).fail(function(){
 							//Create a new function to process errors
-							console.log('fail', qURL.result);
+							console.log('ajaxCall fail');
+							g.apiError();
 							// Change status to fail.
 							var apiIndex = g.api.linkup.apiIndex;
 							g.apiStatus[apiIndex] = 'fail';
