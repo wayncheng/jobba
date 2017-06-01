@@ -8,11 +8,6 @@
 		box-shadow: none;
 		z-index: 1000;
 	}
-	#signOut {
-		visibility: hidden;
-		display: none;
-	}
-
 
 	.pin-target .main-nav-menu-icon { /* menu icon size in nav */
 		font-size: 36px;

@@ -1,13 +1,14 @@
 var uid;
 
-if(sessionStorage.getItem("userKey")){
+function firstJobLoad(){
+	if(sessionStorage.getItem("userKey")){
 
- 		userId = sessionStorage.getItem("userKey");
+		userId = sessionStorage.getItem("userKey");
 			
 		var allJobs = [];
 		
 			// At the initial load, get a snapshot of the current data.
-			firebase.database().ref("/"+userId+"/jobs").on("value", function(snapshot) {
+			firebase.database().ref("/"+userId+"/jobs").once("value", function(snapshot) {
 
 				var jobs_data = snapshot.val();
 				allJobs = [];
@@ -137,7 +138,9 @@ if(sessionStorage.getItem("userKey")){
 				});			
 			});			
 
+	}
 }
+
 
 function printSavedJobs() {
 

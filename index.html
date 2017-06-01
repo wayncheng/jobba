@@ -39,15 +39,18 @@
     <style>
       .logged-in .save-wrap { visibility: visible;}
       .logged-in #displayJobs { visibility: visible;}
-      .logged-in #signInWithGithub { display: none;}
-      .logged-in #signOut { display: initial;}
+      .logged-in #signInWithGithub { visibility: hidden;}
+      .logged-in #signInWithGithubSide { visibility: hidden;}
       .logged-in #signOut { visibility: visible;}
+      .logged-in #signOutSide { visibility: visible;}
+      
 
       .save-wrap { visibility: hidden;}
       #displayJobs { visibility: hidden;}
-      #signInWithGithub { display: initial;}
-      #signOut { display: none;}
+      #signInWithGithub { visibility: visible;}
       #signOut { visibility: hidden;}
+      #signInWithGithubSide { visibility: visible;}
+      #signOutSide { visibility: hidden;}
         
     </style>
 </head>
@@ -65,17 +68,18 @@
                         Github Login </a>
                 </li>
                 <li>
-                    <a href="#saved-jobs-modal" class="blue header-link btn" id="displayJobs" title="View Saved Jobs">
-                        <!-- <i class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>  -->
-                        <!-- <i class="material-icons jba jba-star"></i> -->
-                        Saved Jobs </a>
-                </li>
-                <li>
                     <a href="#" class="header-link login sign-out btn" id="signOut" title="Sign out">
                         <!-- <i class="fa fa-sign-out" aria-hidden="true"></i>  -->
                         <!-- <i class="jba jba-logout jba-left"></i> -->
                         Sign Out </a>
                 </li>
+                <li>
+                    <a href="#saved-jobs-modal" class="blue header-link btn" id="displayJobs" title="View Saved Jobs">
+                        <!-- <i class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>  -->
+                        <!-- <i class="material-icons jba jba-star"></i> -->
+                        Saved Jobs </a>
+                </li>
+                
                 <li>
                     <a href="resumeGrader.html" class="blue header-link login sign-in btn" id="gradeResume" title="Grade Your Resume">
                         Resume Grader </a>
@@ -86,7 +90,7 @@
                     <a class="close-btn" href="#!">Close Main Menu<i class="material-icons">clear_all</i></a>
                 </li>
                 <li>
-                    <a href="#!" class="blue header-link login sign-in btn" id="signInWithGithub" title="Sign in with Github">
+                    <a href="#!" class="blue header-link login sign-in btn" id="signInWithGithubSide" title="Sign in with Github">
                     Github Login </a>
                 </li>
                 <li>
@@ -94,7 +98,7 @@
                     Saved Jobs </a>
                 </li>
                 <li>
-                    <a href="#" class="header-link login sign-out btn" id="signOut" title="Sign out">
+                    <a href="#" class="header-link login sign-out btn" id="signOutSide" title="Sign out">
                     Sign Out </a>
                 </li>
                 <li>
@@ -398,8 +402,8 @@
                   
                   $('html').removeClass('logged-in');
                   sessionStorage.removeItem("userKey");
+                  sessionStorage.clear();
 
-                  
                 }).catch(function(error) {
                   // An error happened.
                 }); 

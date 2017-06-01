@@ -5,7 +5,7 @@ function checkJobs(){
 		var jobs_data = snapshot.val();
 		allJobs = [];
 
-		// Put all trains object from database into array
+		// Put all jobs object from database into array
 		for(var i in jobs_data) {
 
 			// Print the initial data to the console.
