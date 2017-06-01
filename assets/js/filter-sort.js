@@ -41,30 +41,44 @@
 	$('.filterTermInput').on('keyup',function(event){
 		event.preventDefault();
 		var c = event.keyCode
-
+		var list;
+		var bagSel; 
+		var classVar;
 		// Bail unless key pressed is comma or return 
 		if ( c !== (13 || 44) ) return;
 
 	// If right key pressed, save tag
+		var whichList = $(this).attr('id');
+		if (whichList === 'includeTerms'){
+			list = whiteList;
+			bagSel = '#whiteList';
+		}
+		else {
+			list = blackList;
+			bagSel = '#blackList';
+		}
 		// Text inputs
-		var excludeInput = $('#excludeTerms').val().trim();
+		var textInput = $(this).val().trim()
+		// var excludeInput = $('#excludeTerms').val().trim();
 		// var includeInput = $('#includeTerms').val().trim();
 
 		// Push to lists
-		blackList.push(excludeInput);
+		list.push(textInput);
+		// blackList.push(excludeInput);
 		// whiteList.push(includeInput);
 
 		// Clear input fields
-		$('#excludeTerms').val('');
+		$(this).val('');
+		// $('#excludeTerms').val('');
 		// $('#includeTerms').val('');
 
 		// Add chip for term
 		// Sample: <div class="chip"> Tag <i class="close material-icons">close</i> </div>
 		var chip = $('<div>').addClass('chip');
 		var x = $('<i>').addClass('close material-icons').text('close');
-		chip.text(excludeInput);
+		chip.text(textInput);
 		chip.append(x);
-		$('.chip-bag').append(chip);
+		$(bagSel).append(chip);
 
 		// Pass on
 		jobba.filterTerms(whiteList, blackList);
