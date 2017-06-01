@@ -346,6 +346,7 @@
     
     <script src="assets/js/getCurrentUser.js" type="text/javascript" charset="utf-8"></script>
     <script src="assets/js/login.js" type="text/javascript" charset="utf-8"></script>
+    <script src="assets/js/checkjobs.js" type="text/javascript" charset="utf-8"></script>
     <script src="assets/js/global.js" type="text/javascript" charset="utf-8"></script>
     <script src="assets/js/script.js" type="text/javascript" charset="utf-8"></script>
 
@@ -405,17 +406,17 @@
             });
 
             if (window.performance) {
-              console.info("window.performance work's fine on this browser");
+              // console.info("window.performance work's fine on this browser");
             }
             
             if (performance.navigation.type == 1) {
-                console.info( "This page is reloaded" );
+                // console.info( "This page is reloaded" );
                 
                 if(sessionStorage.getItem("userKey")){
                     $('html').addClass('logged-in');
                 }
             } else {
-                console.info( "This page is not reloaded");
+                // console.info( "This page is not reloaded");
             }
 
         </script>

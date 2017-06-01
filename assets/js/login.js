@@ -44,6 +44,7 @@ function loginGH(){
       console.log("userid 1 is: "+userId);
 
       sessionStorage.setItem("userKey",userId);
+      checkJobs();
 
       // return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
       //   var username = snapshot.val().username;
@@ -64,8 +65,6 @@ function loginGH(){
     });
 
 }
-
-console.log("userid OUTSIDE is: "+userId);
 
 function saveJobs(jobObj){
   // console.log(jobObj);
