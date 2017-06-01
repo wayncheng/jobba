@@ -18,6 +18,12 @@ var database = firebase.database();
   // var logindatabase = firebase.database();
 
   $("#signInWithGithub").on("click", function(event){
+    event.preventDefault();
+    loginGH();
+  }); // End of sign on with GitHub  
+
+
+function loginGH(){
 
     firebase.auth().signInWithPopup(provider).then(function(result) {
       // This gives you a GitHub Access Token. You can use it to access the GitHub API.
@@ -25,22 +31,19 @@ var database = firebase.database();
       // The signed-in user info.
       user = result.user;
 
-      $(".save-wrap").css('visibility', 'visible');
-      $("#displayJobs").css('visibility', 'visible');
+      $('html').addClass('logged-in');
 
-      // successfully signed in.... What's next?
-      // alert("Welcome, "+user.displayName)
+      // $(".save-wrap").css('visibility', 'visible');
+      // $("#displayJobs").css('visibility', 'visible');
 
-      //----------------------------------------------------
-      // Add code here
-      //----------------------------------------------------
-
-      $("#signInWithGithub").hide();
-      $("#signOut").css('visibility', 'visible');
-      $("#signOut").show();
+      // $("#signInWithGithub").hide();
+      // $("#signOut").css('visibility', 'visible');
+      // $("#signOut").show();
       // to retrieve current user unique ID
       userId = firebase.auth().currentUser.uid;
       console.log("userid 1 is: "+userId);
+
+      sessionStorage.setItem("userKey",userId);
 
       // return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
       //   var username = snapshot.val().username;
@@ -60,7 +63,9 @@ var database = firebase.database();
         console.log("Error - " + errorCode + "  " + errorMessage + "  " + email + "  " + credential);
     });
 
-  }); // End of sign on with GitHub  
+}
+
+console.log("userid OUTSIDE is: "+userId);
 
 function saveJobs(jobObj){
   // console.log(jobObj);
@@ -101,19 +106,19 @@ $('#signOut').on("click", function(){
     firebase.auth().signOut().then(function() {
       // Sign-out successful.
       console.log("Bye");
-      $("#username").text("So Long! "+user.displayName);  
-      
-      $("#signInWithGithub").toggle();
-      $("#signOut").hide();
-      $(".save-wrap").css('visibility', 'hidden');
-      $("#displayJobs").css('visibility', 'hidden');
+      $('html').removeClass('logged-in');
+      sessionStorage.removeItem("userKey");
+
+      // $("#signInWithGithub").css('visibility', 'visible');
+      // $("#signInWithGithub").show();
+      // $("#signOut").hide();
+      // $(".save-wrap").css('visibility', 'hidden');
+      // $("#displayJobs").css('visibility', 'hidden');
       
     }).catch(function(error) {
       // An error happened.
     }); 
   });
-
-    // When user logs in, direct to saved-jobs.html
 
     function initApp() {
       // Listening for auth state changes.

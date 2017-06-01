@@ -622,6 +622,24 @@ submit:
 		    event.preventDefault();
 			g.reset();
 
+
+			// console.log("reset!! #before"+sessionStorage.getItem("userKey"));
+
+			// if(sessionStorage.getItem("userKey")){
+   //                // alert("Welcome, "+user.displayName)
+
+   //                console.log("reset!! #inside"+sessionStorage.getItem("userKey"));
+   //                $("#signInWithGithub").hide();
+   //                $("#signOut").css('visibility', 'visible');
+   //                $("#signOut").show();
+   //                $(".save-wrap").css('visibility', 'visible');
+   //                console.log("SAVE WRAP VISIBILITY :::"+$(".save-wrap").css('visibility'));
+   //                $(".save-wrap").show();
+   //                $("#displayJobs").css('visibility', 'visible');
+        
+   //          }
+
+
 			if ( g.apisRunning === true ) {
 				return;
 			}
