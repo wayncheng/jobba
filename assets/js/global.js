@@ -26,6 +26,8 @@ sort:
 
 		},
 filteredCount: 0,
+whiteList: [],
+blackList: [],
 filterTerms:
 		function(inTerms,exTerms){
 			var data = g.partData;
@@ -35,7 +37,16 @@ filterTerms:
 			var filtered = data.filter(function(res){
 				var str = res.title.toUpperCase();
 
-				var m = exTerms.map(function(term){
+				var black = exTerms.map(function(term){
+					term = term.toUpperCase().trim();
+
+					// Term vs. Title String comparison
+					var bool = str.includes(term);
+				
+					// Only return if there are no matches
+					return bool;
+				});
+				var white = inTerms.map(function(term){
 					term = term.toUpperCase().trim();
 
 					// Term vs. Title String comparison
@@ -45,22 +56,30 @@ filterTerms:
 					return bool;
 				});
 
+
 				// var final = m.filter(function(){
 				// Return if can't find any match
-				var neg1 = m.indexOf(true); 
-				return neg1 === -1;
+				var blackCheck = black.indexOf(true); 
+				var whiteCheck = white.indexOf(false); 
+				console.log('blackCheck',blackCheck);
+				console.log('whiteCheck',whiteCheck);
+				return blackCheck === -1 && whiteCheck === -1;
 				// });
 				// console.log('final',final);
 				// return final;
-			})
-			// console.log('filtered',filtered);
 
+			})
+
+			g.whiteList = inTerms;
+			g.blackList = exTerms;
 			g.partData = filtered;
 			console.log('g.partData',g.partData);
 
 			g.printFrom = 'partData';
 
-			Materialize.toast('Removed listings containing your blacklisted terms!', 2000);
+			console.log('blacklist',exTerms);
+			console.log('whitelist',inTerms);
+			Materialize.toast('Listing filtered by terms!', 2000);
 
 			g.pagination();
 		},
@@ -540,6 +559,9 @@ markTerms:
 			var q = $('#search').val().split(' ');
 			$(".meta-detail.description").mark(q);
 
+			if (g.whiteList.length !== 0){
+				$('.listing').mark(g.whiteList);
+			}
 			// var options = {
 			//     "element": "mark",
 			//     "className": "",

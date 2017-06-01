@@ -131,7 +131,7 @@
                 	Filter / Sort</a>
             </div>
         </div>
-    <!-- Feed Details ========================-->
+    <!-- Feed Details =========================-->
         <div id="feed-details" class="row">
             <div class="col s12 m10 offset-m1 xl6 offset-xl3">
                 <p id="result-number" class="result-detail popout-comp-left"><span id="total-result-count" class="target">0</span> results found</p>
@@ -176,7 +176,8 @@
                     <li class="pg-control waves-effect" data-pg="-1"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
                 </ul>
             </div>
-        </div> <!-- /row --><!-- Modal Structure -->
+        </div> <!-- /row -->
+    <!-- Modal Structure ======================-->
         <div id="saved-jobs-modal" class="modal bottom-sheet">
             <div class="modal-content">
                 <h4>Saved Jobs</h4>
@@ -206,26 +207,6 @@
                                 <li class=""><a href="#!" class="pagination-num-opt">30</a></li>
                                 <li class=""><a href="#!" class="pagination-num-opt">40</a></li>
                             </ul>
-                            <!-- <form class="sideNavForm">
-                                <ul>
-                                    <li class="input-field" id="numResultsShown1"><input type="radio"><label for="numResultsShown1">10</label></li>
-                                    <li class="input-field" id="numResultsShown2"><input type="radio" checked><label for="numResultsShown2">20</label></li>
-                                    <li class="input-field" id="numResultsShown3"><input type="radio"><label for="numResultsShown3">30</label></li>
-                                    <li class="input-field" id="numResultsShown4"><input type="radio"><label for="numResultsShown4">40</label></li>
-                                </ul>
-                            </form> -->
-                            <!-- <a href="#!" class="pagination-num-opt">10</a>
-                            <a href="#!" class="pagination-num-opt">20</a>
-                            <a href="#!" class="pagination-num-opt">30</a>
-                            <a href="#!" class="pagination-num-opt">40</a> -->
-                            <!-- <div id="pagination-num-sel" class="input-field">
-                                <select>
-                                    <option value="10">10</option>
-                                    <option value="20">20</option>
-                                    <option value="30">30</option>
-                                    <option value="40">40</option>
-                                </select>
-                            </div> -->
                         </div>
                     </li>
                 </ul>
@@ -245,23 +226,21 @@
                     </li>
                 </ul>
             </li>
+            <!-- Filter Terms -->
             <li id="termFilters" class="no-padding">
                 <ul class="collapsible collapsible-accordion">
                     <li>
                         <a class="blue-grey collapsible-header active">Filter Terms<i class="material-icons">arrow_drop_down</i></a>
                         <div class="collapsible-body">
                             <ul>
-                            	<!-- <li class="instructions">Terms to search for (press enter betwen terms)</li>
-                            	<li class="chip-bag">
-                            	</li>
+                            	<li class="instructions">Whitelist (press enter betwen terms)</li>
+                            	<li id="whiteList" class="chip-bag"> </li>
                                 <li>
                                 	<img src="assets/icons/plusg.svg" class="icon beforeFormInput" alt="Terms to Search For">
 							        <input id="includeTerms" class="filterTermInput" type="text" placeholder="Terms to search for">
-                                </li> -->
-                            	<li class="instructions">Terms to filter out (press enter between terms)</li>
-                            	<li class="chip-bag">
-                            		<!-- <div class="chip"> Tag <i class="close material-icons">close</i> </div> -->
-                            		</li>
+                                </li>
+                            	<li class="instructions">Blacklist (press enter between terms)</li>
+                            	<li id="blackList" class="chip-bag"> <!-- <div class="chip"> Tag <i class="close material-icons">close</i> </div> --> </li>
                                 <li>
                                 	<img src="assets/icons/minusr.svg" class="icon beforeFormInput" alt="Terms to Filter Out">
 							        <input id="excludeTerms" class="filterTermInput" type="text" placeholder="Terms to avoid">
@@ -271,6 +250,7 @@
                     </li>
                 </ul>
 	            </li>
+            <!-- Filter Source -->
             <li class="no-padding">
                 <ul class="collapsible collapsible-accordion">
                     <li>
