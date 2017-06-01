@@ -1,18 +1,22 @@
-function removeJob(){
 
 	$("#saved-jobs-modal").on("click", ".remove-btn", function() {
-			console.log("helloooo");
+		var jobKey = $(this).parent().parent().attr('id');
+			console.log("helloooo:"+jobKey);
+			console.log("is user still on??"+userId);
+			database.ref("/"+userId+"/jobs/"+jobKey).remove();
 
 	});
+
+
   //   $("#scheduleDetails").on("click", ".deleteBtn", function() {
   //   var trainKey = $(this).parent().parent().attr('id');
 
   //   database.ref("/"+trainKey).remove();
   // });
 
-  remove-btn
 
-}
+
+
 
 // $(".saveJob").on("click", function() {
 // // $(".listing").on("click", ".saveJob", function() {
