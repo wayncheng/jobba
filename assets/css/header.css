@@ -20,4 +20,12 @@
 		line-height: inherit;
 	}
 
+	#main-nav ul a.btn, 
+	#main-nav ul a.btn-large, 
+	#main-nav ul a.btn-large, 
+	#main-nav ul a.btn-flat, 
+	#main-nav ul a.btn-floating {
+		margin-left: 0;
+		/*margin-right: 0;*/
+	}
 

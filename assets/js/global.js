@@ -26,6 +26,8 @@ sort:
 
 		},
 filteredCount: 0,
+whiteList: [],
+blackList: [],
 filterTerms:
 		function(inTerms,exTerms){
 			var data = g.partData;
@@ -35,7 +37,16 @@ filterTerms:
 			var filtered = data.filter(function(res){
 				var str = res.title.toUpperCase();
 
-				var m = exTerms.map(function(term){
+				var black = exTerms.map(function(term){
+					term = term.toUpperCase().trim();
+
+					// Term vs. Title String comparison
+					var bool = str.includes(term);
+				
+					// Only return if there are no matches
+					return bool;
+				});
+				var white = inTerms.map(function(term){
 					term = term.toUpperCase().trim();
 
 					// Term vs. Title String comparison
@@ -45,22 +56,30 @@ filterTerms:
 					return bool;
 				});
 
+
 				// var final = m.filter(function(){
 				// Return if can't find any match
-				var neg1 = m.indexOf(true); 
-				return neg1 === -1;
+				var blackCheck = black.indexOf(true); 
+				var whiteCheck = white.indexOf(false); 
+				console.log('blackCheck',blackCheck);
+				console.log('whiteCheck',whiteCheck);
+				return blackCheck === -1 && whiteCheck === -1;
 				// });
 				// console.log('final',final);
 				// return final;
-			})
-			// console.log('filtered',filtered);
 
+			})
+
+			g.whiteList = inTerms;
+			g.blackList = exTerms;
 			g.partData = filtered;
 			console.log('g.partData',g.partData);
 
 			g.printFrom = 'partData';
 
-			Materialize.toast('Removed listings containing your blacklisted terms!', 2000);
+			console.log('blacklist',exTerms);
+			console.log('whitelist',inTerms);
+			Materialize.toast('Listing filtered by terms!', 2000);
 
 			g.pagination();
 		},
@@ -541,6 +560,9 @@ markTerms:
 			var q = $('#search').val().split(' ');
 			$(".meta-detail.description").mark(q);
 
+			if (g.whiteList.length !== 0){
+				$('.listing').mark(g.whiteList);
+			}
 			// var options = {
 			//     "element": "mark",
 			//     "className": "",
@@ -586,14 +608,15 @@ reset:
 			// 	github: 'processing',
 			// 	authentic: 'processing',
 			// 	dice: 'processing',
-			// 	indeed: 'processing'
+			// 	indeed: 'processing',
+			// 	linkup: 'processing'
 			// };
 
 			// Reset result count
 			g.totalResultCount = 0;
 
 
-			g.apiStatus = ['processing','processing','processing','processing'];
+			g.apiStatus = ['processing','processing','processing','processing','processing'];
 
 			// Clear previous results
 			g.allResultsStr = [];
@@ -676,6 +699,19 @@ submit:
 			console.log('q',q);
 			console.log('city', city);
 
+			// Testing abort methods
+			// var githubxhr = null;
+			// var githubURL = g.api.github.createURL(q,city,"","10");
+			// function goGithub(){
+			// 	console.log('goGithub()');
+			// 	if (githubxhr != null) {
+			// 		githubxhr.abort();
+			// 		githubxhr = null;
+			// 	}
+			// 	githubxhr = g.api.github.ajaxCall(githubURL,g.api.github.getResponse);
+			// } 
+			// goGithub();
+
 			var githubURL = g.api.github.createURL(q,city,"","10");
 			g.api.github.ajaxCall(githubURL,g.api.github.getResponse);
 
@@ -691,6 +727,14 @@ submit:
 			var linkupURL = g.api.linkup.createURL(q,city,"","100");
 			g.api.linkup.ajaxCall(linkupURL,g.api.linkup.getResponse);
 		}),
+apiError:
+		function(){
+			console.log('apiError');
+			// Change status to fail.
+			g.apiCheck++;
+			g.checkStatus();
+			console.log('g.apiCheck',g.apiCheck);
+		},
 api: 
 	{
 		github: {
@@ -772,7 +816,8 @@ api:
 							url: qURL,
 						}).done(mycallback).fail(function(){
 							//Create a new function to process errors
-							console.log('fail', qURL.result);
+							console.log('ajaxCall fail');
+							g.apiError();
 							// Change status to fail.
 							var apiIndex = g.api.github.apiIndex;
 							g.apiStatus[apiIndex] = 'fail';
@@ -867,7 +912,8 @@ api:
 							url: qURL,
 						}).done(mycallback).fail(function(){
 							//Create a new function to process errors
-							console.log('fail', qURL.result);
+							console.log('ajaxCall fail');
+							g.apiError();
 							// Change status to fail.
 							// g.apiStatus[g.api.indeed.apiIndex] = 'fail';
 							var apiIndex = g.api.indeed.apiIndex;
@@ -987,7 +1033,8 @@ api:
 							url: qURL,
 						}).done(mycallback).fail(function(){
 							//Create a new function to process errors
-							console.log('fail', qURL.result);
+							console.log('ajaxCall fail');
+							g.apiError();
 							// Change status to fail.
 							// g.apiStatus[g.api.dice.apiIndex] = 'fail';
 							var apiIndex = g.api.dice.apiIndex;
@@ -1141,7 +1188,8 @@ api:
 							url: qURL,
 						}).done(mycallback).fail(function(){
 							//Create a new function to process errors
-							console.log('fail', qURL.result);
+							console.log('ajaxCall fail');
+							g.apiError();
 							// Change status to fail.
 							var apiIndex = g.api.authentic.apiIndex;
 							g.apiStatus[apiIndex] = 'fail';
@@ -1249,7 +1297,8 @@ api:
 							url: qURL,
 						}).done(mycallback).fail(function(){
 							//Create a new function to process errors
-							console.log('fail', qURL.result);
+							console.log('ajaxCall fail');
+							g.apiError();
 							// Change status to fail.
 							var apiIndex = g.api.linkup.apiIndex;
 							g.apiStatus[apiIndex] = 'fail';
