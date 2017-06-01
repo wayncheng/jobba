@@ -44,11 +44,9 @@ function printSavedJobs() {
 
 						index++;
 
-						console.log("Did index increase: " +index);
-
 						// Variables for details to be written
+						var jobID = jobData[0];
 						var title = jobData[1].title;
-						// var title = g.resultNumber +'. '+ jobData.title;
 						var company = jobData[1].company;
 						var location = jobData[1].location;
 						var date = jobData[1].date;
@@ -79,6 +77,7 @@ function printSavedJobs() {
 							// wrap.attr('data-all',jobStr);
 							wrap.attr('data-index',jobIndex);
 							wrap.attr('data-company',company);
+							wrap.attr('id',jobID);
 
 						var body = $('<div>');
 							body.addClass('panel-body');
@@ -104,6 +103,9 @@ function printSavedJobs() {
 						// 	d.addClass('description below-fold fold-hide');
 						// 	d.html(description);
 
+						var removeBtn = $("<button>")
+							removeBtn.addClass("remove-btn");
+							removeBtn.text("x");
 
 						// Original Source URL
 						var sourceWrap = $('<p>');
@@ -138,6 +140,7 @@ function printSavedJobs() {
 						// body.append(saveWrap);
 						body.append(metaWrap);
 						body.append(sourceWrap);
+						body.append(removeBtn);	
 						// body.append(foldToggle);
 						// body.append(d);
 						wrap.append(body);
