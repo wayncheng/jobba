@@ -44,11 +44,9 @@ function printSavedJobs() {
 
 						index++;
 
-						console.log("Did index increase: " +index);
-
 						// Variables for details to be written
+						var jobID = jobData[0];
 						var title = jobData[1].title;
-						// var title = g.resultNumber +'. '+ jobData.title;
 						var company = jobData[1].company;
 						var location = jobData[1].location;
 						var date = jobData[1].date;
@@ -67,11 +65,11 @@ function printSavedJobs() {
 						listingNumberEl.addClass('listing-number ghost');
 						listingNumberEl.text(index);
 
-						// var metaArray = [location, date, source];
+						// var metaArray = [location, date, source, url];
 						var metaArray = [
 							{ key: "location", value: location},
 							{ key: "date", value: daysAgo},
-							{ key: "source", value: source},
+							{ key: "source", value: source}
 						];
 
 						var wrap = $('<div>');
@@ -79,6 +77,7 @@ function printSavedJobs() {
 							// wrap.attr('data-all',jobStr);
 							wrap.attr('data-index',jobIndex);
 							wrap.attr('data-company',company);
+							wrap.attr('id',jobID);
 
 						var body = $('<div>');
 							body.addClass('panel-body');
@@ -104,6 +103,22 @@ function printSavedJobs() {
 						// 	d.addClass('description below-fold fold-hide');
 						// 	d.html(description);
 
+						var removeBtn = $("<button>")
+							removeBtn.addClass("remove-btn");
+							removeBtn.text("x");
+
+						// Original Source URL
+						var sourceWrap = $('<p>');
+							sourceWrap.addClass('meta-detail');
+							sourceWrap.addClass('details sourceURL');
+
+							var sourceURLLink = $('<a>');
+								sourceURLLink.attr('href',url);
+								sourceURLLink.attr('target',"_blank");
+								sourceURLLink.attr('alt', 'View this job listing on the original site');
+								sourceURLLink.text("Apply here");
+								sourceWrap.append(sourceURLLink);
+
 						var metaWrap = $('<div>');
 							metaWrap.addClass('meta');
 
@@ -124,6 +139,8 @@ function printSavedJobs() {
 						body.append(h3);
 						// body.append(saveWrap);
 						body.append(metaWrap);
+						body.append(sourceWrap);
+						body.append(removeBtn);	
 						// body.append(foldToggle);
 						// body.append(d);
 						wrap.append(body);

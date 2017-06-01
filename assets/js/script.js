@@ -81,46 +81,46 @@ $(document).ready(function () {
 
 
 	// Feature Function
-	$('#feed').on('click','.listing',function(event){
-		event.preventDefault();
+	// $('#feed').on('click','.listing',function(event){
+	// 	event.preventDefault();
 
-		// clear previous selection
-		$('.featured').removeClass('.featured');
+	// 	// clear previous selection
+	// 	$('.featured').removeClass('.featured');
 
-		// Add class to new selection
-		// $(this).toggleClass('featured');
-		$(this).addClass('featured');
+	// 	// Add class to new selection
+	// 	// $(this).toggleClass('featured');
+	// 	$(this).addClass('featured');
 
-		// read listing index and fetch listing's data using index
-		var dataIndex = $(this).attr('data-index');
-		var data = jobba.allResults[dataIndex];
+	// 	// read listing index and fetch listing's data using index
+	// 	var dataIndex = $(this).attr('data-index');
+	// 	var data = jobba.allResults[dataIndex];
 
 
-		// Description
-		var description = data.description;
-		$('#ft-description').html(description);
+	// 	// Description
+	// 	var description = data.description;
+	// 	$('#ft-description').html(description);
 
-		// Company
-		var companyName = data.company;
-		$('#ft-company-name').text(companyName);
+	// 	// Company
+	// 	var companyName = data.company;
+	// 	$('#ft-company-name').text(companyName);
 
-		// Make room for feature container, and reveal
-		$('.filter-container').removeClass('col-md-offset-1');
-		$('.feature-container').show();
+	// 	// Make room for feature container, and reveal
+	// 	$('.filter-container').removeClass('col-md-offset-1');
+	// 	$('.feature-container').show();
 
-		// Position feature display
-		var windowPos = $(window).scrollTop();
-		var bannerHeight = $('#banner').height();
-		// var containerPos = $('.feature-container').scrollTop();
-		var cushion = 105;
-		var featurePos = windowPos - bannerHeight - cushion;
+	// 	// Position feature display
+	// 	var windowPos = $(window).scrollTop();
+	// 	var bannerHeight = $('#banner').height();
+	// 	// var containerPos = $('.feature-container').scrollTop();
+	// 	var cushion = 105;
+	// 	var featurePos = windowPos - bannerHeight - cushion;
 
-		if ( featurePos < 0 ) {
-			featurePos = 0
-		}
-		$('#feature').css('top', featurePos+'px');
+	// 	if ( featurePos < 0 ) {
+	// 		featurePos = 0
+	// 	}
+	// 	$('#feature').css('top', featurePos+'px');
 
-	}); // end listing click
+	// }); // end listing click
 
 
 // ------------------------------------------------------------ 
@@ -194,6 +194,9 @@ $(document).ready(function () {
 	// close side nav when link pressed.
 	$('.close-btn').sideNav('hide');
 
+	// Tag Chips
+	$('.chips').material_chip();
+	
 
 
 

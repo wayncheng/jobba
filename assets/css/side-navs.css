@@ -6,39 +6,38 @@
 	}
 	
 	#filter-side-nav {
-		background-color: rgba(255,255,255,0.9);
+		/*background-color: rgba(255,255,255,0.9);*/
+		background-color: #fff;
 	}
 
 /* Close Button -----------------------------------------------*/
 	.close-btn {
-
+		color: #fff;
 	}
+
+/* First List Child in Nav -----------------------------------------------*/
+	.side-nav li.no-padding {
+		position: relative;
+		min-height: 42px;
+	}	
+
 /* Side Navigation -----------------------------------------------*/
 	/* Headers  */
+	.side-nav .collapsible-header:hover,
+	.side-nav .collapsible-header.active,
 	.side-nav .collapsible-header {
-		background-color: rgba(0,0,0,0.05);
-		background-color: #4dd0e1;
-		background-color: #039be5;
-		/*background-color: rgba(0,0,0,0.6);*/
-		/*background-color: rgba(100,100,100,0.8);*/
-		/*border-top: 1px solid rgba(0,0,0,0.1);*/
-		margin-top: 4px;
+		background-color: #656565;
+		background-color: #fff;
+		/*border-top: 1px solid rgba(0,0,0,0.2);*/
+		/*border-bottom: 1px solid rgba(0,0,0,0.2);*/
+		/*margin-top: 4px;*/
+		transition: background-color 300ms;
 	}
-	.side-nav .collapsible-header:hover {
-		background-color: rgba(0,0,0,0.1);
-		/*background-color: rgba(0,0,0,0.7);*/
-		/*background-color: rgba(100,100,100,0.9);*/
-		background-color: #0288d1;
-	}
-	.side-nav .collapsible-header.active {
-		background-color: rgba(50,50,50,0.1);
-		background-color: rgba(0,0,0,0.15);
-		/*background-color: rgba(0,0,0,0.8);*/
-		background-color: #0277bd;
-	}
+
 
 	.side-nav .collapsible-header i.material-icons,
 	.side-nav .collapsible-header {
+		color: #666;
 		color: #fff;
 	}
 
@@ -88,6 +87,7 @@
 		/*margin-left: -2px;*/
 	}
 	.sideNavForm.horizontal-options li a {
+
 		padding: 0;
 	}
 
@@ -98,8 +98,76 @@
 	}
 /*------------------------------------------------------------*/
 	.side-nav li.no-padding {
-		margin-bottom: 5px;
+		/*margin-bottom: 5px;*/
 	}
 
 
+/*------------------------------------------------------------*/
+/* Text Inputs */
+	.side-nav .collapsible-body li {
+		position: relative;
+		line-height: 42px;
+		min-height: 42px;
+	}
+	.side-nav .filterTermInput {
+		width: 90%;
+		margin-left: 5%;
+		text-indent: 26px;
+		margin-bottom: 15px;
+	}
+	#termFilters .collapsible-body ul {
+		padding-bottom: 20px;
+	}
+	/* label underline focus color */
+	.side-nav .input-field input[type=text]:focus {
+	 border-bottom: 1px solid #ccc;
+	 box-shadow: 0 1px 0 0 #ccc;
+	}
+	/* valid color */
+	.side-nav .input-field input[type=text].valid {
+	 /*border-bottom: 1px solid #2ecc71;*/
+	 /*box-shadow: 0 1px 0 0 #2ecc71;*/
+	}
+	/* invalid color */
+	.side-nav .input-field input[type=text].invalid {
+	 /*border-bottom: 1px solid #e74c3c;*/
+	 /*box-shadow: 0 1px 0 0 #e74c3c;*/
+	}
+	
+/*------------------------------------------------------------*/
+/* Icon before Text Input */
+	.side-nav .icon.beforeFormInput {
+		position: absolute;
+		line-height: 42px;
+		height: 42px;
+		left: 0;
+		top: 1px;
+		width: 18px;
+		margin-left: 5%;
+		display: inline-block;
+	}
+/*------------------------------------------------------------*/
+/* Instructions */
+	.side-nav .collapsible-body .instructions {
+		font-size: 14px;
+		font-style: italic;
+		color: #666;
+		line-height: 1.2em;
+		padding: 1em;
+	}
+/*------------------------------------------------------------*/
+/* Submit Button */
+	.fixedToBottom {
+		/*position: absolute;*/
+		/*bottom: 0;*/
+		/*left: 0;*/
+	}
+	#applyFilters  {
+		position: relative;
+		background-color: #e74c3c;
+		background-color: #d32f2f;
+		background-color: 
+	}
+/*------------------------------------------------------------*/
+/*------------------------------------------------------------*/
 /*------------------------------------------------------------*/

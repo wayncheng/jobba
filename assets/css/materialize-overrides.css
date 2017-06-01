@@ -1,5 +1,23 @@
 
+/* Input Colors -------------------------------------------*/
 
+	input:not([type]):focus:not([readonly]), 
+	input[type=text]:focus:not([readonly]), 
+	input[type=password]:focus:not([readonly]), 
+	input[type=email]:focus:not([readonly]), 
+	input[type=url]:focus:not([readonly]), 
+	input[type=time]:focus:not([readonly]), 
+	input[type=date]:focus:not([readonly]), 
+	input[type=datetime]:focus:not([readonly]), 
+	input[type=datetime-local]:focus:not([readonly]), 
+	input[type=tel]:focus:not([readonly]), 
+	input[type=number]:focus:not([readonly]), 
+	input[type=search]:focus:not([readonly]), 
+	textarea.materialize-textarea:focus:not([readonly]) 
+	{
+		border-bottom: 1px solid #999;
+		box-shadow: 0 1px 0 0 #999;
+	}
 
 /* Input Text Field Colors ------------------------------*/
 	/* text input color */
@@ -39,7 +57,6 @@
 	 color: #ccc;
 	}
 
-
 /* All Checkboxes ------------------------------*/
 
 	.input-field input[type=checkbox] + label {
@@ -50,3 +67,24 @@
 		 color: #111;
 		 text-decoration: underline;
 	}
+	
+	/* checkbox */
+	[type="checkbox"].filled-in:checked+label:after {
+		border: 2px solid #333;
+		background-color: #333;
+		margin-top: 3px;
+	}
+
+	[type="checkbox"]+label:before, 
+	[type="checkbox"]:not(.filled-in)+label:after,
+	[type="checkbox"].filled-in:not(:checked)+label:after {
+		border: 2px solid #333;
+
+	}
+	/* checkmark */
+	[type="checkbox"].filled-in:checked+label:before,
+	[type="checkbox"]:checked+label:before {
+		border-right: 2px solid #fff;
+		border-bottom: 2px solid #fff;
+		margin-top: 5px;
+	 }

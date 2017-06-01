@@ -109,7 +109,38 @@ p {
 	/*background-color: #757575;*/
 
 
+/*------------------------------------------------------------*/
 
-
+	mark {
+		background-color: rgba(255,255,0,0.4);
+		color: #000;
+		padding: 4px 5px;
+		margin: -4px -5px;
+	}
 
 /*------------------------------------------------------------*/
+/* Chips */
+	.chip {
+		font-size: 12px;
+		height: 25px;
+		line-height: 25px;
+		border-radius: 15px;
+		padding: 0 5px 0 10px;
+		display: inline-block;
+		position: relative;
+		/*float: left;*/
+	}
+
+	.chip .close {
+		font-size: 16px;
+		line-height: 24px;
+		padding-left: 4px;
+	}
+	.side-nav .collapsible .chip-bag,
+	.chip-bag {
+		padding: 0 5%;
+		margin-bottom: 15px;
+		position: relative;
+		line-height: 25px;
+		min-height: 0;
+	}

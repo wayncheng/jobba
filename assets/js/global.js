@@ -21,7 +21,49 @@ apiCheckpoint: 'processing',
 apiCheck: 0,
 apisRunning: false,
 prevCheck: 0,
+sort:
+		function(){
+
+		},
 filteredCount: 0,
+filterTerms:
+		function(inTerms,exTerms){
+			var data = g.partData;
+			if (data.length === 0) data = g.allResults; // If data already filtered, use it. Else, use all results
+			var data = g.allResults;
+
+			var filtered = data.filter(function(res){
+				var str = res.title.toUpperCase();
+
+				var m = exTerms.map(function(term){
+					term = term.toUpperCase().trim();
+
+					// Term vs. Title String comparison
+					var bool = str.includes(term);
+				
+					// Only return if there are no matches
+					return bool;
+				});
+
+				// var final = m.filter(function(){
+				// Return if can't find any match
+				var neg1 = m.indexOf(true); 
+				return neg1 === -1;
+				// });
+				// console.log('final',final);
+				// return final;
+			})
+			// console.log('filtered',filtered);
+
+			g.partData = filtered;
+			console.log('g.partData',g.partData);
+
+			g.printFrom = 'partData';
+
+			Materialize.toast('Removed listings containing your blacklisted terms!', 2000);
+
+			g.pagination();
+		},
 resultFilter: 
 		function(hideList){
 			var all = g.allResults;
@@ -47,6 +89,8 @@ resultFilter:
 
 			// Update where to print from
 			g.printFrom = 'partData';
+
+			Materialize.toast('Result sources filtered!', 2000);
 
 			g.pagination();
 		},
@@ -80,6 +124,9 @@ checkStatus:
 				$('#progress-wrap').hide();
 				$('.progress-target').css('width','0%');
 
+				// Toast!
+				Materialize.toast(g.totalResultCount + ' job listings found!',4000);
+				
 				// Prepare to print
 				g.beginPrint();
 			}
@@ -315,7 +362,7 @@ paginationHandler:
 			// Get current page number
 			var currentPageEl = $('.pagination').find('.active');
 			var currentPage = parseInt( currentPageEl.text() );
-			console.log('currentPage',currentPage);
+			// console.log('currentPage',currentPage);
 
 			// Remove "active" class from current page
 			currentPageEl.removeClass('active');
@@ -324,7 +371,9 @@ paginationHandler:
 			var targetPageEl = $(this).parent('li');
 			var targetData = parseInt(targetPageEl.attr('data-pg'));
 			// var targetPage = parseInt( targetPageEl.text() );
-			console.log('targetData',targetData);
+
+			// console.log('targetData',targetData);
+
 			
 			if ( targetData === 0 ) {
 				targetData = currentPage - 1
@@ -360,6 +409,8 @@ pagination:
 				// Print each listing
 				g.print(g[g.printFrom][i]);
 			};
+
+			g.markTerms();
 		},
 print: 	
 		function(jobObj){
@@ -451,6 +502,7 @@ print:
 
 				var sourceURLLink = $('<a>');
 					sourceURLLink.attr('href',sourceURL);
+					sourceURLLink.attr('target',"_blank");
 					sourceURLLink.attr('alt', 'View this job listing on the original site');
 					sourceURLLink.text(source);
 					sourceWrap.append(sourceURLLink);
@@ -482,6 +534,48 @@ print:
 			listingEl.append(bodyEl);
 
 			$('#feed').append(listingEl);
+
+		},
+markTerms:
+		function(){
+			var q = $('#search').val().split(' ');
+			$(".meta-detail.description").mark(q);
+
+			// var options = {
+			//     "element": "mark",
+			//     "className": "",
+			//     "exclude": [],
+			//     "separateWordSearch": true,
+			//     "accuracy": "partially",
+			//     "diacritics": true,
+			//     "synonyms": {},
+			//     "iframes": false,
+			//     "iframesTimeout": 5000,
+			//     "acrossElements": false,
+			//     "caseSensitive": false,
+			//     "ignoreJoiners": false,
+			//     "wildcards": "disabled",
+			//     "each": function(node){
+			//         // node is the marked DOM element
+			//     },
+			//     "filter": function(textNode, foundTerm, totalCounter, counter){
+			//         // textNode is the text node which contains the found term
+			//         // foundTerm is the found search term
+			//         // totalCounter is a counter indicating the total number of all marks
+			//         //              at the time of the function call
+			//         // counter is a counter indicating the number of marks for the found term
+			//         return true; // must return either true or false
+			//     },
+			//     "noMatch": function(term){
+			//         // term is the not found term
+			//     },
+			//     "done": function(counter){
+			//         // counter is a counter indicating the total number of all marks
+			//     },
+			//     "debug": false,
+			//     "log": window.console
+			// };
+			// $(".context").mark("test", options);
 
 		},
 reset: 
