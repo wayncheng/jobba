@@ -23,6 +23,7 @@
     <!-- <link type="text/css" rel="stylesheet" href="assets/libs/materialize.min.css" media="screen,projection" /> -->
     <!-- Firebase UI CDN -->
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" />
+
     <!-- Jobba CSS -->
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link href="assets/css/materialize-overrides.css" rel="stylesheet">
@@ -35,6 +36,7 @@
     <link href="assets/css/side-navs.css" rel="stylesheet">
     <link href="assets/css/do-not-disturb.css" rel="stylesheet">
     <link href="assets/css/loading-icon.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/auto-complete.css">
 
     <style>
       .logged-in .save-wrap { visibility: visible;}
@@ -53,6 +55,7 @@
       #signOutSide { visibility: hidden;}
         
     </style>
+
 </head>
 
 <body>
@@ -359,8 +362,9 @@
     <script src="assets/js/displayjobs.js" type="text/javascript" charset="utf-8"></script>
     <script src="assets/js/removejob.js" type="text/javascript" charset="utf-8"></script>
     
-
     <script src="assets/js/benchmark-email-form.js" type="text/javascript"></script>
+
+    <script src="assets/js/auto-complete.js"></script>
 <!--      <script src="assets/js/salaries.js" type="text/javascript" charset="utf-8"></script>
       <script src="assets/js/company_info.js" type="text/javascript" charset="utf-8"></script> -->
     
@@ -424,6 +428,32 @@
             }
 
         </script>
+
+    <script>
+        var demo1 = new autoComplete({
+            selector: '#search',
+            minChars: 1,
+            source: function(term, suggest){
+                term = term.toLowerCase();
+                var choices = ['Programmer','Full Stack Developer'];
+                // var choices = ['ActionScript', 'AppleScript', 'Asp', 'Assembly', 'BASIC', 'Batch', 'C', 'C++', 'CSS', 'Clojure', 'COBOL', 'ColdFusion', 'Erlang', 'Fortran', 'Groovy', 'Haskell', 'HTML', 'Java', 'JavaScript', 'Lisp', 'Perl', 'PHP', 'PowerShell', 'Python', 'Ruby', 'Scala', 'Scheme', 'SQL', 'TeX', 'XML'];
+                var suggestions = [];
+                for (i=0;i<choices.length;i++)
+                    if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+                suggest(suggestions);
+            }
+        });
+
+        if (~window.location.href.indexOf('http')) {
+            (function() {var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;po.src = 'https://apis.google.com/js/plusone.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);})();
+            (function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=114593902037957";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));
+            !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+            document.getElementById('github_social').innerHTML = '\
+                <iframe style="float:left;margin-right:15px" src="//ghbtns.com/github-btn.html?user=Pixabay&repo=JavaScript-autoComplete&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>\
+                <iframe style="float:left;margin-right:15px" src="//ghbtns.com/github-btn.html?user=Pixabay&repo=JavaScript-autoComplete&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>\
+            ';
+        }
+    </script>
 
 </body>
 
