@@ -1,9 +1,6 @@
 $(document).ready(function () {
 		// Get user's IP
 		jobba.getIP;
-		// jobba.sortDateNewest();
-		jobba.lastSearchLocal.print();
-
 
 	$('#feed, #saved-feed').on('click','.save-wrap',function(event){
 		event.preventDefault();
@@ -76,18 +73,13 @@ $(document).ready(function () {
 								// Need to log in on Github to trigger correctly. 
 								// Commenting it out for now ;)
 
+
+
+
 	}); // end listing click
 
 
-	$('#last-search-trigger').on('click',function(e){
-		e.preventDefault();
 
-		var search = $('#last-search-q').text();
-		var city =  $('#last-search-city').text();
-		$('#search').val(search);
-		$('#q-city').val(city);
-		$('#submit').trigger('click');
-	})
 	// Feature Function
 	// $('#feed').on('click','.listing',function(event){
 	// 	event.preventDefault();
@@ -147,7 +139,6 @@ $(document).ready(function () {
 
 
 	    if ( scrollPos >= ref.outerHeight()) {
-	    	$('html').addClass('past-banner');
 	    	// el.css('position','fixed');
 	    	// el.addClass('pos-fixed');
 	    	// el.css('background-color','rgba(0,0,0,0.7)');
@@ -156,6 +147,9 @@ $(document).ready(function () {
 	    	// $('#main-nav-menu-icon').css('color','#333');
 	    }
 	    else {
+	    	el.removeClass('pos-fixed');
+	    	el.css('background-color','#ffffff');
+	    	targetEl.removeClass('pos-fixed');
 	    	$('html').removeClass('past-banner');
 	    	// el.removeClass('pos-fixed');
 	    	// el.css('background-color','initial');
@@ -165,6 +159,48 @@ $(document).ready(function () {
 
 
 // ------------------------------------------------------------ 
+// Materialize Inits
+
+	// Initialize header collapse button
+	$('#header-side-nav-link').sideNav({
+		menuWidth: 300, // Default is 300
+		edge: 'left', // Choose the horizontal origin
+		closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+		draggable: true // Choose whether you can drag to open on touch screens
+	});
+	// Initialize filter collapse button
+	$('#filter-side-nav-link').sideNav({
+		menuWidth: 300, // Default is 300
+		edge: 'right', // Choose the horizontal origin
+		closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+		draggable: true // Choose whether you can drag to open on touch screens
+	});
+	// Initialize collapsible (uncomment the line below if you use the dropdown variation)
+	$('.collapsible').collapsible();
+	$('select').material_select();
+// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal').modal({
+      dismissible: true, // Modal can be dismissed by clicking outside of the modal
+      opacity: .5, // Opacity of modal background
+      inDuration: 300, // Transition in duration
+      outDuration: 200, // Transition out duration
+      startingTop: '4%', // Starting top style attribute
+      endingTop: '10%', // Ending top style attribute
+      ready: function(modal, trigger) { 
+	      // Callback for Modal open. Modal and trigger parameters available.
+        console.log(modal, trigger);
+      },
+      complete: function() { 
+      	// Callback for Modal close
+      	} 
+    });
+
+	// close side nav when link pressed.
+	$('.close-btn').sideNav('hide');
+
+	// Tag Chips
+	$('.chips').material_chip();
+	
 
 
 
