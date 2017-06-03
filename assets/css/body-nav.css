@@ -17,7 +17,6 @@
 		border-bottom: 1px solid #ddd;
 		background-color: transparent;
 		transition: background-color 200ms;
-
 	}
 
 	.body-nav a.btn,
@@ -33,11 +32,6 @@
 		margin-left: 10px;
 		background-color: #2196f3; 
 	}
-/*	.body-nav .col, .body-nav .input-field, .body-nav p.result-detail,
-	.body-nav {
-		height: 46px;
-		line-height: 46px;
-	}*/
 
 
 	.body-nav .nav-title {

@@ -171,3 +171,19 @@ p {
 	}
 
 /*------------------------------------------------------------*/
+/*Attribution*/
+	.attribution {
+		display: inline-block;
+		position: relative;
+		height: 20px;
+		line-height: 20px;
+		color: #333;
+	}
+	.attribution img {
+		float: right;
+		margin-left: 4px;
+		margin-top: 2px;
+	}
+
+
+/*------------------------------------------------------------*/
