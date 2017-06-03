@@ -154,7 +154,8 @@ lastSearchLocal: {
 
 				var str = JSON.stringify(obj);
 				localStorage.setItem('lastSearch', str);
-
+				
+				$('#last-search').show();
 				$('#last-search-q').text(obj.q);
 				$('#last-search-city').text(obj.city);
 			},
@@ -181,6 +182,11 @@ lastSearchLocal: {
 					return;
 				}
 			},
+	listener: 
+		$('#last-search-trigger').on('click',function(e){
+			e.preventDefault();
+			g.submitCheck();
+		}),
 	},
 apiStatus: ['processing','processing','processing','processing'],
 apiCheckpoint: 'processing',
