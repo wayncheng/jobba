@@ -19,6 +19,82 @@ getIP:
 	        g.userIP = data.ip;
 	        console.log('jobba.userIP',g.userIP);
 	    }),
+geolocation: {
+	isSupported: function(){
+					// check for Geolocation support
+					if (navigator.geolocation) {
+						console.log('supported');
+					  return true;
+					}
+					else {
+					  console.log('Geolocation is not supported for this Browser/OS.');
+					  return false;
+					}
+				},
+	get: function() {
+				// If geolocation not supported, tell them to fill it in manually
+				if (g.geolocation.isSupported === false) {
+					alert('Please enter a location');
+					return;
+				}
+				// If geolocation is supported, get the location
+				else {
+					var startPos;
+					var geoOptions = {
+						maximumAge: 5 * 60 * 1000,
+						timeout: 10 * 1000,
+					};
+
+					function geoSuccess(position) {
+						startPos = position;
+						// document.getElementById('startLat').innerHTML = startPos.coords.latitude;
+						// document.getElementById('startLon').innerHTML = startPos.coords.longitude;
+						console.log('startPos.coords.latitude',startPos.coords.latitude);
+						console.log('startPos.coords.longitude',startPos.coords.longitude);
+						var latlng = startPos.coords.latitude +','+ startPos.coords.longitude;
+						console.log('latlng',latlng);
+
+						g.geolocation.convert(latlng); // Send to function to convert coordinates to city
+					};
+					function geoError(error) {
+						console.log('Error occurred. Error code: ' + error.code);
+						// error.code can be:
+						//   0: unknown error
+						//   1: permission denied
+						//   2: position unavailable (error response from location provider)
+						//   3: timed out
+					};
+					navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+				}
+			},
+	convert: function(latlng){
+					// Example: https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=YOUR_API_KEY
+					// country, administrative_area_level_1 (state), locality, street_address, postal_code
+					var resultType = 'locality';
+					var locationType = 'APPROXIMATE';
+					var qURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+ latlng +'&location_type='+ locationType +'&result_type='+ resultType +'&key=AIzaSyCgf-yDUYwrG_uMHLtck2AFeNfATS94NQ4';
+					
+				    $.ajax({
+				    	type: 'GET',
+				    	url: qURL,
+				    }).done(function(response){
+				    	// var r = response.results[0].address_components;
+				    	// var city = r[0].short_name;
+				    	// var state = r[2].short_name;
+				    	// var country = r[3].short_name;
+				    	// console.log(city,state,country);
+
+				    	var a = response.results[0].formatted_address;
+				    	console.log('a',a);
+
+				    	// Set location in search bar & allow submission
+				    	$('#q-city').val(a);
+				    	g.submitCheck();
+
+				    });
+
+				}
+},
 lastSearchLocal: {
 	save: 	function(q,city){
 				if (q == '' || city == '') return;
@@ -899,28 +975,38 @@ scrollToTop:
 			event.preventDefault();
 			$(window).scrollTop(0);
 		}),
-submit: 
+submitHandler:
 		$('#submit').on('click', function(event){
-		    event.preventDefault();
+			event.preventDefault();
+			console.log('submitHandler');
+			g.submitCheck();
+		}),
+submitCheck:
+		function(){
+			console.log('submitCheck');
 			g.reset();
 
+			// Search parameters
+			// var q = $('#search').val();
+			var city = $('#q-city').val().trim();
 
 			// console.log("reset!! #before"+sessionStorage.getItem("userKey"));
 
-			// if(sessionStorage.getItem("userKey")){
-   //                // alert("Welcome, "+user.displayName)
+			
+			console.log('city',city);
+			// If location left blank, get current location
+			if ( city === '' ) {
+				g.geolocation.get();				
+				return;
+			}
 
-   //                console.log("reset!! #inside"+sessionStorage.getItem("userKey"));
-   //                $("#signInWithGithub").hide();
-   //                $("#signOut").css('visibility', 'visible');
-   //                $("#signOut").show();
-   //                $(".save-wrap").css('visibility', 'visible');
-   //                console.log("SAVE WRAP VISIBILITY :::"+$(".save-wrap").css('visibility'));
-   //                $(".save-wrap").show();
-   //                $("#displayJobs").css('visibility', 'visible');
-        
-   //          }
 
+			// Allow submission
+			g.submit();
+		},
+submit: 
+		function(){
+			console.log('submit');
 
 			if ( g.apisRunning === true ) {
 				return;
@@ -928,28 +1014,13 @@ submit:
 			else {
 				g.apisRunning = true;
 			}
-
+		// $('#submit').on('click', function(event){
+		    // event.preventDefault();
+			
 			// Search parameters
 			var q = $('#search').val();
 			var city = $('#q-city').val().trim();
-			var lat, lng;
-			
-			// Store the last search locally
-			g.lastSearchLocal.save(q,city);
 
-			// If location left blank, get current location
-			if ( city === '' ) {
-				alert('Enter a Location');
-				$('.loc-wrap').addClass('has-error');
-				$('#q-city').on('change',function(event){
-					event.preventDefault();
-					var loc = $('#q-city').val().trim();
-					if (loc.length > 0) {
-						$('.loc-wrap').removeClass('has-error');
-					}
-				});				
-				return;
-			}
 
 			// Add global loading class to html, so any element that 
 			// has different style depending on load status, can specify
@@ -958,8 +1029,7 @@ submit:
 			$('html').addClass('do-not-disturb');			
 
 				// city = 'San Francisco, CA, United States'
-			console.log('q',q);
-			console.log('city', city);
+
 
 			// Testing abort methods
 			// var githubxhr = null;
@@ -989,7 +1059,13 @@ submit:
 			var linkupURL = g.api.linkup.createURL(q,city,"","100");
 			g.api.linkup.ajaxCall(linkupURL,g.api.linkup.getResponse);
 
-		}),
+			// Store the last search locally
+			g.lastSearchLocal.save(q,city);
+
+			console.log('q',q);
+			console.log('city', city);
+
+		},
 apiError:
 		function(){
 			console.log('apiError');

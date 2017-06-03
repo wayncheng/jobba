@@ -24,6 +24,10 @@
 	#banner .photo-tint {
 		z-index: 901;
 	}
+/* Banner Logo */
+	#banner-logo-wrap {
+		height: initial;
+	}
 	#banner-logo {
 		width: 75%;
 		margin: 0 auto;
