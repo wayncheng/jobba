@@ -35,56 +35,83 @@
 	<link href="assets/css/side-navs.css" rel="stylesheet">
 	<link href="assets/css/do-not-disturb.css" rel="stylesheet">
 	<link href="assets/css/loading-icon.css" rel="stylesheet">
-	<style type="text/css">
+  
+  <link rel="stylesheet" href="assets/css/auto-complete.css">
 
-	</style>
+  <style>
+      .logged-in .save-wrap { visibility: visible;}
+      .logged-in #displayJobs { visibility: visible;}
+      .logged-in #signInWithGithub { visibility: hidden;}
+      .logged-in #signInWithGithubSide { visibility: hidden;}
+      .logged-in #signOut { visibility: visible;}
+      .logged-in #signOutSide { visibility: visible;}
+      
+
+      .save-wrap { visibility: hidden;}
+      #displayJobs { visibility: hidden;}
+      #signInWithGithub { visibility: visible;}
+      #signOut { visibility: hidden;}
+      #signInWithGithubSide { visibility: visible;}
+      #signOutSide { visibility: hidden;}
+        
+  </style>
 </head>
 
 <body>
-	<!--=============================================-->
-	<nav id="main-nav" class="header row" role="navigation">
-		<div class="nav-wrapper container col s12 m10 offset-m1">
-			<!-- <a id="logo-container" href="index.html" class="brand-logo right"> </a> -->
-			<ul id="main-nav-body" class="pin-target left hide-on-med-and-down">
-				<li>
-					<a href="#!" class="header-link login sign-in btn" id="signInWithGithub" title="Sign in with Github">
-						<!-- <i class="fa fa-github fa-lg" aria-hidden="true"></i>  -->
-						<!-- <i class="jba jba-github jba-left"></i> -->
-						Github Login </a>
-				</li>
-				<li>
-					<a href="#!" class="header-link login sign-out btn" id="signOut" title="Sign out">
-						<!-- <i class="fa fa-sign-out" aria-hidden="true"></i>  -->
-						<!-- <i class="jba jba-logout jba-left"></i> -->
-						Sign Out </a>
-				</li>
-				<li>
-					<a href="#saved-jobs-modal" class="header-link btn" id="displayJobs" title="View Saved Jobs">
-						<!-- <i class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>  -->
-						<!-- <i class="material-icons jba jba-star"></i> -->
-						Saved Jobs </a>
-				</li>
-			</ul>
-			<ul id="nav-mobile" class="side-nav">
-				<li>
-					<a class="close-btn" href="#!">Close Main Menu<i class="material-icons">close</i></a>
-				</li>
-				<li>
-					<a href="#!" class="blue header-link login sign-in btn" id="signInWithGithub" title="Sign in with Github">
+<!--=============================================-->
+  
+    <nav id="main-nav" class="transparent header row" role="navigation">
+        <div class="nav-wrapper container col s12 m10 offset-m1 xl6 offset-xl3">
+            <!-- <a id="logo-container" href="index.html" class="brand-logo right"> </a> -->
+            <ul id="main-nav-body" class="pin-target left hide-on-med-and-down">
+                <li>
+                    <a href="#" class="blue header-link login sign-in btn" id="signInWithGithub" title="Sign in with Github">
+                        <!-- <i class="fa fa-github fa-lg" aria-hidden="true"></i>  -->
+                        <!-- <i class="jba jba-github jba-left"></i> -->
+                        Github Login </a>
+                </li>
+                <li>
+                    <a href="#" class="header-link login sign-out btn" id="signOut" title="Sign out">
+                        <!-- <i class="fa fa-sign-out" aria-hidden="true"></i>  -->
+                        <!-- <i class="jba jba-logout jba-left"></i> -->
+                        Sign Out </a>
+                </li>
+                <li>
+                    <a href="#saved-jobs-modal" class="blue header-link btn" id="displayJobs" title="View Saved Jobs">
+                        <!-- <i class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>  -->
+                        <!-- <i class="material-icons jba jba-star"></i> -->
+                        Saved Jobs </a>
+                </li>
+                
+                <li>
+                    <a href="resumeGrader.html" class="blue header-link login sign-in btn" id="gradeResume" title="Grade Your Resume">
+                        Resume Grader </a>
+                </li>
+            </ul>
+            <ul id="nav-mobile" class="side-nav">
+                <li>
+                    <a class="close-btn" href="#!">Close Main Menu<i class="material-icons">clear_all</i></a>
+                </li>
+                <li>
+                    <a href="#!" class="blue header-link login sign-in btn" id="signInWithGithubSide" title="Sign in with Github">
                     Github Login </a>
-				</li>
-				<li>
-					<a href="#!" class="header-link login sign-out btn" id="signOut" title="Sign out">
-                    Sign Out </a>
-				</li>
-				<li>
-					<a href="#saved-jobs-modal" class="blue header-link btn" id="displayJobs" title="View Saved Jobs">
+                </li>
+                <li>
+                    <a href="#saved-jobs-modal" class="blue header-link btn" id="displayJobs" title="View Saved Jobs">
                     Saved Jobs </a>
-				</li>
-			</ul>
-			<a id="header-side-nav-link" href="#!" data-activates="nav-mobile" class="pin-target button-collapse"> <i class="main-nav-menu-icon material-icons">menu</i> </a>
-		</div>
-	</nav>
+                </li>
+                <li>
+                    <a href="#" class="header-link login sign-out btn" id="signOutSide" title="Sign out">
+                    Sign Out </a>
+                </li>
+                <li>
+                    <a href="resumeGrader.html" class="header-link login sign-out btn" id="gradeResume" title="Grade Your Resume">
+                    Resume Grader </a>
+                </li>
+            </ul>
+            <a id="header-side-nav-link" href="#!" data-activates="nav-mobile" class="pin-target button-collapse"> <i class="main-nav-menu-icon material-icons">menu</i> </a>
+        </div>
+    </nav>
 	<!--=============================================-->
 	<div id="banner" class="blue-grey darken-3 landing valign-wrapper row">
 		<span id="banner-cover" class="ghost photo-tint"></span>
@@ -347,12 +374,16 @@
 	<!-- <script src="assets/js/firebase-init.js" type="text/javascript" charset="utf-8"></script> -->
 	<script src="assets/js/getCurrentUser.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/login.js" type="text/javascript" charset="utf-8"></script>
+      <script src="assets/js/checkjobs.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/global.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/script.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/filter-sort.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/displayjobs.js" type="text/javascript" charset="utf-8"></script>
+      <script src="assets/js/removejob.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/benchmark-email-form.js" type="text/javascript"></script>
+      <script src="assets/js/auto-complete.js"></script>
 	<!--      <script src="assets/js/salaries.js" type="text/javascript" charset="utf-8"></script>
+
       <script src="assets/js/company_info.js" type="text/javascript" charset="utf-8"></script> -->
 	<!-- <script src="assets/js/devTools.js" type="text/javascript" charset="utf-8"></script> -->
 	<!-- <script src="assets/js/testing.js" type="text/javascript" charset="utf-8"></script> -->
@@ -376,6 +407,70 @@
         <a class="red darken-3 waves-effect waves-light btn">Filter</a>
         <a class="red darken-4 waves-effect waves-light btn">Filter</a> 
         -->
+        <!-- Auth state listener -->
+        <script type="text/javascript">
+
+            if(sessionStorage.getItem("userKey")){
+                $('html').addClass('logged-in');
+            }
+
+            $('#signOut').on("click", function(){
+
+                firebase.auth().signOut().then(function() {
+                  // Sign-out successful.
+                  console.log("Bye");
+                  
+                  $('html').removeClass('logged-in');
+                  sessionStorage.removeItem("userKey");
+                  sessionStorage.clear();
+
+                }).catch(function(error) {
+                  // An error happened.
+                }); 
+            });
+
+            if (window.performance) {
+              // console.info("window.performance work's fine on this browser");
+            }
+            
+            if (performance.navigation.type == 1) {
+                // console.info( "This page is reloaded" );
+                
+                if(sessionStorage.getItem("userKey")){
+                    $('html').addClass('logged-in');
+                }
+            } else {
+                // console.info( "This page is not reloaded");
+            }
+
+        </script>
+
+    <script>
+        var demo1 = new autoComplete({
+            selector: '#search',
+            minChars: 1,
+            source: function(term, suggest){
+                term = term.toLowerCase();
+                var choices = ['Programmer','Full Stack Developer','Database Administrator','Java Developer','Software Engineer','Developer','Frontend Web Developer','Backend Web Developer','Product Manager','Technical Project Manager','QA Engineer','Test Engineer','Software Developer','Application Development Manager','Computer Programmer','Web Designer','Technical SEO Specialist','Web Producer','Technical Business Analyst'];
+                // var choices = ['ActionScript', 'AppleScript', 'Asp', 'Assembly', 'BASIC', 'Batch', 'C', 'C++', 'CSS', 'Clojure', 'COBOL', 'ColdFusion', 'Erlang', 'Fortran', 'Groovy', 'Haskell', 'HTML', 'Java', 'JavaScript', 'Lisp', 'Perl', 'PHP', 'PowerShell', 'Python', 'Ruby', 'Scala', 'Scheme', 'SQL', 'TeX', 'XML'];
+                var suggestions = [];
+                for (i=0;i<choices.length;i++)
+                    if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+                suggest(suggestions);
+            }
+        });
+
+        if (~window.location.href.indexOf('http')) {
+            (function() {var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;po.src = 'https://apis.google.com/js/plusone.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);})();
+            (function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=114593902037957";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));
+            !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+            document.getElementById('github_social').innerHTML = '\
+                <iframe style="float:left;margin-right:15px" src="//ghbtns.com/github-btn.html?user=Pixabay&repo=JavaScript-autoComplete&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>\
+                <iframe style="float:left;margin-right:15px" src="//ghbtns.com/github-btn.html?user=Pixabay&repo=JavaScript-autoComplete&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>\
+            ';
+        }
+    </script>
+
 </body>
 
 </html>

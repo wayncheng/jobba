@@ -163,10 +163,6 @@ body {
 	}
 
 	#signOut {
-		position: absolute;
-		top: 5px;
-		right: 5px;
-		color: #000;
 		visibility: hidden;
 	}
 

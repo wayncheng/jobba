@@ -93,6 +93,7 @@
 		/*text-decoration: underline;*/
 		/*font-style: italic;*/
 	}
+
 	.meta-detail.company {
 		margin-left: 0;
 	}
@@ -165,10 +166,19 @@
 		margin: 0;
 	}
 
+
 	.no-results #feed,
 	.no-results #pagination-row,
 	.no-results #feed-details {
 		display: none;
+	}
+
+/* Saved Feed ------------------------*/
+
+	#saved-feed {
+		padding-left: 15px;
+		padding-right: 15px;
+		padding-top: 10px;
 	}
 
 /*--------------------------------------------------------*/	
