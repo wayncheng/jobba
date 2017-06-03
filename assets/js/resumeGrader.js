@@ -121,6 +121,7 @@ $(document).ready(function(){
 	function ajaxCall(fileContent){
 			var encodedFileContent = encodeURIComponent(fileContent);
 			console.log("Going to call rezscore api... ");
+			
 			$.ajax({
 				type:'POST',
 				url: 'https://cors-anywhere.herokuapp.com/https://rezscore.com/a/9a65ac/grade.xml',
@@ -131,7 +132,6 @@ $(document).ready(function(){
 					
 			}).done(function(response){
 				console.log("Done & Received Response.");
-
 				//Catches any 300 errors.
 				xmlDoc = $.parseXML( response );
 				var errorCode = $( xmlDoc ).find("error_description");

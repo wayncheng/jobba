@@ -140,16 +140,20 @@ $(document).ready(function () {
 
 	    if ( scrollPos >= ref.outerHeight()) {
 	    	// el.css('position','fixed');
-	    	el.addClass('pos-fixed');
-	    	el.css('background-color','rgba(0,0,0,0.7)');
+	    	// el.addClass('pos-fixed');
+	    	// el.css('background-color','rgba(0,0,0,0.7)');
 	    	// targetEl.show();
-	    	targetEl.addClass('pos-fixed');
+	    	// targetEl.addClass('pos-fixed');
 	    	// $('#main-nav-menu-icon').css('color','#333');
 	    }
 	    else {
 	    	el.removeClass('pos-fixed');
 	    	el.css('background-color','#ffffff');
 	    	targetEl.removeClass('pos-fixed');
+	    	$('html').removeClass('past-banner');
+	    	// el.removeClass('pos-fixed');
+	    	// el.css('background-color','initial');
+	    	// targetEl.removeClass('pos-fixed');
 	    }
     });
 

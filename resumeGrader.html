@@ -81,8 +81,12 @@
 				  	fr.readAsText( file );
 					fr.onload = function () {
 						fileContent = fr.result;
+						console.log("FILE CONTENT ======",fileContent);
 						ajaxCall(fileContent);
-					}
+					};
+					fr.onerror = function(){
+						console.log("ERROR OCCURRED ==",fr.error);
+					};
 				}
 		      	rText = document.getElementById('resumeText').value;
 				console.log('resumeText:'+rText);
@@ -97,6 +101,7 @@
       	
 
 		function ajaxCall(fileContent){
+
 			$.ajax({
 				type:'POST',
 				url: 'https://cors-anywhere.herokuapp.com/https://rezscore.com/a/9a65ac/grade.xml?resume='+encodeURIComponent(fileContent),
@@ -113,7 +118,6 @@
 				//Create a new function to process errors
 				console.log('fail', error.code);
 				$(".name").text("Error ocurred : "+error.code);
-				console.log("RESPONSE ==== ",JSON.stringify(XML2jsobj(response)));
 
 				// Change status to fail.
 			});
@@ -153,43 +157,6 @@
 
 
 
-			function XML2jsobj(node) {
-					var	data = {};
-					// append a value
-				function Add(name, value) {
-					if (data[name]) {
-						if (data[name].constructor != Array) {
-							data[name] = [data[name]];
-						}
-						data[name][data[name].length] = value;
-					}
-					else {
-						data[name] = value;
-					}
-				};
-				// element attributes
-				var c, cn;
-				for (c = 0; cn = node.attributes
-			; c++) {
-					Add(cn.name, cn.value);
-				}
-				// child elements
-				for (c = 0; cn = node.childNodes
-			; c++) {
-					if (cn.nodeType == 1) {
-						if (cn.childNodes.length == 1 && cn.firstChild.nodeType == 3) {
-							// text value
-							Add(cn.nodeName, cn.firstChild.nodeValue);
-						}
-						else {
-							// sub-object
-							Add(cn.nodeName, XML2jsobj(cn));
-						}
-					}
-				}
-				return data;
-
-		}
 
       </script>
 

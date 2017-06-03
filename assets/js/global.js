@@ -19,6 +19,109 @@ getIP:
 	        g.userIP = data.ip;
 	        console.log('jobba.userIP',g.userIP);
 	    }),
+geolocation: {
+	location: '',
+	userTrigger: $('#location-icon').on('click',function(e){
+						e.preventDefault();
+						$(this).addClass('active'); // turn blue
+
+						g.geolocation.get();
+					}),
+	removeTrigger: $('#q-city').on('keyup',function(e){
+						e.preventDefault();
+						// If value changes, then we remove active class from icon;
+						var user = $('#q-city').val().trim();
+						if ( user != g.geolocation.location ) {
+							$('#location-icon').removeClass('active');
+						}
+					}),
+	isSupported: function(){
+					// check for Geolocation support
+					if (navigator.geolocation) {
+						console.log('supported');
+					  return true;
+					}
+					else {
+					  console.log('Geolocation is not supported for this Browser/OS.');
+					  return false;
+					}
+				},
+	get: function() {
+				// If geolocation not supported, tell them to fill it in manually
+				if (g.geolocation.isSupported === false) {
+					alert('Please enter a location');
+					return;
+				}
+				// If geolocation is supported, get the location
+				else {
+					var startPos;
+					var geoOptions = {
+						maximumAge: 5 * 60 * 1000,
+						timeout: 10 * 1000,
+					};
+
+					function geoSuccess(position) {
+						startPos = position;
+						// document.getElementById('startLat').innerHTML = startPos.coords.latitude;
+						// document.getElementById('startLon').innerHTML = startPos.coords.longitude;
+						console.log('startPos.coords.latitude',startPos.coords.latitude);
+						console.log('startPos.coords.longitude',startPos.coords.longitude);
+						var latlng = startPos.coords.latitude +','+ startPos.coords.longitude;
+						console.log('latlng',latlng);
+
+						g.geolocation.convert(latlng); // Send to function to convert coordinates to city
+					};
+					function geoError(error) {
+						console.log('Error occurred. Error code: ' + error.code);
+			            alert('Please enter a location');
+						return;
+						// error.code can be:
+						//   0: unknown error
+						//   1: permission denied
+						//   2: position unavailable (error response from location provider)
+						//   3: timed out
+					};
+					navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+				}
+			},
+	convert: function(latlng){
+					// Example: https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=YOUR_API_KEY
+					// country, administrative_area_level_1 (state), locality, street_address, postal_code
+					var resultType = 'locality';
+					var locationType = 'APPROXIMATE';
+					var qURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+ latlng +'&location_type='+ locationType +'&result_type='+ resultType +'&key=AIzaSyCgf-yDUYwrG_uMHLtck2AFeNfATS94NQ4';
+					
+				    $.ajax({
+				    	type: 'GET',
+				    	url: qURL,
+				    }).done(function(response){
+				    	// var r = response.results[0].address_components;
+				    	// var city = r[0].short_name;
+				    	// var state = r[2].short_name;
+				    	// var country = r[3].short_name;
+				    	// console.log(city,state,country);
+
+				    	var a = response.results[0].formatted_address;
+				    	g.geolocation.location = a;
+				    	console.log('a',a);
+
+				    	// Set location in search bar, change color of location icon
+				    	$('#q-city').val(a);
+				    	$('#location-icon').addClass('active');
+
+				    	// If main search is empty, don't continue
+				    	if ($('#search').val().trim().length === 0) {
+				    		return;
+				    	}
+				    	else {
+					    	// Re-evaluate for submission
+					    	g.submitCheck();
+				    	}
+
+				    });
+
+				}
+},
 lastSearchLocal: {
 	save: 	function(q,city){
 				if (q == '' || city == '') return;
@@ -28,19 +131,34 @@ lastSearchLocal: {
 					'city': city,
 				};
 
-				localStorage.setItem('lastSearch', JSON.stringify(obj));
+				var str = JSON.stringify(obj);
+				localStorage.setItem('lastSearch', str);
+
+				$('#last-search-q').text(obj.q);
+				$('#last-search-city').text(obj.city);
 			},
 	get: 	function(){
 				var str = localStorage.getItem('lastSearch');
-				if(str) {return str;}
-				else { return }
+				if(str) {
+					$('#last-search').show();
+					return str;
+				}
+				else {
+					$('#last-search').hide(); 
+					return; 
+				}
 			},
-	print: 	function(str){
+	print: 	function(){
 				var str = g.lastSearchLocal.get();
-				var item = JSON.parse(str);
+				if(str) {
+					var item = JSON.parse(str);
 
-				$('#last-search-q').text(item.q);
-				$('#last-search-city').text(item.city);
+					$('#last-search-q').text(item.q);
+					$('#last-search-city').text(item.city);
+				}
+				else {
+					return;
+				}
 			},
 	},
 apiStatus: ['processing','processing','processing','processing'],
@@ -899,63 +1017,50 @@ scrollToTop:
 			event.preventDefault();
 			$(window).scrollTop(0);
 		}),
-submit: 
+submitHandler:
 		$('#submit').on('click', function(event){
-			
-		    event.preventDefault();
-		 	g.reset();
+			event.preventDefault();
+			console.log('submitHandler');
+			g.submitCheck();
+		}),
+submitCheck:
+		function(){
+			console.log('submitCheck');
+			g.reset();
+
+			// Search parameters
+			var q = $('#search').val();
+			var city = $('#q-city').val().trim();
 
 			// console.log("reset!! #before"+sessionStorage.getItem("userKey"));
+			
+			console.log('city',city);
+			// If location left blank, get current location
+			if ( city === '' ) {
+				g.geolocation.get();				
+				return;
+			}
 
-			// if(sessionStorage.getItem("userKey")){
-   //                // alert("Welcome, "+user.displayName)
-
-   //                console.log("reset!! #inside"+sessionStorage.getItem("userKey"));
-   //                $("#signInWithGithub").hide();
-   //                $("#signOut").css('visibility', 'visible');
-   //                $("#signOut").show();
-   //                $(".save-wrap").css('visibility', 'visible');
-   //                console.log("SAVE WRAP VISIBILITY :::"+$(".save-wrap").css('visibility'));
-   //                $(".save-wrap").show();
-   //                $("#displayJobs").css('visibility', 'visible');
-        
-   //          }
-   			if($('#q-city').val().trim()===""){
+			// Allow submission
+			g.submit();
+		},
+submit: 
+		function(){
+			console.log('submit');
+   		if($('#q-city').val().trim()===""){
 				alert("City empty");
 			}
 			else{
-
-			if ( g.apisRunning === true ) {
-				return;
-			}
-			else {
-				g.apisRunning = true;
-			}
-
-				// Search parameters
-				var q = $('#search').val();
-				var city = $('#q-city').val().trim();
-				var lat, lng;
-				
-				// Store the last search locally
-				g.lastSearchLocal.save(q,city);
-
-				// If location left blank, get current location
-				if ( city === '' ) {
-					// alert('Enter a Location');
-					$('.loc-wrap').addClass('has-error');
-
-					$('#q-city').on('change',function(event){
-						event.preventDefault();
-						var loc = $('#q-city').val().trim();
-						if (loc.length > 0) {
-							$('.loc-wrap').removeClass('has-error');
-						}
-					});
-
-					// return;
-				}
 			
+        if ( g.apisRunning === true ) {
+				  return;
+			  }
+			  else {
+				  g.apisRunning = true;
+			  }
+			// Search parameters
+			var q = $('#search').val();
+			var city = $('#q-city').val().trim();
 
 			// Add global loading class to html, so any element that 
 			// has different style depending on load status, can specify
@@ -964,8 +1069,7 @@ submit:
 			$('html').addClass('do-not-disturb');			
 
 				// city = 'San Francisco, CA, United States'
-			console.log('q',q);
-			console.log('city', city);
+
 
 			// Testing abort methods
 			// var githubxhr = null;
@@ -979,6 +1083,9 @@ submit:
 			// 	githubxhr = g.api.github.ajaxCall(githubURL,g.api.github.getResponse);
 			// } 
 			// goGithub();
+
+			// Glassdoor API Call
+			g.analysis.salary.ajax(q);
 
 			var githubURL = g.api.github.createURL(q,city,"","10");
 			g.api.github.ajaxCall(githubURL,g.api.github.getResponse);
@@ -995,9 +1102,44 @@ submit:
 			var linkupURL = g.api.linkup.createURL(q,city,"","100");
 			g.api.linkup.ajaxCall(linkupURL,g.api.linkup.getResponse);
 
-			} // End of else
+			// Store the last search locally
+			g.lastSearchLocal.save(q,city);
 
-		}),
+			console.log('q',q);
+			console.log('city', city);
+		    } // End of else
+		},
+analysis: {
+	salary: {
+		ajax: function(q){
+			var ip = g.userIP;
+			// var searchTerm = $('#search').val().trim();
+			var searchTerm = q;
+			var qURL = 'https://cors-anywhere.herokuapp.com/https://api.glassdoor.com/api/api.htm?t.p=151095&t.k=dSWk91gUjq3&userip='+ ip +'&useragent=&format=json&v=1&action=jobs-prog&countryId=1&jobTitle='+searchTerm;
+	
+			$.ajax({
+				type:'GET',
+				url: qURL,
+			}).done(function(result){
+				var r = result.response;
+				var jobTitle = r.jobTitle;
+				var payHigh = r.payHigh;
+				var payLow = r.payLow;
+				var payMedian = r.payMedian;
+				console.log('Glassdoor done',result);
+				// console.log('Title: ' + result.response.jobTitle)
+
+			// console.log("pay high, low, median "+ payHigh +" "+ payLow + " "+ payMedian);
+
+				$('.job-position-target').text(jobTitle);
+
+			}).fail(function(){
+				console.log('fail');
+				g.apiError;
+			});
+		}
+	}
+},
 apiError:
 		function(){
 			console.log('apiError');
