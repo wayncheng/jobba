@@ -12,35 +12,43 @@
 
 /* Close Button -----------------------------------------------*/
 	.close-btn {
-		color: #fff;
 	}
 
 /* First List Child in Nav -----------------------------------------------*/
 	.side-nav li.no-padding {
 		position: relative;
 		min-height: 42px;
+		/*background-color: rgba(0,0,0,0.05);*/
 	}	
 
 /* Side Navigation -----------------------------------------------*/
 	/* Headers  */
 	.side-nav .collapsible-header:hover,
-	.side-nav .collapsible-header.active,
 	.side-nav .collapsible-header {
 		background-color: #656565;
 		background-color: #fff;
-		/*border-top: 1px solid rgba(0,0,0,0.2);*/
-		/*border-bottom: 1px solid rgba(0,0,0,0.2);*/
+		background: rgba(150,150,150,0.05);
+		border-top: 1px solid rgba(0,0,0,0.2);
+		border-bottom: 1px solid rgba(0,0,0,0.2);
+		margin-bottom: -1px;
+		/*border-bottom: 2px solid rgba(0,0,0,0.7);*/
 		/*margin-top: 4px;*/
 		transition: background-color 300ms;
 	}
 
+	.side-nav .collapsible-header.active {
+		background-color: #fff;
+	}
 
 	.side-nav .collapsible-header i.material-icons,
 	.side-nav .collapsible-header {
-		color: #666;
-		color: #fff;
+		color: #333;
+		/*color: #fff;*/
 	}
 
+	.side-nav .collapsible-body {
+		border-top: 1px solid rgba(0,0,0,0.2);
+	}
 	.side-nav .collapsible-body #filter-source {
 		padding-bottom: 1.5rem;
 	}
@@ -76,6 +84,13 @@
 			line-height: inherit;
 			border-bottom: none;
 		}
+	/* Dropdown arrow direction */
+		.collapsible-header i.arrow-icon::before {
+			content: "keyboard_arrow_right";
+		}
+		.collapsible-header.active i.arrow-icon::before {
+			content: "keyboard_arrow_down";
+		}
 /* Horizontal Option Split ------------------------------*/
 	.sideNavForm.horizontal-options ul {
 		text-align: center;
@@ -98,7 +113,7 @@
 	}
 /*------------------------------------------------------------*/
 	.side-nav li.no-padding {
-		/*margin-bottom: 5px;*/
+		/*margin-bottom: 10px;*/
 	}
 
 
@@ -158,16 +173,29 @@
 /*------------------------------------------------------------*/
 /* Submit Button */
 	.fixedToBottom {
-		/*position: absolute;*/
-		/*bottom: 0;*/
-		/*left: 0;*/
+		position: absolute;
+		bottom: 80px;
+		left: 50px;
+		height: 45px;
+		line-height: 45px;
+		padding: 0 3rem;
 	}
 	#applyFilters  {
-		position: relative;
+		/*position: relative;*/
 		background-color: #e74c3c;
 		background-color: #d32f2f;
-		background-color: 
 	}
 /*------------------------------------------------------------*/
+/* Chips */
+	#termFilters .chip {
+		color: #fff;
+	}
+	#whiteList .chip {
+		background-color: #4fba6f;
+	}
+	#blackList .chip {
+		background-color: #e64c3c;
+	}
+
 /*------------------------------------------------------------*/
 /*------------------------------------------------------------*/

@@ -37,13 +37,30 @@
 		/*width: 45px;*/
 		/*margin-top: 14px;*/
 		/*height: 43px;*/
+		z-index: 910;
 	}
 	#submit i.material-icons {
+		position: relative;
 		font-size: 1.75rem;
+		z-index: 920;
 	}
 
 	@media all and (max-width: 880px){
 		.input-button {
 			/*display: block;*/
 		}
+	}
+
+/* Progress Bar ------------------------------*/
+	.progress-bar{
+		display: inline-block;
+		position: absolute;
+		height: 100%;
+		width: 0%;
+		top: 0;
+		left: 0;
+		width: 0%;
+		z-index: 915;
+		background-color: #e64a19;
+		background-color: #f4511e;
 	}

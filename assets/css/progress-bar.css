@@ -17,5 +17,9 @@
 		background-color: #fff;
 	}
 	.progress-bar{
-		height: 6px;
+		display: inline-block;
+		height: 100%;
+		width: 0%;
+		top: 0;
+		left: 0;
 	}

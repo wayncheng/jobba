@@ -1,6 +1,9 @@
 $(document).ready(function () {
 		// Get user's IP
 		jobba.getIP;
+		// jobba.sortDateNewest();
+		jobba.lastSearchLocal.print();
+
 
 	$('#feed, #saved-feed').on('click','.save-wrap',function(event){
 		event.preventDefault();
@@ -73,13 +76,18 @@ $(document).ready(function () {
 								// Need to log in on Github to trigger correctly. 
 								// Commenting it out for now ;)
 
-
-
-
 	}); // end listing click
 
 
+	$('#last-search-trigger').on('click',function(e){
+		e.preventDefault();
 
+		var search = $('#last-search-q').text();
+		var city =  $('#last-search-city').text();
+		$('#search').val(search);
+		$('#q-city').val(city);
+		$('#submit').trigger('click');
+	})
 	// Feature Function
 	// $('#feed').on('click','.listing',function(event){
 	// 	event.preventDefault();
@@ -139,6 +147,7 @@ $(document).ready(function () {
 
 
 	    if ( scrollPos >= ref.outerHeight()) {
+	    	$('html').addClass('past-banner');
 	    	// el.css('position','fixed');
 	    	el.addClass('pos-fixed');
 	    	el.css('background-color','rgba(0,0,0,0.7)');
@@ -147,8 +156,9 @@ $(document).ready(function () {
 	    	// $('#main-nav-menu-icon').css('color','#333');
 	    }
 	    else {
+	    	$('html').removeClass('past-banner');
 	    	el.removeClass('pos-fixed');
-	    	el.css('background-color','#ffffff');
+	    	el.css('background-color','initial');
 	    	targetEl.removeClass('pos-fixed');
 	    }
     });
@@ -213,7 +223,7 @@ $(document).ready(function () {
 
 	// Tag Chips
 	$('.chips').material_chip();
-	
+
 
 
 

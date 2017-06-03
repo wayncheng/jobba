@@ -1,44 +1,44 @@
 <!DOCTYPE html>
-<html class="landing logged-out">
+<html class="landing feed-printed no-results">
 
 <head>
-    <title>Jobba</title>
-    <meta charset="UTF-8">
-    <meta name="author" content="Wayne Cheng">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="assets/img/jobba-black-white-simple-3.png">
-    <!-- Google Font Links -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Cutive+Mono" rel="stylesheet">
-    <!-- CSS Links -->
-    <!-- Font awesome cdn -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-    <!-- Jobbacon CSS -->
-    <!-- <link rel="stylesheet" href="assets/fonts/jobbacon-1.2/jobbacon.ttf"> -->
-    <!-- <link rel="stylesheet" href="assets/fonts/jobbacon-1.2/style.css"> -->
-    <!-- Materialize CSS -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
-    <!-- <link type="text/css" rel="stylesheet" href="assets/libs/materialize.min.css" media="screen,projection" /> -->
-    <!-- Firebase UI CDN -->
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" />
+	<title>Jobba</title>
+	<meta charset="UTF-8">
+	<meta name="author" content="Wayne Cheng">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="assets/img/jobba-black-white-simple-3.png">
+	<!-- Google Font Links -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Cutive+Mono" rel="stylesheet">
+	<!-- CSS Links -->
+	<!-- Font awesome cdn -->
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+	<!-- Jobbacon CSS -->
+	<!-- <link rel="stylesheet" href="assets/fonts/jobbacon-1.2/jobbacon.ttf"> -->
+	<!-- <link rel="stylesheet" href="assets/fonts/jobbacon-1.2/style.css"> -->
+	<!-- Materialize CSS -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+	<!-- <link type="text/css" rel="stylesheet" href="assets/libs/materialize.min.css" media="screen,projection" /> -->
+	<!-- Firebase UI CDN -->
+	<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" />
+	<!-- Jobba CSS -->
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+	<link href="assets/css/materialize-overrides.css" rel="stylesheet">
+	<link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/header.css" rel="stylesheet">
+	<link href="assets/css/banner.css" rel="stylesheet">
+	<link href="assets/css/searchbar.css" rel="stylesheet">
+	<link href="assets/css/feed.css" rel="stylesheet">
+	<link href="assets/css/body-nav.css" rel="stylesheet">
+	<link href="assets/css/side-navs.css" rel="stylesheet">
+	<link href="assets/css/do-not-disturb.css" rel="stylesheet">
+	<link href="assets/css/loading-icon.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="assets/css/auto-complete.css">
 
-    <!-- Jobba CSS -->
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-    <link href="assets/css/materialize-overrides.css" rel="stylesheet">
-    <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/header.css" rel="stylesheet">
-    <link href="assets/css/banner.css" rel="stylesheet">
-    <link href="assets/css/searchbar.css" rel="stylesheet">
-    <link href="assets/css/feed.css" rel="stylesheet">
-    <link href="assets/css/body-nav.css" rel="stylesheet">
-    <link href="assets/css/side-navs.css" rel="stylesheet">
-    <link href="assets/css/do-not-disturb.css" rel="stylesheet">
-    <link href="assets/css/loading-icon.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/auto-complete.css">
-
-    <style>
+  <style>
       .logged-in .save-wrap { visibility: visible;}
       .logged-in #displayJobs { visibility: visible;}
       .logged-in #signInWithGithub { visibility: hidden;}
@@ -54,12 +54,12 @@
       #signInWithGithubSide { visibility: visible;}
       #signOutSide { visibility: hidden;}
         
-    </style>
-
+  </style>
 </head>
 
 <body>
 <!--=============================================-->
+  
     <nav id="main-nav" class="transparent header row" role="navigation">
         <div class="nav-wrapper container col s12 m10 offset-m1 xl6 offset-xl3">
             <!-- <a id="logo-container" href="index.html" class="brand-logo right"> </a> -->
@@ -112,267 +112,283 @@
             <a id="header-side-nav-link" href="#!" data-activates="nav-mobile" class="pin-target button-collapse"> <i class="main-nav-menu-icon material-icons">menu</i> </a>
         </div>
     </nav>
-<!--=============================================-->
-    <div id="banner" class="blue-grey darken-3 landing valign-wrapper row">
-        <span id="banner-cover" class="ghost photo-tint"></span>
-        <!-- <div id="banner" class="blue-grey darken-2 valign-wrapper row"> -->
-        <form class="col s12 xl8 offset-xl2">
-            <img id="banner-logo" class="logo logo-text feature-logo" src="assets/icons/jobba-final-text-only-white.png" alt="Jobba">
-            <div class="row">
-                <!-- <div class="bar input-field input-text-wrap col s10 offset-s1 m6 offset-m1 l6 offset-l1 xl7"> -->
-                <div class="bar input-field input-text-wrap col s10 offset-s1 m8 offset-m2 l6 offset-l1 xl6">
-                    <input id="search" placeholder="Search for Jobs" type="text" class="bar validate">
-                </div>
-                <!-- <div class="bar input-field input-text-wrap col s10 offset-s1 m3 l3 xl4"> -->
-                <div class="bar input-field input-text-wrap col s10 offset-s1 m6 offset-m2 l3 xl4">
-                    <input id="q-city" placeholder="Location" type="text" class="bar validate">
-                </div>
-                <!-- <div class="bar input-button input-field col s10 offset-s1 m1 l1 xl1"> -->
-                <div class="bar input-button input-field col s10 offset-s1 m2 l1 xl2">
-                    <button id="submit" class="bar btn waves-effect waves-light" type="submit" name="action">
-                        <i class="material-icons">search</i>
-                    </button>
-                </div>
-            </div>
-            <!-- <div class="row">
-                <div class="col s10 offset-s1 m8 offset-m2 l2 offset-l5">
-                    <button id="submit" class="blue-grey btn waves-effect waves-light" type="submit" name="action">Search
-                        <i class="material-icons right">send</i>
-                    </button>
-                </div>
-            </div> -->
-        </form>
-        <!-- <div id="rolling-cube-load" class="loading-wrap"> </div> -->
-        <div id="fox-trot-load" class="loading-wrap progress-wrap">
-            <div class="progress-target">
-                <img src="assets/icons/loadingicons/fox-trot-right@0.8.gif" alt="">
-            </div>
-            <span class="loading-text ghost">Fetching Results...</span>
-        </div>
-    </div>
-<!--=============================================-->
-    <div id="page1">
-    <!-- Body Navigation ========================-->
-        <div id="main-body-nav" class="row body-nav">
-            <div class="col s12 m10 offset-m1 xl6 offset-xl3">
-                <!-- <a id="main-side-nav-link" href="#!" data-activates="nav-mobile" class="pin-target button-collapse float-left"> <i class="main-nav-menu-icon material-icons">menu</i> </a> -->
-                <a id="filter-side-nav-link" href="#!" data-activates="filter-side-nav" class="blue btn button-collapse waves-effect waves-light float-right">
-                	<i class="material-icons float-left">clear_all</i>
-                	Filter / Sort</a>
-            </div>
-        </div>
-    <!-- Feed Details =========================-->
-        <div id="feed-details" class="row">
-            <div class="col s12 m10 offset-m1 xl6 offset-xl3">
-                <p id="result-number" class="result-detail popout-comp-left"><span id="total-result-count" class="target">0</span> results found</p>
-            </div>
-        </div>
-    <!-- Feed =================================-->
-        <div id="feed-row" class="row">
-            <!-- Feed -->
-            <div class="col s12 m10 offset-m1 xl6 offset-xl3">
-                <ul id="feed" class="collapsible popout" data-collapsible="accordion">
-                    <!-- Sample Feed -->
+	<!--=============================================-->
+	<div id="banner" class="blue-grey darken-3 landing valign-wrapper row">
+		<span id="banner-cover" class="ghost photo-tint"></span>
+		<form class="col s12 xl8 offset-xl2">
+			<img id="banner-logo" class="logo logo-text feature-logo" src="assets/icons/jobba-final-text-only-white.png" alt="Jobba">
+			<div class="row">
+				<!-- <div class="bar input-field input-text-wrap col s10 offset-s1 m6 offset-m1 l6 offset-l1 xl7"> -->
+				<div class="bar input-field input-text-wrap col s10 offset-s1 m8 offset-m2 l6 offset-l1 xl6">
+					<input id="search" placeholder="Search for Jobs" type="text" class="bar validate">
+				</div>
+				<!-- <div class="bar input-field input-text-wrap col s10 offset-s1 m3 l3 xl4"> -->
+				<div class="bar input-field input-text-wrap col s10 offset-s1 m6 offset-m2 l3 xl4">
+					<input id="q-city" placeholder="Location" type="text" class="bar validate">
+				</div>
+				<!-- <div class="bar input-button input-field col s10 offset-s1 m1 l1 xl1"> -->
+				<div class="bar input-button input-field col s10 offset-s1 m2 l1 xl2">
+					<button id="submit" class="bar btn waves-effect waves-light" type="submit" name="action">
+						<i class="material-icons">search</i>
+						<span class="progress-bar"></span>
+					</button>
+				</div>
+			</div>
+			<div class="row">
+				<span id="last-search" class="last-search wrap col s10 offset-s1 m8 offset-m2 l6 offset-l1 xl6">
+					<a href="#!" id="last-search-trigger" class="last-search trigger">
+						<span id="last-search-q" class="last-search target">Web Developer</span>
+						<span id="last-search-city" class="last-search target">San Diego, CA</span>
+					</a>
+				</span>
+				
+			</div>
+		</form>
+		<!-- <span id="last-search" class="last-search wrap">
+		<a href="#!" id="last-search-trigger" class="last-search trigger">
+			<span id="last-search-q" class="last-search target">Web Developer</span> 
+			/ 
+			<span id="last-search-city" class="last-search target">San Diego, CA</span>
+		</a>
+    </span> -->
+		<!-- <div id="rolling-cube-load" class="loading-wrap"> </div> -->
+		<!-- Loading Icon -->
+		<div id="fox-trot-load" class="loading-wrap progress-wrap">
+			<div class="progress-target">
+				<img src="assets/icons/loadingicons/fox-trot-right@0.8.gif" alt="">
+			</div>
+			<span class="loading-text ghost">Fetching Results...</span>
+		</div>
+	</div>
+	<!--=============================================-->
+	<div id="page1">
+		<!-- Body Navigation ========================-->
+		<div id="main-body-nav" class="row body-nav">
+			<div class="col s12 m10 offset-m1">
+				<!-- <a id="main-side-nav-link" href="#!" data-activates="nav-mobile" class="pin-target button-collapse float-left"> <i class="main-nav-menu-icon material-icons">menu</i> </a> -->
+				<a id="filter-side-nav-link" href="#!" data-activates="filter-side-nav" class="blue btn button-collapse waves-effect waves-light float-right">
+					<i class="material-icons float-left">clear_all</i> Filter / Sort</a>
+			</div>
+		</div>
+		<!-- Feed Details =========================-->
+		<div id="feed-details" class="row">
+			<div class="col s12 m10 offset-m1 xl6 offset-xl3">
+				<p id="result-number" class="result-detail popout-comp-left">
+					<span id="result-count" class="target">0</span> results
+					(Showing results <span id="page-range" class="target">1 - 20</span>)
+					</p>
+			</div>
+		</div>
+		<!-- Feed =================================-->
+		<div id="feed-row" class="row">
+			<!-- Feed -->
+			<div class="col s12 m10 offset-m1 xl6 offset-xl3">
+				<ul id="feed" class="collapsible popout" data-collapsible="accordion">
+					<!-- Sample Feed -->
+					<li class="listing" data-index="82" data-company="Blueshift Labs Inc." data-source="Indeed" data-source-id="Indeed=163a55ef3f505dd8">
+						<div class="collapsible-header"><span class="listing-number ghost">1</span>
+							<h2 class="headline">Software Engineer - Full Stack</h2>
+							<h3 class="subheadline">
+								<span class="company">Blueshift Labs Inc.</span>
+								<span class="location">San Francisco</span>
+								<span class="date">Jun 1</span>
+							</h3>
+						</div>
+						<span class="save-wrap ghost" data-saved="false"></span>
+						<div class="collapsible-body" style="display: none;">
+							<p class="meta-detail location">San Francisco</p>
+							<p class="meta-detail date">Jun 1</p>
+							<p class="meta-detail source sourceURL"><a href="http://www.indeed.com/viewjob?jk=163a55ef3f505dd8&amp;qd=Uo-IYiYZ3OusGsmXskjLo_L0C1sZT5fgBK5KF9k_dVSXfL3kBu2B_4ccHh0oaer6o8UTtLw4Tqk7fveGxOBx73TRGqHCG3dqVGyVy54huL1gYYn9SuRHy5EIcKNmYwgHAhmS4Wuh_6q86t95gN2cFA&amp;indpubnum=422492215893931&amp;atk=1bhhglohp182a3aj" alt="View this job listing on the original site">Indeed</a></p>
+							<p class="meta-detail description-label"></p>
+							<div class="meta-detail description">Blueshift Labs is looking for an extraordinary full stack software <b><mark data-markjs="true">developer</mark></b> with focus on frontend to reimagine how companies engage with their customers....</div>
+						</div>
+					</li>
 
-					<li class="listing featured" data-index="0" data-company="SSB Bart Group" data-source="Linkup" data-source-id="Linkup=ee1af8b3ecabd40d20ed5137e9175aefaaad"> <div class="collapsible-header"><span class="listing-number ghost">1</span> <h2 class="headline">Web Consultant</h2> <h3 class="company">SSB Bart Group</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body" style="display: none;"> <p class="meta-detail location">San Francisco, CA</p> <p class="meta-detail date">May 30</p> <p class="meta-detail source sourceURL"><a href="http://www.linkup.com/job/ee1af8b3ecabd40d20ed5137e9175aefaaad/web-consultant-job-in-san-francisco-ca?embedded-search=b599c6a6e9b2178c2e673516252cad2a" alt="View this job listing on the original site">Linkup</a></p> <p class="description-label"></p> <div class="meta-detail description">Group is to support organizations in ensuring that their digital systems - <strong>web</strong> sites, <strong>web</strong> applications, Mobile applications, software, hardware, and services - are accessible to users with disabilities. A <strong>Web</strong> Consultant is the person who works with these.</div> </div> </li> <li class="listing featured" data-index="1" data-company="Newgistics, Inc." data-source="Linkup" data-source-id="Linkup=eee9f27588904c747f951fc34490b22e07ad"> <div class="collapsible-header"><span class="listing-number ghost">2</span> <h2 class="headline">Web Developer</h2> <h3 class="company">Newgistics, Inc.</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body" style="display: none;"> <p class="meta-detail location">San Francisco, CA</p> <p class="meta-detail date">May 13</p> <p class="meta-detail source sourceURL"><a href="http://www.linkup.com/job/eee9f27588904c747f951fc34490b22e07ad/web-developer-job-in-san-francisco-ca?embedded-search=b599c6a6e9b2178c2e673516252cad2a" alt="View this job listing on the original site">Linkup</a></p> <p class="description-label"></p> <div class="meta-detail description">the best performance-based bonus plan in the industry. Responsibilities We&amp;#039;re looking for a New York or San Francisco based candidate to perform the role of a UI/Front End/<strong>Web</strong> Developer. * Listen, learn and consult. This is a client facing service</div> </div> </li> <li class="listing" data-index="2" data-company="Skillz" data-source="Linkup" data-source-id="Linkup=ee3cff11aec94d5c34a4d5f04be54d1000ad"> <div class="collapsible-header"><span class="listing-number ghost">3</span> <h2 class="headline">Web Designer</h2> <h3 class="company">Skillz</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Francisco, CA</p> <p class="meta-detail date">May 12</p> <p class="meta-detail source sourceURL"><a href="http://www.linkup.com/job/ee3cff11aec94d5c34a4d5f04be54d1000ad/web-designer-job-in-san-francisco-ca?embedded-search=b599c6a6e9b2178c2e673516252cad2a" alt="View this job listing on the original site">Linkup</a></p> <p class="description-label"></p> <div class="meta-detail description">team. A successful candidate will be able to work well both independently and collaboratively with teams across the company, meaning communication and attitude are key to success. We are seeking a talented <strong>Web</strong> Designer to produce beautiful &amp;amp;amp; func</div> </div> </li> <li class="listing featured" data-index="3" data-company="Nexstar Broadcasting" data-source="Linkup" data-source-id="Linkup=ee0fb8c770cf243e89f346f6d4f720e007ad"> <div class="collapsible-header"><span class="listing-number ghost">4</span> <h2 class="headline">Web Producer</h2> <h3 class="company">Nexstar Broadcasting</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body" style="display: none;"> <p class="meta-detail location">San Francisco, CA</p> <p class="meta-detail date">May 11</p> <p class="meta-detail source sourceURL"><a href="http://www.linkup.com/job/ee0fb8c770cf243e89f346f6d4f720e007ad/web-producer-job-in-san-francisco-ca?embedded-search=b599c6a6e9b2178c2e673516252cad2a" alt="View this job listing on the original site">Linkup</a></p> <p class="description-label"></p> <div class="meta-detail description">content from television and other sources for the <strong>web</strong> site, mobile platforms, and social media sites under the KRON 4 brand * Building special sections and other custom content for breaking news and other ongoing coverage efforts * Capturing, encoding, an</div> </div> </li> <li class="listing featured" data-index="4" data-company="Technosoft Corp" data-source="Linkup" data-source-id="Linkup=ee1653237f7cbfa35886b7a6343369002ead"> <div class="collapsible-header"><span class="listing-number ghost">5</span> <h2 class="headline">Web Developer</h2> <h3 class="company">Technosoft Corp</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body" style="display: none;"> <p class="meta-detail location">San Bruno, CA</p> <p class="meta-detail date">May 4</p> <p class="meta-detail source sourceURL"><a href="http://www.linkup.com/job/ee1653237f7cbfa35886b7a6343369002ead/web-developer-job-in-san-bruno-ca?embedded-search=b599c6a6e9b2178c2e673516252cad2a" alt="View this job listing on the original site">Linkup</a></p> <p class="description-label"></p> <div class="meta-detail description">Position: <strong>Web</strong> Developer Location: San Bruno, CA Duration: 12 Months Job Description Looking for someone with passion for <strong>Web</strong> Development (Teaching classes, Contribution to Open source like GitHub, Portfolio sites, Developer blogs, Own Apps or… Java</div> </div> </li> <li class="listing featured" data-index="5" data-company="ZenDesk" data-source="Linkup" data-source-id="Linkup=ee1facb3de2d200cbe3f612075ae133183ad"> <div class="collapsible-header"><span class="listing-number ghost">6</span> <h2 class="headline">Web Developer</h2> <h3 class="company">ZenDesk</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body" style="display: none;"> <p class="meta-detail location">San Francisco, CA</p> <p class="meta-detail date">Apr 12</p> <p class="meta-detail source sourceURL"><a href="http://www.linkup.com/job/ee1facb3de2d200cbe3f612075ae133183ad/web-developer-job-in-san-francisco-ca?embedded-search=b599c6a6e9b2178c2e673516252cad2a" alt="View this job listing on the original site">Linkup</a></p> <p class="description-label"></p> <div class="meta-detail description">Are you a <strong>Web</strong> Developer who is deeply passionate about the <strong>web</strong> and loves to make user experiences fascinating and dynamic? You define creativity combined with strong coding skills, deep understanding of enterprise systems and know that our existing custom</div> </div> </li> <li class="listing featured" data-index="6" data-company="FTD Companies, Inc." data-source="Linkup" data-source-id="Linkup=eefda6492cb687102b5d760962c7403a26ad"> <div class="collapsible-header"><span class="listing-number ghost">7</span> <h2 class="headline">Web Developer</h2> <h3 class="company">FTD Companies, Inc.</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body" style="display: none;"> <p class="meta-detail location">San Francisco, CA</p> <p class="meta-detail date">Dec 22</p> <p class="meta-detail source sourceURL"><a href="http://www.linkup.com/job/eefda6492cb687102b5d760962c7403a26ad/web-developer-job-in-san-francisco-ca?embedded-search=b599c6a6e9b2178c2e673516252cad2a" alt="View this job listing on the original site">Linkup</a></p> <p class="description-label"></p> <div class="meta-detail description">Are you a <strong>Web</strong> Developer comfortable working in a fast-paced and inventive environment? Sincerely, a subsidiary of FTD Companies, Inc., is hiring a Designer at our San Francisco office. At Sincerely we&amp;#039;re a small team with big products. We have over</div> </div> </li> <li class="listing" data-index="7" data-company="PIX System" data-source="Linkup" data-source-id="Linkup=ee7cba2a43dc98b5d7579355b67cddcf01ad"> <div class="collapsible-header"><span class="listing-number ghost">8</span> <h2 class="headline">Web Application Developer</h2> <h3 class="company">PIX System</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Francisco, CA</p> <p class="meta-detail date">May 20</p> <p class="meta-detail source sourceURL"><a href="http://www.linkup.com/job/ee7cba2a43dc98b5d7579355b67cddcf01ad/web-application-developer-job-in-san-francisco-ca?embedded-search=b599c6a6e9b2178c2e673516252cad2a" alt="View this job listing on the original site">Linkup</a></p> <p class="description-label"></p> <div class="meta-detail description"><strong>Web</strong> Application Developer San Francisco &amp;bull; Financial District What will you do? The Software Engineers on our <strong>Web</strong> Team are responsible for building <strong>web</strong> applications that allow major film and television production teams to collaborate and manage the</div> </div> </li> <li class="listing" data-index="8" data-company="IBS LLC" data-source="Linkup" data-source-id="Linkup=ee7492789613b487677632d1acb002ca97ad"> <div class="collapsible-header"><span class="listing-number ghost">9</span> <h2 class="headline">Java Web Developer</h2> <h3 class="company">IBS LLC</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Francisco, CA</p> <p class="meta-detail date">May 18</p> <p class="meta-detail source sourceURL"><a href="http://www.linkup.com/job/ee7492789613b487677632d1acb002ca97ad/java-web-developer-job-in-san-francisco-ca?embedded-search=b599c6a6e9b2178c2e673516252cad2a" alt="View this job listing on the original site">Linkup</a></p> <p class="description-label"></p> <div class="meta-detail description"></div> </div> </li> <li class="listing" data-index="9" data-company="Chegg" data-source="Linkup" data-source-id="Linkup=eee287bd7f18c091561415cd9a6a83a0b2ad"> <div class="collapsible-header"><span class="listing-number ghost">10</span> <h2 class="headline">Senior Web Developer</h2> <h3 class="company">Chegg</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Francisco, CA</p> <p class="meta-detail date">May 17</p> <p class="meta-detail source sourceURL"><a href="http://www.linkup.com/job/eee287bd7f18c091561415cd9a6a83a0b2ad/senior-web-developer-job-in-san-francisco-ca?embedded-search=b599c6a6e9b2178c2e673516252cad2a" alt="View this job listing on the original site">Linkup</a></p> <p class="description-label"></p> <div class="meta-detail description">Are you excited to develop features and product that will serve millions of students every single day on multiple platforms? Are you ready to solve a few of the toughest <strong>web</strong> challenges? Are you passionate to learn and share something new every day? Do you</div> </div> </li> <li class="listing" data-index="10" data-company="Blue Shield of California" data-source="Linkup" data-source-id="Linkup=ee12d67c23d7a59b5e3644cc2c2a60e76dad"> <div class="collapsible-header"><span class="listing-number ghost">11</span> <h2 class="headline">Web Portal Support Manager</h2> <h3 class="company">Blue Shield of California</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Francisco, CA</p> <p class="meta-detail date">May 13</p> <p class="meta-detail source sourceURL"><a href="http://www.linkup.com/job/ee12d67c23d7a59b5e3644cc2c2a60e76dad/web-portal-support-manager-job-in-san-francisco-ca?embedded-search=b599c6a6e9b2178c2e673516252cad2a" alt="View this job listing on the original site">Linkup</a></p> <p class="description-label"></p> <div class="meta-detail description">The <strong>Web</strong> Portal Support Manager of Digital Integration is responsible for service level achievement and customer satisfaction of Blue Shield of California&amp;#039;s <strong>Web</strong> Portal core functionality. And he/she supports Blue Shield of California&amp;#039;s Website th</div> </div> </li> <li class="listing featured" data-index="11" data-company="First Republic" data-source="Linkup" data-source-id="Linkup=eeeb53b3a26f95a1a4048a19fd2af89369ad"> <div class="collapsible-header"><span class="listing-number ghost">12</span> <h2 class="headline">Senior Web Developer</h2> <h3 class="company">First Republic</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body" style="display: none;"> <p class="meta-detail location">San Francisco, CA</p> <p class="meta-detail date">May 9</p> <p class="meta-detail source sourceURL"><a href="http://www.linkup.com/job/eeeb53b3a26f95a1a4048a19fd2af89369ad/senior-web-developer-job-in-san-francisco-ca?embedded-search=b599c6a6e9b2178c2e673516252cad2a" alt="View this job listing on the original site">Linkup</a></p> <p class="description-label"></p> <div class="meta-detail description">Overview The Digital Technology senior <strong>web</strong> developer is focused on executing of Online Digital implementation in support of an integrated financial service experience incorporating Banking, Brokerage, Wealth Management, Eagle Lending, etc. As a Digital</div> </div> </li> <li class="listing" data-index="12" data-company="Blue Shield of California" data-source="Linkup" data-source-id="Linkup=eef092cec6db561827241b7b4fde005f35ad"> <div class="collapsible-header"><span class="listing-number ghost">13</span> <h2 class="headline">Web Portal System Analyst</h2> <h3 class="company">Blue Shield of California</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Francisco, CA</p> <p class="meta-detail date">May 5</p> <p class="meta-detail source sourceURL"><a href="http://www.linkup.com/job/eef092cec6db561827241b7b4fde005f35ad/web-portal-system-analyst-job-in-san-francisco-ca?embedded-search=b599c6a6e9b2178c2e673516252cad2a" alt="View this job listing on the original site">Linkup</a></p> <p class="description-label"></p> <div class="meta-detail description">skills with the ability to pcnt complex technical information in a clear and concise manner to a variety of audience * Ability to work in an extremely fast paced and challenging environment, multitasking * Proven experience in developing websites and <strong>w</strong></div> </div> </li> <li class="listing" data-index="13" data-company="Splunk" data-source="Linkup" data-source-id="Linkup=ee88fb981c8d92699f1d1b406db0d6187bad"> <div class="collapsible-header"><span class="listing-number ghost">14</span> <h2 class="headline">Web Marketing Specialist</h2> <h3 class="company">Splunk</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Francisco, CA</p> <p class="meta-detail date">Apr 28</p> <p class="meta-detail source sourceURL"><a href="http://www.linkup.com/job/ee88fb981c8d92699f1d1b406db0d6187bad/web-marketing-specialist-job-in-san-francisco-ca?embedded-search=b599c6a6e9b2178c2e673516252cad2a" alt="View this job listing on the original site">Linkup</a></p> <p class="description-label"></p> <div class="meta-detail description">Job Description: That&amp;#039;s a cool job! I want it! We are looking for a <strong>Web</strong> Marketing Specialist to join our marketing department, contributing to the success of our <strong>web</strong> presence through Splunk.com and other associated sites. It&amp;#039;s important that th</div> </div> </li> <li class="listing" data-index="14" data-company="Quantcast Corporation" data-source="Linkup" data-source-id="Linkup=ee120c183f31c65e791d617ed6f4a86796ad"> <div class="collapsible-header"><span class="listing-number ghost">15</span> <h2 class="headline">Web Operations Manager</h2> <h3 class="company">Quantcast Corporation</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Francisco, CA</p> <p class="meta-detail date">Apr 26</p> <p class="meta-detail source sourceURL"><a href="http://www.linkup.com/job/ee120c183f31c65e791d617ed6f4a86796ad/web-operations-manager-job-in-san-francisco-ca?embedded-search=b599c6a6e9b2178c2e673516252cad2a" alt="View this job listing on the original site">Linkup</a></p> <p class="description-label"></p> <div class="meta-detail description">Requirements * 5-7 years of proven <strong>web</strong> marketing or operations experience * Bachelor&amp;#039;s degree * Metrics-driven, analytical approach * Expertise in SEO Bonus Points * Knowledge of HTML, CSS, and JavaScript Quantcast is a fast-growing, late-stage,</div> </div> </li> <li class="listing" data-index="15" data-company="Salesforce.com, Inc." data-source="Linkup" data-source-id="Linkup=eefb73d50898060a3a4496a35d75e99d6bad"> <div class="collapsible-header"><span class="listing-number ghost">16</span> <h2 class="headline">Web Developer - Quip</h2> <h3 class="company">Salesforce.com, Inc.</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Francisco, CA</p> <p class="meta-detail date">Apr 19</p> <p class="meta-detail source sourceURL"><a href="http://www.linkup.com/job/eefb73d50898060a3a4496a35d75e99d6bad/web-developer-quip-job-in-san-francisco-ca?embedded-search=b599c6a6e9b2178c2e673516252cad2a" alt="View this job listing on the original site">Linkup</a></p> <p class="description-label"></p> <div class="meta-detail description"><strong>Web</strong> Developer - Quip Our goal at Quip is to build a new class of productivity tool that every person at every company enjoys using every single day. We are looking for an engineer with a strong focus on product, who&amp;#039;s an expert in front-end… and</div> </div> </li> <li class="listing" data-index="16" data-company="Amazon.com, Inc." data-source="Linkup" data-source-id="Linkup=ee702ff9838ad1ea409510cbec4acac3cdad"> <div class="collapsible-header"><span class="listing-number ghost">17</span> <h2 class="headline">Mobile Web Engineer</h2> <h3 class="company">Amazon.com, Inc.</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">San Francisco, CA</p> <p class="meta-detail date">Apr 10</p> <p class="meta-detail source sourceURL"><a href="http://www.linkup.com/job/ee702ff9838ad1ea409510cbec4acac3cdad/mobile-web-engineer-job-in-san-francisco-ca?embedded-search=b599c6a6e9b2178c2e673516252cad2a" alt="View this job listing on the original site">Linkup</a></p> <p class="description-label"></p> <div class="meta-detail description">team to craft a completely new Twitch experience for the millions of people that use the Twitch website on mobile devices. The new mobile website will be a multiple entry point, universal React/Redux application. As an engineer on the Mobile <strong>Web</strong> team you</div> </div> </li> <li class="listing featured" data-index="17" data-company="Data Resource Technologies" data-source="Dice" data-source-id="Dice=10124769_CO-CB-Web"> <div class="collapsible-header"><span class="listing-number ghost">18</span> <h2 class="headline">Web UI Developer</h2> <h3 class="company">Data Resource Technologies</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body" style="display: none;"> <p class="meta-detail location">Greenwood Village, CO</p> <p class="meta-detail date">May 26</p> <p class="meta-detail source sourceURL"><a href="http://www.dice.com/job/result/10124769/CO-CB-Web?src=19" alt="View this job listing on the original site">Dice</a></p> </div> </li> <li class="listing" data-index="18" data-company="SolutionIT, Inc." data-source="Dice" data-source-id="Dice=10290916_Web-Dev-Angl_NY"> <div class="collapsible-header"><span class="listing-number ghost">19</span> <h2 class="headline">Web developer - AngularJS</h2> <h3 class="company">SolutionIT, Inc.</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">Sydney</p> <p class="meta-detail date">May 30</p> <p class="meta-detail source sourceURL"><a href="http://www.dice.com/job/result/10290916/Web-Dev-Angl_NY?src=19" alt="View this job listing on the original site">Dice</a></p> </div> </li> <li class="listing" data-index="19" data-company="Mitchell Martin, Inc." data-source="Dice" data-source-id="Dice=mitchmar_FRNT-WEB-DEV-NC"> <div class="collapsible-header"><span class="listing-number ghost">20</span> <h2 class="headline">Sr.Front end Web developer</h2> <h3 class="company">Mitchell Martin, Inc.</h3></div><span class="save-wrap ghost" data-saved="false"></span> <div class="collapsible-body"> <p class="meta-detail location">charlotte, NC</p> <p class="meta-detail date">May 30</p> <p class="meta-detail source sourceURL"><a href="http://www.dice.com/job/result/mitchmar/FRNT-WEB-DEV-NC?src=19" alt="View this job listing on the original site">Dice</a></p> </div> </li>                    
-
-					
 					<!-- /////////////////// -->
-                    <!-- TARGET RESULTS HERE -->
-                    <!-- /////////////////// -->
-                    <!-- <li class="listing" data-index="0" data-company="SolutionIT, Inc." data-source="Dice" data-source-id="Dice=10290916_Web-Dev-Angl_NY">
-                        <div class="collapsible-header"><span class="listing-number ghost">1</span>
-                            <h2 class="headline">Web developer - AngularJS</h2>
-                            <h3 class="company">SolutionIT, Inc.</h3></div>
-                        <span class="save-wrap ghost" data-saved="false"></span>
-                        <div class="collapsible-body">
-                            <p class="meta-detail location">Sydney</p>
-                            <p class="meta-detail date">3 days ago</p>
-                            <p class="meta-detail source">Dice</p>
-                            <div class="meta-detail description">Description is not available. For more details, visit Dice's website.</div>
-                        </div>
-                    </li> -->
-                </ul>
-            </div>
-        </div> <!-- /row -->
-    <!-- Pagination ===========================-->
-        <div class="row center-align">
-            <div class="col s12">
-                <ul class="pagination">
-                    <li class="pg-control waves-effect disabled" data-pg="0"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                    <li class="pg-control waves-effect" data-pg="1"><a href="#!">1</a></li>
-                    <li class="pg-control waves-effect" data-pg="2"><a href="#!">2</a></li>
-                    <li class="pg-control waves-effect" data-pg="3"><a href="#!">3</a></li>
-                    <li class="pg-control waves-effect" data-pg="4"><a href="#!">4</a></li>
-                    <li class="pg-control waves-effect" data-pg="5"><a href="#!">5</a></li>
-                    <li class="pg-control waves-effect" data-pg="-1"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-                </ul>
-            </div>
-        </div> <!-- /row -->
-    <!-- Modal Structure ======================-->
-        <div id="saved-jobs-modal" class="modal bottom-sheet">
-            <div class="modal-content">
-                <h4>Saved Jobs</h4>
-                <p>The job listings you have favorited can be found here.</p>
-                <div id="saved-feed-row" class="row">
-                    <div class="col s12 m10 offset-m1 xl6 offset-xl3">
-                        <ul id="saved-feed" class="collapsible" data-collapsible='expandable'> </ul>
-                    </div>
-                </div>
-            </div>
-            <div id="saved-feed-row" class="row">
-                    <div class="col s12 m10 offset-m1 xl6 offset-xl3">
-                        <ul id="saved-feed" class="collapsible" data-collapsible='expandable'> </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <!-- <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a> -->
-            </div>
-        </div>
-    </div> <!-- /page1 -->
-<!-- Filter Side Nav ======================-->
-        <ul id="filter-side-nav" class="side-nav">
-            <li class="no-padding"><a class="close-btn" href="#!"><i class="material-icons">clear_all</i> Close Filter Menu</a></li>
-            <li class="no-padding">
-                <ul class="collapsible collapsible-accordion">
-                    <li>
-                        <a class="blue-grey darken-2 collapsible-header">Results per Page<i class="material-icons">arrow_drop_down</i></a>
-                        <div class="collapsible-body sideNavForm horizontal-options">
-                            <ul>
-                                <li class=""><a href="#!" class="pagination-num-opt">10</a></li>
-                                <li class="selected"><a href="#!" class="pagination-num-opt">20</a></li>
-                                <li class=""><a href="#!" class="pagination-num-opt">30</a></li>
-                                <li class=""><a href="#!" class="pagination-num-opt">40</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-            <li class="no-padding">
-                <ul class="collapsible collapsible-accordion">
-                    <li>
-                        <a class="blue-grey darken-1 collapsible-header">Sort By<i class="material-icons">arrow_drop_down</i></a>
-                        <div class="collapsible-body">
-                            <ul>
-                                <li><a href="#!">Date (Newest)</a></li>
-                                <li><a href="#!">Date (Oldest)</a></li>
-                                <li><a href="#!">Distance</a></li>
-                                <li><a href="#!">Coolest Name</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-            <!-- Filter Terms -->
-            <li id="termFilters" class="no-padding">
-                <ul class="collapsible collapsible-accordion">
-                    <li>
-                        <a class="blue-grey collapsible-header active">Filter Terms<i class="material-icons">arrow_drop_down</i></a>
-                        <div class="collapsible-body">
-                            <ul>
-                            	<li class="instructions">Whitelist (press enter betwen terms)</li>
-                            	<li id="whiteList" class="chip-bag"> </li>
-                                <li>
-                                	<img src="assets/icons/plusg.svg" class="icon beforeFormInput" alt="Terms to Search For">
-							        <input id="includeTerms" class="filterTermInput" type="text" placeholder="Terms to search for">
-                                </li>
-                            	<li class="instructions">Blacklist (press enter between terms)</li>
-                            	<li id="blackList" class="chip-bag"> <!-- <div class="chip"> Tag <i class="close material-icons">close</i> </div> --> </li>
-                                <li>
-                                	<img src="assets/icons/minusr.svg" class="icon beforeFormInput" alt="Terms to Filter Out">
-							        <input id="excludeTerms" class="filterTermInput" type="text" placeholder="Terms to avoid">
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-	            </li>
-            <!-- Filter Source -->
-            <li class="no-padding">
-                <ul class="collapsible collapsible-accordion">
-                    <li>
-                        <a class="blue-grey lighten-1 collapsible-header active">Filter Source<i class="material-icons">arrow_drop_down</i></a>
-                        <div class="collapsible-body">
-                            <form class="sideNavForm">
-                                <ul id="filter-source" class="filter-listener">
-                                    <li class="input-field">
-                                        <input type="checkbox" id="sourceGithub" class="filterSourceInput filterInput filled-in" name="filterSource" value="Github" data-select="true" checked="checked"/>
-                                        <label for="sourceGithub">Github</label>
-                                    </li>
-                                    <li class="input-field">
-                                        <input type="checkbox" id="sourceIndeed" class="filterSourceInput filterInput filled-in" name="filterSource" value="Indeed" data-select="true" checked="checked" />
-                                        <label for="sourceIndeed">Indeed</label>
-                                    </li>
-                                    <li class="input-field">
-                                        <input type="checkbox" id="sourceDice" class="filterSourceInput filterInput filled-in" name="filterSource" value="Dice" data-select="true" checked="checked"  />
-                                        <label for="sourceDice">Dice</label>
-                                    </li>
-                                    <li class="input-field">
-                                        <input type="checkbox" id="sourceAuthenticJobs" class="filterSourceInput filterInput filled-in" name="filterSource" value="Authentic Jobs" data-select="true" checked="checked"  />
-                                        <label for="sourceAuthenticJobs">Authentic Jobs</label>
-                                    </li>
-                                    <li class="input-field">
-                                        <input type="checkbox" id="sourceLinkUp" class="filterSourceInput filterInput filled-in" name="filterSource" value="LinkUp" data-select="true" checked="checked" />
-                                        <label for="sourceLinkUp">LinkUp</label>
-                                    </li>
-                                </ul>
-                            </form>
-                        </div>
-                    </li>
-                </ul>
-	            </li>
-            <li class="no-padding fixedToBottom">
-            	<a id="applyFilters" class="blue btn waves-effect waves-light" href="#!">Filter Results</a>
-            	</li>
-        </ul> <!-- /sideNav -->
+					<!-- TARGET RESULTS HERE -->
+					<!-- /////////////////// -->
+				</ul>
+				<div class="feed sub">
+					<h2 class="no-results">Sorry, there are no results that match your search criteria.</h2>
+				</div>
+			</div>
+		</div>
+		<!-- /row -->
+		<!-- Pagination ===========================-->
+		<div id="pagination-row" class="row center-align">
+			<div class="col s12">
+				<ul class="pagination">
+					<li id="pg-prev" class="pg-control waves-effect disabled" data-pg="0"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+					<span id="pg-control-wrap">
+					</span>
+					<!-- <li id="pg-1" class="pg-control waves-effect" data-pg="1"><a href="#!">1</a></li>
+					<li id="pg-2" class="pg-control waves-effect" data-pg="2"><a href="#!">2</a></li>
+					<li id="pg-3" class="pg-control waves-effect" data-pg="3"><a href="#!">3</a></li>
+					<li id="pg-4" class="pg-control waves-effect" data-pg="4"><a href="#!">4</a></li>
+					<li id="pg-5" class="pg-control waves-effect" data-pg="5"><a href="#!">5</a></li> -->
+					<li id="pg-next" class="pg-control waves-effect" data-pg="-1"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- /row -->
+		<!-- Modal Structure ======================-->
+		<div id="saved-jobs-modal" class="modal bottom-sheet">
+			<div class="modal-content">
+				<h4>Saved Jobs</h4>
+				<p>The job listings you have favorited can be found here.</p>
+				<div id="saved-feed-row" class="row">
+					<div class="col s12 m10 offset-m1 xl6 offset-xl3">
+						<ul id="saved-feed" class="collapsible" data-collapsible='expandable'> </ul>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<!-- <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a> -->
+			</div>
+		</div>
+	</div>
+	<!-- /page1 -->
+	<!-- Filter Side Nav ======================-->
+	<ul id="filter-side-nav" class="side-nav">
+		<li class="no-padding"><a class="close-btn" href="#!"><i class="material-icons">close</i> Close Filter Menu</a></li>
+		<li class="no-padding">
+			<ul class="collapsible collapsible-accordion">
+				<li>
+					<a class="collapsible-header">Results per Page<i class="arrow-icon material-icons"></i></a>
+					<div class="collapsible-body sideNavForm horizontal-options">
+						<ul id="per-page-options">
+							<li class=""><a href="#!" class="pagination-num-opt">10</a></li>
+							<li class="selected"><a href="#!" class="pagination-num-opt">20</a></li>
+							<li class=""><a href="#!" class="pagination-num-opt">30</a></li>
+							<li class=""><a href="#!" class="pagination-num-opt">40</a></li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</li>
+		<li class="no-padding">
+			<ul class="collapsible collapsible-accordion">
+				<li>
+					<a class="collapsible-header">Sort By<i class="arrow-icon material-icons"></i></a>
+					<div class="collapsible-body">
+						<ul>
+							<li><a href="#!">Date (Newest)</a></li>
+							<li><a href="#!">Date (Oldest)</a></li>
+							<li><a href="#!">Distance</a></li>
+							<li><a href="#!">Coolest Name</a></li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</li>
+		<!-- Filter Terms -->
+		<li id="termFilters" class="no-padding">
+			<ul class="collapsible collapsible-accordion">
+				<li>
+					<a class="collapsible-header active">Filter Terms<i class="arrow-icon material-icons"></i></a>
+					<div class="collapsible-body">
+						<ul>
+							<li class="instructions">Whitelist (press enter betwen terms)</li>
+							<li id="whiteList" class="chip-bag"> </li>
+							<li>
+								<img src="assets/icons/plusg.svg" class="icon beforeFormInput" alt="Terms to Search For">
+								<!-- <i class="material-icons">add_circle_outline</i> -->
+								<input id="includeTerms" class="filterTermInput" type="text" placeholder="Terms to search for">
+							</li>
+							<li class="instructions">Blacklist (press enter between terms)</li>
+							<li id="blackList" class="chip-bag">
+								<!-- <div class="chip"> Tag <i class="close material-icons">close</i> </div> -->
+							</li>
+							<li>
+								<img src="assets/icons/minusr.svg" class="icon beforeFormInput" alt="Terms to Filter Out">
+								<!-- <i class="material-icons">remove_circle_outline</i> -->
+								<input id="excludeTerms" class="filterTermInput" type="text" placeholder="Terms to avoid">
+							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</li>
+		<!-- Filter Source -->
+		<li class="no-padding">
+			<ul class="collapsible collapsible-accordion">
+				<li>
+					<a class="collapsible-header">Filter Source<i class="arrow-icon material-icons"></i></a>
+					<div class="collapsible-body">
+						<form class="sideNavForm">
+							<ul id="filter-source" class="filter-listener">
+								<li class="input-field">
+									<input type="checkbox" id="sourceGithub" class="filterSourceInput filterInput filled-in" name="filterSource" value="Github" data-select="true" checked="checked" />
+									<label for="sourceGithub">Github</label>
+								</li>
+								<li class="input-field">
+									<input type="checkbox" id="sourceIndeed" class="filterSourceInput filterInput filled-in" name="filterSource" value="Indeed" data-select="true" checked="checked" />
+									<label for="sourceIndeed">Indeed</label>
+								</li>
+								<li class="input-field">
+									<input type="checkbox" id="sourceDice" class="filterSourceInput filterInput filled-in" name="filterSource" value="Dice" data-select="true" checked="checked" />
+									<label for="sourceDice">Dice</label>
+								</li>
+								<li class="input-field">
+									<input type="checkbox" id="sourceAuthenticJobs" class="filterSourceInput filterInput filled-in" name="filterSource" value="Authentic Jobs" data-select="true" checked="checked" />
+									<label for="sourceAuthenticJobs">Authentic Jobs</label>
+								</li>
+								<li class="input-field">
+									<input type="checkbox" id="sourceLinkUp" class="filterSourceInput filterInput filled-in" name="filterSource" value="LinkUp" data-select="true" checked="checked" />
+									<label for="sourceLinkUp">LinkUp</label>
+								</li>
+							</ul>
+						</form>
+					</div>
+				</li>
+			</ul>
+		</li>
+		<!-- Fixed to Bottom -->
+		<!-- <div class="fixedToBottom">
+	        	</div> -->
+		<a id="applyFilters" class="fixedToBottom blue btn waves-effect waves-light" href="#!">Filter Results</a>
+	</ul>
+	<!-- /sideNav -->
+	<!--=============================================-->
+	<!-- JS Links -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<!-- firebase, firebase UI -->
+	<script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+	<script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script>
+	<!-- Search Term highlighting -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.10.1/jquery.mark.es6.min.js"></script>
+	<!-- google maps -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4nu_5UhddgajGv7lS96ri7lsyyZ3vbjQ&libraries=places&language=en"></script>
+	<!-- Cities autocomplete -->
+	<script>
+	var locationOptions = {
+		types: ['(cities)']
+	};
+	var locationInput = document.getElementById('q-city');
+	var autocomplete = new google.maps.places.Autocomplete(locationInput, locationOptions);
+	</script>
+	<!-- End of Cities autocomplete -->
+	<!-- <script src="assets/js/firebase-init.js" type="text/javascript" charset="utf-8"></script> -->
+	<script src="assets/js/getCurrentUser.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/login.js" type="text/javascript" charset="utf-8"></script>
+      <script src="assets/js/checkjobs.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/global.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/script.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/filter-sort.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/displayjobs.js" type="text/javascript" charset="utf-8"></script>
+      <script src="assets/js/removejob.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/benchmark-email-form.js" type="text/javascript"></script>
+      <script src="assets/js/auto-complete.js"></script>
+	<!--      <script src="assets/js/salaries.js" type="text/javascript" charset="utf-8"></script>
 
-<!--=============================================-->
-<!-- JS Links -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <!-- firebase, firebase UI -->
-    <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
-    <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script>
-    <!-- Search Term highlighting -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.10.1/jquery.mark.es6.min.js"></script>
-    <!-- google maps -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4nu_5UhddgajGv7lS96ri7lsyyZ3vbjQ&libraries=places&language=en"></script>
-    <!-- Cities autocomplete -->
-    <script>
-    var locationOptions = {
-        types: ['(cities)']
-    };
-    var locationInput = document.getElementById('q-city');
-    var autocomplete = new google.maps.places.Autocomplete(locationInput, locationOptions);
-    </script>
-    <!-- End of Cities autocomplete -->
-    <!-- <script src="assets/js/firebase-init.js" type="text/javascript" charset="utf-8"></script> -->
-    
-    <script src="assets/js/getCurrentUser.js" type="text/javascript" charset="utf-8"></script>
-    <script src="assets/js/login.js" type="text/javascript" charset="utf-8"></script>
-    <script src="assets/js/checkjobs.js" type="text/javascript" charset="utf-8"></script>
-    <script src="assets/js/global.js" type="text/javascript" charset="utf-8"></script>
-    <script src="assets/js/script.js" type="text/javascript" charset="utf-8"></script>
-
-    <script src="assets/js/filter-sort.js" type="text/javascript" charset="utf-8"></script>
-
-    <script src="assets/js/displayjobs.js" type="text/javascript" charset="utf-8"></script>
-    <script src="assets/js/removejob.js" type="text/javascript" charset="utf-8"></script>
-    
-    <script src="assets/js/benchmark-email-form.js" type="text/javascript"></script>
-
-    <script src="assets/js/auto-complete.js"></script>
-<!--      <script src="assets/js/salaries.js" type="text/javascript" charset="utf-8"></script>
       <script src="assets/js/company_info.js" type="text/javascript" charset="utf-8"></script> -->
-    
-
-    <!-- <script src="assets/js/devTools.js" type="text/javascript" charset="utf-8"></script> -->
-    <!-- <script src="assets/js/testing.js" type="text/javascript" charset="utf-8"></script> -->
-    <!-- Color Testing -->
-    <!-- 
+	<!-- <script src="assets/js/devTools.js" type="text/javascript" charset="utf-8"></script> -->
+	<!-- <script src="assets/js/testing.js" type="text/javascript" charset="utf-8"></script> -->
+	<!-- Color Testing -->
+	<!-- 
         <a class="amber darken-3 waves-effect waves-light btn">Filter</a>
         <a class="blue darken-1 waves-effect waves-light btn">Filter</a>
         <a class="blue darken-2 waves-effect waves-light btn">Filter</a>
