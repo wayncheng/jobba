@@ -1,0 +1,80 @@
+/*
+    Resume Modal CSS by Priyanka
+*/
+       /*.modal-height{
+            max-height:700px;
+        }*/
+        #resume-modal{
+            max-height:700px;
+        }
+        .resume-result{
+            background: #e2e2e2;
+            margin: 2px 0 0 2px;
+            width: 400px;
+            height: 280px;
+            border-radius: 100%;
+            border: #3F547F dashed 3px;
+            padding: 10px;
+
+        }
+        #result{
+            position: relative;
+
+        }
+        .resume-result span{
+            display: block;
+            font-size: 85px;
+            line-height: 70px;
+            margin: 0 0 15px;
+            font-family: Arial;
+            position: absolute;
+            left: 30px;
+            top: 100px;
+            border-right: #a9a9a9 dashed 1px;
+            float: left;
+            color: #3F547F;
+            padding-right: 15px;
+        }
+        .large-advice{
+            font-size: 15px;
+            color: rgb(51, 51, 51);
+            position: absolute;
+            top: 40px;
+            left: 150px;
+            right: 30px;
+            bottom: 20px;
+            /*line-height: 24px;*/
+            /*text-align: justify;*/
+        }
+        .small-advice{
+            font-size: 15px;
+            color: rgb(51, 51, 51);
+            position: absolute;
+            top: 80px;
+            left: 150px;
+            right: 30px;
+            bottom: 20px;
+            /*line-height: 24px;*/
+            /*text-align: justify;*/
+        }
+        #error{
+            font-size: 25px;
+            color: red;
+            position: absolute;
+            margin:auto;
+            line-height: 40px;
+            padding:10px;
+        }
+
+        #resumeText {
+            min-width: 100%;
+            height: 200px;
+        }
+        #result .progress {
+            position: absolute;
+            top: 50%;
+            width: 90%;
+            height: 20px;
+            display: none;
+            color: #3F547F;
+        }
