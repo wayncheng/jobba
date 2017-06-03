@@ -64,3 +64,23 @@
 		background-color: #e64a19;
 		background-color: #f4511e;
 	}
+/* Location Input ------------------------------*/
+	#q-city {
+		text-indent: 36px;
+	}
+/* Location Icon ------------------------------*/
+	i.material-icons.bar {
+		position: absolute;
+		display: inline-block;
+		height: 100%;
+		line-height: 45px;
+		font-size: 20px;
+		left: 1em;
+		color: rgba(0,0,0,0.6);
+		cursor: pointer;
+	}
+	i.material-icons.bar:hover,
+	i.material-icons.bar.active{
+		color: #2196f3;
+		color: #08c;
+	}

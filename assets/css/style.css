@@ -39,7 +39,7 @@ p {
 	}
 
 /* Ghost ------------------------------*/
-	span.ghost {
+	.ghost {
 		display: inline-block;
 		position: absolute;
 	}
