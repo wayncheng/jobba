@@ -5,6 +5,14 @@ var g = {
 allRawData: [],
 allResults: [],
 allResultsStr: [],
+allSaved: [
+		'LinkUp=ee1c538c3efe3ea10e8c373150e2f5a789ad',
+		'LinkUp=ee3d59e3c643643d90c1e5dd84df5ba2acad',
+		'Dice=sgainc_17-01942',
+		'Indeed=280dcc7add2e128a',
+		'Github=ee19ee32-3ccf-11e7-98ac-da71c8b46ad5',
+		'AuthenticJobs=29328'
+	],
 partData: [],
 companyList: [],
 printFrom: 'allResults',
@@ -154,7 +162,7 @@ lastSearchLocal: {
 
 				var str = JSON.stringify(obj);
 				localStorage.setItem('lastSearch', str);
-				
+
 				$('#last-search').show();
 				$('#last-search-q').text(obj.q);
 				$('#last-search-city').text(obj.city);
@@ -185,7 +193,18 @@ lastSearchLocal: {
 	listener: 
 		$('#last-search-trigger').on('click',function(e){
 			e.preventDefault();
-			g.submitCheck();
+			
+			// Get values from the target spans in HTML and use those set the main search values 
+			var lastq = $('#last-search-q').text();
+			var lastcity = $('#last-search-city').text();
+			// console.log('lastq',lastq);
+			// console.log('lastcity',lastcity);
+
+			$('#search').val(lastq);
+			$('#q-city').val(lastcity);
+
+			// Skip check and trigger submission
+			g.submit();
 		}),
 	},
 apiStatus: ['processing','processing','processing','processing'],
@@ -407,7 +426,7 @@ checkStatus:
 			var newStatus = g.apiCheck;
 			if ( newStatus > oldStatus && newStatus < 100) {
 				var pct = g.apiCheck/5*100;
-				console.log('pct',pct);
+				// console.log('pct',pct);
 				// $('.progress-target').css('width',pct+'%');
 				$('.progress-target').animate({
 					'width': (pct+10)+'%'
@@ -573,6 +592,10 @@ writeToFirebaseArchive:
 			
 
 			// console.log('writeToFirebaseArchive end');
+		},
+getSaves:
+		function(){
+			// 
 		},
 printManager: 	
 		function(jobStr){
@@ -832,19 +855,29 @@ print:
 			var jobIndex = jobData.index;
 			var saveBtnText = 'Save Job';
 			var saveBtnImageSource = 'assets/icons/heart1s-gray-red.svg';
+			var saved;
 
 			// Combine source and sourceID
 			var completeSourceID = source.replace(/\s/g,'') + '=' + sourceID; 
+
+			// Check for match
+			var iof = g.allSaved.indexOf(completeSourceID);
+			if (iof === -1) {
+				saved = false;
+			}
+			else {
+				saved = true;
+			}
 
 			// Convert date to days ago
 			var daysAgo = moment(date,'MMM-DD').fromNow();
 
 			// var metaArray = [location, date, source];
-			var metaArray = [
-				{ key: "location", value: location},
-				{ key: "date", value: daysAgo},
-				{ key: "source", value: source}
-			];
+			// var metaArray = [
+			// 	{ key: "location", value: location},
+			// 	{ key: "date", value: daysAgo},
+			// 	{ key: "source", value: source}
+			// ];
 
 			var listingEl = $('<li>');
 				listingEl.addClass('listing');
@@ -888,10 +921,17 @@ print:
 					subheadlineEl.append(subheadLocation);
 					subheadlineEl.append(subheadDate);
 
-			// Save Wrap
-			var saveWrap = $('<span>');
-				saveWrap.addClass('save-wrap ghost');
-				saveWrap.attr('data-saved','false');
+					// Save Wrap
+					var saveWrap = $('<span>');
+						saveWrap.addClass('save-wrap ghost');
+
+					if (saved === true) {
+						saveWrap.attr('data-saved','true');
+						saveWrap.addClass('saved');
+					}
+					else {
+						saveWrap.attr('data-saved','false');
+					}
 
 			// Meta Details
 			// for (var i=0; i<metaArray.length; i++) {
@@ -1047,7 +1087,7 @@ scrollToTop:
 submitHandler:
 		$('#submit').on('click', function(event){
 			event.preventDefault();
-			console.log('submitHandler');
+			// console.log('submitHandler');
 			g.submitCheck();
 		}),
 submitCheck:
@@ -1171,16 +1211,25 @@ analysis: {
 		}
 	}
 },
-apiError:
-		function(){
-			console.log('apiError');
-			// Change status to fail.
-			g.apiCheck++;
-			g.checkStatus();
-			console.log('g.apiCheck',g.apiCheck);
-		},
 api: 
 	{
+		timeout: 5000,
+		ajaxError: 	
+				function(){
+					console.log('apiError');
+					// Change status to fail.
+					// g.apiCheck++;
+					// g.checkStatus();
+					// console.log('g.apiCheck',g.apiCheck);
+				},
+		ajaxAlways:	
+				function(){
+					console.log('ajaxAlways');
+					// Change status to fail.
+					g.apiCheck++;
+					g.checkStatus();
+					console.log('g.apiCheck',g.apiCheck);
+				},
 		github: {
 				url: "",
 				status: "processing",
@@ -1209,15 +1258,15 @@ api:
 
 							githubURL = githubURL + "&full_time=true";
 						
-						console.log("Github URL is:"+githubURL);
+						// console.log("Github URL is:"+githubURL);
 						g.api.github.url = githubURL;
 						return githubURL;
 					},
 				getResponse: 
 					function(result){
 						var jobsResults = result;
-
-						console.log('-----------------GITHUB RESULTS-----------------');
+						console.log('github success');
+						// console.log('-----------------GITHUB RESULTS-----------------');
 						console.log('Github jobsResults',jobsResults);
 
 						for(var i=0; i< jobsResults.length; i++){
@@ -1245,11 +1294,11 @@ api:
 						} // end for loop
 
 						// Change status to done.
-						g.apiCheck++;
-						g.checkStatus();
-						console.log('g.apiCheck',g.apiCheck);
-							var apiIndex = g.api.github.apiIndex;
-							g.apiStatus[apiIndex] = 'done';
+						// g.apiCheck++;
+						// g.checkStatus();
+						// console.log('g.apiCheck',g.apiCheck);
+							// var apiIndex = g.api.github.apiIndex;
+							// g.apiStatus[apiIndex] = 'done';
 
 						// Notify console of end
 					},
@@ -1258,14 +1307,8 @@ api:
 						$.ajax({
 							type:'GET',
 							url: qURL,
-						}).done(mycallback).fail(function(){
-							//Create a new function to process errors
-							console.log('ajaxCall fail');
-							g.apiError();
-							// Change status to fail.
-							var apiIndex = g.api.github.apiIndex;
-							g.apiStatus[apiIndex] = 'fail';
-						});
+							timeout: g.api.timeout
+						}).done(mycallback).fail(g.api.ajaxError()).always(g.api.ajaxAlways());
 					}
 			},
 
@@ -1300,7 +1343,7 @@ api:
 							url = url + "&limit=" + noOfRecords;
 						}
 
-						console.log("Indeed URL is: "+url);
+						// console.log("Indeed URL is: "+url);
 						g.api.indeed.url = url;
 						return url;
 					},
@@ -1308,8 +1351,8 @@ api:
 					function(result){
 
 						var jobsResults = result.results;
-
-						console.log('-----------------INDEED RESULTS-----------------');
+						// console.log('indeed success');
+						// console.log('-----------------INDEED RESULTS-----------------');
 						console.log('Indeed jobsResults',jobsResults);
 
 						for(var i=0; i< jobsResults.length; i++){
@@ -1385,17 +1428,17 @@ api:
 						}
 						if(city != ""){
 							var finalCity = city.split(",");
-							console.log("finalcity string length is: "+finalCity.length);
+							// console.log("finalcity string length is: "+finalCity.length);
 
 							if(finalCity.length>2){
 								city = (finalCity[0]+", "+finalCity[1]);
-								console.log("FINAL CITY IS: "+city);
+								// console.log("FINAL CITY IS: "+city);
 							}
 
 							city = encodeURIComponent(city);
 							url = url + "&city=" + city;
 
-							console.log("the modified city is: "+city);
+							// console.log("the modified city is: "+city);
 
 						}
 						else{ 
@@ -1415,7 +1458,7 @@ api:
 							url = url + "&pgcnt=" + noOfRecords;
 						}
 
-						console.log("Dice URL is: "+url);
+						// console.log("Dice URL is: "+url);
 						g.api.dice.url = url;
 						return url;
 					},
@@ -1423,9 +1466,12 @@ api:
 					function(result){
 
 						var jobsResults = result.resultItemList;
-						console.log('-----------------DICE RESULTS-----------------');
+						// console.log('-----------------DICE RESULTS-----------------');
 						console.log('Dice jobsResults',jobsResults);
-
+						if (!jobsResults) {
+							console.log('!jobsResults');
+							return;
+						}
 						for(var i=0; i< jobsResults.length; i++){
 							var ji = jobsResults[i];
 							g.allRawData.push(ji);
@@ -1464,26 +1510,19 @@ api:
 
 						// Change status to done.
 						// g.apiStatus[g.api.dice.apiIndex] = 'done';
-						g.apiCheck++;
-						g.checkStatus();
-						console.log('g.apiCheck',g.apiCheck);
-							var apiIndex = g.api.dice.apiIndex;
-							g.apiStatus[apiIndex] = 'done';
+						// g.apiCheck++;
+						// g.checkStatus();
+						// console.log('g.apiCheck',g.apiCheck);
+							// var apiIndex = g.api.dice.apiIndex;
+							// g.apiStatus[apiIndex] = 'done';
 					},
 				ajaxCall: 
 					function(qURL, mycallback){
 						$.ajax({
 							type:'GET',
 							url: qURL,
-						}).done(mycallback).fail(function(){
-							//Create a new function to process errors
-							console.log('ajaxCall fail');
-							g.apiError();
-							// Change status to fail.
-							// g.apiStatus[g.api.dice.apiIndex] = 'fail';
-							var apiIndex = g.api.dice.apiIndex;
-							g.apiStatus[apiIndex] = 'fail';
-						});
+							timeout: g.api.timeout
+						}).done(mycallback).fail(g.api.ajaxError()).always(g.api.ajaxAlways());
 					}
 			},
 
@@ -1510,7 +1549,7 @@ api:
 
 							if(finalCity.length>2){
 								city = finalCity[0];
-								console.log("Authenticjobs FINAL CITY IS: "+city);
+								// console.log("Authenticjobs FINAL CITY IS: "+city);
 							}
 						
 							city = encodeURIComponent(city);
@@ -1530,7 +1569,7 @@ api:
 							url = url + "&perpage=" + noOfRecords;
 						}
 
-						console.log("Authentic Jobs URL is: "+url);
+						// console.log("Authentic Jobs URL is: "+url);
 
 						g.api.authentic.url = url;
 						return url;
@@ -1539,8 +1578,8 @@ api:
 					function(result){
 
 						var jobsResults = result.listings.listing;
-						console.log('-----------------AUTHENTIC JOB RESULTS-----------------');
-						console.log('Authentic result.listings', result.listings);
+						// console.log('-----------------AUTHENTIC JOB RESULTS-----------------');
+						// console.log('Authentic result.listings', result.listings);
 						console.log('Authentic jobsResults', jobsResults);
 
 						for(var i=0; i< jobsResults.length; i++){
@@ -1614,9 +1653,6 @@ api:
 
 						} // end for loop
 
-						// Notify console of end
-						console.log('----------------------------------');
-						
 						// Change status to done.
 						g.apiCheck++;
 						g.checkStatus();
@@ -1670,7 +1706,7 @@ api:
 							noOfRecords = encodeURIComponent(noOfRecords);
 							url = url + "&limit=" + noOfRecords;
 
-						console.log("URL is:"+url);
+						// console.log("URL is:"+url);
 						return url;
 						}
 					},
@@ -1685,7 +1721,7 @@ api:
 						var jobDate;
 
 
-						console.log('-----------------Linkup RESULTS-----------------');
+						// console.log('-----------------Linkup RESULTS-----------------');
 						console.log('linkup jobsResults',jobsResults);
 
 						for(var i=0; i< jobsResults.length; i++){
