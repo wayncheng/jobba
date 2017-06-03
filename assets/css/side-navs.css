@@ -21,8 +21,7 @@
 		/*background-color: rgba(0,0,0,0.05);*/
 	}	
 
-/* Side Navigation -----------------------------------------------*/
-	/* Headers  */
+/* Side Navigation Headers -----------------------------------------------*/
 	.side-nav .collapsible-header:hover,
 	.side-nav .collapsible-header {
 		background-color: #656565;
@@ -34,18 +33,23 @@
 		/*border-bottom: 2px solid rgba(0,0,0,0.7);*/
 		/*margin-top: 4px;*/
 		transition: background-color 300ms;
+		background-color: rgba(0,0,0,0.8);
 	}
 
+	.side-nav .collapsible-header.active i.material-icons,
 	.side-nav .collapsible-header.active {
-		background-color: #fff;
+		/*background-color: #fff;*/
+		background-color: #111;
+		/*color: #333;*/
 	}
 
 	.side-nav .collapsible-header i.material-icons,
 	.side-nav .collapsible-header {
-		color: #333;
-		/*color: #fff;*/
+		/*color: #333;*/
+		color: #eee;
 	}
 
+/* Side Navigation Body -----------------------------------------------*/
 	.side-nav .collapsible-body {
 		border-top: 1px solid rgba(0,0,0,0.2);
 	}
@@ -171,19 +175,34 @@
 		padding: 1em;
 	}
 /*------------------------------------------------------------*/
+/* Side Nav Buttons */
+	.side-nav .btn {
+		background-color: rgba(0,0,0,0.81);
+		padding: 0;
+		width: 90%;
+	}
+	.side-nav li a.header-link.btn:hover,
+	.side-nav li a.btn:hover {
+		background-color: rgba(0,0,0,0.9);
+	}
+/*------------------------------------------------------------*/
 /* Submit Button */
 	.fixedToBottom {
 		position: absolute;
-		bottom: 80px;
-		left: 50px;
+		/*bottom: 80px; left: 50px;*/
+		bottom: 60px;
+		left: 0px;
+		width: 100%;
+		border-radius: 0px;
+		box-shadow: none;
 		height: 45px;
 		line-height: 45px;
-		padding: 0 3rem;
 	}
-	#applyFilters  {
+	.side-nav #applyFilters  {
+		/*padding: 0 3rem;*/
 		/*position: relative;*/
-		background-color: #e74c3c;
-		background-color: #d32f2f;
+		/*background-color: #e74c3c;*/
+		/*background-color: #d32f2f;*/
 	}
 /*------------------------------------------------------------*/
 /* Chips */

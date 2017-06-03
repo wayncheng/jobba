@@ -60,7 +60,7 @@
 	}
 
 
-	.past-banner .header-link.btn {
+	.past-banner #main-nav-body .header-link.btn {
 		background-color: transparent;
 		background-color: rgba(0,0,0,0.5);
 		height: 40px;
