@@ -10,6 +10,7 @@ companyList: [],
 printFrom: 'allResults',
 totalResultCount: 0,
 page: 1,
+lastPage: 1,
 itemsPerPage: 20,
 resultNumber: 1,
 userIP: '',
@@ -18,6 +19,30 @@ getIP:
 	        g.userIP = data.ip;
 	        console.log('jobba.userIP',g.userIP);
 	    }),
+lastSearchLocal: {
+	save: 	function(q,city){
+				if (q == '' || city == '') return;
+
+				var obj = {
+					'q': q,
+					'city': city,
+				};
+
+				localStorage.setItem('lastSearch', JSON.stringify(obj));
+			},
+	get: 	function(){
+				var str = localStorage.getItem('lastSearch');
+				if(str) {return str;}
+				else { return }
+			},
+	print: 	function(str){
+				var str = g.lastSearchLocal.get();
+				var item = JSON.parse(str);
+
+				$('#last-search-q').text(item.q);
+				$('#last-search-city').text(item.city);
+			},
+	},
 apiStatus: ['processing','processing','processing','processing'],
 apiCheckpoint: 'processing',
 apiCheck: 0,
@@ -44,106 +69,210 @@ sortDateNewest:
 
 			// g.pagination();
 		},
-filteredCount: 0,
-whiteList: [],
-blackList: [],
-filterTerms:
-		function(inTerms,exTerms){
-			var data = g.partData;
-			if (data.length === 0) data = g.allResults; // If data already filtered, use it. Else, use all results
-			var data = g.allResults;
-
-			var filtered = data.filter(function(res){
-				var str = res.title.toUpperCase();
-
-				var black = exTerms.map(function(term){
-					term = term.toUpperCase().trim();
-
-					// Term vs. Title String comparison
-					var bool = str.includes(term);
-				
-					// Only return if there are no matches
-					return bool;
-				});
-				var white = inTerms.map(function(term){
-					term = term.toUpperCase().trim();
-
-					// Term vs. Title String comparison
-					var bool = str.includes(term);
-				
-					// Only return if there are no matches
-					return bool;
-				});
-
-
-				// var final = m.filter(function(){
-				// Return if can't find any match
-				var blackCheck = black.indexOf(true); 
-				var whiteCheck = white.indexOf(false); 
-				console.log('blackCheck',blackCheck);
-				console.log('whiteCheck',whiteCheck);
-				return blackCheck === -1 && whiteCheck === -1;
-				// });
-				// console.log('final',final);
-				// return final;
-
-			})
-
-			g.whiteList = inTerms;
-			g.blackList = exTerms;
-			g.partData = filtered;
-			console.log('g.partData',g.partData);
-
-			g.printFrom = 'partData';
-
-			console.log('blacklist',exTerms);
-			console.log('whitelist',inTerms);
-			Materialize.toast('Listing filtered by terms!', 2000);
-
-			g.pagination();
+toast: 
+		function(msg){
+			Materialize.toast(msg,2000);
 		},
-resultFilter: 
-		function(hideList){
-			var all = g.allResults;
+filter: {
+	byTerms: {
+			whiteList: [],
+			blackList: [],
+			trigger: 
+					$('.filterTermInput').on('keyup',function(event){ // Add tag to lists and trigger function
+						event.preventDefault();
+						var c = event.keyCode
+						var list;
+						var bagSel; 
+						var classVar;
+						// Bail unless key pressed is comma or return 
+						if ( c !== (13 || 44) ) return;
 
-			g.partData = all.filter(function(res){
-				// Return if not found in hideList array
-				var iof = hideList.indexOf(res.source);
-				return iof === -1;
-			});
-			
-			// Count the number of items in filtered data for comparison
-			g.filteredCount = g.partData.length;
+					// If right key pressed, save tag
+						var whichList = $(this).attr('id');
+						if (whichList === 'includeTerms'){
+							list = g.filter.byTerms.whiteList;
+							bagSel = '#whiteList';
+						}
+						else {
+							list = g.filter.byTerms.blackList;
+							bagSel = '#blackList';
+						}
+						// Text inputs
+						var textInput = $(this).val().trim()
 
-			// In event there are no results after filtering
-			if( g.filteredCount === 0 )
-				alert("No results that fit what you are searching for.");
-			// In event filtering didn't remove anything
-			else if ( g.filteredCount === g.totalResultsCount ) {
-				alert("The filters did not remove any results");
-			}
-			console.log('g.filteredCount',g.filteredCount);
-			console.log('g.partData',g.partData);
+						// Push to lists
+						list.push(textInput);
 
-			// Update where to print from
-			g.printFrom = 'partData';
+						// Clear input fields
+						$(this).val('');
 
-			Materialize.toast('Result sources filtered!', 2000);
+						// Add chip for term
+						// Sample: <div class="chip"> Tag <i class="close material-icons">close</i> </div>
+						var chip = $('<div>').addClass('chip');
+						var x = $('<i>').addClass('close material-icons').text('close');
+						chip.text(textInput);
+						chip.attr('data-term',textInput);
+						chip.append(x);
+						$(bagSel).append(chip);
 
-			g.pagination();
+						// Pass on to function
+						g.filter.byTerms.fx(g.filter.byTerms.whiteList, g.filter.byTerms.blackList);
+
+					}),
+			removal: 
+					$('.chip-bag').on('click','.close',function(e){
+							e.preventDefault();
+							var $t = $(this);
+							var term = $t.parent('.chip').attr('data-term');
+							var chipBag = $t.parents('.chip-bag').attr('id');
+							var targetList;
+							// console.log('chipBag',chipBag);
+							// console.log('term',term);
+
+							if (chipBag === 'blackList') {
+								targetList = g.filter.byTerms.blackList;
+							 	// Remove term from term list 
+								g.filter.byTerms.blackList = targetList.filter(function(eachTerm){
+									return eachTerm !== term;
+								});
+								// console.log('blackList',g.filter.byTerms.blackList);
+								// console.log('targetList',targetList);
+							}
+							else if (chipBag === 'whiteList'){
+								targetList = g.filter.byTerms.whiteList;
+							 	// Remove term from term list 
+								g.filter.byTerms.whiteList = targetList.filter(function(eachTerm){
+									return eachTerm !== term;
+								});
+								// console.log('whiteList',g.filter.byTerms.whiteList);
+								// console.log('targetList',targetList);
+							}
+
+							// Remove from DOM
+							$t.parent('.chip').remove();
+
+							// Refilter new terms --- (refine this in the future to just restore the difference)
+							g.filter.byTerms.fx(g.filter.byTerms.whiteList, g.filter.byTerms.blackList);
+					}),
+			fx: 
+					function(inTerms,exTerms){
+						console.log('blacklist',exTerms);
+						console.log('whitelist',inTerms);
+						
+						// If data already filtered, use it. Else, use all results
+						// var data = g.partData;
+						// if (data.length === 0 || g.blackList.length > exTerms.length || g.whiteList.length < inTerms.length ) { 
+						// 	data = g.allResults 
+						// } 
+						var data = g.allResults;
+
+						var filtered = data.filter(function(res){
+							var str = res.title.toUpperCase();
+
+							var black = exTerms.map(function(term){
+								term = term.toUpperCase().trim();
+
+								// Term vs. Title String comparison
+								var bool = str.includes(term);
+							
+								// Only return if there are no matches
+								return bool;
+							});
+							var white = inTerms.map(function(term){
+								term = term.toUpperCase().trim();
+
+								// Term vs. Title String comparison
+								var bool = str.includes(term);
+							
+								// Only return if there are no matches
+								return bool;
+							});
+
+							// Return if can't find any match (matches are bad)
+							var blackCheck = black.indexOf(true); 
+							var whiteCheck = white.indexOf(false);
+							return blackCheck === -1 && whiteCheck === -1;
+
+						})
+
+						g.filter.byTerms.whiteList = inTerms;
+						g.filter.byTerms.blackList = exTerms;
+						g.partData = filtered;
+						g.filter.export();
+					},
 		},
+	bySource: {
+			event: 
+					$('#filter-source').on('click','.filterSourceInput',function(event){
+						event.preventDefault();
+						var $t = $(this);
+						$t.toggleClass('data-hide');
+
+						var sourceReport = {show: [], hide: [], };
+						var sourceHidden = [];
+
+						$('.filterSourceInput.data-hide').each(function(){
+							var dataRep = $(this).attr('value');
+							sourceHidden.push(dataRep);
+						});
+						console.log('sourceHidden',sourceHidden);
+
+						// Pass to global filter
+						g.filter.bySource.fx(sourceHidden);
+					}),
+			fx: 
+					function(hideList){
+						// If data already filtered, use it. Else, use all results
+						var data = g.partData;
+						if (data.length === 0) { data = g.allResults } 
+
+						g.partData = data.filter(function(res){
+							// Return if not found in hideList array
+							var iof = hideList.indexOf(res.source);
+							return iof === -1;
+						});
+
+						g.filter.export();
+					},
+		},
+	export:
+			function(){
+				// console.log('g.partData.length',g.partData.length);
+				// console.log('g.partData',g.partData);
+
+				// Update where to print from
+				g.printFrom = 'partData';
+
+				// In event filtering didn't remove anything
+				if ( g.partData.length === g.totalResultCount ) {
+					g.toast("The filters did not remove any results. Showing all results");
+					g.printFrom = 'allResults';
+				}
+
+				// Update amount of results after filters
+				$('#result-count').text(g[g.printFrom].length);
+
+				g.paginationSet();
+			},
+},
 checkStatus:
 		function(){
 			// Check for change in progress, update bar if there is
 			var oldStatus = g.prevCheck;
 			var newStatus = g.apiCheck;
-			if ( newStatus > oldStatus ) {
-				var pct = g.apiCheck/5*100 + 10;
+			if ( newStatus > oldStatus && newStatus < 100) {
+				var pct = g.apiCheck/5*100;
 				console.log('pct',pct);
 				// $('.progress-target').css('width',pct+'%');
 				$('.progress-target').animate({
+					'width': (pct+10)+'%'
+				}, 500);
+				$('.progress-bar').animate({
 					'width': pct+'%'
 				}, 500);
+			}
+			else if ( newStatus >= 100 ) {
+				$('.progress-bar','.progress-target').css('width','0%');
 			}
 			//  Update previous status since check is done.
 			g.prevCheck = g.apiCheck;
@@ -176,11 +305,10 @@ checkStatus:
 
 		},
 getItemsPerPage: 	
-		$('#pagination-num-sel input').on('change', function(event){
+		$('#per-page-options').on('click','.pagination-num-opt', function(event){
 			event.preventDefault();
-			g.itemsPerPage = parseInt( $(this).val() );
-			g.pagination();
-			// Bug! -- Need to return to 1st page
+			g.itemsPerPage = parseInt($(this).text());
+			g.paginationSet();
 		}),
 dedup:
 		function(jobObj){
@@ -321,7 +449,7 @@ printManager:
 
 			// Increment total result counter, write to page
 			g.totalResultCount++;
-			$('#total-result-count').text(g.totalResultCount);
+			$('#result-count').text(g.totalResultCount);
 
 			// Analyze individual listing
 				// Get listing's company
@@ -363,26 +491,20 @@ beginPrint:
 			// Remove landing styling
 			$('.landing').removeClass('landing');
 
-			// Display the feed elements;
-			$('#page1').show();
-			$('#pg-1').css('display','initial');
-			
-			// Banner Effects
-			$('#banner').css({
-				'height': '50vh',
-				'background-position-y': '70%'
-			});
-			$('.banner-body').css('margin-top','0px');
-
-			// Scroll to Top Button
-			$('#scroll-to-top').show();
+			$('html').addClass('feed-printed');
 
 			// Begin printing
-			g.pagination(g.allResults);
+			// g.pagination(g.allResults);
+			g.paginationSet();
 		},
 paginationHandler: 
-		$('.pagination > li > a').on('click',function(event){
+		$('.pagination').on('click','.pg-control',function(event){
 			event.preventDefault();
+
+			// If clicked button is disabled, bail out
+			if ($(this).hasClass('disabled') === true) {
+				return;
+			}
 
 			// Novia: Display .save-wrap when user is logged on
 			var userId;
@@ -411,13 +533,10 @@ paginationHandler:
 			currentPageEl.removeClass('active');
 
 			// Get target page
-			var targetPageEl = $(this).parent('li');
+			var targetPageEl = $(this);
 			var targetData = parseInt(targetPageEl.attr('data-pg'));
-			// var targetPage = parseInt( targetPageEl.text() );
 
-			// console.log('targetData',targetData);
-
-			
+			// Guidance for the < and > buttons
 			if ( targetData === 0 ) {
 				targetData = currentPage - 1
 			}
@@ -425,7 +544,19 @@ paginationHandler:
 				targetData = currentPage + 1
 			}
 
+			// Styling for the < and > buttons
+			// Clear disabled classes, then add back on if appropriate 
+			$('#pg-prev, #pg-next').removeClass('disabled');
+			// (probably a better way to do this, but I'm too lazy to think of it right now)
+			if (targetData === 1) {
+				$('#pg-prev').addClass('disabled');
+			}
+			if (targetData === g.lastPage) {
+				$('#pg-next').addClass('disabled');
+			}
+
 			// Add "active" class to target page
+			targetPageEl = $('.pg-control[data-pg="'+targetData+'"]');
 			targetPageEl.addClass('active');
 
 			// Set page in global variable, which will be used by pagination();
@@ -434,17 +565,97 @@ paginationHandler:
 			// Print target page
 			g.pagination();
 		}),
-pagination: 
+paginationSet:
 		function(){
+			var numberOfPages, resultCount;
+
+			// If filtered, print from partData
+			// if (g.partData.length !== 0) { 
+			// 	resultCount = g.partData.length 
+			// }
+			// else { 
+			// 	resultCount = g.totalResultCount 
+			// }	
+			resultCount = g[g.printFrom].length;
+			// Display message saying there are no results
+			if (resultCount === 0) {
+				$('html').addClass('no-results');
+				console.log('No Results to Show');
+				// var $div = $('<div>');
+				// 	$div.addClass('no-results');
+				// var $h2 = $('<h2>');
+				// 	$h2.addClass('no-results');
+				// 	$h2.text('Sorry, there are no results that match your search criteria.');
+				// 	$div.append($h2);
+				// $('#feed').empty();
+				// $('#feed').append($div);
+				return;
+			}
+			else {
+				$('html').removeClass('no-results');
+			}
+			// Count number of pages in results
+			numberOfPages = parseInt(resultCount / g.itemsPerPage);
+
+			// Accounting for last page
+			var remainder = resultCount % g.itemsPerPage;
+			if (remainder !== 0) {
+				numberOfPages++;
+			}	
+			
+			// Set last page value for use by handler
+			g.lastPage = numberOfPages;
+
+			// Clear previous pagination controls
+			$('#pg-control-wrap').empty();
+
+			// Add pagination control for each page
+			for (var i=1; i<=numberOfPages; i++) {
+				var li = $('<li>');
+					li.addClass('pg-control waves-effect');
+					li.attr('data-pg',i);
+					
+					// Style 1st page as active since we're returning there
+					if (i === 1) {
+						li.addClass('active');
+					};
+
+					var a = $('<a>');
+						a.attr('href','#!');
+						a.text(i);
+				li.html(a);
+				$('#pg-control-wrap').append(li);
+			};
+
+			// Call pagination to print 1st page
+			g.page = 1;
+			g.pagination();
+
+
+			console.log('numberOfPages',numberOfPages);
+			console.log('resultCount',resultCount);
+			console.log('g.itemsPerPage',g.itemsPerPage);
+		},
+pagination: 
+		function(){	
+
 			// Determine start and end indeces of print range
 			var start = (g.page-1) * g.itemsPerPage;
-			// var end = (page * itemsPerPage) - 1;
 			var end = g.page * g.itemsPerPage;
+
+			// Account for last page
+			var length = g[g.printFrom].length;
+			if (end >= length) {
+				end = length;
+			}
+
+			// Write start and end to feed details
+			var range = (start+1) +'-'+ end;
+			$('#page-range').text(range);
 
 			// Clear feed
 			$('#feed').empty();          
 
-			// var printFrom = g.printFrom;
 			// Loop through listings from start to end in allResultsStr array
 			for (var i=start; i<end; i++) {
 				// Set current index in global
@@ -454,6 +665,7 @@ pagination:
 			};
 
 			g.markTerms();
+
 		},
 print: 	
 		function(jobObj){
@@ -512,10 +724,26 @@ print:
 				headlineEl.text(title);
 
 			// var company already exists
-			var companyEl = $('<h3>');
-				companyEl.addClass('company');
-				companyEl.text(company);
+			var subheadlineEl = $('<h3>');
+				subheadlineEl.addClass('subheadline');
 
+				var subheadCompany = $('<span>');
+					subheadCompany.addClass('company');
+					subheadCompany.text(company);
+				
+				var subheadLocation = $('<span>');
+					subheadLocation.addClass('location');
+					subheadLocation.text(location);
+				
+				var subheadDate = $('<span>');
+					subheadDate.addClass('date');
+					subheadDate.text(date);
+
+					subheadlineEl.append(subheadCompany);
+					subheadlineEl.append(subheadLocation);
+					subheadlineEl.append(subheadDate);
+
+			// Save Wrap
 			var saveWrap = $('<span>');
 				saveWrap.addClass('save-wrap ghost');
 				saveWrap.attr('data-saved','false');
@@ -528,6 +756,12 @@ print:
 			// 		p.text(metaArray[i].value);
 			// 		bodyEl.append(p);
 			// };
+
+			var companyWrap = $('<p>');
+				companyWrap.addClass('meta-detail');
+				companyWrap.addClass('company');
+				companyWrap.text(company);
+
 			var locationWrap = $('<p>');
 				locationWrap.addClass('meta-detail');
 				locationWrap.addClass('location');
@@ -552,6 +786,7 @@ print:
 
 			
 			// meta
+			bodyEl.append(companyWrap);
 			bodyEl.append(locationWrap);
 			bodyEl.append(dateWrap);
 			bodyEl.append(sourceWrap);
@@ -569,7 +804,7 @@ print:
 			// All Appends
 			headerEl.append(listingNumberEl);			
 			headerEl.append(headlineEl);			
-			headerEl.append(companyEl);			
+			headerEl.append(subheadlineEl);			
 
 			listingEl.append(headerEl);
 			listingEl.append(saveWrap);
@@ -583,8 +818,8 @@ markTerms:
 			var q = $('#search').val().split(' ');
 			$(".meta-detail.description").mark(q);
 
-			if (g.whiteList.length !== 0){
-				$('.listing').mark(g.whiteList);
+			if (g.filter.byTerms.whiteList.length !== 0){
+				$('.listing').mark(g.filter.byTerms.whiteList);
 			}
 			// var options = {
 			//     "element": "mark",
@@ -655,7 +890,7 @@ reset:
 			g.page = 1;
 
 			// Hide feed until ready
-			$('#page1').hide();
+			// $('#page1').hide();
 
 		},
 scrollToTop: 
@@ -679,6 +914,9 @@ submit:
 			var q = $('#search').val();
 			var city = $('#q-city').val().trim();
 			var lat, lng;
+			
+			// Store the last search locally
+			g.lastSearchLocal.save(q,city);
 
 			// If location left blank, get current location
 			if ( city === '' ) {
@@ -731,6 +969,7 @@ submit:
 
 			var linkupURL = g.api.linkup.createURL(q,city,"","100");
 			g.api.linkup.ajaxCall(linkupURL,g.api.linkup.getResponse);
+
 		}),
 apiError:
 		function(){
