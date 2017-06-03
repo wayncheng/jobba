@@ -901,8 +901,13 @@ scrollToTop:
 		}),
 submit: 
 		$('#submit').on('click', function(event){
+			console.log("SUBMIT CLICKED 1");
 		    event.preventDefault();
+		    console.log("SUBMIT CLICKED 2");
+
 			g.reset();
+
+			console.log("SUBMIT CLICKED 3");
 
 
 			// console.log("reset!! #before"+sessionStorage.getItem("userKey"));
@@ -920,7 +925,10 @@ submit:
    //                $("#displayJobs").css('visibility', 'visible');
         
    //          }
-
+   			if($('#q-city').val().trim()===""){
+				alert("City empty");
+			}
+			else{
 
 			if ( g.apisRunning === true ) {
 				return;
@@ -929,27 +937,30 @@ submit:
 				g.apisRunning = true;
 			}
 
-			// Search parameters
-			var q = $('#search').val();
-			var city = $('#q-city').val().trim();
-			var lat, lng;
-			
-			// Store the last search locally
-			g.lastSearchLocal.save(q,city);
+				// Search parameters
+				var q = $('#search').val();
+				var city = $('#q-city').val().trim();
+				var lat, lng;
+				
+				// Store the last search locally
+				g.lastSearchLocal.save(q,city);
 
-			// If location left blank, get current location
-			if ( city === '' ) {
-				alert('Enter a Location');
-				$('.loc-wrap').addClass('has-error');
-				$('#q-city').on('change',function(event){
-					event.preventDefault();
-					var loc = $('#q-city').val().trim();
-					if (loc.length > 0) {
-						$('.loc-wrap').removeClass('has-error');
-					}
-				});				
-				return;
-			}
+				// If location left blank, get current location
+				if ( city === '' ) {
+					// alert('Enter a Location');
+					$('.loc-wrap').addClass('has-error');
+
+					$('#q-city').on('change',function(event){
+						event.preventDefault();
+						var loc = $('#q-city').val().trim();
+						if (loc.length > 0) {
+							$('.loc-wrap').removeClass('has-error');
+						}
+					});
+
+					// return;
+				}
+			
 
 			// Add global loading class to html, so any element that 
 			// has different style depending on load status, can specify
@@ -988,6 +999,8 @@ submit:
 
 			var linkupURL = g.api.linkup.createURL(q,city,"","100");
 			g.api.linkup.ajaxCall(linkupURL,g.api.linkup.getResponse);
+
+			} // End of else
 
 		}),
 apiError:
