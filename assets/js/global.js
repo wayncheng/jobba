@@ -20,6 +20,21 @@ getIP:
 	        console.log('jobba.userIP',g.userIP);
 	    }),
 geolocation: {
+	location: '',
+	userTrigger: $('#location-icon').on('click',function(e){
+						e.preventDefault();
+						$(this).addClass('active'); // turn blue
+
+						g.geolocation.get();
+					}),
+	removeTrigger: $('#q-city').on('keyup',function(e){
+						e.preventDefault();
+						// If value changes, then we remove active class from icon;
+						var user = $('#q-city').val().trim();
+						if ( user != g.geolocation.location ) {
+							$('#location-icon').removeClass('active');
+						}
+					}),
 	isSupported: function(){
 					// check for Geolocation support
 					if (navigator.geolocation) {
@@ -58,8 +73,8 @@ geolocation: {
 					};
 					function geoError(error) {
 						console.log('Error occurred. Error code: ' + error.code);
-            alert('Please enter a location');
-					  return;
+			            alert('Please enter a location');
+						return;
 						// error.code can be:
 						//   0: unknown error
 						//   1: permission denied
@@ -87,11 +102,21 @@ geolocation: {
 				    	// console.log(city,state,country);
 
 				    	var a = response.results[0].formatted_address;
+				    	g.geolocation.location = a;
 				    	console.log('a',a);
 
-				    	// Set location in search bar & allow submission
+				    	// Set location in search bar, change color of location icon
 				    	$('#q-city').val(a);
-				    	g.submitCheck();
+				    	$('#location-icon').addClass('active');
+
+				    	// If main search is empty, don't continue
+				    	if ($('#search').val().trim().length === 0) {
+				    		return;
+				    	}
+				    	else {
+					    	// Re-evaluate for submission
+					    	g.submitCheck();
+				    	}
 
 				    });
 
@@ -106,19 +131,34 @@ lastSearchLocal: {
 					'city': city,
 				};
 
-				localStorage.setItem('lastSearch', JSON.stringify(obj));
+				var str = JSON.stringify(obj);
+				localStorage.setItem('lastSearch', str);
+
+				$('#last-search-q').text(obj.q);
+				$('#last-search-city').text(obj.city);
 			},
 	get: 	function(){
 				var str = localStorage.getItem('lastSearch');
-				if(str) {return str;}
-				else { return }
+				if(str) {
+					$('#last-search').show();
+					return str;
+				}
+				else {
+					$('#last-search').hide(); 
+					return; 
+				}
 			},
-	print: 	function(str){
+	print: 	function(){
 				var str = g.lastSearchLocal.get();
-				var item = JSON.parse(str);
+				if(str) {
+					var item = JSON.parse(str);
 
-				$('#last-search-q').text(item.q);
-				$('#last-search-city').text(item.city);
+					$('#last-search-q').text(item.q);
+					$('#last-search-city').text(item.city);
+				}
+				else {
+					return;
+				}
 			},
 	},
 apiStatus: ['processing','processing','processing','processing'],
@@ -989,7 +1029,7 @@ submitCheck:
 			g.reset();
 
 			// Search parameters
-			// var q = $('#search').val();
+			var q = $('#search').val();
 			var city = $('#q-city').val().trim();
 
 			// console.log("reset!! #before"+sessionStorage.getItem("userKey"));
