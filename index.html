@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="landing feed-printed no-results">
+<html class="landing no-results">
 
 <head>
 	<title>Jobba</title>
@@ -35,26 +35,9 @@
 	<link href="assets/css/side-navs.css" rel="stylesheet">
 	<link href="assets/css/do-not-disturb.css" rel="stylesheet">
 	<link href="assets/css/loading-icon.css" rel="stylesheet">
-  
-  <link rel="stylesheet" href="assets/css/auto-complete.css">
+	<link href="assets/css/auto-complete.css" rel="stylesheet">
+	<link href="assets/css/conditional.css" rel="stylesheet">
 
-  <style>
-      .logged-in .save-wrap { visibility: visible;}
-      .logged-in #displayJobs { visibility: visible;}
-      .logged-in #signInWithGithub { visibility: hidden;}
-      .logged-in #signInWithGithubSide { visibility: hidden;}
-      .logged-in #signOut { visibility: visible;}
-      .logged-in #signOutSide { visibility: visible;}
-      
-
-      .save-wrap { visibility: hidden;}
-      #displayJobs { visibility: hidden;}
-      #signInWithGithub { visibility: visible;}
-      #signOut { visibility: hidden;}
-      #signInWithGithubSide { visibility: visible;}
-      #signOutSide { visibility: hidden;}
-        
-  </style>
 </head>
 
 <body>
@@ -65,7 +48,7 @@
             <!-- <a id="logo-container" href="index.html" class="brand-logo right"> </a> -->
             <ul id="main-nav-body" class="pin-target left hide-on-med-and-down">
                 <li>
-                    <a href="#" class="blue header-link login sign-in btn" id="signInWithGithub" title="Sign in with Github">
+                    <a href="#" class="header-link login sign-in btn" id="signInWithGithub" title="Sign in with Github">
                         <!-- <i class="fa fa-github fa-lg" aria-hidden="true"></i>  -->
                         <!-- <i class="jba jba-github jba-left"></i> -->
                         Github Login </a>
@@ -84,7 +67,7 @@
                 </li>
                 
                 <li>
-                    <a href="resumeGrader.html" class="blue header-link login sign-in btn" id="gradeResume" title="Grade Your Resume">
+                    <a href="resumeGrader.html" class="header-link" id="gradeResume" title="Grade Your Resume">
                         Resume Grader </a>
                 </li>
             </ul>
@@ -93,11 +76,11 @@
                     <a class="close-btn" href="#!">Close Main Menu<i class="material-icons">clear_all</i></a>
                 </li>
                 <li>
-                    <a href="#!" class="blue header-link login sign-in btn" id="signInWithGithubSide" title="Sign in with Github">
+                    <a href="#!" class="header-link login sign-in btn" id="signInWithGithubSide" title="Sign in with Github">
                     Github Login </a>
                 </li>
                 <li>
-                    <a href="#saved-jobs-modal" class="blue header-link btn" id="displayJobs" title="View Saved Jobs">
+                    <a href="#saved-jobs-modal" class="header-link btn" id="displayJobs" title="View Saved Jobs">
                     Saved Jobs </a>
                 </li>
                 <li>
@@ -105,7 +88,7 @@
                     Sign Out </a>
                 </li>
                 <li>
-                    <a href="resumeGrader.html" class="header-link login sign-out btn" id="gradeResume" title="Grade Your Resume">
+                    <a href="resumeGrader.html" class="header-link" id="gradeResume" title="Grade Your Resume">
                     Resume Grader </a>
                 </li>
             </ul>
@@ -121,26 +104,26 @@
 				<!-- <div class="bar input-field input-text-wrap col s10 offset-s1 m6 offset-m1 l6 offset-l1 xl7"> -->
 				<div class="bar input-field input-text-wrap col s10 offset-s1 m8 offset-m2 l6 offset-l1 xl6">
 					<input id="search" placeholder="Search for Jobs" type="text" class="bar validate">
-				</div>
+					</div>
 				<!-- <div class="bar input-field input-text-wrap col s10 offset-s1 m3 l3 xl4"> -->
 				<div class="bar input-field input-text-wrap col s10 offset-s1 m6 offset-m2 l3 xl4">
 					<input id="q-city" placeholder="Location" type="text" class="bar validate">
-				</div>
+					</div>
 				<!-- <div class="bar input-button input-field col s10 offset-s1 m1 l1 xl1"> -->
 				<div class="bar input-button input-field col s10 offset-s1 m2 l1 xl2">
 					<button id="submit" class="bar btn waves-effect waves-light" type="submit" name="action">
 						<i class="material-icons">search</i>
 						<span class="progress-bar"></span>
 					</button>
-				</div>
-			</div>
-			<div class="row">
+					</div>
 				<span id="last-search" class="last-search wrap col s10 offset-s1 m8 offset-m2 l6 offset-l1 xl6">
 					<a href="#!" id="last-search-trigger" class="last-search trigger">
 						<span id="last-search-q" class="last-search target">Web Developer</span>
 						<span id="last-search-city" class="last-search target">San Diego, CA</span>
 					</a>
-				</span>
+					</span>
+			</div>
+			<div class="row">
 				
 			</div>
 		</form>
@@ -346,7 +329,7 @@
 		<!-- Fixed to Bottom -->
 		<!-- <div class="fixedToBottom">
 	        	</div> -->
-		<a id="applyFilters" class="fixedToBottom blue btn waves-effect waves-light" href="#!">Filter Results</a>
+		<!-- <a id="applyFilters" class="fixedToBottom btn waves-effect waves-light" href="#!">Apply Filters</a> -->
 	</ul>
 	<!-- /sideNav -->
 	<!--=============================================-->

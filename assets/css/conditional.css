@@ -1,0 +1,28 @@
+
+/* Logged In, Logged Out */
+
+      .logged-in #signOut,
+      .logged-in #displayJobs,
+      .logged-in #signOutSide,
+      .logged-in .save-wrap { 
+            visibility: visible;
+            display: inline-block;
+      }
+      .logged-in #signInWithGithubSide, 
+      .logged-in #signInWithGithub { 
+            visibility: hidden;
+            display: none;
+      }
+
+      #signOut,
+      #displayJobs,
+      #signOutSide,
+      .save-wrap { 
+            visibility: hidden;
+            display: none;
+      }
+      #signInWithGithubSide,
+      #signInWithGithub { 
+            visibility: visible;
+            display: inline-block;
+      }
