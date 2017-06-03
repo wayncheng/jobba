@@ -1,6 +1,9 @@
 $(document).ready(function () {
 		// Get user's IP
 		jobba.getIP;
+		// jobba.sortDateNewest();
+		jobba.lastSearchLocal.print();
+
 
 	$('#feed, #saved-feed').on('click','.save-wrap',function(event){
 		event.preventDefault();
@@ -73,13 +76,18 @@ $(document).ready(function () {
 								// Need to log in on Github to trigger correctly. 
 								// Commenting it out for now ;)
 
-
-
-
 	}); // end listing click
 
 
+	$('#last-search-trigger').on('click',function(e){
+		e.preventDefault();
 
+		var search = $('#last-search-q').text();
+		var city =  $('#last-search-city').text();
+		$('#search').val(search);
+		$('#q-city').val(city);
+		$('#submit').trigger('click');
+	})
 	// Feature Function
 	// $('#feed').on('click','.listing',function(event){
 	// 	event.preventDefault();
@@ -139,6 +147,7 @@ $(document).ready(function () {
 
 
 	    if ( scrollPos >= ref.outerHeight()) {
+	    	$('html').addClass('past-banner');
 	    	// el.css('position','fixed');
 	    	el.addClass('pos-fixed');
 	    	el.css('background-color','rgba(0,0,0,0.7)');
@@ -147,8 +156,9 @@ $(document).ready(function () {
 	    	// $('#main-nav-menu-icon').css('color','#333');
 	    }
 	    else {
+	    	$('html').removeClass('past-banner');
 	    	el.removeClass('pos-fixed');
-	    	el.css('background-color','#ffffff');
+	    	el.css('background-color','initial');
 	    	targetEl.removeClass('pos-fixed');
 	    }
     });
@@ -182,21 +192,38 @@ $(document).ready(function () {
       outDuration: 200, // Transition out duration
       startingTop: '4%', // Starting top style attribute
       endingTop: '10%', // Ending top style attribute
-      ready: function(modal, trigger) { 
+      ready: function() { 
 	      // Callback for Modal open. Modal and trigger parameters available.
-        console.log(modal, trigger);
+        console.log('modal open');
       },
       complete: function() { 
       	// Callback for Modal close
       	} 
     });
+    // Resume Modal Init
+    // $('#resume-modal').modal({
+    //   dismissible: true, // Modal can be dismissed by clicking outside of the modal
+    //   opacity: .5, // Opacity of modal background
+    //   inDuration: 300, // Transition in duration
+    //   outDuration: 200, // Transition out duration
+    //   startingTop: '4%', // Starting top style attribute
+    //   endingTop: '10%', // Ending top style attribute
+    //   ready: function() { 
+	   //    // Callback for Modal open. Modal and trigger parameters available.
+    //     console.log('resume modal open');
+    //   },
+    //   complete: function() { 
+    //   	// Callback for Modal close
+    //   	} 
+    // });
+
 
 	// close side nav when link pressed.
 	$('.close-btn').sideNav('hide');
 
 	// Tag Chips
 	$('.chips').material_chip();
-	
+
 
 
 

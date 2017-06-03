@@ -101,66 +101,30 @@
       	
 
 		function ajaxCall(fileContent){
-			var encodedFileContent = encodeURIComponent(fileContent);
-			try{
+
 			$.ajax({
 				type:'POST',
-				url: 'https://cors-anywhere.herokuapp.com/https://rezscore.com/a/9a65ac/grade.xml?resume='+encodedFileContent,
+				url: 'https://cors-anywhere.herokuapp.com/https://rezscore.com/a/9a65ac/grade.xml?resume='+encodeURIComponent(fileContent),
 				async: true,
-				error: function(request,status,errorThrown) {
-        			// There's been an error, do something with it!
-        			// Only use status and errorThrown.
-        			// Chances are request will not have anything in it.
-					$(".progress").hide();
-        			console.log("ERROR STATUS ::: ",status);
-        			console.log("ERROR errorThrown ::: ",errorThrown);
-        			$(".name").text("ERROR OCCURRED");
-
-   			}	
+					
 					
 			}).done(function(response){
-				alert("DONE");
-				console.log("RESPONSE === ", response);
-
-				xmlDoc = $.parseXML( response );
-				var errorCode = $( xmlDoc ).find("error_description");
-				console.log("ERROR CODE VALUE ==== ", errorCode.text());
-
-				if(errorCode.text()){
-					$(".progress").hide();
-					$(".name").text(errorCode.text());
-				}
-				else{
-
 				var jsonResponse = JSON.parse(JSON.stringify(xml2json(response)));
-
 				 $(".progress").hide();
-				 if(jsonResponse.rezscore.score){
-				 	$(".name").text("Your grade is : "+jsonResponse.rezscore.score.grade);
-				 } else{
-				 	$(".name").text("ERROR OCCURRED");
-				 }
-				}
+				 $(".name").text("Your grade is : "+jsonResponse.rezscore.score.grade);
+				 $(".name").append("<br>"+jsonResponse.rezscore.advice.tip.long);
+
 			}).fail(function(error){
 				//Create a new function to process errors
-				alert("FAIL");
 				console.log('fail', error.code);
-				$(".progress").hide();
 				$(".name").text("Error ocurred : "+error.code);
 
 				// Change status to fail.
 			});
-		}catch(e){
-			console.log("excepiton occurred..");
-		} finally{
-			setTimeout(function(){ alert("Error occured");
-			$(".progress").hide();
-			$(".name").text("CORRUPTED FILE OR DIFFERENT FILE EXTENSION");
-			 }, 10000);
 		}
 
-		}
-	});
+		});
+
 
 		function xml2json(xml) {
 		  try {
@@ -192,84 +156,7 @@
 		}
 
 
-			function XML2jsobj(node) {
-				console.log("NODE ==== ",node);
-				var	data = {};
 
-				// append a value
-				function Add(name, value) {
-					if (data[name]) {
-						if (data[name].constructor != Array) {
-							data[name] = [data[name]];
-						}
-						data[name][data[name].length] = value;
-					}
-					else {
-						data[name] = value;
-					}
-				};
-				
-				// element attributes
-				var c, cn;
-				for (c = 0; cn = node.attributes[c]; c++) {
-					Add(cn.name, cn.value);
-				}
-				
-				// child elements
-				for (c = 0; cn = node.childNodes[c]; c++) {
-					if (cn.nodeType == 1) {
-						if (cn.childNodes.length == 1 && cn.firstChild.nodeType == 3) {
-							// text value
-							Add(cn.nodeName, cn.firstChild.nodeValue);
-						}
-						else {
-							// sub-object
-							Add(cn.nodeName, XML2jsobj(cn));
-						}
-					}
-				}
-				console.log("DATA ==== ", data);
-				return data;
-
-}
-
-		// 	function XML2jsobj(node) {
-		// 			var	data = {};
-		// 			// append a value
-		// 		function Add(name, value) {
-		// 			if (data[name]) {
-		// 				if (data[name].constructor != Array) {
-		// 					data[name] = [data[name]];
-		// 				}
-		// 				data[name][data[name].length] = value;
-		// 			}
-		// 			else {
-		// 				data[name] = value;
-		// 			}
-		// 		};
-		// 		// element attributes
-		// 		var c, cn;
-		// 		for (c = 0; cn = node.attributes
-		// 	; c++) {
-		// 			Add(cn.name, cn.value);
-		// 		}
-		// 		// child elements
-		// 		for (c = 0; cn = node.childNodes
-		// 	; c++) {
-		// 			if (cn.nodeType == 1) {
-		// 				if (cn.childNodes.length == 1 && cn.firstChild.nodeType == 3) {
-		// 					// text value
-		// 					Add(cn.nodeName, cn.firstChild.nodeValue);
-		// 				}
-		// 				else {
-		// 					// sub-object
-		// 					Add(cn.nodeName, XML2jsobj(cn));
-		// 				}
-		// 			}
-		// 		}
-		// 		return data;
-
-		// }
 
       </script>
 
