@@ -23,8 +23,8 @@ $('#submit').on('click',function(event){
 		type:'GET',
 		url: qURL,
 	}).done(function(result){
-		
-
+		var r = result.response;
+		var jobTitle = r.jobTitle;
 		console.log('done',result);
 		console.log('Title: ' + result.response.jobTitle)
 	// var payHigh = result.response.payHigh;
@@ -32,6 +32,8 @@ $('#submit').on('click',function(event){
 	// var payMedian = result.response.payMedian;
 
 	// console.log("pay high, low, median "+ payHigh +" "+ payLow + " "+ payMedian);
+
+		$('.job-position-target').text(jobTitle);
 
 	}).fail(function(){
 		console.log('fail', qURL.result);

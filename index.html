@@ -155,8 +155,14 @@
 		<div id="main-body-nav" class="row body-nav">
 			<div class="col s12 m10 offset-m1">
 				<!-- <a id="main-side-nav-link" href="#!" data-activates="nav-mobile" class="pin-target button-collapse float-left"> <i class="main-nav-menu-icon material-icons">menu</i> </a> -->
-				<a id="filter-side-nav-link" href="#!" data-activates="filter-side-nav" class="blue btn button-collapse waves-effect waves-light float-right">
+				<a id="filter-side-nav-link" href="#!" data-activates="filter-side-nav" class="btn button-collapse waves-effect waves-light">
 					<i class="material-icons float-left">clear_all</i> Filter / Sort</a>
+				<a id="salary-trigger" href="#!" data-activates="salary-modal" class="btn button-collapse waves-effect waves-light">
+					<!-- <i class="material-icons float-left">insert_chart</i>  -->
+					<!-- <i class="material-icons float-left">attach_money</i>  -->
+					<i class="material-icons float-left">show_chart</i> 
+					<!-- <i class="material-icons float-left">work</i> -->
+					<span class="job-position-target"></span></a>
 			</div>
 		</div>
 		<!-- Feed Details =========================-->
@@ -237,6 +243,19 @@
 		</div>
 	</div>
 	<!-- /page1 -->
+	<!-- Salary Modal ======================-->
+	<div id="salary-modal" class="modal">
+		<div class="modal-content">
+			<h4>Salary Analysis for <span class="job-position-target"></span></h4>
+			<p>Powered by Glassdoor.</p>
+			<div class="container">
+				
+			</div>
+		</div>
+		<div class="modal-footer">
+			<!-- <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a> -->
+		</div>
+	</div>
 	<!-- Filter Side Nav ======================-->
 	<ul id="filter-side-nav" class="side-nav">
 		<li class="no-padding"><a class="close-btn" href="#!"><i class="material-icons">close</i> Close Filter Menu</a></li>
@@ -363,17 +382,18 @@
 	<!-- <script src="assets/js/firebase-init.js" type="text/javascript" charset="utf-8"></script> -->
 	<script src="assets/js/getCurrentUser.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/login.js" type="text/javascript" charset="utf-8"></script>
-      <script src="assets/js/checkjobs.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/checkjobs.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/global.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/materialize-init.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/script.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/filter-sort.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/displayjobs.js" type="text/javascript" charset="utf-8"></script>
-      <script src="assets/js/removejob.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/removejob.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/benchmark-email-form.js" type="text/javascript"></script>
-      <script src="assets/js/auto-complete.js"></script>
-	<!--      <script src="assets/js/salaries.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/auto-complete.js"></script>
+	     <script src="assets/js/salaries.js" type="text/javascript" charset="utf-8"></script>
 
-      <script src="assets/js/company_info.js" type="text/javascript" charset="utf-8"></script> -->
+      <script src="assets/js/company_info.js" type="text/javascript" charset="utf-8"></script>
 	<!-- <script src="assets/js/devTools.js" type="text/javascript" charset="utf-8"></script> -->
 	<!-- <script src="assets/js/testing.js" type="text/javascript" charset="utf-8"></script> -->
 	<!-- Color Testing -->

@@ -20,15 +20,6 @@
 
 	}
 
-	.body-nav .btn {
-		z-index: 1001;
-	}
-/*	.body-nav .col, .body-nav .input-field, .body-nav p.result-detail,
-	.body-nav {
-		height: 46px;
-		line-height: 46px;
-	}*/
-
 	.body-nav a.btn,
 	.body-nav p.result-detail {
 		display: inline-block;
@@ -36,6 +27,18 @@
 		height: inherit;
 		margin: 0;
 	}
+	.body-nav a.btn {
+		z-index: 1001;
+		float: right;
+		margin-left: 10px;
+		background-color: #2196f3; 
+	}
+/*	.body-nav .col, .body-nav .input-field, .body-nav p.result-detail,
+	.body-nav {
+		height: 46px;
+		line-height: 46px;
+	}*/
+
 
 	.body-nav .nav-title {
 		font-size: 20px;
