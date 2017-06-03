@@ -1468,45 +1468,50 @@ api:
 						var jobsResults = result.resultItemList;
 						// console.log('-----------------DICE RESULTS-----------------');
 						console.log('Dice jobsResults',jobsResults);
-						if (!jobsResults) {
-							console.log('!jobsResults');
-							return;
+
+
+						if (!$.trim(jobsResults)){   
+							//If empty, do...
+
+
 						}
-						for(var i=0; i< jobsResults.length; i++){
-							var ji = jobsResults[i];
-							g.allRawData.push(ji);
+						else{   
 
-							// Convert URL into ID (urls are variable lengths)
-							// from: http://www.dice.com/job/result/10111699/01201702WBDCA?src=19
-							// to: 10111699-01201702WBDCA
-							var urlEnd = ji.detailUrl.slice(31,);
-							var queryStartIndex = urlEnd.indexOf('?')
-							var urlExtracted = urlEnd.slice(0,queryStartIndex);
-							var sourceID = urlExtracted.replace(/[#/]/g,'_');
+							for(var i=0; i< jobsResults.length; i++){
+								var ji = jobsResults[i];
+								g.allRawData.push(ji);
+
+								// Convert URL into ID (urls are variable lengths)
+								// from: http://www.dice.com/job/result/10111699/01201702WBDCA?src=19
+								// to: 10111699-01201702WBDCA
+								var urlEnd = ji.detailUrl.slice(31,);
+								var queryStartIndex = urlEnd.indexOf('?')
+								var urlExtracted = urlEnd.slice(0,queryStartIndex);
+								var sourceID = urlExtracted.replace(/[#/]/g,'_');
 
 
-							// Send to Global Print Function
-							var jobJSON = {
-								"title" :  ji.jobTitle,
-								"jobPosition:": ji.jobTitle,
-								"company": ji.company,
-								"location": ji.location,
-								"date": moment(ji.date).format("MMM D"),
-								"source": "Dice",
-								"sourceID": sourceID,
-								"description": "For job details, visit Dice's website.",
-								"url": ji.detailUrl,
-								"applyURL": ji.detailUrl,
-								"type": 'N/A',
-								"company_url": 'N/A',
-								"company_logo": 'N/A',
-							}
+								// Send to Global Print Function
+								var jobJSON = {
+									"title" :  ji.jobTitle,
+									"jobPosition:": ji.jobTitle,
+									"company": ji.company,
+									"location": ji.location,
+									"date": moment(ji.date).format("MMM D"),
+									"source": "Dice",
+									"sourceID": sourceID,
+									"description": "For job details, visit Dice's website.",
+									"url": ji.detailUrl,
+									"applyURL": ji.detailUrl,
+									"type": 'N/A',
+									"company_url": 'N/A',
+									"company_logo": 'N/A',
+								}
 
-							var jobStr = JSON.stringify(jobJSON);
+								var jobStr = JSON.stringify(jobJSON);
 
-							g.printManager(jobStr);
+								g.printManager(jobStr);
 
-						} // end for loop
+							} // end for loop
 
 						// Change status to done.
 						// g.apiStatus[g.api.dice.apiIndex] = 'done';
@@ -1515,6 +1520,9 @@ api:
 						// console.log('g.apiCheck',g.apiCheck);
 							// var apiIndex = g.api.dice.apiIndex;
 							// g.apiStatus[apiIndex] = 'done';
+
+						}	
+
 					},
 				ajaxCall: 
 					function(qURL, mycallback){
