@@ -36,6 +36,7 @@
 	<link href="assets/css/do-not-disturb.css" rel="stylesheet">
 	<link href="assets/css/loading-icon.css" rel="stylesheet">
 	<link href="assets/css/auto-complete.css" rel="stylesheet">
+	<link href="assets/css/data-analysis.css" rel="stylesheet">
 	<link href="assets/css/conditional.css" rel="stylesheet">
 
     <style type="text/css">
@@ -113,28 +114,22 @@
     <nav id="main-nav" class="transparent header row" role="navigation">
         <div class="nav-wrapper container col s12 m10 offset-m1 xl6 offset-xl3">
             <!-- <a id="logo-container" href="index.html" class="brand-logo right"> </a> -->
-            <ul id="main-nav-body" class="pin-target left hide-on-med-and-down">
+            <ul id="main-nav-body" class="left hide-on-med-and-down">
                 <li>
                     <a href="#" class="header-link login sign-in btn" id="signInWithGithub" title="Sign in with Github">
-                        <!-- <i class="fa fa-github fa-lg" aria-hidden="true"></i>  -->
-                        <!-- <i class="jba jba-github jba-left"></i> -->
                         Github Login </a>
                 </li>
                 <li>
                     <a href="#" class="header-link login sign-out btn" id="signOut" title="Sign out">
-                        <!-- <i class="fa fa-sign-out" aria-hidden="true"></i>  -->
-                        <!-- <i class="jba jba-logout jba-left"></i> -->
                         Sign Out </a>
                 </li>
                 <li>
                     <a href="#saved-jobs-modal" class="blue header-link btn" id="displayJobs" title="View Saved Jobs">
-                        <!-- <i class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>  -->
-                        <!-- <i class="material-icons jba jba-star"></i> -->
                         Saved Jobs </a>
                 </li>
                 
                 <li>
-                    <a href="resumeGrader.html" class="header-link" id="gradeResume" title="Grade Your Resume">
+					<a href="#resume-modal" class="header-link" id="gradeResume" title="Grade Your Resume">
                         Resume Grader </a>
                 </li>
                  <li>
@@ -157,7 +152,7 @@
                     Saved Jobs </a>
                 </li>
                 <li>
-                    <a href="#" class="header-link login sign-out btn" id="signOutSide" title="Sign out">
+                    <a href="#!" class="header-link login sign-out btn" id="signOutSide" title="Sign out">
                     Sign Out </a>
                 </li>
                 <li>
@@ -173,9 +168,6 @@
 	<div id="banner" class="blue-grey darken-3 landing valign-wrapper row">
 		<span id="banner-cover" class="ghost photo-tint"></span>
 		<form class="col s12 xl8 offset-xl2">
-			<!-- <div class="row"> -->
-				<!-- <img id="banner-logo" class="logo logo-text feature-logo" src="assets/icons/jobba-final-text-only-white.png" alt="Jobba"> -->
-			<!-- </div> -->
 			<div class="row">
 				<span id="banner-logo-wrap" class="last-search wrap col s12">
 					<img id="banner-logo" class="logo logo-text feature-logo" src="assets/icons/jobba-final-text-only-white.png" alt="Jobba">
@@ -186,8 +178,8 @@
 					</div>
 				<!-- <div class="bar input-field input-text-wrap col s10 offset-s1 m3 l3 xl4"> -->
 				<div class="bar input-field input-text-wrap col s10 offset-s1 m6 offset-m2 l3 xl4">
-					<i id="location-icon" class="material-icons bar">my_location</i>
-					<input id="q-city" placeholder="Location" type="text" class="bar validate">
+					<i id="location-icon" class="material-icons bar tooltipped" data-position="top" data-delay="50" data-tooltip="Use Current Location">my_location</i>
+					<input id="q-city" placeholder="Location" type="text" class="bar validate tooltipped">
 					</div>
 				<!-- <div class="bar input-button input-field col s10 offset-s1 m1 l1 xl1"> -->
 				<div class="bar input-button input-field col s10 offset-s1 m2 l1 xl2">
@@ -202,9 +194,6 @@
 						<span id="last-search-city" class="last-search target"></span>
 					</a>
 					</span>
-			</div>
-			<div class="row">
-				
 			</div>
 		</form>
 		<!-- <span id="last-search" class="last-search wrap">
@@ -223,17 +212,24 @@
 			<span class="loading-text ghost">Fetching Results...</span>
 		</div>
 	</div>
-	<!--=============================================-->
+<!--=============================================-->
 	<div id="page1">
-		<!-- Body Navigation ========================-->
+	<!-- Body Navigation ========================-->
 		<div id="main-body-nav" class="row body-nav">
 			<div class="col s12 m10 offset-m1">
 				<!-- <a id="main-side-nav-link" href="#!" data-activates="nav-mobile" class="pin-target button-collapse float-left"> <i class="main-nav-menu-icon material-icons">menu</i> </a> -->
-				<a id="filter-side-nav-link" href="#!" data-activates="filter-side-nav" class="blue btn button-collapse waves-effect waves-light float-right">
-					<i class="material-icons float-left">clear_all</i> Filter / Sort</a>
+				<a id="filter-side-nav-link" href="#!" data-activates="filter-side-nav" class="btn button-collapse waves-effect waves-light">
+					<i class="material-icons float-left">sort</i> Filter / Sort</a>
+
+				<a id="salary-trigger" href="#salaryAnalysis" class="btn button-collapse waves-effect waves-light">
+					<!-- <i class="material-icons float-left">insert_chart</i>  -->
+					<!-- <i class="material-icons float-left">attach_money</i>  -->
+					<i class="material-icons float-left">show_chart</i> 
+					<!-- <i class="material-icons float-left">work</i> -->
+					<span class="job-position-target"></span> Job Report</a>
 			</div>
 		</div>
-		<!-- Feed Details =========================-->
+	<!-- Feed Details =========================-->
 		<div id="feed-details" class="row">
 			<div class="col s12 m10 offset-m1 xl6 offset-xl3">
 				<p id="result-number" class="result-detail popout-comp-left">
@@ -242,7 +238,7 @@
 					</p>
 			</div>
 		</div>
-		<!-- Feed =================================-->
+	<!-- Feed =================================-->
 		<div id="feed-row" class="row">
 			<!-- Feed -->
 			<div class="col s12 m10 offset-m1 xl6 offset-xl3">
@@ -277,7 +273,7 @@
 			</div>
 		</div>
 		<!-- /row -->
-		<!-- Pagination ===========================-->
+	<!-- Pagination ===========================-->
 		<div id="pagination-row" class="row center-align">
 			<div class="col s12">
 				<ul class="pagination">
@@ -294,7 +290,8 @@
 			</div>
 		</div>
 		<!-- /row -->
-		<!-- Modal Structure ======================-->
+	</div> <!-- /page1 -->
+	<!-- Saved Jobs Modal ======================-->
 		<div id="saved-jobs-modal" class="modal bottom-sheet">
 			<div class="modal-content">
 				<h4>Saved Jobs</h4>
@@ -310,35 +307,41 @@
 			</div>
 		</div>
 
-        <div id="resume-modal" class="modal bottom-sheet" style="max-height:700px">
-            <div class="modal-content">
-                <h4>Grade Your Resume</h4>
-                <h5>Upload Your Resume(.doc/.txt) OR paste your resume below :</h5>
-                <div id="upload-resume" class="row">
-                    <div class="col s6 ">
-                      <form id="file-form" method="POST">
-                       <input type="file" name="uploadResume"  id="file-select" > 
-                       <br><br>
-                       <textarea class="form-control" id="resumeText" style="min-width: 100%; height: 200px"></textarea>
-                       <a href="#" class="btn btn-info" id="upload-button">Submit</a>
-                      </form>
-                    </div>
-                    <div class="col s6 push-s1 ">
-                       <div id="result">
-                             <div class="progress" style="position: absolute;top: 50%;width: 90%;height: 20px;display: none;color:#3F547F">
-                                <div class="indeterminate" ></div>
-                            </div>
-                            <span id="grade"></span>
-                            <p id="advice"></p>
-                            <p id="error"></p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
+	<!-- Salary Modal ======================-->
+		<div id="salaryAnalysis" class="data-modal modal modal-fixed-footer">
+			<div class="modal-content">
+				<h4><span class="job-position-target">[Position]</span> Job Report</h4>
+				<a class="attribution" href='https://www.glassdoor.com/index.htm'>powered by <img src='https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search' /></a>
+				<div class=""> 
+					<div id="salary-info-wrap" class="data-wrap row">
+						<div class="divider"></div>
+						<div class="section">
+							<h4 class="section-title">Expected Pay Range</h4>
+							<div class="col s4 salary-info">
+								<h5><span id="pay-low" class="target">10k</span></h5>
+								<p class="label">Low</p>
+							</div>
+							<div class="col s4 salary-info">
+								<h5><span id="pay-median" class="target">50k</span></h5>
+								<p class="label">Median</p>
+							</div>
+							<div class="col s4 salary-info">
+								<h5><span id="pay-high" class="target">120k</span></h5>
+								<p class="label">High</p>
+							</div>
+						</div>
+						<div class="divider"></div>
+						<div class="section">
+							<h4 class="section-title">Expected Pay Range</h4>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<!-- <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a> -->
+			</div>
+		</div>       
 	</div>
 	<!-- /page1 -->
 	<!-- Filter Side Nav ======================-->
@@ -442,7 +445,39 @@
 		<!-- <a id="applyFilters" class="fixedToBottom btn waves-effect waves-light" href="#!">Apply Filters</a> -->
 	</ul>
 	<!-- /sideNav -->
-	<!--=============================================-->
+<!--=============================================-->
+	<div id="resume-modal" class="modal bottom-sheet" style="max-height:700px">
+		<div class="modal-content">
+			<h4>Grade Your Resume</h4>
+			<h5>Upload Your Resume(.doc/.txt) OR paste your resume below :</h5>
+			<div id="upload-resume" class="row">
+				<div class="col s6 ">
+					<form id="file-form" method="POST">
+						<input type="file" name="uploadResume" id="file-select">
+						<br>
+						<br>
+						<textarea class="form-control" id="resumeText" style="min-width: 100%; height: 200px"></textarea>
+						<a href="#" class="btn btn-info" id="upload-button">Submit</a>
+					</form>
+				</div>
+				<div class="col s6 push-s1 ">
+					<div id="result">
+						<div class="progress" style="position: absolute;top: 50%;width: 90%;height: 20px;display: none;color:#3F547F">
+							<div class="indeterminate"></div>
+						</div>
+						<span id="grade"></span>
+						<p id="advice"></p>
+						<p id="error"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<!-- <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a> -->
+		</div>
+	</div>
+
+<!--=============================================-->
 	<!-- JS Links -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
@@ -470,20 +505,23 @@
 
 	<script src="assets/js/getCurrentUser.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/login.js" type="text/javascript" charset="utf-8"></script>
-      <script src="assets/js/checkjobs.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/checkjobs.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/global.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/materialize-init.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/script.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/filter-sort.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/displayjobs.js" type="text/javascript" charset="utf-8"></script>
-      <script src="assets/js/removejob.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/removejob.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/benchmark-email-form.js" type="text/javascript"></script>
+
+	<!-- <script src="assets/js/salaries.js" type="text/javascript" charset="utf-8"></script> -->
+	<script src="assets/js/company_info.js" type="text/javascript" charset="utf-8"></script>
+	<!-- <script src="assets/js/resumeGrader.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/pdf.js" type="text/javascript" charset="utf-8"></script> -->
       <script src="assets/js/auto-complete.js"></script>
 	<!--      <script src="assets/js/salaries.js" type="text/javascript" charset="utf-8"></script>
->>>>>>> f24a76adb16e33a7744f5c06c84b9d1c43dd0012
 
-      <script src="assets/js/company_info.js" type="text/javascript" charset="utf-8"></script> -->
-	<!-- <script src="assets/js/devTools.js" type="text/javascript" charset="utf-8"></script> -->
-	<!-- <script src="assets/js/testing.js" type="text/javascript" charset="utf-8"></script> -->
+
 	<!-- Color Testing -->
 	<!-- 
         <a class="amber darken-3 waves-effect waves-light btn">Filter</a>

@@ -1084,6 +1084,9 @@ submit:
 			// } 
 			// goGithub();
 
+			// Glassdoor API Call
+			g.analysis.salary.ajax(q);
+
 			var githubURL = g.api.github.createURL(q,city,"","10");
 			g.api.github.ajaxCall(githubURL,g.api.github.getResponse);
 
@@ -1104,8 +1107,39 @@ submit:
 
 			console.log('q',q);
 			console.log('city', city);
-      } // End of else
+		    } // End of else
 		},
+analysis: {
+	salary: {
+		ajax: function(q){
+			var ip = g.userIP;
+			// var searchTerm = $('#search').val().trim();
+			var searchTerm = q;
+			var qURL = 'https://cors-anywhere.herokuapp.com/https://api.glassdoor.com/api/api.htm?t.p=151095&t.k=dSWk91gUjq3&userip='+ ip +'&useragent=&format=json&v=1&action=jobs-prog&countryId=1&jobTitle='+searchTerm;
+	
+			$.ajax({
+				type:'GET',
+				url: qURL,
+			}).done(function(result){
+				var r = result.response;
+				var jobTitle = r.jobTitle;
+				var payHigh = r.payHigh;
+				var payLow = r.payLow;
+				var payMedian = r.payMedian;
+				console.log('Glassdoor done',result);
+				// console.log('Title: ' + result.response.jobTitle)
+
+			// console.log("pay high, low, median "+ payHigh +" "+ payLow + " "+ payMedian);
+
+				$('.job-position-target').text(jobTitle);
+
+			}).fail(function(){
+				console.log('fail');
+				g.apiError;
+			});
+		}
+	}
+},
 apiError:
 		function(){
 			console.log('apiError');
