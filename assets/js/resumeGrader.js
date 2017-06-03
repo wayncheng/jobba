@@ -30,8 +30,9 @@ $(document).ready(function(){
 					
 				}
   				else if(files.length){
-  					var sFileExtension = files[0].name.split(".")[1];
+  					var sFileExtension = files[0].name.split(".")[files[0].name.split(".").length-1];
   					if(sFileExtension === "pdf"){
+  						console.log("Found PDF File");
 						convertPdfToText(URL.createObjectURL($("#file-select").get(0).files[0]));
 						return;
   					}
@@ -39,6 +40,7 @@ $(document).ready(function(){
 
   					}
   					if(sFileExtension === "txt"){
+  						console.log("Found TXT File");
   						var fr = new FileReader(); // FileReader instance
 					  	fr.readAsText( files[0] );
 						fr.onload = function () {
@@ -47,12 +49,15 @@ $(document).ready(function(){
 						};
 						fr.onerror = function(){
 							console.log("ERROR OCCURRED ==",fr.error);
+							$(".progress").hide();
 							$("#error").text("File Not Uploaded.");
 						};
   					}
   					else{
 
   						//generate error that File not Supported
+  						console.log("Error occurred while getting file.");
+						$(".progress").hide();
   						$("#error").text("File Extension Not Supported.");
   					}
   				}
@@ -115,7 +120,7 @@ $(document).ready(function(){
 
 	function ajaxCall(fileContent){
 			var encodedFileContent = encodeURIComponent(fileContent);
-			
+			console.log("Going to call rezscore api... ");
 			$.ajax({
 				type:'POST',
 				url: 'https://cors-anywhere.herokuapp.com/https://rezscore.com/a/9a65ac/grade.xml',
@@ -125,6 +130,8 @@ $(document).ready(function(){
         				},
 					
 			}).done(function(response){
+				console.log("Done & Received Response.");
+
 				//Catches any 300 errors.
 				xmlDoc = $.parseXML( response );
 				var errorCode = $( xmlDoc ).find("error_description");
@@ -163,7 +170,6 @@ $(document).ready(function(){
 				}
 			}).fail(function(error){
 				//Create a new function to process errors
-				alert("FAIL");
 				console.log('fail', error.code);
 				$(".progress").hide();
 				$("#error").text("Error ocurred : "+error.code);
