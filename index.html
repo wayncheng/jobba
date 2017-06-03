@@ -35,6 +35,73 @@
     <link href="assets/css/side-navs.css" rel="stylesheet">
     <link href="assets/css/do-not-disturb.css" rel="stylesheet">
     <link href="assets/css/loading-icon.css" rel="stylesheet">
+    <style type="text/css">
+       .modal-height{
+            max-height:700px;
+        }
+        /*#resume-modal{
+            max-height:700px;
+        }*/
+        .resume-result{
+            background: #e2e2e2;
+            margin: 2px 0 0 2px;
+            width: 400px;
+            height: 280px;
+            border-radius: 100%;
+            border: #3F547F dashed 3px;
+            padding: 10px;
+
+        }
+        #result{
+            position: relative;
+
+        }
+        .resume-result span{
+            display: block;
+            font-size: 85px;
+            line-height: 70px;
+            margin: 0 0 15px;
+            font-family: Arial;
+            position: absolute;
+            left: 30px;
+            top: 100px;
+            border-right: #a9a9a9 dashed 1px;
+            float: left;
+            color: #3F547F;
+            padding-right: 15px;
+        }
+        .large-advice{
+            font-size: 15px;
+            color: rgb(51, 51, 51);
+            position: absolute;
+            top: 40px;
+            left: 150px;
+            right: 30px;
+            bottom: 20px;
+            /*line-height: 24px;*/
+            /*text-align: justify;*/
+        }
+        .small-advice{
+            font-size: 15px;
+            color: rgb(51, 51, 51);
+            position: absolute;
+            top: 80px;
+            left: 150px;
+            right: 30px;
+            bottom: 20px;
+            /*line-height: 24px;*/
+            /*text-align: justify;*/
+        }
+        #error{
+            font-size: 25px;
+            color: red;
+            position: absolute;
+            margin:auto;
+            line-height: 40px;
+            padding:10px;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -61,6 +128,12 @@
                         <!-- <i class="jba jba-logout jba-left"></i> -->
                         Sign Out </a>
                 </li>
+                 <li>
+                    <a href="#resume-modal" class="header-link btn" id="resumeGrader" title="Resume Grader">
+                        <!-- <i class="fa fa-sign-out" aria-hidden="true"></i>  -->
+                        <!-- <i class="jba jba-logout jba-left"></i> -->
+                        Resume Grader </a>
+                </li>
             </ul>
             <ul id="nav-mobile" class="side-nav">
                 <li>
@@ -77,6 +150,10 @@
                 <li>
                     <a href="#" class="header-link login sign-out btn" id="signOut" title="Sign out">
                     Sign Out </a>
+                </li>
+                <li>
+                    <a href="#resume-modal" class="header-link btn" id="resumeGrader" title="Resume Grader">
+                    Resume Grader </a>
                 </li>
             </ul>
             <a id="header-side-nav-link" href="#!" data-activates="nav-mobile" class="pin-target button-collapse"> <i class="main-nav-menu-icon material-icons">menu</i> </a>
@@ -177,7 +254,7 @@
                 </ul>
             </div>
         </div> <!-- /row --><!-- Modal Structure -->
-        <div id="saved-jobs-modal" class="modal bottom-sheet">
+        <div id="saved-jobs-modal" class="modal bottom-sheet" style="max-height:700px">
             <div class="modal-content">
                 <h4>Saved Jobs</h4>
                 <p>The job listings you have favorited can be found here.</p>
@@ -191,6 +268,48 @@
                 <!-- <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a> -->
             </div>
         </div>
+         <div id="resume-modal" class="modal bottom-sheet" style="max-height:700px">
+            <div class="modal-content">
+                <h4>Grade Your Resume</h4>
+                <h5>Upload Your Resume(.doc/.txt) OR paste your resume below :</h5>
+                <div id="upload-resume" class="row">
+                    <div class="col s6 ">
+                      <form id="file-form" method="POST">
+                       <input type="file" name="uploadResume"  id="file-select" > 
+                       <br><br>
+                       <textarea class="form-control" id="resumeText" style="min-width: 100%; height: 200px"></textarea>
+                       <a href="#" class="btn btn-info" id="upload-button">Submit</a>
+                      </form>
+                    </div>
+                    <div class="col s6 push-s1 ">
+                       <div id="result">
+                             <div class="progress" style="position: absolute;top: 50%;width: 90%;height: 20px;display: none;color:#3F547F">
+                                <div class="indeterminate" ></div>
+                            </div>
+                            <span id="grade"></span>
+                            <p id="advice"></p>
+                            <p id="error"></p>
+                            
+                                 
+            </div>
+
+            <p class="name" ></p>
+        </div>
+                       </div>
+
+                    </div>
+                </div>
+
+              
+            </div>
+            <div class="modal-footer">
+                <!-- <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a> -->
+            </div>
+        </div>
+
+
+
+
     </div> <!-- /page1 -->
 <!-- Filter Side Nav ======================-->
         <ul id="filter-side-nav" class="side-nav">
@@ -332,12 +451,15 @@
     </script>
     <!-- End of Cities autocomplete -->
     <!-- <script src="assets/js/firebase-init.js" type="text/javascript" charset="utf-8"></script> -->
+    <script src="assets/js/pdf.js" type="text/javascript" charset="utf-8"></script>
     
     <script src="assets/js/getCurrentUser.js" type="text/javascript" charset="utf-8"></script>
     <script src="assets/js/login.js" type="text/javascript" charset="utf-8"></script>
+
     <script src="assets/js/global.js" type="text/javascript" charset="utf-8"></script>
     <script src="assets/js/script.js" type="text/javascript" charset="utf-8"></script>
-
+    <script src="assets/js/resumeGrader.js" type="text/javascript" charset="utf-8"></script>
+    
     <script src="assets/js/filter-sort.js" type="text/javascript" charset="utf-8"></script>
 
     <script src="assets/js/displayjobs.js" type="text/javascript" charset="utf-8"></script>

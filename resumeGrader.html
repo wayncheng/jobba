@@ -83,7 +83,10 @@
 						fileContent = fr.result;
 						console.log("FILE CONTENT ======",fileContent);
 						ajaxCall(fileContent);
-					}
+					};
+					fr.onerror = function(){
+						console.log("ERROR OCCURRED ==",fr.error);
+					};
 				}
 		      	rText = document.getElementById('resumeText').value;
 				console.log('resumeText:'+rText);
@@ -98,13 +101,25 @@
       	
 
 		function ajaxCall(fileContent){
+			var encodedFileContent = encodeURIComponent(fileContent);
+			try{
 			$.ajax({
 				type:'POST',
-				url: 'https://cors-anywhere.herokuapp.com/https://rezscore.com/a/9a65ac/grade.xml?resume='+encodeURIComponent(fileContent),
+				url: 'https://cors-anywhere.herokuapp.com/https://rezscore.com/a/9a65ac/grade.xml?resume='+encodedFileContent,
 				async: true,
-					
+				error: function(request,status,errorThrown) {
+        			// There's been an error, do something with it!
+        			// Only use status and errorThrown.
+        			// Chances are request will not have anything in it.
+					$(".progress").hide();
+        			console.log("ERROR STATUS ::: ",status);
+        			console.log("ERROR errorThrown ::: ",errorThrown);
+        			$(".name").text("ERROR OCCURRED");
+
+   			}	
 					
 			}).done(function(response){
+				alert("DONE");
 				console.log("RESPONSE === ", response);
 
 				xmlDoc = $.parseXML( response );
@@ -128,15 +143,24 @@
 				}
 			}).fail(function(error){
 				//Create a new function to process errors
+				alert("FAIL");
 				console.log('fail', error.code);
+				$(".progress").hide();
 				$(".name").text("Error ocurred : "+error.code);
 
 				// Change status to fail.
 			});
+		}catch(e){
+			console.log("excepiton occurred..");
+		} finally{
+			setTimeout(function(){ alert("Error occured");
+			$(".progress").hide();
+			$(".name").text("CORRUPTED FILE OR DIFFERENT FILE EXTENSION");
+			 }, 10000);
 		}
 
-		});
-
+		}
+	});
 
 		function xml2json(xml) {
 		  try {
