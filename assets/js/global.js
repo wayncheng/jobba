@@ -49,11 +49,22 @@ geolocation: {
 	get: function() {
 				// If geolocation not supported, tell them to fill it in manually
 				if (g.geolocation.isSupported === false) {
-					alert('Please enter a location');
+					
+						// When user play punk and dont enter a location
+
+			            Materialize.toast("Enter a location",4000);
+			            $('#q-city').css("border-style","solid");
+			            $('#q-city').css("border-width","2px");			            
+			            $('#q-city').css("border-color","red");
+
+			            // End of when user play punk and dont enter a location
+
+
 					return;
 				}
 				// If geolocation is supported, get the location
 				else {
+
 					var startPos;
 					var geoOptions = {
 						maximumAge: 5 * 60 * 1000,
@@ -61,6 +72,7 @@ geolocation: {
 					};
 
 					function geoSuccess(position) {
+
 						startPos = position;
 						// document.getElementById('startLat').innerHTML = startPos.coords.latitude;
 						// document.getElementById('startLon').innerHTML = startPos.coords.longitude;
@@ -73,7 +85,16 @@ geolocation: {
 					};
 					function geoError(error) {
 						console.log('Error occurred. Error code: ' + error.code);
-			            alert('Please enter a location');
+			            
+						// When user play punk and dont enter a location
+
+			            Materialize.toast("Enter a location",4000);
+			            $('#q-city').css("border-style","solid");
+			            $('#q-city').css("border-width","2px");			            
+			            $('#q-city').css("border-color","red");
+
+			            // End of when user play punk and dont enter a location
+
 						return;
 						// error.code can be:
 						//   0: unknown error
@@ -1040,7 +1061,11 @@ submitCheck:
 				g.geolocation.get();				
 				return;
 			}
-
+			else{
+				$('#q-city').css("outline","none");
+			    $('#q-city').css("border-width","0px");			            
+			    $('#q-city').css("border-color","none");
+			}
 			// Allow submission
 			g.submit();
 		},
