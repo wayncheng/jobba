@@ -901,14 +901,9 @@ scrollToTop:
 		}),
 submit: 
 		$('#submit').on('click', function(event){
-			console.log("SUBMIT CLICKED 1");
+			
 		    event.preventDefault();
-		    console.log("SUBMIT CLICKED 2");
-
-			g.reset();
-
-			console.log("SUBMIT CLICKED 3");
-
+		 	g.reset();
 
 			// console.log("reset!! #before"+sessionStorage.getItem("userKey"));
 
