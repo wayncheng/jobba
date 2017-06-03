@@ -58,6 +58,8 @@ geolocation: {
 					};
 					function geoError(error) {
 						console.log('Error occurred. Error code: ' + error.code);
+            alert('Please enter a location');
+					  return;
 						// error.code can be:
 						//   0: unknown error
 						//   1: permission denied
@@ -991,7 +993,6 @@ submitCheck:
 			var city = $('#q-city').val().trim();
 
 			// console.log("reset!! #before"+sessionStorage.getItem("userKey"));
-
 			
 			console.log('city',city);
 			// If location left blank, get current location
@@ -1000,27 +1001,26 @@ submitCheck:
 				return;
 			}
 
-
 			// Allow submission
 			g.submit();
 		},
 submit: 
 		function(){
 			console.log('submit');
-
-			if ( g.apisRunning === true ) {
-				return;
+   		if($('#q-city').val().trim()===""){
+				alert("City empty");
 			}
-			else {
-				g.apisRunning = true;
-			}
-		// $('#submit').on('click', function(event){
-		    // event.preventDefault();
+			else{
 			
+        if ( g.apisRunning === true ) {
+				  return;
+			  }
+			  else {
+				  g.apisRunning = true;
+			  }
 			// Search parameters
 			var q = $('#search').val();
 			var city = $('#q-city').val().trim();
-
 
 			// Add global loading class to html, so any element that 
 			// has different style depending on load status, can specify
@@ -1064,7 +1064,7 @@ submit:
 
 			console.log('q',q);
 			console.log('city', city);
-
+      } // End of else
 		},
 apiError:
 		function(){
