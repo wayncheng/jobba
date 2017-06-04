@@ -43,6 +43,7 @@
 	<link href="assets/css/data-analysis.css" rel="stylesheet">
 	<link href="assets/css/conditional.css" rel="stylesheet">
 	<link href="assets/css/resume.css" rel="stylesheet">
+	<link href="assets/css/map-modal.css" rel="stylesheet">
 
 </head>
 
@@ -50,7 +51,8 @@
 <!--=============================================-->
   
     <nav id="main-nav" class="transparent header row" role="navigation">
-        <div class="nav-wrapper container col s12 m10 offset-m1 xl6 offset-xl3">
+        <!-- <div class="nav-wrapper container col s12 m10 offset-m1 xl6 offset-xl3"> -->
+        <div class="nav-wrapper">
         <!-- Header Nav -->
 	         <ul id="main-nav-body" class="left hide-on-med-and-down">
 				<li> <a href="#!" class="header-link login sign-in btn" id="signInWithGithub" title="Sign in with Github">
@@ -88,13 +90,17 @@
     </nav>
 
 <!-- Banner =============================================-->
-	<div id="banner" class="blue-grey darken-3 landing valign-wrapper row">
+	<div id="banner" class="landing valign-wrapper row">
 		<span id="banner-cover" class="ghost photo-tint"></span>
 		<form class="col s12 xl8 offset-xl2">
-			<div class="row">
-				<span id="banner-logo-wrap" class="last-search wrap col s12">
+		<div class="row">
+				<div id="banner-logo-wrap" class="last-search wrap">
 					<img id="banner-logo" class="logo logo-text feature-logo" src="assets/icons/jobba-final-text-only-white.png" alt="Jobba">
-					</span>
+					<span class="progress-bar feature-logo"> </span>
+					</div>
+			
+		</div>
+			<div class="row">
 				<!-- <div class="bar input-field input-text-wrap col s10 offset-s1 m6 offset-m1 l6 offset-l1 xl7"> -->
 				<div class="bar input-field input-text-wrap col s10 offset-s1 m8 offset-m2 l6 offset-l1 xl6">
 					<input id="search" placeholder="Search for Jobs" type="text" class="bar validate">
@@ -142,6 +148,9 @@
 					<i class="material-icons float-left">show_chart</i> 
 					<!-- <i class="material-icons float-left">work</i> -->
 					<span class="job-position-target"></span> Job Report</a>
+				<a id="map-trigger" href="#map-modal" class="btn button-collapse waves-effect waves-light alone">
+					<i class="material-icons">location_on</i>
+				</a>
 			</div>
 		</div>
 	<!-- Feed Details =========================-->
@@ -377,6 +386,16 @@
 	        	</div> -->
 		<!-- <a id="applyFilters" class="fixedToBottom btn waves-effect waves-light" href="#!">Apply Filters</a> -->
 	</ul> <!-- /sideNav -->
+<!-- Map Modal -->
+	<div id="map-modal" class="modal modal-fixed-footer">
+		<div class="modal-content">
+			<h4>Map Modal</h4>
+			<div id="map"></div>
+		</div>
+		<div class="modal-footer">
+			<!-- <a href="#!" class="modal-action modal-close waves-effect btn-flat ">Agree</a> -->
+		</div>
+	</div>
 <!--=============================================-->
 	<!-- JS Links -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -390,6 +409,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.10.1/jquery.mark.es6.min.js"></script>
 	<!-- google maps -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4nu_5UhddgajGv7lS96ri7lsyyZ3vbjQ&libraries=places&language=en"></script>
+	<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgf-yDUYwrG_uMHLtck2AFeNfATS94NQ4&callback=initMap"></script> -->
 	<!-- Cities autocomplete -->
 	<script>
 	var locationOptions = {

@@ -151,6 +151,37 @@ geolocation: {
 
 				}
 },
+map: {
+	el: '',
+	fx: 
+      function initMap() {
+        g.map.el = new google.maps.Map(document.getElementById('map'), {
+          zoom: 2,
+          center: new google.maps.LatLng(2.8,-187.3),
+          mapTypeId: 'roadmap'
+        });
+
+        // Create a <script> tag and set the USGS URL as the source.
+        var script = document.createElement('script');
+        // This example uses a local copy of the GeoJSON stored at
+        // http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp
+        script.src = 'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js';
+        document.getElementsByTagName('head')[0].appendChild(script);
+      }
+
+      // // Loop through the results array and place a marker for each
+      // // set of coordinates.
+      // window.eqfeed_callback = function(results) {
+      //   for (var i = 0; i < results.features.length; i++) {
+      //     var coords = results.features[i].geometry.coordinates;
+      //     var latLng = new google.maps.LatLng(coords[1],coords[0]);
+      //     var marker = new google.maps.Marker({
+      //       position: latLng,
+      //       map: map
+      //     });
+      //   }
+      // }
+},
 lastSearchLocal: {
 	save: 	function(q,city){
 				if (q == '' || city == '') return;
@@ -218,7 +249,7 @@ sortDateNewest:
 			// var data = sample;
 
 			var converted = data.map(function(di){
-				var d = moment().diff(moment(di.date, 'MMM-DD'), 'days');
+				var d = moment().diff(moment(di.date, 'MMM D YY'), 'days');
 				var id = di.id;
 				var obj = {d,di};
 				return obj;
@@ -626,9 +657,16 @@ printManager:
 				// Compare with existing companies. Only add if unique
 				var companyIndex = g.companyList.indexOf(company);
 
-				// If current company had no matches, add to companyList
+				// If current company had no matches, add name and general location to companyList
 				if ( companyIndex === -1 ) {
+					var obj = {
+						'name': company,
+						'sourceID': jobObj.sourceID,
+						'id': jobObj.id,
+						'location': jobObj.location,
+					}
 					g.companyList.push(company);
+
 					// console.log('g.companyList',g.companyList);
 				}
 
@@ -870,7 +908,9 @@ print:
 			}
 
 			// Convert date to days ago
-			var daysAgo = moment(date,'MMM-DD').fromNow();
+			// var daysAgo = moment(date,'MMM-DD').fromNow(true);
+			var d = moment().diff(moment(date, 'MMM DD YY'), 'days');
+			var daysAgo = d + 'd'
 
 			// var metaArray = [location, date, source];
 			// var metaArray = [
@@ -915,7 +955,7 @@ print:
 				
 				var subheadDate = $('<span>');
 					subheadDate.addClass('date');
-					subheadDate.text(date);
+					subheadDate.text(daysAgo);
 
 					subheadlineEl.append(subheadCompany);
 					subheadlineEl.append(subheadLocation);
@@ -1279,7 +1319,7 @@ api:
 								"jobPosition": ji.title,
 								"company": ji.company,
 								"location": ji.location,
-								"date": moment(ji.created_at).format("MMM D"),
+								"date": moment(ji.created_at).format("MMM D YY"),
 								"source": "Github",
 								"sourceID": ji.id,
 								"description": ji.description,
@@ -1366,7 +1406,7 @@ api:
 								"jobPosition:": ji.jobtitle,
 								"company": ji.company,
 								"location": ji.city,
-								"date": moment(ji.date).format("MMM D"),
+								"date": moment(ji.date).format("MMM D YY"),
 								"source": "Indeed",
 								"sourceID": ji.jobkey,
 								"description": ji.snippet,
@@ -1496,7 +1536,7 @@ api:
 									"jobPosition:": ji.jobTitle,
 									"company": ji.company,
 									"location": ji.location,
-									"date": moment(ji.date).format("MMM D"),
+									"date": moment(ji.date).format("MMM D YY"),
 									"source": "Dice",
 									"sourceID": sourceID,
 									"description": "For job details, visit Dice's website.",
@@ -1642,7 +1682,7 @@ api:
 								"jobPosition:": ji.title,
 								"company": companyValue,
 								"location": locationValue,
-								"date": moment(ji.post_date).format("MMM D"),
+								"date": moment(ji.post_date).format("MMM D YY"),
 								"source": "Authentic Jobs",
 								"sourceID": ji.id,
 								"description": ji.description,
@@ -1753,7 +1793,7 @@ api:
 							jobDate = jobsResults[i].job_date_added;
 
 							// Format date using moment.js
-							var dateFormatted = moment(jobDate).format("MMM D");
+							var dateFormatted = moment(jobDate).format("MMM D YY");
 
 							// Send to Global Print Function
 							var jobJSON = {

@@ -10,17 +10,16 @@
 		background-color: transparent;
 		/*background-color: rgba(0,0,0,0.4);*/
 	}
-
+	.nav-wrapper {
+		width: 96%;
+		margin: 0 auto;
+	}
 	.pin-target .main-nav-menu-icon { /* menu icon size in nav */
 		font-size: 36px;
 		height: inherit;
 		line-height: inherit;
 	}
-
-	.header-link.btn {
-		/*margin-right: 0;*/
-	}
-
+	
 	.header-link.btn {
 		display: inline-block;
 		margin-left: 0;
