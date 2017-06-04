@@ -5,14 +5,7 @@ var g = {
 allRawData: [],
 allResults: [],
 allResultsStr: [],
-allSaved: [
-		'LinkUp=ee1c538c3efe3ea10e8c373150e2f5a789ad',
-		'LinkUp=ee3d59e3c643643d90c1e5dd84df5ba2acad',
-		'Dice=sgainc_17-01942',
-		'Indeed=280dcc7add2e128a',
-		'Github=ee19ee32-3ccf-11e7-98ac-da71c8b46ad5',
-		'AuthenticJobs=29328'
-	],
+allSaved: [],
 partData: [],
 companyList: [],
 printFrom: 'allResults',
@@ -861,12 +854,16 @@ print:
 			var completeSourceID = source.replace(/\s/g,'') + '=' + sourceID; 
 
 			// Check for match
-			var iof = g.allSaved.indexOf(completeSourceID);
-			if (iof === -1) {
-				saved = false;
-			}
-			else {
-				saved = true;
+			g.allSaved = sessionStorage.getItem("allJobs");
+
+			if(g.allSaved!==null){
+				var iof = g.allSaved.indexOf(completeSourceID);
+				if (iof === -1) {
+					saved = false;
+				}
+				else {
+					saved = true;
+				}
 			}
 
 			// Convert date to days ago

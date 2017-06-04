@@ -57,6 +57,9 @@ function loginGH(){
       checkJobs(); // check if jobs exists and update save hearts accordingly
       firstJobLoad(); // When logged in, extract a copy of saved jobs and update saved feed modal once
 
+      var allJobs = sessionStorage.getItem("allJobs");
+      
+
     }).catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;
@@ -97,7 +100,7 @@ function saveJobs(jobObj){
     // Insert into database
     // jobcon = database.ref("/"+userId+"/jobs/"+sourceJobID).push();
     if(userId!=""){
-      database.ref("/"+userId+"/jobs/"+sourceJobID).set(addJobs);
+      database.ref("/users/"+userId+"/jobs/"+sourceJobID).set(addJobs);
     }
 
 }
