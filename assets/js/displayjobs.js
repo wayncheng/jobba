@@ -227,9 +227,9 @@ function printSavedJobs() {
 							h2.addClass('headline');
 							h2.text(title);
 						
-						var h3 = $('<h3>');
-							h3.addClass('company');
-							h3.text('('+ company +')');
+						var h5 = $('<h5>');
+							h5.addClass('company');
+							h5.text('('+ company +')');
 						
 						// var saveImg = $('<img>');
 						// 	saveImg.addClass('save-img');
@@ -277,7 +277,7 @@ function printSavedJobs() {
 
 						body.append(listingNumberEl);
 						body.append(h2);
-						body.append(h3);
+						body.append(h5);
 						// body.append(saveWrap);
 						body.append(metaWrap);
 						body.append(sourceWrap);
