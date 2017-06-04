@@ -3,6 +3,7 @@ $(document).ready(function () {
 		jobba.getIP;
 		// Print last search link
 		jobba.lastSearchLocal.print();
+		printSavedJobs();
 
 	$('#feed, #saved-feed').on('click','.save-wrap',function(event){
 		event.preventDefault();
