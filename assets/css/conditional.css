@@ -40,3 +40,8 @@
             display: inline-block;
             left: 0;
       }
+
+/* Do Not Disturb ------------------------------*/
+      .do-not-disturb #banner .feature-logo.progress-bar {
+            width: 0%;
+      }

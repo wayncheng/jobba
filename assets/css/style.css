@@ -187,3 +187,32 @@ p {
 
 
 /*------------------------------------------------------------*/
+/* Navs */
+	nav ul a.header-link,
+	nav ul a {
+		display: inline-block;
+		border-radius: 4px;
+		background-color: transparent;
+		color: #fff;
+		box-shadow: none;
+		font-weight: 500;
+		font-size: 1.2rem;
+		text-transform: uppercase;
+		padding: 0 1rem;
+		transition: color 200ms;
+	}
+	nav ul a.header-link:hover,
+	nav ul a:hover {
+		color: #eee;
+		text-decoration: underline;
+	}
+/*------------------------------------------------------------*/
+/* Lone Icons */
+.alone i.material-icons {
+	float: left;
+	margin: 0;
+}
+a.alone {
+	padding: 0 1rem;
+}
+/*------------------------------------------------------------*/
