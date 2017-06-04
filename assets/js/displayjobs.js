@@ -8,7 +8,7 @@ function firstJobLoad(){
 		var allJobs = [];
 		
 			// At the initial load, get a snapshot of the current data.
-			firebase.database().ref("/"+userId+"/jobs").once("value", function(snapshot) {
+			firebase.database().ref("/users/"+userId+"/jobs").once("value", function(snapshot) {
 
 				var jobs_data = snapshot.val();
 				allJobs = [];
@@ -73,9 +73,9 @@ function firstJobLoad(){
 						h2.addClass('headline');
 						h2.text(title);
 					
-					var h3 = $('<h3>');
-						h3.addClass('company');
-						h3.text('('+ company +')');
+					var h5 = $('<h5>');
+						h5.addClass('company');
+						h5.text('('+ company +')');
 					
 					// var saveImg = $('<img>');
 					// 	saveImg.addClass('save-img');
@@ -123,7 +123,7 @@ function firstJobLoad(){
 
 					body.append(listingNumberEl);
 					body.append(h2);
-					body.append(h3);
+					body.append(h5);
 					// body.append(saveWrap);
 					body.append(metaWrap);
 					body.append(sourceWrap);
@@ -162,7 +162,7 @@ function printSavedJobs() {
 				console.log("userid 3 is: "+userId);
 
 				// At the initial load, get a snapshot of the current data.
-				firebase.database().ref("/"+userId+"/jobs").on("value", function(snapshot) {
+				firebase.database().ref("/users/"+userId+"/jobs").on("value", function(snapshot) {
 
 					var jobs_data = snapshot.val();
 					allJobs = [];

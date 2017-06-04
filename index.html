@@ -425,6 +425,11 @@
             if(sessionStorage.getItem("userKey")){
                 $('html').addClass('logged-in');
             }
+            else{
+            	$('html').removeClass('logged-in');
+                  sessionStorage.removeItem("userKey");
+                  sessionStorage.clear();
+            }
 
             $('#signOut').on("click", function(){
 
