@@ -398,7 +398,9 @@ filter: {
 		},
 	bySource: {
 			event: 
-					$('#filter-source').on('click','.filterSourceInput',function(event){
+					$('#filter-source').on('change','.filterSourceInput',function(event){
+						//  Switched from on click to change because on click was overriding the default click
+						// function from materilalizeCSS.
 						event.preventDefault();
 						var $t = $(this);
 						$t.toggleClass('data-hide');
@@ -473,7 +475,7 @@ checkStatus:
 			g.prevCheck = g.apiCheck;
 
 			// If completely done
-			if( g.apiCheck === 5 ) {
+			if( g.apiCheck >= 5 ) {
 				console.log('all apis done');
 
 
