@@ -27,6 +27,8 @@
 	<!-- <link type="text/css" rel="stylesheet" href="assets/libs/materialize.min.css" media="screen,projection" /> -->
 	<!-- Firebase UI CDN -->
 	<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" />
+	<!-- <link type="text/css" rel="stylesheet" href="assets/libs/nouislider.css" /> -->
+	<link type="text/css" rel="stylesheet" href="assets/libs/nouislider.min.css" />
 	<!-- Jobba CSS -->
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 	<link href="assets/css/materialize-overrides.css" rel="stylesheet">
@@ -304,6 +306,7 @@
 				</li>
 			</ul>
 		</li>
+		<!-- Sort By -->
 		<li class="no-padding">
 			<ul class="collapsible collapsible-accordion">
 				<li>
@@ -319,6 +322,34 @@
 				</li>
 			</ul>
 		</li>
+		<!-- Date Range -->
+		<!-- <li id="date-range" class="no-padding ">
+			<ul class="collapsible collapsible-accordion">
+				<li>
+					<a class="collapsible-header">Date Range<i class="arrow-icon material-icons"></i></a>
+					<div class="collapsible-body">
+							<div id="date-slider" class="range-input"></div>						
+					</div>
+				</li>
+			</ul>
+		</li> -->
+		<!-- byDate Filter (since date range is having issues right now) -->
+		<li id="dateFilters" class="no-padding">
+			<ul class="collapsible collapsible-accordion">
+				<li>
+					<a class="collapsible-header">Filter by Age<i class="arrow-icon material-icons"></i></a>
+					<div class="collapsible-body sideNavForm horizontal-options">
+						<ul>
+							<li class=""><a href="#!" data-age="1">day</a></li>
+							<li class=""><a href="#!" data-age="7">week</a></li>
+							<li class=""><a href="#!" data-age="31">month</a></li>
+							<li class="selected"><a href="#!" data-age="365">year</a></li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</li>
+
 		<!-- Filter Terms -->
 		<li id="termFilters" class="no-padding">
 			<ul class="collapsible collapsible-accordion">
@@ -356,23 +387,28 @@
 						<form class="sideNavForm">
 							<ul id="filter-source" class="filter-listener">
 								<li class="input-field">
-									<input type="checkbox" id="sourceGithub" class="filterSourceInput filterInput filled-in" name="filterSource" value="Github" data-select="true" checked="checked" />
+									<input type="checkbox" id="sourceGithub" class="filterSourceInput filterInput filled-in" name="filterSource" value="Github" data-select="true" checked="checked"/>
+									<!-- <input type="checkbox" id="sourceGithub" class="filterSourceInput filterInput filled-in" name="filterSource" value="Github" data-select="true" checked/> -->
 									<label for="sourceGithub">Github</label>
 								</li>
 								<li class="input-field">
-									<input type="checkbox" id="sourceIndeed" class="filterSourceInput filterInput filled-in" name="filterSource" value="Indeed" data-select="true" checked="checked" />
+									<input type="checkbox" id="sourceIndeed" class="filterSourceInput filterInput filled-in" name="filterSource" value="Indeed" data-select="true" checked="checked"/>
+									<!-- <input type="checkbox" id="sourceIndeed" class="filterSourceInput filterInput filled-in" name="filterSource" value="Indeed" data-select="true" checked/> -->
 									<label for="sourceIndeed">Indeed</label>
 								</li>
 								<li class="input-field">
-									<input type="checkbox" id="sourceDice" class="filterSourceInput filterInput filled-in" name="filterSource" value="Dice" data-select="true" checked="checked" />
+									<input type="checkbox" id="sourceDice" class="filterSourceInput filterInput filled-in" name="filterSource" value="Dice" data-select="true" checked="checked"/>
+									<!-- <input type="checkbox" id="sourceDice" class="filterSourceInput filterInput filled-in" name="filterSource" value="Dice" data-select="true" checked/> -->
 									<label for="sourceDice">Dice</label>
 								</li>
 								<li class="input-field">
-									<input type="checkbox" id="sourceAuthenticJobs" class="filterSourceInput filterInput filled-in" name="filterSource" value="Authentic Jobs" data-select="true" checked="checked" />
+									<input type="checkbox" id="sourceAuthenticJobs" class="filterSourceInput filterInput filled-in" name="filterSource" value="Authentic Jobs" data-select="true" checked="checked"/>
+									<!-- <input type="checkbox" id="sourceAuthenticJobs" class="filterSourceInput filterInput filled-in" name="filterSource" value="Authentic Jobs" data-select="true" checked/> -->
 									<label for="sourceAuthenticJobs">Authentic Jobs</label>
 								</li>
 								<li class="input-field">
-									<input type="checkbox" id="sourceLinkUp" class="filterSourceInput filterInput filled-in" name="filterSource" value="LinkUp" data-select="true" checked="checked" />
+									<input type="checkbox" id="sourceLinkUp" class="filterSourceInput filterInput filled-in" name="filterSource" value="LinkUp" data-select="true" checked="checked"/>
+									<!-- <input type="checkbox" id="sourceLinkUp" class="filterSourceInput filterInput filled-in" name="filterSource" value="LinkUp" data-select="true" checked/> -->
 									<label for="sourceLinkUp">LinkUp</label>
 								</li>
 							</ul>
@@ -409,7 +445,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.10.1/jquery.mark.es6.min.js"></script>
 	<!-- google maps -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4nu_5UhddgajGv7lS96ri7lsyyZ3vbjQ&libraries=places&language=en"></script>
-	<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgf-yDUYwrG_uMHLtck2AFeNfATS94NQ4&callback=initMap"></script> -->
+	<script src="assets/libs/nouislider.js"></script>
+	<script src="assets/libs/wNumb.js"></script>
 	<!-- Cities autocomplete -->
 	<script>
 	var locationOptions = {

@@ -74,7 +74,9 @@
 		background-color: #333;
 		margin-top: 3px;
 	}
-
+	
+	input[type="checkbox"].data-hide+label:before, 
+	[type="checkbox"].data-hide+label:before, 
 	[type="checkbox"]+label:before, 
 	[type="checkbox"]:not(.filled-in)+label:after,
 	[type="checkbox"].filled-in:not(:checked)+label:after {
