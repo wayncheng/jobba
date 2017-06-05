@@ -45,3 +45,18 @@
       .do-not-disturb #banner .feature-logo.progress-bar {
             width: 0%;
       }
+
+
+/* @media ---------------------------------------*/
+
+      @media all and (max-width: 700px) {
+            .compact-ready {
+                  padding: 0 1rem;
+            }
+            .compact-ready::after {
+                  display: none;
+            }
+            .compact-ready i.material-icons {
+                  margin-right: 0px;
+            }
+      }

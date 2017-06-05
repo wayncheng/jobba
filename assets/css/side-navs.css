@@ -280,3 +280,33 @@
 		/*opacity: 1;*/
 	}
 /*------------------------------------------------------------*/
+/* Location Filter Dropdowns */
+	#locationFilters .input-field input[type=checkbox] + label {
+		text-transform: capitalize;
+	}
+	.overflow-hidden {
+		/*height: 400px;*/
+		/*overflow: hidden;*/
+	}
+	.overflow-hidden .below-fold {
+		display: none;
+	}
+	span.show-more-btn {
+		position: relative;
+		display: block;
+		cursor: pointer;
+		padding-left: 32px;
+		margin-top: 4px;
+		font-weight: 500;
+		font-style: italic;
+			/*margin-top: -20px;
+			background-color: rgba(255,255,255,0.4);
+			height: 60px;
+			line-height: 90px;*/
+	}
+	span.show-more-btn:hover {
+		/*background-color: #ECF0F1;*/
+		text-decoration: underline;
+	}
+
+	.below-fold {}
