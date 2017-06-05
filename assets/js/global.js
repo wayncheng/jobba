@@ -13,6 +13,9 @@ companyCounts: [],
 locationCounts: {},
 locationCounter: [],
 locationTally: [],
+companyList: [],
+companyLocationList:[],
+googleMaps_latLng : [],
 printFrom: 'allResults',
 totalResultCount: 0,
 page: 1,
@@ -1220,7 +1223,8 @@ pagination:
 			$('#page-range').text(range);
 
 			// Clear feed
-			$('#feed').empty();          
+			$('#feed').empty();  
+			g.companyLocationList = [];         
 
 			// Loop through listings from start to end in allResultsStr array
 			// var atlas = g.atlasCleared;
@@ -1237,6 +1241,8 @@ pagination:
 				g.print(aRai);
 			};
 
+			console.log("CALLING GOOGLE MAPS AJAX....");
+			g.ajax_for_googleMaps();
 			g.markTerms();
 
 		},
@@ -1262,6 +1268,10 @@ print:
 			var saveBtnImageSource = 'assets/icons/heart1s-gray-red.svg';
 			var saved;
 
+			//Fetching Company And its location, to pass in to Google Maps API to get latitude and longitude.
+			var companyAndLocation = company + " " + location;
+			console.log('companyLocationList OBJ ==*********',g.companyLocationList);
+			g.companyLocationList.push(companyAndLocation);
 			// Combine source and sourceID
 			var completeSourceID = source.replace(/\s/g,'') + '=' + sourceID; 
 
@@ -1410,6 +1420,49 @@ print:
 			$('#feed').append(listingEl);
 
 		},
+ajax_for_googleMaps: 
+			function(){
+
+				var lat_long_obj = {};
+				g.googleMaps_latLng = [];
+			for(var i=0; i< g.companyLocationList.length; i++){	
+
+				var q_url = 'https://crossorigin.me/https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyCqrPL7NGZ91Z_Dw7FOxLEyOF2Uc4cVqpc'
+					+'&query='+encodeURIComponent(g.companyLocationList[i]);
+				console.log("Before calling google maps api..",q_url);
+				//ajax google api req to get json output
+				$.ajax({
+				type:'GET',
+				url: q_url,
+				}).done(function(result){
+				
+				var jsonResponse = JSON.parse(JSON.stringify(result));
+				// console.log("RESPONSE RESULTS ===== ",result.results);
+				// console.log("RESPONSE GEOMETRY ===== ",result.results[0].geometry);
+				// console.log("RESPONSE LOCATION ===== ",result.results[0].geometry.location);
+				// console.log("RESPONSE LATTITUDE ===== ",result.results[0].geometry.location.lat);
+
+				console.log("TITLE ==== ",result.results[0].name);
+				 lat_long_obj = {"title": result.results[0].name , "lat" : result.results[0].geometry.location.lat, "lng" : result.results[0].geometry.location.lng};
+				//lat_long_obj = {"lat" : "33.123", "lng" : "-114.245"};
+
+				g.googleMaps_latLng.push(lat_long_obj);
+
+				// console.log('Google API result',JSON.stringify(g.googleMaps_latLng));
+				localStorage.setItem("companyLocationList",JSON.stringify(g.googleMaps_latLng));
+
+				
+
+			}).fail(function(error){
+				console.log('fail',error.code);
+				// g.apiError;
+			});
+
+
+		}
+		// localStorage.setItem("companyLocationList",g.googleMaps_latLng);
+		// console.log('Google API result',g.googleMaps_latLng);
+},		
 markTerms:
 		function(){
 			var q = $('#search').val().split(' ');
