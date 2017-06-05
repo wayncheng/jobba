@@ -16,8 +16,10 @@ allSaved: [
 partData: [],
 companyList: [],
 locationList: [],
-companyCounts: {},
+companyCounts: [],
 locationCounts: {},
+locationCounter: [],
+locationTally: [],
 printFrom: 'allResults',
 totalResultCount: 0,
 page: 1,
@@ -294,6 +296,9 @@ filter: {
 				for (var i=0; i<g.totalResultCount; i++) {
 					g.atlasCleared.push(i);
 				};
+
+			 	//Initiate byLocation and by Company as well
+			 	g.filter.byLocation.init();
 			},	
 	byTerms: {
 			whiteList: [],
@@ -483,68 +488,252 @@ filter: {
 					},
 			},
 	byLocation: {
+			event: 
+					function(){
+					// $('#filter-location').on('change','.filterLocationInput',function(event){
+						console.log('byLocation triggered');
+						//  Switched from on click to change because on click was overriding the default click
+						// function from materilalizeCSS.
+						// event.preventDefault();
+						var $t = $(this);
+						$t.toggleClass('data-hide');
+
+						var hidden = [];
+
+						$('.filterLocationInput.data-hide').each(function(){
+							var dataRep = $(this).attr('value');
+							hidden.push(dataRep);
+						});
+						console.log('hidden',hidden);
+
+						// Pass to global filter
+						g.filter.byLocation.fx(hidden);
+					// }),
+					},
 			processor: 
 					function(jobObj){
 							// Get unique locations and count repeats. Isolate city.
 							var loc = jobObj.location;
 							var split = loc.split(',');
-							var city = split[0].trim().toUpperCase();
+							var city = split[0].trim().toLowerCase();
 							var locIndex = g.locationList.indexOf(city);
+							// var count = 1;
 
+							// var obj = {
+							// 	location: city,
+							// 	n: 1,
+							// }
+							// var obj = {};
+							// // If current company had no matches, add name and general location to companyList
+							// if ( locIndex === -1 ) {
+							// 	// Add company, and start count at 1;
+							// 	obj[city]=1;
+							// 	g.locationCounts.push(obj);
+
+							// 	// List of unique cities
+							// 	g.locationList.push(city);
+							// }
+							// else {
+							// 	// Find current object the current count and increment
+							// 	for (var i=0; i<g.locationCounts.length; i++) {
+							// 		var li = g.locationCounts[i]
+							// 		// for( var key in g.locationCounts[i]){
+
+							// 			var locIndex = g.locationCounts[i][key].indexOf(city);
+							// 			if (locIndex === -1){
+							// 				var locO = g.locationCounts[i].city;
+							// 				var count = locO.n;
+							// 				locO.n = count+1;
+							// 				break;
+							// 			}
+							// 		// }
+							// 	};
+							// 	// g.locationCounts.push(obj);
+							// }
+
+								var Ob = {
+									name: city,
+									tally: 1,
+								};
 							// If current company had no matches, add name and general location to companyList
 							if ( locIndex === -1 ) {
 								// Add company, and start count at 1;
 								g.locationCounts[city] = 1;
 								g.locationList.push(city);
+								
+								g.locationTally.push(Ob);
+
+								var arr = [city,1];
+								g.locationCounter.push(arr);
 							}
 							else {
 								// Get the current count and increment
+								// Object
 								var count = g.locationCounts[city];
 								g.locationCounts[city] = count+1;
+
+								//Array of Objects
+								var target = g.locationTally[locIndex];
+								var n = target.tally;
+								g.locationTally[locIndex].tally = n+1;
+
+								// Array of arrays counter
+								var n = g.locationCounter[locIndex][1];
+								g.locationCounter[locIndex][1] = n+1;
 							}
 					},
-			fx: 
-				function(){ // Filter by Location!!!
-					// var data = g.allResults;
+			init:
+				function(){
+					// var data = g.locationCounts;
+					// var arr = g.locationCounter;
+					var tally = g.locationTally;
 
-					// var filtered = data.filter(function(res){
-					// 	return;
+					// console.log('data',data);
+					// console.log('arr',arr);
+					console.log('tally',tally);
+
+					 // Sort by most popular first
+					var locSorted = tally.sort(function(a,b){
+						return b.tally-a.tally;
+					});
+					console.log('locSorted',locSorted);
+					g.locationTally = locSorted;
+					// .map(function(obj){
+					// 	var s = obj.name +'('+ obj.tally + ')'; 
+					// 	return s;
 					// });
 
-					// // Temporary map for atlas
-					// var mapped = filtered.map(function(jobObj){
-					// 	return jobObj.id;
-					// }) 
+					var wrap = $('#filter-location');
+					var cutoff = 8;
+					var belowFold = $('<div>');
+						belowFold.addClass('below-fold');
+
+					// Print each city in filter menu
+					for (var i=0; i<locSorted.length; i++) {
+						var loc = locSorted[i].name;
+						var nospace = loc.replace(/\s/g, '');
+						var id = 'loc-'+i
+						var n = locSorted[i].tally;
+						var str = loc +' ('+ n + ')';
+						console.log('str',str);
+
+						var li = $('<li>');
+							li.addClass('input-field');
+						
+						var input = $('<input>');
+							input.addClass('filterLocationInput filterInput filled-in');
+							input.attr({
+								'type': 'checkbox',
+								'name': 'filterLocation',
+								'value': loc,
+								'data-select': true,
+								'checked': 'checked',
+								'id': '#'+id,
+							});
+							
+						var label = $('<label>');
+							label.attr('for',id);
+							label.text(str);
+							
+						li.append(input);
+						li.append(label);
+
+						if (i <= cutoff-1) {
+							$('#filter-location').append(li);
+						}
+						else {
+							belowFold.append(li);
+						}
+					};
+					// Add below fold content to menu
+					wrap.append(belowFold);
+
+					if (locSorted.length > cutoff){
+						var btn = $('<span>');
+							btn.addClass('show-more-btn');
+							btn.text('Show more...');
+							btn.on('click', function(e){
+								e.preventDefault();
+								var wrap = $(this).parent('.overflow-wrap');
+								// wrap.toggleClass('overflow-hidden');
+								var isHidden = wrap.hasClass('overflow-hidden');
+								
+								if (isHidden) {
+									wrap.removeClass('overflow-hidden');
+									$(this).text('Show fewer...');
+								}
+								else {
+									wrap.addClass('overflow-hidden');
+									$(this).text('Show more...');
+								}
+							});
+
+						wrap.append(btn);
+						wrap.addClass('overflow-hidden overflow-wrap');
+					}
+
+
+					// document.getElementById('filter-location').addEventListener('change',g.filter.byLocation.event(event));
+					$('#filter-location').on('change',function(e){
+						e.preventDefault();
+						g.filter.byLocation.event();
+					})
+
+				},
+			fx: 
+				function(hidden){ // Filter by Location!!!
+					var data = g.allResults;
+
+					var filtered = data.filter(function(res){
+						var split = res.location.split(',');
+						var city = split[0].trim().toLowerCase();
+						var iof = hidden.indexOf(city);
+						return iof === -1;
+					});
+
+					// Temporary map for atlas
+					var noFlyList = filtered.map(function(jobObj){
+						return jobObj.id;
+					}) 
 					
-					// g.filter.atlas.location = mapped;
+					g.filter.atlas.location = noFlyList;
+					g.filter.export();
 				},
 			},
 	byCompany: {
 			processor: 
 					function(jobObj){
 							// Get listing's company
-							var company = jobObj.company;
+							var company = jobObj.company.toLowerCase();
 
 							// Compare with existing companies. Only add if unique
 							var companyIndex = g.companyList.indexOf(company);
 
+							// var countObj = {
+							// 	company: company,
+							// 	n: 1,
+							// }
 
 							// If current company had no matches, add name and general location to companyList
 							if ( companyIndex === -1 ) {
-								var obj = {
-									'name': company,
-									'sourceID': jobObj.sourceID,
-									'id': jobObj.id,
-									'location': jobObj.location,
-								};
+								// var obj = {
+								// 	'name': company,
+								// 	'sourceID': jobObj.sourceID,
+								// 	'id': jobObj.id,
+								// 	'location': jobObj.location,
+								// };
 								// Add company, and start count at 1;
-								g.companyCounts[company] = 1;
-								g.companyList.push(company);
+								// g.companyCounts.push(countObj);
+
+								// List of unique companies
+								g.companyList.push(company); // expendable
 							}
 							else {
 								// Get the current count and increment
-								var count = g.companyCounts[company];
-								g.companyCounts[company] = count+1;
+								// var count = g.companyCounts[company];
+								// countObj.n = count+1;
+								// g.companyCounts.push(countObj);
+								// g.companyCounts[company] = count+1;
 							}
 					},
 			fx: 
@@ -1049,7 +1238,7 @@ pagination:
 				g.resultNumber = i+1;
 				// Print each listing
 				var ai = atlas[i];
-				console.log('ai',ai);
+				// console.log('ai',ai);
 				var aRai = g.allResults[ai];
 				// console.log('aRai',aRai);
 				g.print(aRai);

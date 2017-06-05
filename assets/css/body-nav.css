@@ -67,3 +67,18 @@
 		padding: 0 1rem;
 		box-shadow: none;
 	}
+	
+/* Buttons ---------------------------------------------------*/
+	.body-nav .btn i {
+		float: left;
+		margin-right: 10px;
+	}
+	.body-nav .btn.alone i {
+		margin-right: 0px;
+	}
+	.body-nav #salary-trigger::after {
+		content: " Analysis";
+	}
+	.body-nav #filter-side-nav-link::after {
+		content: " Filter / Sort";
+	}
