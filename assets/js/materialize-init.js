@@ -43,7 +43,25 @@ $(document).ready(function(){
 	// Tag Chips
 	$('.chips').material_chip();
 	
-	// Tooltips
+	// Tooltipss
 	$('.tooltipped').tooltip({delay:50});
+	
+	// Date Slider
+	// var slider = document.getElementById('date-slider');
+	// noUiSlider.create(slider, {
+	//     start: [0, 30],
+	//     behavior:'tap-drag',
+	//     connect: true,
+	//     // tooltips: [ wNumb({decimals: 0}), wNumb({decimals: 0}) ],
+	//     step: 1,
+	//     range: {
+	//         'min': 0,
+	//         'max': 40
+	//     },
+	//     format: wNumb({
+	//         decimals: 0
+	//     })
+	// });
+
 
 });
