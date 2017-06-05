@@ -30,14 +30,22 @@ $(document).ready(function(){
 					
 				}
   				else if(files.length){
+  					console.log("Before processing file...")
   					var sFileExtension = files[0].name.split(".")[files[0].name.split(".").length-1];
+  					console.log("EXTENSION ==== ",sFileExtension);
   					if(sFileExtension === "pdf"){
   						console.log("Found PDF File");
 						convertPdfToText(URL.createObjectURL($("#file-select").get(0).files[0]));
 						return;
   					}
   					if(sFileExtension === "doc"){
-
+  						var fr = new FileReader(); // FileReader instance
+					  	fr.readAsText(files[0],"UTF-8");
+						fr.onload = function () {
+							fileContent = fr.result;
+							ajaxCall(fileContent);
+						};
+						return;
   					}
   					if(sFileExtension === "txt"){
   						console.log("Found TXT File");
@@ -69,52 +77,6 @@ $(document).ready(function(){
 			  		} 
   				}
 
-				// var sFileName = document.getElementById('file-select').value;
-				// var sFileExtension = sFileName.split('.')[sFileName.split('.').length - 1];
-				// console.log("sFileName ======= ",files[0]);
-				// // console.log("sFileName URL ======= ",URL.createObjectURL(sFileName));
-
-				// alert(sFileExtension);
-				
-
-
-  				// Loop through each of the selected files.
-			// 	for (var i = 0; i < files.length; i++) {
-			// 	  var file = files[i];
-
-			// 	  if(sFileExtension === "pdf"){
-				  	
-			// 		convertPdfToText(URL.createObjectURL($("#file-select").get(0).files[0]));
-			// 		console.log("PDF TEXT ===== ",pdfText);
-						
-			// 		// };
-				  	
-
-			// 	  } else{
-				  
-			// 	  	var fr = new FileReader(); // FileReader instance
-			// 	  	fr.readAsText( file );
-			// 	  	// fr.readAsDataURL(file);
-			// 		fr.onload = function () {
-			// 			fileContent = fr.result;
-			// 			ajaxCall(fileContent);
-			// 		};
-			// 		fr.onerror = function(){
-			// 			console.log("ERROR OCCURRED ==",fr.error);
-			// 		};
-			// 	}
-			// }
-
-				
-
-			// 	if(handleFileSelect(fileSelect,rText) === 0){
-			// 		$(".progress").hide();
-			//   		return;
-			//   } else{
-			// 			console.log("FILE CONTENT before ajax call=== ",fileContent);
-			//   			// ajaxCall(fileContent);
-
-			//   }
 		});
 
 
@@ -231,7 +193,7 @@ $(document).ready(function(){
                 for(var j=0; j<pagesText.length;j++){
                 	pdfText = pdfText +pagesText[j];
                 }
-                console.log("PDF TEXT in covertion ====",pdfText);
+                console.log("Calling ajax for pdf file...",);
                 ajaxCall(pdfText);
             });
 
@@ -309,6 +271,8 @@ function xml2json(xml) {
   }
 }
 
+
+        
 
 
 
