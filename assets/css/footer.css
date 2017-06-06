@@ -1,0 +1,23 @@
+footer {
+	background-color: #666;
+	color: #eee;
+	display: none;
+}
+
+.footer-container.row {
+	margin: 0;
+	padding: 40px 0;
+}
+.footer-wrap {
+	outline: 1px solid red;
+	text-align: center;
+}
+
+#ftr-link-wrap a.sec-link {
+	display: block;
+}
+
+#ftr-logo {
+	height: 40px;
+	width: initial;
+}
