@@ -1,6 +1,6 @@
 function checkJobs(){
 	// At the initial load, get a snapshot of the current data.
-	firebase.database().ref("/"+userId+"/jobs").on("value", function(snapshot) {
+	firebase.database().ref("/users/"+userId+"/jobs").on("value", function(snapshot) {
 
 		var jobs_data = snapshot.val();
 		allJobs = [];
@@ -12,15 +12,19 @@ function checkJobs(){
 			// console.log("Jobs " +i+ ":" +jobs_data[i]);
 			// i is source+JobID
 
-			allJobs.push([i,jobs_data[i]]);
-			console.log(jobs_data[i]);
+			allJobs.push([i]);
 		}
 
 		sessionStorage.setItem("allJobs",allJobs);
 
-		for(var j in allJobs){
-			console.log("REACHED: "+allJobs[j]);
-		}
+		// console.log(sessionStorage.getItem("allJobs"));
+
+
+		// for(var j in allJobs){
+		// 	console.log("REACHED: "+allJobs[j]);
+		// }
+
+		return allJobs;
 	});	
 
 }

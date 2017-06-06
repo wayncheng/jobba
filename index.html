@@ -282,8 +282,8 @@
 <!-- Resume Modal=============================================-->
 	<div id="resume-modal" class="modal bottom-sheet">
 		<div class="modal-content">
-			<h4>Grade Your Resume</h4>
-			<h5>Upload Your Resume(.doc/.txt) OR paste your resume below :</h5>
+			<h4>How does your resume score? Find out now!</h4>
+			<h5>Upload Your Resume(.pdf/.txt) OR paste your resume below :</h5>
 			<div id="upload-resume" class="row">
 				<div class="col s6 ">
 					<form id="file-form" method="POST">
@@ -518,6 +518,8 @@
 	<script src="assets/js/removejob.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/benchmark-email-form.js" type="text/javascript"></script>
 	<script src="assets/js/auto-complete.js"></script>
+    <script src="assets/js/googleMaps.js"></script>
+
 	<!-- <script src="assets/js/salaries.js" type="text/javascript" charset="utf-8"></script> -->
 	<script src="assets/js/company_info.js" type="text/javascript" charset="utf-8"></script>
 
@@ -526,6 +528,11 @@
 
             if(sessionStorage.getItem("userKey")){
                 $('html').addClass('logged-in');
+            }
+            else{
+            	$('html').removeClass('logged-in');
+                  sessionStorage.removeItem("userKey");
+                  sessionStorage.clear();
             }
 
             $('#signOut').on("click", function(){

@@ -19,14 +19,7 @@ report:
 allRawData: [],
 allResults: [],
 allResultsStr: [],
-allSaved: [
-		'LinkUp=ee1c538c3efe3ea10e8c373150e2f5a789ad',
-		'LinkUp=ee3d59e3c643643d90c1e5dd84df5ba2acad',
-		'Dice=sgainc_17-01942',
-		'Indeed=280dcc7add2e128a',
-		'Github=ee19ee32-3ccf-11e7-98ac-da71c8b46ad5',
-		'AuthenticJobs=29328'
-	],
+allSaved: [],
 partData: [],
 companyList: [],
 companyTally: [],
@@ -34,6 +27,8 @@ companyCounter: [],
 locationList: [],
 locationTally: [],
 locationCounter: [],
+companyLocationList:[],
+googleMaps_latLng : [],
 printFrom: 'allResults',
 totalResultCount: 0,
 page: 1,
@@ -137,7 +132,7 @@ geolocation: {
 					// country, administrative_area_level_1 (state), locality, street_address, postal_code
 					var resultType = 'locality';
 					var locationType = 'APPROXIMATE';
-					var qURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+ latlng +'&location_type='+ locationType +'&result_type='+ resultType +'&key=AIzaSyCgf-yDUYwrG_uMHLtck2AFeNfATS94NQ4';
+					var qURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+ latlng +'&location_type='+ locationType +'&result_type='+ resultType +'&key=AIzaSyBB1s2bgxqg4sMi9_1HJoZ-OV7ZzRnsYP4';
 					
 				    $.ajax({
 				    	type: 'GET',
@@ -1340,7 +1335,8 @@ pagination:
 			$('#page-range').text(range);
 
 			// Clear feed
-			$('#feed').empty();          
+			$('#feed').empty();  
+			g.companyLocationList = [];         
 
 			// Loop through listings from start to end in allResultsStr array
 			// var atlas = g.atlasCleared;
@@ -1357,6 +1353,8 @@ pagination:
 				g.print(aRai);
 			};
 
+			// console.log("CALLING GOOGLE MAPS AJAX....");
+			g.ajax_for_googleMaps();
 			g.markTerms();
 
 		},
@@ -1382,16 +1380,24 @@ print:
 			var saveBtnImageSource = 'assets/icons/heart1s-gray-red.svg';
 			var saved;
 
+			//Fetching Company And its location, to pass in to Google Maps API to get latitude and longitude.
+			var companyAndLocation = company + " " + location;
+			// console.log('companyLocationList OBJ ==*********',g.companyLocationList);
+			g.companyLocationList.push(companyAndLocation);
 			// Combine source and sourceID
 			var completeSourceID = source.replace(/\s/g,'') + '=' + sourceID; 
 
 			// Check for match
-			var iof = g.allSaved.indexOf(completeSourceID);
-			if (iof === -1) {
-				saved = false;
-			}
-			else {
-				saved = true;
+			g.allSaved = sessionStorage.getItem("allJobs");
+
+			if(g.allSaved!==null){
+				var iof = g.allSaved.indexOf(completeSourceID);
+				if (iof === -1) {
+					saved = false;
+				}
+				else {
+					saved = true;
+				}
 			}
 
 			// Convert date to days ago
@@ -1526,6 +1532,58 @@ print:
 			$('#feed').append(listingEl);
 
 		},
+ajax_for_googleMaps: 
+			function(){
+
+				var lat_long_obj = {};
+				g.googleMaps_latLng = [];
+			for(var i=0; i< g.companyLocationList.length; i++){	
+
+				// var q_url = 'https://crossorigin.me/https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyAMi4D8mMbs7bI7lFkxo7dmlwpR0yRGrJA'
+				// 	+'&query='+encodeURIComponent(g.companyLocationList[i]);
+
+				var q_url = 'https://cors.now.sh/https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyAMi4D8mMbs7bI7lFkxo7dmlwpR0yRGrJA'
+					+'&query='+encodeURIComponent(g.companyLocationList[i]);
+
+				// console.log("Before calling google maps api..",q_url);
+				//ajax google api req to get json output
+				$.ajax({
+				type:'GET',
+				url: q_url,
+				}).done(function(result){
+
+					console.log("THE RESULT IS:::: " +result);
+				
+				var jsonResponse = JSON.parse(JSON.stringify(result));
+				// console.log("RESPONSE RESULTS ===== ",result.results);
+				// console.log("RESPONSE GEOMETRY ===== ",result.results[0].geometry);
+				// console.log("RESPONSE LOCATION ===== ",result.results[0].geometry.location);
+				// console.log("RESPONSE LATTITUDE ===== ",result.results[0].geometry.location.lat);
+
+				console.log("TITLE ==== ",jsonResponse);
+
+				if(result.error_message !== 'You have exceeded your daily request quota for this API.'){
+
+					 lat_long_obj = {"title": result.results[0].name , "lat" : result.results[0].geometry.location.lat, "lng" : result.results[0].geometry.location.lng};
+					//lat_long_obj = {"lat" : "33.123", "lng" : "-114.245"};
+
+					g.googleMaps_latLng.push(lat_long_obj);
+
+					// console.log('Google API result',JSON.stringify(g.googleMaps_latLng));
+					localStorage.setItem("companyLocationList",JSON.stringify(g.googleMaps_latLng));
+				}
+				
+
+			}).fail(function(error){
+				console.log('fail',error.code);
+				// g.apiError;
+			});
+
+
+		}
+		// localStorage.setItem("companyLocationList",g.googleMaps_latLng);
+		// console.log('Google API result',g.googleMaps_latLng);
+},		
 markTerms:
 		function(){
 			var q = $('#search').val().split(' ');
@@ -1765,7 +1823,8 @@ api:
 						// https://jobs.github.com/positions.json?description=python&location=sf&full_time=true
 						// ------------------------------------------------
 
-						var githubURL = "https://crossorigin.me/https://jobs.github.com/positions.json?";
+						// var githubURL = "https://crossorigin.me/https://jobs.github.com/positions.json?";
+						var githubURL = "https://cors.now.sh/https://jobs.github.com/positions.json?";
 
 						if(searchString != ""){
 							searchString = encodeURIComponent(searchString);
@@ -1847,7 +1906,9 @@ api:
 				createURL:
 					function(searchString,city,state,noOfRecords){
 
-						var url = "https://crossorigin.me/https://api.indeed.com/ads/apisearch?publisher=422492215893931&sort=&radius=&st=&jt=&start=&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Chrome&v=2&format=json";
+						// var url = "https://crossorigin.me/https://api.indeed.com/ads/apisearch?publisher=422492215893931&sort=&radius=&st=&jt=&start=&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Chrome&v=2&format=json";
+
+						var url = "https://cors.now.sh/https://api.indeed.com/ads/apisearch?publisher=422492215893931&sort=&radius=&st=&jt=&start=&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Chrome&v=2&format=json";
 
 						if(searchString != ""){
 							searchString = encodeURIComponent(searchString);
@@ -2062,7 +2123,10 @@ api:
 					function(searchString,state,city,pageNumber,noOfRecords){
 						// Sample url = https://authenticjobs.com/api/?api_key=a446a0eefe6f5699283g34f4d5b51fa0&method=aj.jobs.get&id=1569
 
-						var url = "https://crossorigin.me/https://authenticjobs.com/api/?api_key=fb7dee3fcbf41f8c7d867402491d81cb&method=aj.jobs.search&format=json";
+						// var url = "https://crossorigin.me/https://authenticjobs.com/api/?api_key=fb7dee3fcbf41f8c7d867402491d81cb&method=aj.jobs.search&format=json";
+
+						var url = "https://cors.now.sh/https://authenticjobs.com/api/?api_key=fb7dee3fcbf41f8c7d867402491d81cb&method=aj.jobs.search&format=json";
+						
 
 						if(searchString != ""){
 							searchString = encodeURIComponent(searchString);

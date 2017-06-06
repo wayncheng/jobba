@@ -5,9 +5,9 @@
 $(document).ready(function(){
 
 
-	$('#feed').on('click',function(event){
-
-		var companyName = $(this).children("li").attr("data-company");
+	$('#feed').on('click', ".listing",function(event){
+		event.preventDefault();
+		var companyName = $(this).attr("data-company");
 		console.log("company name: "+ companyName);
 
 		var qURL = 'https://cors-anywhere.herokuapp.com/http://api.glassdoor.com/api/api.htm?t.p=151095&t.k=dSWk91gUjq3&userip='+jobba.userIP+'&useragent=&format=json&v=1&action=employers&q='+companyName;
