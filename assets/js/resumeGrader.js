@@ -60,6 +60,7 @@ $(document).ready(function(){
 							console.log("ERROR OCCURRED ==",fr.error);
 							$(".progress").hide();
 							$("#error").text("File Not Uploaded.");
+							$("#upload-button").html("Submit");
 						};
   					}
   					else{
@@ -67,6 +68,7 @@ $(document).ready(function(){
   						//generate error that File not Supported
   						console.log("Error occurred while getting file.");
 						$(".progress").hide();
+						$("#upload-button").html("Submit");
   						$("#error").text("File Extension Not Supported.");
   					}
   				}
