@@ -119,7 +119,7 @@ geolocation: {
 					// country, administrative_area_level_1 (state), locality, street_address, postal_code
 					var resultType = 'locality';
 					var locationType = 'APPROXIMATE';
-					var qURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+ latlng +'&location_type='+ locationType +'&result_type='+ resultType +'&key=AIzaSyCgf-yDUYwrG_uMHLtck2AFeNfATS94NQ4';
+					var qURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+ latlng +'&location_type='+ locationType +'&result_type='+ resultType +'&key=AIzaSyBB1s2bgxqg4sMi9_1HJoZ-OV7ZzRnsYP4';
 					
 				    $.ajax({
 				    	type: 'GET',
@@ -1241,7 +1241,7 @@ pagination:
 				g.print(aRai);
 			};
 
-			console.log("CALLING GOOGLE MAPS AJAX....");
+			// console.log("CALLING GOOGLE MAPS AJAX....");
 			g.ajax_for_googleMaps();
 			g.markTerms();
 
@@ -1270,7 +1270,7 @@ print:
 
 			//Fetching Company And its location, to pass in to Google Maps API to get latitude and longitude.
 			var companyAndLocation = company + " " + location;
-			console.log('companyLocationList OBJ ==*********',g.companyLocationList);
+			// console.log('companyLocationList OBJ ==*********',g.companyLocationList);
 			g.companyLocationList.push(companyAndLocation);
 			// Combine source and sourceID
 			var completeSourceID = source.replace(/\s/g,'') + '=' + sourceID; 
@@ -1427,14 +1427,20 @@ ajax_for_googleMaps:
 				g.googleMaps_latLng = [];
 			for(var i=0; i< g.companyLocationList.length; i++){	
 
-				var q_url = 'https://crossorigin.me/https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyAMi4D8mMbs7bI7lFkxo7dmlwpR0yRGrJA'
+				// var q_url = 'https://crossorigin.me/https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyAMi4D8mMbs7bI7lFkxo7dmlwpR0yRGrJA'
+				// 	+'&query='+encodeURIComponent(g.companyLocationList[i]);
+
+				var q_url = 'https://cors.now.sh/https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyAMi4D8mMbs7bI7lFkxo7dmlwpR0yRGrJA'
 					+'&query='+encodeURIComponent(g.companyLocationList[i]);
-				console.log("Before calling google maps api..",q_url);
+
+				// console.log("Before calling google maps api..",q_url);
 				//ajax google api req to get json output
 				$.ajax({
 				type:'GET',
 				url: q_url,
 				}).done(function(result){
+
+					console.log("THE RESULT IS:::: " +result);
 				
 				var jsonResponse = JSON.parse(JSON.stringify(result));
 				// console.log("RESPONSE RESULTS ===== ",result.results);
@@ -1442,15 +1448,18 @@ ajax_for_googleMaps:
 				// console.log("RESPONSE LOCATION ===== ",result.results[0].geometry.location);
 				// console.log("RESPONSE LATTITUDE ===== ",result.results[0].geometry.location.lat);
 
-				console.log("TITLE ==== ",result.results[0].name);
-				 lat_long_obj = {"title": result.results[0].name , "lat" : result.results[0].geometry.location.lat, "lng" : result.results[0].geometry.location.lng};
-				//lat_long_obj = {"lat" : "33.123", "lng" : "-114.245"};
+				console.log("TITLE ==== ",jsonResponse);
 
-				g.googleMaps_latLng.push(lat_long_obj);
+				if(result.error_message !== 'You have exceeded your daily request quota for this API.'){
 
-				// console.log('Google API result',JSON.stringify(g.googleMaps_latLng));
-				localStorage.setItem("companyLocationList",JSON.stringify(g.googleMaps_latLng));
+					 lat_long_obj = {"title": result.results[0].name , "lat" : result.results[0].geometry.location.lat, "lng" : result.results[0].geometry.location.lng};
+					//lat_long_obj = {"lat" : "33.123", "lng" : "-114.245"};
 
+					g.googleMaps_latLng.push(lat_long_obj);
+
+					// console.log('Google API result',JSON.stringify(g.googleMaps_latLng));
+					localStorage.setItem("companyLocationList",JSON.stringify(g.googleMaps_latLng));
+				}
 				
 
 			}).fail(function(error){
@@ -1702,7 +1711,8 @@ api:
 						// https://jobs.github.com/positions.json?description=python&location=sf&full_time=true
 						// ------------------------------------------------
 
-						var githubURL = "https://crossorigin.me/https://jobs.github.com/positions.json?";
+						// var githubURL = "https://crossorigin.me/https://jobs.github.com/positions.json?";
+						var githubURL = "https://cors.now.sh/https://jobs.github.com/positions.json?";
 
 						if(searchString != ""){
 							searchString = encodeURIComponent(searchString);
@@ -1784,7 +1794,9 @@ api:
 				createURL:
 					function(searchString,city,state,noOfRecords){
 
-						var url = "https://crossorigin.me/https://api.indeed.com/ads/apisearch?publisher=422492215893931&sort=&radius=&st=&jt=&start=&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Chrome&v=2&format=json";
+						// var url = "https://crossorigin.me/https://api.indeed.com/ads/apisearch?publisher=422492215893931&sort=&radius=&st=&jt=&start=&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Chrome&v=2&format=json";
+
+						var url = "https://cors.now.sh/https://api.indeed.com/ads/apisearch?publisher=422492215893931&sort=&radius=&st=&jt=&start=&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Chrome&v=2&format=json";
 
 						if(searchString != ""){
 							searchString = encodeURIComponent(searchString);
@@ -1999,7 +2011,10 @@ api:
 					function(searchString,state,city,pageNumber,noOfRecords){
 						// Sample url = https://authenticjobs.com/api/?api_key=a446a0eefe6f5699283g34f4d5b51fa0&method=aj.jobs.get&id=1569
 
-						var url = "https://crossorigin.me/https://authenticjobs.com/api/?api_key=fb7dee3fcbf41f8c7d867402491d81cb&method=aj.jobs.search&format=json";
+						// var url = "https://crossorigin.me/https://authenticjobs.com/api/?api_key=fb7dee3fcbf41f8c7d867402491d81cb&method=aj.jobs.search&format=json";
+
+						var url = "https://cors.now.sh/https://authenticjobs.com/api/?api_key=fb7dee3fcbf41f8c7d867402491d81cb&method=aj.jobs.search&format=json";
+						
 
 						if(searchString != ""){
 							searchString = encodeURIComponent(searchString);
