@@ -74,6 +74,7 @@ $(document).ready(function(){
   					//validation on file input and text area
   					if(handleFileSelect(fileSelect,rText) === 0){
 						$(".progress").hide();
+						$("#upload-button").html("Submit");
 			  			return;
 			  		} 
   				}
