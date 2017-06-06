@@ -5,17 +5,8 @@ var g = {
 allRawData: [],
 allResults: [],
 allResultsStr: [],
-allSaved: [],
 partData: [],
 companyList: [],
-locationList: [],
-companyCounts: [],
-locationCounts: {},
-locationCounter: [],
-locationTally: [],
-companyList: [],
-companyLocationList:[],
-googleMaps_latLng : [],
 printFrom: 'allResults',
 totalResultCount: 0,
 page: 1,
@@ -28,161 +19,6 @@ getIP:
 	        g.userIP = data.ip;
 	        console.log('jobba.userIP',g.userIP);
 	    }),
-geolocation: {
-	location: '',
-	userTrigger: $('#location-icon').on('click',function(e){
-						e.preventDefault();
-						$(this).addClass('active'); // turn blue
-
-						g.geolocation.get();
-					}),
-	removeTrigger: $('#q-city').on('keyup',function(e){
-						e.preventDefault();
-						// If value changes, then we remove active class from icon;
-						var user = $('#q-city').val().trim();
-						if ( user != g.geolocation.location ) {
-							$('#location-icon').removeClass('active');
-						}
-					}),
-	isSupported: function(){
-					// check for Geolocation support
-					if (navigator.geolocation) {
-						console.log('supported');
-					  return true;
-					}
-					else {
-					  console.log('Geolocation is not supported for this Browser/OS.');
-					  return false;
-					}
-				},
-	get: function() {
-				// If geolocation not supported, tell them to fill it in manually
-				if (g.geolocation.isSupported === false) {
-					
-						// When user play punk and dont enter a location
-
-			            Materialize.toast("Enter a location",4000);
-			            $('#q-city').css("border-style","solid");
-			            $('#q-city').css("border-width","2px");			            
-			            $('#q-city').css("border-color","red");
-
-			            // End of when user play punk and dont enter a location
-
-
-					return;
-				}
-				// If geolocation is supported, get the location
-				else {
-
-					var startPos;
-					var geoOptions = {
-						maximumAge: 5 * 60 * 1000,
-						timeout: 10 * 1000,
-					};
-
-					function geoSuccess(position) {
-
-						startPos = position;
-						// document.getElementById('startLat').innerHTML = startPos.coords.latitude;
-						// document.getElementById('startLon').innerHTML = startPos.coords.longitude;
-						console.log('startPos.coords.latitude',startPos.coords.latitude);
-						console.log('startPos.coords.longitude',startPos.coords.longitude);
-						var latlng = startPos.coords.latitude +','+ startPos.coords.longitude;
-						console.log('latlng',latlng);
-
-						g.geolocation.convert(latlng); // Send to function to convert coordinates to city
-					};
-					function geoError(error) {
-						console.log('Error occurred. Error code: ' + error.code);
-			            
-						// When user play punk and dont enter a location
-
-			            Materialize.toast("Enter a location",4000);
-			            $('#q-city').css("border-style","solid");
-			            $('#q-city').css("border-width","2px");			            
-			            $('#q-city').css("border-color","red");
-
-			            // End of when user play punk and dont enter a location
-
-						return;
-						// error.code can be:
-						//   0: unknown error
-						//   1: permission denied
-						//   2: position unavailable (error response from location provider)
-						//   3: timed out
-					};
-					navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
-				}
-			},
-	convert: function(latlng){
-					// Example: https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=YOUR_API_KEY
-					// country, administrative_area_level_1 (state), locality, street_address, postal_code
-					var resultType = 'locality';
-					var locationType = 'APPROXIMATE';
-					var qURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+ latlng +'&location_type='+ locationType +'&result_type='+ resultType +'&key=AIzaSyCgf-yDUYwrG_uMHLtck2AFeNfATS94NQ4';
-					
-				    $.ajax({
-				    	type: 'GET',
-				    	url: qURL,
-				    }).done(function(response){
-				    	// var r = response.results[0].address_components;
-				    	// var city = r[0].short_name;
-				    	// var state = r[2].short_name;
-				    	// var country = r[3].short_name;
-				    	// console.log(city,state,country);
-
-				    	var a = response.results[0].formatted_address;
-				    	g.geolocation.location = a;
-				    	console.log('a',a);
-
-				    	// Set location in search bar, change color of location icon
-				    	$('#q-city').val(a);
-				    	$('#location-icon').addClass('active');
-
-				    	// If main search is empty, don't continue
-				    	if ($('#search').val().trim().length === 0) {
-				    		return;
-				    	}
-				    	else {
-					    	// Re-evaluate for submission
-					    	g.submitCheck();
-				    	}
-
-				    });
-
-				}
-},
-map: {
-	el: '',
-	fx: 
-      function initMap() {
-        g.map.el = new google.maps.Map(document.getElementById('map'), {
-          zoom: 2,
-          center: new google.maps.LatLng(2.8,-187.3),
-          mapTypeId: 'roadmap'
-        });
-
-        // Create a <script> tag and set the USGS URL as the source.
-        var script = document.createElement('script');
-        // This example uses a local copy of the GeoJSON stored at
-        // http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp
-        script.src = 'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js';
-        document.getElementsByTagName('head')[0].appendChild(script);
-      }
-
-      // // Loop through the results array and place a marker for each
-      // // set of coordinates.
-      // window.eqfeed_callback = function(results) {
-      //   for (var i = 0; i < results.features.length; i++) {
-      //     var coords = results.features[i].geometry.coordinates;
-      //     var latLng = new google.maps.LatLng(coords[1],coords[0]);
-      //     var marker = new google.maps.Marker({
-      //       position: latLng,
-      //       map: map
-      //     });
-      //   }
-      // }
-},
 lastSearchLocal: {
 	save: 	function(q,city){
 				if (q == '' || city == '') return;
@@ -192,52 +28,20 @@ lastSearchLocal: {
 					'city': city,
 				};
 
-				var str = JSON.stringify(obj);
-				localStorage.setItem('lastSearch', str);
-
-				$('#last-search').show();
-				$('#last-search-q').text(obj.q);
-				$('#last-search-city').text(obj.city);
+				localStorage.setItem('lastSearch', JSON.stringify(obj));
 			},
 	get: 	function(){
 				var str = localStorage.getItem('lastSearch');
-				if(str) {
-					$('#last-search').show();
-					return str;
-				}
-				else {
-					$('#last-search').hide(); 
-					return; 
-				}
+				if(str) {return str;}
+				else { return }
 			},
-	print: 	function(){
+	print: 	function(str){
 				var str = g.lastSearchLocal.get();
-				if(str) {
-					var item = JSON.parse(str);
+				var item = JSON.parse(str);
 
-					$('#last-search-q').text(item.q);
-					$('#last-search-city').text(item.city);
-				}
-				else {
-					return;
-				}
+				$('#last-search-q').text(item.q);
+				$('#last-search-city').text(item.city);
 			},
-	listener: 
-		$('#last-search-trigger').on('click',function(e){
-			e.preventDefault();
-			
-			// Get values from the target spans in HTML and use those set the main search values 
-			var lastq = $('#last-search-q').text();
-			var lastcity = $('#last-search-city').text();
-			// console.log('lastq',lastq);
-			// console.log('lastcity',lastcity);
-
-			$('#search').val(lastq);
-			$('#q-city').val(lastcity);
-
-			// Skip check and trigger submission
-			g.submit();
-		}),
 	},
 apiStatus: ['processing','processing','processing','processing'],
 apiCheckpoint: 'processing',
@@ -248,54 +52,35 @@ sortDateNewest:
 		function(){
 			var data = g.allResults;
 			// var data = sample;
-			var directory = g.atlasCleared;
 
-			var sorted = directory.map(function(clearedID){
-				var di = data[clearedID];
-				var age = moment().diff(moment(di.date, 'MMM D YY'), 'days');
-				var obj = {age,clearedID};
+			var converted = data.map(function(di){
+				var d = moment().diff(moment(di.date, 'MMM-DD'), 'days');
+				var id = di.id;
+				var obj = {d,di};
 				return obj;
 			}).sort(function(a,b){
-				return a.age - b.age;
+				return a.d - b.d;
 			}).map(function(x){
-				return x.clearedID;
-			});
+				return x.di;
+			})
 
-			console.log('sorted',sorted);
-			g.atlasSorted = sorted;
+			g.partData = converted;
+			g.printFrom = 'partData';
+
+			// g.pagination();
 		},
 toast: 
 		function(msg){
 			Materialize.toast(msg,2000);
 		},
-atlasCleared: [],
-atlasSorted: [],
 filter: {
-	atlas: {
-		source: [],
+	numberApplied: 0,
+	guide: {
 		terms: [],
-		age: [],
+		source: [],
+		date: [],
 		distance: [],
-		location: [],
-		company: [],
-			},
-	atlasInit:
-			function(){
-				// var n = g.totalResultCount;
-				// var baseline = [];
-				// for (var i=0; i<g.totalResultCount; i++) {
-				// 	baseline.push[i];
-				// };
-				var a = g.filter.atlas;
-				a.source = a.terms = a.age = a.distance = a.location = a.company = [];
-				// g.atlasCleared = [];
-				for (var i=0; i<g.totalResultCount; i++) {
-					g.atlasCleared.push(i);
-				};
-
-			 	//Initiate byLocation and by Company as well
-			 	g.filter.byLocation.init();
-			},	
+	},
 	byTerms: {
 			whiteList: [],
 			blackList: [],
@@ -415,32 +200,43 @@ filter: {
 							var whiteCheck = white.indexOf(false);
 							// return blackCheck === -1 && whiteCheck === -1;
 
-							// Trash testing
+							//Return bad ones (matched)
 							return blackCheck !== -1 && whiteCheck !== -1;
 						});
 
-						var mapped = filtered.map(function(jobObj){
-							return jobObj.id;
-						})
-
+						// Write bad ones to the guide
+						g.filter.guide.terms = filtered.map(function(listing){
+							return listing.id;
+						});
+						console.log('g.filter.guide',g.filter.guide);
 
 						g.filter.byTerms.whiteList = inTerms;
 						g.filter.byTerms.blackList = exTerms;
 						g.partData = filtered;
 						g.filter.export();
-						g.filter.atlas.terms = mapped;
 					},
-			},
+		},
 	bySource: {
 			event: 
-					$('#filter-source').on('change','.filterSourceInput',function(event){
-						//  Switched from on click to change because on click was overriding the default click
-						// function from materilalizeCSS.
+					$('#filter-source').on('click','.filterSourceInput',function(event){
 						event.preventDefault();
 						var $t = $(this);
-						$t.toggleClass('data-hide');
+						var dataArray; //either partData or allResults
 
-						var sourceReport = {show: [], hide: [], };
+						// $t.toggleClass('data-hide');
+						// Essentially toggle class, except increment/decrement the total number of filters for reference
+						if ($t.hasClass('data-hide')) {
+							$t.removeClass('data-hide');
+							g.filter.numberApplied--;
+							dataArray = g.allResults;
+						}
+						else {
+							$t.addClass('data-hide');
+							g.filter.numberApplied++;
+							dataArray = g.partData;
+						}
+
+						// var sourceReport = {show: [], hide: [], };
 						var sourceHidden = [];
 
 						$('.filterSourceInput.data-hide').each(function(){
@@ -456,361 +252,57 @@ filter: {
 					function(hideList){
 						// If data already filtered, use it. Else, use all results
 						// var data = g.partData;
-						// if (data.length === 0) { data = g.allResults } 
+						// if ( === 0) { data = g.allResults } 
 						var data = g.allResults;
 
-						// var filtered = data.filter(function(res){
-						// 	// Return if not found in hideList array
-						// 	var iof = hideList.indexOf(res.source);
-						// 	return iof === -1;
-						// });
-						// console.log('source filtered',filtered);
-						// g.partData = filtered;
-
-						var trash = data.filter(function(res){
+						var filtered = data.filter(function(res){
 							// Return if not found in hideList array
 							var iof = hideList.indexOf(res.source);
+							// return iof === -1;
+							// Return listings that need to be filtered out.
 							return iof !== -1;
 						});
-						// g.partData = filtered;
+						// Write bad ones to the guide
+						g.filter.guide.source = filtered.map(function(listing){
+							return listing.id;
+						});
+						console.log('g.filter.guide',g.filter.guide);
 
-						var mapped = trash.map(function(jobObj){
-							return jobObj.id;
-						})
-						g.filter.atlas.source = mapped;
-						console.log('source atlas',mapped);
-
+						g.partData = filtered;
 						g.filter.export();
 					},
-			},
-	byLocation: {
-			event: 
-					function(){
-					// $('#filter-location').on('change','.filterLocationInput',function(event){
-						console.log('byLocation triggered');
-						//  Switched from on click to change because on click was overriding the default click
-						// function from materilalizeCSS.
-						// event.preventDefault();
-						var $t = $(this);
-						$t.toggleClass('data-hide');
-
-						var hidden = [];
-
-						$('.filterLocationInput.data-hide').each(function(){
-							var dataRep = $(this).attr('value');
-							hidden.push(dataRep);
-						});
-						console.log('hidden',hidden);
-
-						// Pass to global filter
-						g.filter.byLocation.fx(hidden);
-					// }),
-					},
-			processor: 
-					function(jobObj){
-							// Get unique locations and count repeats. Isolate city.
-							var loc = jobObj.location;
-							var split = loc.split(',');
-							var city = split[0].trim().toLowerCase();
-							var locIndex = g.locationList.indexOf(city);
-							// var count = 1;
-
-							// var obj = {
-							// 	location: city,
-							// 	n: 1,
-							// }
-							// var obj = {};
-							// // If current company had no matches, add name and general location to companyList
-							// if ( locIndex === -1 ) {
-							// 	// Add company, and start count at 1;
-							// 	obj[city]=1;
-							// 	g.locationCounts.push(obj);
-
-							// 	// List of unique cities
-							// 	g.locationList.push(city);
-							// }
-							// else {
-							// 	// Find current object the current count and increment
-							// 	for (var i=0; i<g.locationCounts.length; i++) {
-							// 		var li = g.locationCounts[i]
-							// 		// for( var key in g.locationCounts[i]){
-
-							// 			var locIndex = g.locationCounts[i][key].indexOf(city);
-							// 			if (locIndex === -1){
-							// 				var locO = g.locationCounts[i].city;
-							// 				var count = locO.n;
-							// 				locO.n = count+1;
-							// 				break;
-							// 			}
-							// 		// }
-							// 	};
-							// 	// g.locationCounts.push(obj);
-							// }
-
-								var Ob = {
-									name: city,
-									tally: 1,
-								};
-							// If current company had no matches, add name and general location to companyList
-							if ( locIndex === -1 ) {
-								// Add company, and start count at 1;
-								g.locationCounts[city] = 1;
-								g.locationList.push(city);
-								
-								g.locationTally.push(Ob);
-
-								var arr = [city,1];
-								g.locationCounter.push(arr);
-							}
-							else {
-								// Get the current count and increment
-								// Object
-								var count = g.locationCounts[city];
-								g.locationCounts[city] = count+1;
-
-								//Array of Objects
-								var target = g.locationTally[locIndex];
-								var n = target.tally;
-								g.locationTally[locIndex].tally = n+1;
-
-								// Array of arrays counter
-								var n = g.locationCounter[locIndex][1];
-								g.locationCounter[locIndex][1] = n+1;
-							}
-					},
-			init:
-				function(){
-					// var data = g.locationCounts;
-					// var arr = g.locationCounter;
-					var tally = g.locationTally;
-
-					// console.log('data',data);
-					// console.log('arr',arr);
-					console.log('tally',tally);
-
-					 // Sort by most popular first
-					var locSorted = tally.sort(function(a,b){
-						return b.tally-a.tally;
-					});
-					console.log('locSorted',locSorted);
-					g.locationTally = locSorted;
-					// .map(function(obj){
-					// 	var s = obj.name +'('+ obj.tally + ')'; 
-					// 	return s;
-					// });
-
-					var wrap = $('#filter-location');
-					var cutoff = 8;
-					var belowFold = $('<div>');
-						belowFold.addClass('below-fold');
-
-					// Print each city in filter menu
-					for (var i=0; i<locSorted.length; i++) {
-						var loc = locSorted[i].name;
-						var nospace = loc.replace(/\s/g, '');
-						var id = 'loc-'+i
-						var n = locSorted[i].tally;
-						var str = loc +' ('+ n + ')';
-						console.log('str',str);
-
-						var li = $('<li>');
-							li.addClass('input-field');
-						
-						var input = $('<input>');
-							input.addClass('filterLocationInput filterInput filled-in');
-							input.attr({
-								'type': 'checkbox',
-								'name': 'filterLocation',
-								'value': loc,
-								'data-select': true,
-								'checked': 'checked',
-								'id': '#'+id,
-							});
-							
-						var label = $('<label>');
-							label.attr('for',id);
-							label.text(str);
-							
-						li.append(input);
-						li.append(label);
-
-						if (i <= cutoff-1) {
-							$('#filter-location').append(li);
-						}
-						else {
-							belowFold.append(li);
-						}
-					};
-					// Add below fold content to menu
-					wrap.append(belowFold);
-
-					if (locSorted.length > cutoff){
-						var btn = $('<span>');
-							btn.addClass('show-more-btn');
-							btn.text('Show more...');
-							btn.on('click', function(e){
-								e.preventDefault();
-								var wrap = $(this).parent('.overflow-wrap');
-								// wrap.toggleClass('overflow-hidden');
-								var isHidden = wrap.hasClass('overflow-hidden');
-								
-								if (isHidden) {
-									wrap.removeClass('overflow-hidden');
-									$(this).text('Show fewer...');
-								}
-								else {
-									wrap.addClass('overflow-hidden');
-									$(this).text('Show more...');
-								}
-							});
-
-						wrap.append(btn);
-						wrap.addClass('overflow-hidden overflow-wrap');
-					}
-
-
-					// document.getElementById('filter-location').addEventListener('change',g.filter.byLocation.event(event));
-					$('#filter-location').on('change',function(e){
-						e.preventDefault();
-						g.filter.byLocation.event();
-					})
-
-				},
-			fx: 
-				function(hidden){ // Filter by Location!!!
-					var data = g.allResults;
-
-					var filtered = data.filter(function(res){
-						var split = res.location.split(',');
-						var city = split[0].trim().toLowerCase();
-						var iof = hidden.indexOf(city);
-						return iof === -1;
-					});
-
-					// Temporary map for atlas
-					var noFlyList = filtered.map(function(jobObj){
-						return jobObj.id;
-					}) 
-					
-					g.filter.atlas.location = noFlyList;
-					g.filter.export();
-				},
-			},
-	byCompany: {
-			processor: 
-					function(jobObj){
-							// Get listing's company
-							var company = jobObj.company.toLowerCase();
-
-							// Compare with existing companies. Only add if unique
-							var companyIndex = g.companyList.indexOf(company);
-
-							// var countObj = {
-							// 	company: company,
-							// 	n: 1,
-							// }
-
-							// If current company had no matches, add name and general location to companyList
-							if ( companyIndex === -1 ) {
-								// var obj = {
-								// 	'name': company,
-								// 	'sourceID': jobObj.sourceID,
-								// 	'id': jobObj.id,
-								// 	'location': jobObj.location,
-								// };
-								// Add company, and start count at 1;
-								// g.companyCounts.push(countObj);
-
-								// List of unique companies
-								g.companyList.push(company); // expendable
-							}
-							else {
-								// Get the current count and increment
-								// var count = g.companyCounts[company];
-								// countObj.n = count+1;
-								// g.companyCounts.push(countObj);
-								// g.companyCounts[company] = count+1;
-							}
-					},
-			fx: 
-				function(){
-
-				},
-			},
-	byAge: {
-		event: $('#dateFilters').on('click','.sideNavForm a',function(e){
-					e.preventDefault();
-					var ageLimit = parseInt($(this).attr('data-age'));
-					g.filter.byAge.fx(ageLimit);
-				}),
-		fx: 
-				function(ageLimit){
-					var data = g.allResults;
-
-					// var filtered = data.filter(function(res){
-					// 	var date = res.date;
-					// 	var daysAgo = moment().diff(moment(date, 'MMM-DD YY'), 'days');
-					// 	console.log('daysAgo',daysAgo);
-					// 	return daysAgo <= ageLimit ;
-					// });
-
-					var trash = data.filter(function(res){
-						var date = res.date;
-						var daysAgo = moment().diff(moment(date, 'MMM-DD YY'), 'days');
-						return daysAgo > ageLimit ; //return all the ones to be filtered out
-					});
-
-					var mapped = trash.map(function(jobObj){
-						return jobObj.id; //return ids for each job
-					});
-
-					// g.partData = filtered;
-					g.filter.atlas.age = mapped;
-					g.filter.export();
-
-				}
+		},
+	byDate: {
+		},
+	byDistance: {
 		},
 	export:
 			function(){
-				console.log('g.filter.atlas',g.filter.atlas);
-				var combined = [];
-				var atlas = g.filter.atlas;
+				var guide = g.filter.guide; // guide that has all the indeces of bad listings
 
-				$.each(atlas,function(k,v){
-					var length = v.length;
-					var unique = v.filter(function(id){
-						var iof = combined.indexOf(id);
-						return iof === -1;
-					});
-					combined = combined.concat(unique);
+				// Compile the indeces and print only the ones that are not found on any list
+				var filtered = g.allResults.filter(function(each){
+					var id = each.id;
+					var termCheck = guide.terms.indexOf(id);
+					var sourceCheck = guide.source.indexOf(id);
+
+					// Return if can't find any match (matches are bad)
+					return termCheck == -1 && sourceCheck == -1;
 				});
 
-				console.log('combined',combined);		
-
-				// Print results that pass
-				var passed = g.allResults.filter(function(r){
-					var rID = r.id;
-					var iof = combined.indexOf(rID);
-					return iof === -1; // return if not found in trash
-				});
-				g.atlasCleared = passed.map(function(jobObj){
-					return jobObj.id;
-				});
-				console.log('g.atlasCleared',g.atlasCleared);
-
-				// Call for sort by newest
-				g.sortDateNewest();
 				// Update where to print from
-				// g.printFrom = 'partData';
+				g.printFrom = 'partData';
+				g.partData = filtered;
 
 				// In event filtering didn't remove anything
-				if ( g.atlasCleared.length === g.totalResultCount ) {
-					g.toast("The filters did not remove any results. Showing all results");
-					// g.printFrom = 'allResults';
-				}
+				// if ( g.partData.length === g.totalResultCount ) {
+				// 	g.toast("The filters did not remove any results. Showing all results");
+				// 	g.printFrom = 'allResults';
+				// }
 
 				// Update amount of results after filters
-				$('#result-count').text(g.atlasCleared.length);
+				// $('#result-count').text(g[g.printFrom].length);
+				$('#result-count').text(filtered.length);
 
 				g.paginationSet();
 			},
@@ -822,7 +314,7 @@ checkStatus:
 			var newStatus = g.apiCheck;
 			if ( newStatus > oldStatus && newStatus < 100) {
 				var pct = g.apiCheck/5*100;
-				// console.log('pct',pct);
+				console.log('pct',pct);
 				// $('.progress-target').css('width',pct+'%');
 				$('.progress-target').animate({
 					'width': (pct+10)+'%'
@@ -842,6 +334,7 @@ checkStatus:
 				console.log('all apis done');
 
 
+				g.sortDateNewest();
 
 				// change run status
 				g.apisRunning = false;
@@ -853,11 +346,7 @@ checkStatus:
 				$('#progress-wrap').hide();
 				$('.progress-target').css('width','0%');
 
-				//Initialize, Reinitialize filter atlas
-				g.filter.atlasInit();
-
-				// Sort by Newest
-				g.sortDateNewest();
+				
 
 				// Toast!
 				Materialize.toast(g.totalResultCount + ' job listings found!',4000);
@@ -871,17 +360,7 @@ getItemsPerPage:
 		$('#per-page-options').on('click','.pagination-num-opt', function(event){
 			event.preventDefault();
 			g.itemsPerPage = parseInt($(this).text());
-			// Remove selected class and apply to new one
-			// $('#per-page-options .selected').removeClass('selected');
-			// $(this).parent('li').addClass('selected');
 			g.paginationSet();
-		}),
-menuSelectionListener:
-		$('.horizontal-options').on('click','a', function(event){
-			event.preventDefault();
-			// Remove selected class and apply to new one
-			$('.horizontal-options .selected').removeClass('selected');
-			$(this).parent('li').addClass('selected');
 		}),
 dedup:
 		function(jobObj){
@@ -1002,10 +481,6 @@ writeToFirebaseArchive:
 
 			// console.log('writeToFirebaseArchive end');
 		},
-getSaves:
-		function(){
-			// 
-		},
 printManager: 	
 		function(jobStr){
 			// Push to allResultsStr
@@ -1028,9 +503,22 @@ printManager:
 			g.totalResultCount++;
 			$('#result-count').text(g.totalResultCount);
 
-			// Analyze Listing Company
-			g.filter.byCompany.processor(jobObj);
-			g.filter.byLocation.processor(jobObj);
+			// Analyze individual listing
+				// Get listing's company
+				var company = jobObj.company;
+
+				// Compare with existing companies. Only add if unique
+				var companyIndex = g.companyList.indexOf(company);
+
+				// If current company had no matches, add to companyList
+				if ( companyIndex === -1 ) {
+					g.companyList.push(company);
+					// console.log('g.companyList',g.companyList);
+				}
+
+				// for (var i=0; i<g.companyList.length; i++) {
+				// 	companyIndex = g.companyList.indexOf(company);
+				// };
 
 
 			// Show link in pagination nav if enough results
@@ -1140,11 +628,7 @@ paginationSet:
 			// else { 
 			// 	resultCount = g.totalResultCount 
 			// }	
-			// resultCount = g[g.printFrom].length;
-
-			// Number of results to show is total results - ones being filtered out
-			resultCount = g.atlasCleared.length;
-			
+			resultCount = g[g.printFrom].length;
 			// Display message saying there are no results
 			if (resultCount === 0) {
 				$('html').addClass('no-results');
@@ -1195,15 +679,14 @@ paginationSet:
 				$('#pg-control-wrap').append(li);
 			};
 
-
 			// Call pagination to print 1st page
 			g.page = 1;
 			g.pagination();
 
 
-			// console.log('numberOfPages',numberOfPages);
-			// console.log('resultCount',resultCount);
-			// console.log('g.itemsPerPage',g.itemsPerPage);
+			console.log('numberOfPages',numberOfPages);
+			console.log('resultCount',resultCount);
+			console.log('g.itemsPerPage',g.itemsPerPage);
 		},
 pagination: 
 		function(){	
@@ -1213,7 +696,7 @@ pagination:
 			var end = g.page * g.itemsPerPage;
 
 			// Account for last page
-			var length = g.atlasCleared.length;
+			var length = g[g.printFrom].length;
 			if (end >= length) {
 				end = length;
 			}
@@ -1223,26 +706,16 @@ pagination:
 			$('#page-range').text(range);
 
 			// Clear feed
-			$('#feed').empty();  
-			g.companyLocationList = [];         
+			$('#feed').empty();          
 
 			// Loop through listings from start to end in allResultsStr array
-			// var atlas = g.atlasCleared;
-			var atlas = g.atlasSorted;
-
 			for (var i=start; i<end; i++) {
 				// Set current index in global
 				g.resultNumber = i+1;
 				// Print each listing
-				var ai = atlas[i];
-				// console.log('ai',ai);
-				var aRai = g.allResults[ai];
-				// console.log('aRai',aRai);
-				g.print(aRai);
+				g.print(g[g.printFrom][i]);
 			};
 
-			console.log("CALLING GOOGLE MAPS AJAX....");
-			g.ajax_for_googleMaps();
 			g.markTerms();
 
 		},
@@ -1266,39 +739,19 @@ print:
 			var jobIndex = jobData.index;
 			var saveBtnText = 'Save Job';
 			var saveBtnImageSource = 'assets/icons/heart1s-gray-red.svg';
-			var saved;
 
-			//Fetching Company And its location, to pass in to Google Maps API to get latitude and longitude.
-			var companyAndLocation = company + " " + location;
-			console.log('companyLocationList OBJ ==*********',g.companyLocationList);
-			g.companyLocationList.push(companyAndLocation);
 			// Combine source and sourceID
 			var completeSourceID = source.replace(/\s/g,'') + '=' + sourceID; 
 
-			// Check for match
-			g.allSaved = sessionStorage.getItem("allJobs");
-
-			if(g.allSaved!==null){
-				var iof = g.allSaved.indexOf(completeSourceID);
-				if (iof === -1) {
-					saved = false;
-				}
-				else {
-					saved = true;
-				}
-			}
-
 			// Convert date to days ago
-			// var daysAgo = moment(date,'MMM-DD').fromNow(true);
-			var d = moment().diff(moment(date, 'MMM DD YY'), 'days');
-			var daysAgo = d + 'd'
+			var daysAgo = moment(date,'MMM-DD').fromNow();
 
 			// var metaArray = [location, date, source];
-			// var metaArray = [
-			// 	{ key: "location", value: location},
-			// 	{ key: "date", value: daysAgo},
-			// 	{ key: "source", value: source}
-			// ];
+			var metaArray = [
+				{ key: "location", value: location},
+				{ key: "date", value: daysAgo},
+				{ key: "source", value: source}
+			];
 
 			var listingEl = $('<li>');
 				listingEl.addClass('listing');
@@ -1336,23 +789,16 @@ print:
 				
 				var subheadDate = $('<span>');
 					subheadDate.addClass('date');
-					subheadDate.text(daysAgo);
+					subheadDate.text(date);
 
 					subheadlineEl.append(subheadCompany);
 					subheadlineEl.append(subheadLocation);
 					subheadlineEl.append(subheadDate);
 
-					// Save Wrap
-					var saveWrap = $('<span>');
-						saveWrap.addClass('save-wrap ghost');
-
-					if (saved === true) {
-						saveWrap.attr('data-saved','true');
-						saveWrap.addClass('saved');
-					}
-					else {
-						saveWrap.attr('data-saved','false');
-					}
+			// Save Wrap
+			var saveWrap = $('<span>');
+				saveWrap.addClass('save-wrap ghost');
+				saveWrap.attr('data-saved','false');
 
 			// Meta Details
 			// for (var i=0; i<metaArray.length; i++) {
@@ -1420,49 +866,6 @@ print:
 			$('#feed').append(listingEl);
 
 		},
-ajax_for_googleMaps: 
-			function(){
-
-				var lat_long_obj = {};
-				g.googleMaps_latLng = [];
-			for(var i=0; i< g.companyLocationList.length; i++){	
-
-				var q_url = 'https://crossorigin.me/https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyCqrPL7NGZ91Z_Dw7FOxLEyOF2Uc4cVqpc'
-					+'&query='+encodeURIComponent(g.companyLocationList[i]);
-				console.log("Before calling google maps api..",q_url);
-				//ajax google api req to get json output
-				$.ajax({
-				type:'GET',
-				url: q_url,
-				}).done(function(result){
-				
-				var jsonResponse = JSON.parse(JSON.stringify(result));
-				// console.log("RESPONSE RESULTS ===== ",result.results);
-				// console.log("RESPONSE GEOMETRY ===== ",result.results[0].geometry);
-				// console.log("RESPONSE LOCATION ===== ",result.results[0].geometry.location);
-				// console.log("RESPONSE LATTITUDE ===== ",result.results[0].geometry.location.lat);
-
-				console.log("TITLE ==== ",result.results[0].name);
-				 lat_long_obj = {"title": result.results[0].name , "lat" : result.results[0].geometry.location.lat, "lng" : result.results[0].geometry.location.lng};
-				//lat_long_obj = {"lat" : "33.123", "lng" : "-114.245"};
-
-				g.googleMaps_latLng.push(lat_long_obj);
-
-				// console.log('Google API result',JSON.stringify(g.googleMaps_latLng));
-				localStorage.setItem("companyLocationList",JSON.stringify(g.googleMaps_latLng));
-
-				
-
-			}).fail(function(error){
-				console.log('fail',error.code);
-				// g.apiError;
-			});
-
-
-		}
-		// localStorage.setItem("companyLocationList",g.googleMaps_latLng);
-		// console.log('Google API result',g.googleMaps_latLng);
-},		
 markTerms:
 		function(){
 			var q = $('#search').val().split(' ');
@@ -1529,12 +932,6 @@ reset:
 			// Clear previous results
 			g.allResultsStr = [];
 			g.allResults = [];
-			g.companyList = [];
-			g.locationList = [];
-			g.companyCounts = {};
-			g.locationCounts = {};
-
-
 
 			// Reset Pagination: Remove active class from current page
 			$('.pagination').find('.active').removeClass('active');
@@ -1554,54 +951,57 @@ scrollToTop:
 			event.preventDefault();
 			$(window).scrollTop(0);
 		}),
-submitHandler:
+submit: 
 		$('#submit').on('click', function(event){
-			event.preventDefault();
-			// console.log('submitHandler');
-			g.submitCheck();
-		}),
-submitCheck:
-		function(){
-			console.log('submitCheck');
+		    event.preventDefault();
 			g.reset();
 
-			// Search parameters
-			var q = $('#search').val();
-			var city = $('#q-city').val().trim();
 
 			// console.log("reset!! #before"+sessionStorage.getItem("userKey"));
-			
-			console.log('city',city);
-			// If location left blank, get current location
-			if ( city === '' ) {
-				g.geolocation.get();				
+
+			// if(sessionStorage.getItem("userKey")){
+   //                // alert("Welcome, "+user.displayName)
+
+   //                console.log("reset!! #inside"+sessionStorage.getItem("userKey"));
+   //                $("#signInWithGithub").hide();
+   //                $("#signOut").css('visibility', 'visible');
+   //                $("#signOut").show();
+   //                $(".save-wrap").css('visibility', 'visible');
+   //                console.log("SAVE WRAP VISIBILITY :::"+$(".save-wrap").css('visibility'));
+   //                $(".save-wrap").show();
+   //                $("#displayJobs").css('visibility', 'visible');
+        
+   //          }
+
+
+			if ( g.apisRunning === true ) {
 				return;
 			}
-			else{
-				$('#q-city').css("outline","none");
-			    $('#q-city').css("border-width","0px");			            
-			    $('#q-city').css("border-color","none");
+			else {
+				g.apisRunning = true;
 			}
-			// Allow submission
-			g.submit();
-		},
-submit: 
-		function(){
-			console.log('submit');
-   		if($('#q-city').val().trim()===""){
-				alert("City empty");
-			}
-			else{
-			
-        if ( g.apisRunning === true ) {
-				  return;
-			  }
-			  else {
-				  g.apisRunning = true;
-			  }
+
 			// Search parameters
 			var q = $('#search').val();
 			var city = $('#q-city').val().trim();
+			var lat, lng;
+			
+			// Store the last search locally
+			g.lastSearchLocal.save(q,city);
+
+			// If location left blank, get current location
+			if ( city === '' ) {
+				alert('Enter a Location');
+				$('.loc-wrap').addClass('has-error');
+				$('#q-city').on('change',function(event){
+					event.preventDefault();
+					var loc = $('#q-city').val().trim();
+					if (loc.length > 0) {
+						$('.loc-wrap').removeClass('has-error');
+					}
+				});				
+				return;
+			}
 
 			// Add global loading class to html, so any element that 
 			// has different style depending on load status, can specify
@@ -1610,7 +1010,8 @@ submit:
 			$('html').addClass('do-not-disturb');			
 
 				// city = 'San Francisco, CA, United States'
-
+			console.log('q',q);
+			console.log('city', city);
 
 			// Testing abort methods
 			// var githubxhr = null;
@@ -1624,9 +1025,6 @@ submit:
 			// 	githubxhr = g.api.github.ajaxCall(githubURL,g.api.github.getResponse);
 			// } 
 			// goGithub();
-
-			// Glassdoor API Call
-			g.analysis.salary.ajax(q);
 
 			var githubURL = g.api.github.createURL(q,city,"","10");
 			g.api.github.ajaxCall(githubURL,g.api.github.getResponse);
@@ -1643,55 +1041,17 @@ submit:
 			var linkupURL = g.api.linkup.createURL(q,city,"","100");
 			g.api.linkup.ajaxCall(linkupURL,g.api.linkup.getResponse);
 
-			// Store the last search locally
-			g.lastSearchLocal.save(q,city);
-
-			console.log('q',q);
-			console.log('city', city);
-		    } // End of else
+		}),
+apiError:
+		function(){
+			console.log('apiError');
+			// Change status to fail.
+			g.apiCheck++;
+			g.checkStatus();
+			console.log('g.apiCheck',g.apiCheck);
 		},
-analysis: {
-	salary: {
-		ajax: function(q){
-			var ip = g.userIP;
-			// var searchTerm = $('#search').val().trim();
-			var searchTerm = q;
-			var qURL = 'https://cors-anywhere.herokuapp.com/https://api.glassdoor.com/api/api.htm?t.p=151095&t.k=dSWk91gUjq3&userip='+ ip +'&useragent=&format=json&v=1&action=jobs-prog&countryId=1&jobTitle='+searchTerm;
-	
-			$.ajax({
-				type:'GET',
-				url: qURL,
-			}).done(function(result){
-				var r = result.response;
-				var jobTitle = r.jobTitle;
-				var payHigh = r.payHigh;
-				var payLow = r.payLow;
-				var payMedian = r.payMedian;
-				console.log('Glassdoor done',result);
-				// console.log('Title: ' + result.response.jobTitle)
-
-			// console.log("pay high, low, median "+ payHigh +" "+ payLow + " "+ payMedian);
-
-				$('.job-position-target').text(jobTitle);
-
-			}).fail(function(){
-				console.log('fail');
-				g.api.ajaxError;
-			});
-		}
-	}
-},
 api: 
 	{
-		timeout: 5000,
-		ajaxError: 	
-				function(){
-					console.log('apiError');
-					// Change status to fail.
-					g.apiCheck++;
-					g.checkStatus();
-					console.log('g.apiCheck',g.apiCheck);
-				},
 		github: {
 				url: "",
 				status: "processing",
@@ -1720,31 +1080,28 @@ api:
 
 							githubURL = githubURL + "&full_time=true";
 						
-						// console.log("Github URL is:"+githubURL);
+						console.log("Github URL is:"+githubURL);
 						g.api.github.url = githubURL;
 						return githubURL;
 					},
 				getResponse: 
 					function(result){
 						var jobsResults = result;
-						console.log('github success');
-						// console.log('-----------------GITHUB RESULTS-----------------');
+
+						console.log('-----------------GITHUB RESULTS-----------------');
 						console.log('Github jobsResults',jobsResults);
 
 						for(var i=0; i< jobsResults.length; i++){
 							var ji = jobsResults[i];
 							g.allRawData.push(ji);
 
-							// Clean up location data
-							var loc = ji.location.trim();
-
 							// Send to Global Print Function
 							var jobJSON = {
 								"title":  ji.title,
 								"jobPosition": ji.title,
 								"company": ji.company,
-								"location": loc,
-								"date": moment(ji.created_at).format("MMM D YY"),
+								"location": ji.location,
+								"date": moment(ji.created_at).format("MMM D"),
 								"source": "Github",
 								"sourceID": ji.id,
 								"description": ji.description,
@@ -1761,7 +1118,7 @@ api:
 						// Change status to done.
 						g.apiCheck++;
 						g.checkStatus();
-						// console.log('g.apiCheck',g.apiCheck);
+						console.log('g.apiCheck',g.apiCheck);
 							var apiIndex = g.api.github.apiIndex;
 							g.apiStatus[apiIndex] = 'done';
 
@@ -1772,8 +1129,14 @@ api:
 						$.ajax({
 							type:'GET',
 							url: qURL,
-							timeout: g.api.timeout
-						}).done(mycallback).fail(g.api.ajaxError);
+						}).done(mycallback).fail(function(){
+							//Create a new function to process errors
+							console.log('ajaxCall fail');
+							g.apiError();
+							// Change status to fail.
+							var apiIndex = g.api.github.apiIndex;
+							g.apiStatus[apiIndex] = 'fail';
+						});
 					}
 			},
 
@@ -1808,7 +1171,7 @@ api:
 							url = url + "&limit=" + noOfRecords;
 						}
 
-						// console.log("Indeed URL is: "+url);
+						console.log("Indeed URL is: "+url);
 						g.api.indeed.url = url;
 						return url;
 					},
@@ -1816,8 +1179,8 @@ api:
 					function(result){
 
 						var jobsResults = result.results;
-						// console.log('indeed success');
-						// console.log('-----------------INDEED RESULTS-----------------');
+
+						console.log('-----------------INDEED RESULTS-----------------');
 						console.log('Indeed jobsResults',jobsResults);
 
 						for(var i=0; i< jobsResults.length; i++){
@@ -1831,7 +1194,7 @@ api:
 								"jobPosition:": ji.jobtitle,
 								"company": ji.company,
 								"location": ji.city,
-								"date": moment(ji.date).format("MMM D YY"),
+								"date": moment(ji.date).format("MMM D"),
 								"source": "Indeed",
 								"sourceID": ji.jobkey,
 								"description": ji.snippet,
@@ -1852,7 +1215,7 @@ api:
 						// Change status to done.
 						g.apiCheck++;
 						g.checkStatus();
-						// console.log('g.apiCheck',g.apiCheck);
+						console.log('g.apiCheck',g.apiCheck);
 							var apiIndex = g.api.indeed.apiIndex;
 							g.apiStatus[apiIndex] = 'done';
 
@@ -1862,7 +1225,15 @@ api:
 						$.ajax({
 							type:'GET',
 							url: qURL,
-						}).done(mycallback).fail(g.api.ajaxError);
+						}).done(mycallback).fail(function(){
+							//Create a new function to process errors
+							console.log('ajaxCall fail');
+							g.apiError();
+							// Change status to fail.
+							// g.apiStatus[g.api.indeed.apiIndex] = 'fail';
+							var apiIndex = g.api.indeed.apiIndex;
+							g.apiStatus[apiIndex] = 'fail';
+						});
 					}
 			},
 
@@ -1885,17 +1256,17 @@ api:
 						}
 						if(city != ""){
 							var finalCity = city.split(",");
-							// console.log("finalcity string length is: "+finalCity.length);
+							console.log("finalcity string length is: "+finalCity.length);
 
 							if(finalCity.length>2){
 								city = (finalCity[0]+", "+finalCity[1]);
-								// console.log("FINAL CITY IS: "+city);
+								console.log("FINAL CITY IS: "+city);
 							}
 
 							city = encodeURIComponent(city);
 							url = url + "&city=" + city;
 
-							// console.log("the modified city is: "+city);
+							console.log("the modified city is: "+city);
 
 						}
 						else{ 
@@ -1915,7 +1286,7 @@ api:
 							url = url + "&pgcnt=" + noOfRecords;
 						}
 
-						// console.log("Dice URL is: "+url);
+						console.log("Dice URL is: "+url);
 						g.api.dice.url = url;
 						return url;
 					},
@@ -1923,71 +1294,67 @@ api:
 					function(result){
 
 						var jobsResults = result.resultItemList;
-						// console.log('-----------------DICE RESULTS-----------------');
+						console.log('-----------------DICE RESULTS-----------------');
 						console.log('Dice jobsResults',jobsResults);
 
+						for(var i=0; i< jobsResults.length; i++){
+							var ji = jobsResults[i];
+							g.allRawData.push(ji);
 
-						if (!$.trim(jobsResults)){   
-							//If empty, do...
-
-
-						}
-						else{   
-
-							for(var i=0; i< jobsResults.length; i++){
-								var ji = jobsResults[i];
-								g.allRawData.push(ji);
-
-								// Convert URL into ID (urls are variable lengths)
-								// from: http://www.dice.com/job/result/10111699/01201702WBDCA?src=19
-								// to: 10111699-01201702WBDCA
-								var urlEnd = ji.detailUrl.slice(31,);
-								var queryStartIndex = urlEnd.indexOf('?')
-								var urlExtracted = urlEnd.slice(0,queryStartIndex);
-								var sourceID = urlExtracted.replace(/[#/]/g,'_');
+							// Convert URL into ID (urls are variable lengths)
+							// from: http://www.dice.com/job/result/10111699/01201702WBDCA?src=19
+							// to: 10111699-01201702WBDCA
+							var urlEnd = ji.detailUrl.slice(31,);
+							var queryStartIndex = urlEnd.indexOf('?')
+							var urlExtracted = urlEnd.slice(0,queryStartIndex);
+							var sourceID = urlExtracted.replace(/[#/]/g,'_');
 
 
-								// Send to Global Print Function
-								var jobJSON = {
-									"title" :  ji.jobTitle,
-									"jobPosition:": ji.jobTitle,
-									"company": ji.company,
-									"location": ji.location,
-									"date": moment(ji.date).format("MMM D YY"),
-									"source": "Dice",
-									"sourceID": sourceID,
-									"description": "For job details, visit Dice's website.",
-									"url": ji.detailUrl,
-									"applyURL": ji.detailUrl,
-									"type": 'N/A',
-									"company_url": 'N/A',
-									"company_logo": 'N/A',
-								}
+							// Send to Global Print Function
+							var jobJSON = {
+								"title" :  ji.jobTitle,
+								"jobPosition:": ji.jobTitle,
+								"company": ji.company,
+								"location": ji.location,
+								"date": moment(ji.date).format("MMM D"),
+								"source": "Dice",
+								"sourceID": sourceID,
+								"description": "For job details, visit Dice's website.",
+								"url": ji.detailUrl,
+								"applyURL": ji.detailUrl,
+								"type": 'N/A',
+								"company_url": 'N/A',
+								"company_logo": 'N/A',
+							}
 
-								var jobStr = JSON.stringify(jobJSON);
+							var jobStr = JSON.stringify(jobJSON);
 
-								g.printManager(jobStr);
+							g.printManager(jobStr);
 
-							} // end for loop
+						} // end for loop
 
 						// Change status to done.
-						g.apiStatus[g.api.dice.apiIndex] = 'done';
+						// g.apiStatus[g.api.dice.apiIndex] = 'done';
 						g.apiCheck++;
 						g.checkStatus();
-						// console.log('g.apiCheck',g.apiCheck);
+						console.log('g.apiCheck',g.apiCheck);
 							var apiIndex = g.api.dice.apiIndex;
 							g.apiStatus[apiIndex] = 'done';
-
-						}	
-
 					},
 				ajaxCall: 
 					function(qURL, mycallback){
 						$.ajax({
 							type:'GET',
 							url: qURL,
-							timeout: g.api.timeout
-						}).done(mycallback).fail(g.api.ajaxError);
+						}).done(mycallback).fail(function(){
+							//Create a new function to process errors
+							console.log('ajaxCall fail');
+							g.apiError();
+							// Change status to fail.
+							// g.apiStatus[g.api.dice.apiIndex] = 'fail';
+							var apiIndex = g.api.dice.apiIndex;
+							g.apiStatus[apiIndex] = 'fail';
+						});
 					}
 			},
 
@@ -2014,7 +1381,7 @@ api:
 
 							if(finalCity.length>2){
 								city = finalCity[0];
-								// console.log("Authenticjobs FINAL CITY IS: "+city);
+								console.log("Authenticjobs FINAL CITY IS: "+city);
 							}
 						
 							city = encodeURIComponent(city);
@@ -2034,7 +1401,7 @@ api:
 							url = url + "&perpage=" + noOfRecords;
 						}
 
-						// console.log("Authentic Jobs URL is: "+url);
+						console.log("Authentic Jobs URL is: "+url);
 
 						g.api.authentic.url = url;
 						return url;
@@ -2043,8 +1410,8 @@ api:
 					function(result){
 
 						var jobsResults = result.listings.listing;
-						// console.log('-----------------AUTHENTIC JOB RESULTS-----------------');
-						// console.log('Authentic result.listings', result.listings);
+						console.log('-----------------AUTHENTIC JOB RESULTS-----------------');
+						console.log('Authentic result.listings', result.listings);
 						console.log('Authentic jobsResults', jobsResults);
 
 						for(var i=0; i< jobsResults.length; i++){
@@ -2099,7 +1466,7 @@ api:
 								"jobPosition:": ji.title,
 								"company": companyValue,
 								"location": locationValue,
-								"date": moment(ji.post_date).format("MMM D YY"),
+								"date": moment(ji.post_date).format("MMM D"),
 								"source": "Authentic Jobs",
 								"sourceID": ji.id,
 								"description": ji.description,
@@ -2118,10 +1485,13 @@ api:
 
 						} // end for loop
 
+						// Notify console of end
+						console.log('----------------------------------');
+						
 						// Change status to done.
 						g.apiCheck++;
 						g.checkStatus();
-						// console.log('g.apiCheck',g.apiCheck);
+						console.log('g.apiCheck',g.apiCheck);
 							var apiIndex = g.api.authentic.apiIndex;
 							g.apiStatus[apiIndex] = 'done';
 
@@ -2131,7 +1501,14 @@ api:
 						$.ajax({
 							type:'GET',
 							url: qURL,
-						}).done(mycallback).fail(g.api.ajaxError);
+						}).done(mycallback).fail(function(){
+							//Create a new function to process errors
+							console.log('ajaxCall fail');
+							g.apiError();
+							// Change status to fail.
+							var apiIndex = g.api.authentic.apiIndex;
+							g.apiStatus[apiIndex] = 'fail';
+						});
 					}
 			},	
 			
@@ -2164,7 +1541,7 @@ api:
 							noOfRecords = encodeURIComponent(noOfRecords);
 							url = url + "&limit=" + noOfRecords;
 
-						// console.log("URL is:"+url);
+						console.log("URL is:"+url);
 						return url;
 						}
 					},
@@ -2179,7 +1556,7 @@ api:
 						var jobDate;
 
 
-						// console.log('-----------------Linkup RESULTS-----------------');
+						console.log('-----------------Linkup RESULTS-----------------');
 						console.log('linkup jobsResults',jobsResults);
 
 						for(var i=0; i< jobsResults.length; i++){
@@ -2203,7 +1580,7 @@ api:
 							jobDate = jobsResults[i].job_date_added;
 
 							// Format date using moment.js
-							var dateFormatted = moment(jobDate).format("MMM D YY");
+							var dateFormatted = moment(jobDate).format("MMM D");
 
 							// Send to Global Print Function
 							var jobJSON = {
@@ -2224,7 +1601,7 @@ api:
 						// Change status to done.
 						g.apiCheck++;
 						g.checkStatus();
-						// console.log('g.apiCheck',g.apiCheck);
+						console.log('g.apiCheck',g.apiCheck);
 						var apiIndex = g.api.linkup.apiIndex;
 						g.apiStatus[apiIndex] = 'done';
 					},
@@ -2233,7 +1610,14 @@ api:
 						$.ajax({
 							type:'GET',
 							url: qURL,
-						}).done(mycallback).fail(g.api.ajaxError);
+						}).done(mycallback).fail(function(){
+							//Create a new function to process errors
+							console.log('ajaxCall fail');
+							g.apiError();
+							// Change status to fail.
+							var apiIndex = g.api.linkup.apiIndex;
+							g.apiStatus[apiIndex] = 'fail';
+						});
 					}
 			}
 	}

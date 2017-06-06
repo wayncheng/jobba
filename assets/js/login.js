@@ -17,7 +17,28 @@ var database = firebase.database();
   // Reference for firebase database
   // var logindatabase = firebase.database();
 
+  $("#signInWithGithubSide").on("click", function(event){
+    event.preventDefault();
+    loginGH();
+  }); // End of sign on with GitHub  
+
+
+
   $("#signInWithGithub").on("click", function(event){
+    event.preventDefault();
+    loginGH();
+  }); // End of sign on with GitHub  
+
+  $('#signOut').on("click", function(){
+    signout(); 
+  });
+
+  $('#signOutSide').on("click", function(){
+    signout(); 
+  });
+
+//Login for Github
+function loginGH(){
 
     firebase.auth().signInWithPopup(provider).then(function(result) {
       // This gives you a GitHub Access Token. You can use it to access the GitHub API.
@@ -25,29 +46,19 @@ var database = firebase.database();
       // The signed-in user info.
       user = result.user;
 
-      $(".save-wrap").css('visibility', 'visible');
-      $("#displayJobs").css('visibility', 'visible');
+      $('html').addClass('logged-in');
 
-      // successfully signed in.... What's next?
-      // alert("Welcome, "+user.displayName)
-
-      //----------------------------------------------------
-      // Add code here
-      //----------------------------------------------------
-
-      $("#signInWithGithub").hide();
-      $("#signOut").css('visibility', 'visible');
-      $("#signOut").show();
       // to retrieve current user unique ID
       userId = firebase.auth().currentUser.uid;
       console.log("userid 1 is: "+userId);
 
-      // return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
-      //   var username = snapshot.val().username;
-      //   // ...
+      // if user is successfully logged in...
+      sessionStorage.setItem("userKey",userId);
+      checkJobs(); // check if jobs exists and update save hearts accordingly
+      firstJobLoad(); // When logged in, extract a copy of saved jobs and update saved feed modal once
 
-      //   console.log(username);
-      // });
+      var allJobs = sessionStorage.getItem("allJobs");
+      
 
     }).catch(function(error) {
       // Handle Errors here.
@@ -60,7 +71,7 @@ var database = firebase.database();
         console.log("Error - " + errorCode + "  " + errorMessage + "  " + email + "  " + credential);
     });
 
-  }); // End of sign on with GitHub  
+}
 
 function saveJobs(jobObj){
   // console.log(jobObj);
@@ -89,53 +100,51 @@ function saveJobs(jobObj){
     // Insert into database
     // jobcon = database.ref("/"+userId+"/jobs/"+sourceJobID).push();
     if(userId!=""){
-      database.ref("/"+userId+"/jobs/"+sourceJobID).set(addJobs);
+      database.ref("/users/"+userId+"/jobs/"+sourceJobID).set(addJobs);
     }
 
 }
 
-
-
-$('#signOut').on("click", function(){
-
-    firebase.auth().signOut().then(function() {
+function signout(){
+      firebase.auth().signOut().then(function() {
       // Sign-out successful.
       console.log("Bye");
-      $("#username").text("So Long! "+user.displayName);  
-      
-      $("#signInWithGithub").toggle();
-      $("#signOut").hide();
-      $(".save-wrap").css('visibility', 'hidden');
-      $("#displayJobs").css('visibility', 'hidden');
+      $('html').removeClass('logged-in');
+      sessionStorage.removeItem("userKey");
+      sessionStorage.clear();
+
+      // $("#signInWithGithub").css('visibility', 'visible');
+      // $("#signInWithGithub").show();
+      // $("#signOut").hide();
+      // $(".save-wrap").css('visibility', 'hidden');
+      // $("#displayJobs").css('visibility', 'hidden');
       
     }).catch(function(error) {
       // An error happened.
-    }); 
-  });
+    });
+}
 
-    // When user logs in, direct to saved-jobs.html
+function initApp() {
+  // Listening for auth state changes.
+  // [START authstatelistener]
+  firebase.auth().onAuthStateChanged(function(user) {
+    // [START_EXCLUDE silent]
+    // [END_EXCLUDE]
+    console.log("Attempted Sign in");
+    console.log(user);
+    if (user) {
+      // User is signed in.
+      
+      var uid = user.uid;
+      // window.location = '/saved-jobs.html';          
+      console.log(uid);
+    }
+  }); 
+  // [END authstatelistener]
 
-    function initApp() {
-      // Listening for auth state changes.
-      // [START authstatelistener]
-      firebase.auth().onAuthStateChanged(function(user) {
-        // [START_EXCLUDE silent]
-        // [END_EXCLUDE]
-        console.log("Attempted Sign in");
-        console.log(user);
-        if (user) {
-          // User is signed in.
-          
-          var uid = user.uid;
-          // window.location = '/saved-jobs.html';          
-          console.log(uid);
-        }
-      }); 
-      // [END authstatelistener]
+} // [END initApp()]
 
-    } // [END initApp()]
-
-    window.onload = function() {
-      initApp();
-    };
+window.onload = function() {
+  initApp();
+};
     

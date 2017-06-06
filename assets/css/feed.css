@@ -14,6 +14,7 @@
 	}
 	#feed .collapsible-header {
 		padding: 1rem;
+		padding: 1.5rem 15px 1.5rem 1rem;
 		background-color: #ffffff;
 		/*background-color: #fefefe;*/
 	}
@@ -31,29 +32,51 @@
 	.headline {
 		display: block;
 		font-weight: 500;
-		font-size: 16px;
-		margin-right: 10px;
-		height: 20px;
-		line-height: 20px;
+		/*font-weight: 600;*/
+		font-size: 17.5px;
+		/*margin-right: 10px;*/
+		height: 22px;
+		line-height: 22px;
+		letter-spacing: -0.2px;
 	}
-	.company {
+	.subheadline {
 		display: block;
 		font-weight: 300;
+		font-weight: 400;
 		font-size: 14px;
 		height: 16px;
 		line-height: 16px;
+		margin: 0;
+		letter-spacing: -0.1px;
+		/*color: rgba(0,0,0,0.7);*/
+
 	}
-	span.ghost {
+	.subheadline span {
 		display: inline-block;
-		position: absolute;
+		float: left;
+		/*margin-left: 5px;*/
+	}
+	.subheadline span:first-child {
+		margin-right: 8px;
+	}
+	.subheadline span.date {
+		float: right;
+	}
+	.subheadline span.company::after {
+		content: ',';
+	}
+	.subheadline span::before {
+		/*content: '|';*/
+		/*margin-right: 5px;*/
 	}
 	/* Listing number */
 	.listing-number {
-		height: 20px;
-		line-height: 20px;
+		height: 22px;
+		line-height: 22px;
 		width: 20px;
 		color: rgba(0,0,0,0.4);
 		text-align: right;
+		font-weight: 400;
 	}
 
 /* Meta Details ------------------------------*/
@@ -70,12 +93,15 @@
 		/*text-decoration: underline;*/
 		/*font-style: italic;*/
 	}
-	.location::before { content: "Location:" }
-	.date::before { content: "Posted:" }
-	.source::before { content: "Source:" }
-	.description-label::before { content: "Description:" }
 
-	.details::before { content: "Details:" } /*Novia: Added this for details and URL*/
+	.meta-detail.company {
+		margin-left: 0;
+	}
+	.meta-detail.company::before { content: "Company:" }
+	.meta-detail.location::before { content: "Location:" }
+	.meta-detail.date::before { content: "Posted:" }
+	.meta-detail.source::before { content: "Source:" }
+	.meta-detail.description-label::before { content: "Description:" }
 	/*.sourceURL::before { content: "Source URL:" }*/
 
 	/* Source URL Meta Link */
@@ -122,6 +148,30 @@
 		margin-bottom: 5px;
 	}
 
+/* No Result Alert ---------------------------------------*/	
+	.feed-printed .feed.sub {
+		display: none;
+	}
+	.no-results .feed.sub {
+		background-color: rgba(0,0,0,0.07);
+		border-radius: 4px;
+		padding: 60px 30px;
+		height: initial;
+		width: 100%;
+	}
+	.no-results .feed.sub h2 {
+		font-size: 20px;
+		line-height: 1em;
+		text-align: center;
+		margin: 0;
+	}
+
+
+	.no-results #feed,
+	.no-results #pagination-row,
+	.no-results #feed-details {
+		display: none;
+	}
 
 /* Saved Feed ------------------------*/
 
@@ -130,13 +180,5 @@
 		padding-right: 15px;
 		padding-top: 10px;
 	}
-
-
-
-
-
-
-
-
 
 /*--------------------------------------------------------*/	

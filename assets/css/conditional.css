@@ -1,0 +1,62 @@
+
+/* Logged In, Logged Out */
+
+      .logged-in #signOut,
+      .logged-in #displayJobs,
+      .logged-in #signOutSide,
+      .logged-in .save-wrap { 
+            visibility: visible;
+            display: inline-block;
+      }
+      .logged-in #signInWithGithubSide, 
+      .logged-in #signInWithGithub { 
+            visibility: hidden;
+            display: none;
+      }
+
+      #signOut,
+      #displayJobs,
+      #signOutSide,
+      .save-wrap { 
+            visibility: hidden;
+            display: none;
+      }
+      #signInWithGithubSide,
+      #signInWithGithub { 
+            visibility: visible;
+            display: inline-block;
+      }
+
+/* Past Banner ---------------------------------------*/
+      
+      .past-banner #main-body-nav {
+            position: fixed;
+            background-color: rgba(0,0,0,0.7);
+      }
+      .past-banner .pin-target {
+            position: fixed;
+      }
+      .past-banner #header-side-nav-link {
+            display: inline-block;
+            left: 0;
+      }
+
+/* Do Not Disturb ------------------------------*/
+      .do-not-disturb #banner .feature-logo.progress-bar {
+            width: 0%;
+      }
+
+
+/* @media ---------------------------------------*/
+
+      @media all and (max-width: 700px) {
+            .compact-ready {
+                  padding: 0 1rem;
+            }
+            .compact-ready::after {
+                  display: none;
+            }
+            .compact-ready i.material-icons {
+                  margin-right: 0px;
+            }
+      }

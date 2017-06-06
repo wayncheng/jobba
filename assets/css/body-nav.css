@@ -3,14 +3,6 @@
 	.body-nav {
 		line-height: 40px;
 		padding: 12px 0;
-		/*height: 46px;*/
-		/*background-color: rgba(255,255,255,0.9);*/
-		background-color: rgba(255,255,255,1);
-		/*background-color: rgba(0,0,0,0.7);*/
-		background-color: #ffffff;
-		transition: background-color 200ms;
-		border-bottom: 1px solid #ddd;
-		box-shadow: 0px -5px 15px rgba(0,0,0,0.5);
 		z-index: 800;
 		width: 100%;
 		margin: 0;
@@ -20,17 +12,12 @@
 		position: absolute;
 		top: 0;
 		left: 0;
-
+		/*background-color: #ffffff;*/
+		/*box-shadow: 0px -5px 15px rgba(0,0,0,0.5);*/
+		border-bottom: 1px solid #ddd;
+		background-color: transparent;
+		transition: background-color 200ms;
 	}
-
-	.body-nav .btn {
-		z-index: 1001;
-	}
-/*	.body-nav .col, .body-nav .input-field, .body-nav p.result-detail,
-	.body-nav {
-		height: 46px;
-		line-height: 46px;
-	}*/
 
 	.body-nav a.btn,
 	.body-nav p.result-detail {
@@ -39,6 +26,13 @@
 		height: inherit;
 		margin: 0;
 	}
+	.body-nav a.btn {
+		z-index: 1001;
+		float: right;
+		margin-left: 10px;
+		background-color: #2196f3; 
+	}
+
 
 	.body-nav .nav-title {
 		font-size: 20px;
@@ -63,3 +57,28 @@
 	}
 
 
+	.past-banner #main-nav-body .header-link.btn {
+		background-color: transparent;
+		background-color: rgba(0,0,0,0.5);
+		height: 40px;
+		line-height: 40px;
+		color: #eee;
+		font-weight: 400;
+		padding: 0 1rem;
+		box-shadow: none;
+	}
+	
+/* Buttons ---------------------------------------------------*/
+	.body-nav .btn i {
+		float: left;
+		margin-right: 10px;
+	}
+	.body-nav .btn.alone i {
+		margin-right: 0px;
+	}
+	.body-nav #salary-trigger::after {
+		content: " Analysis";
+	}
+	.body-nav #filter-side-nav-link::after {
+		content: " Filter / Sort";
+	}

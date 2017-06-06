@@ -37,13 +37,50 @@
 		/*width: 45px;*/
 		/*margin-top: 14px;*/
 		/*height: 43px;*/
+		z-index: 910;
 	}
 	#submit i.material-icons {
+		position: relative;
 		font-size: 1.75rem;
+		z-index: 920;
 	}
 
 	@media all and (max-width: 880px){
 		.input-button {
 			/*display: block;*/
 		}
+	}
+
+/* Progress Bar ------------------------------*/
+	.progress-bar{
+		display: inline-block;
+		position: absolute;
+		height: 100%;
+		width: 0%;
+		top: 0;
+		left: 0;
+		width: 0%;
+		z-index: 915;
+		background-color: #e64a19;
+		background-color: #f4511e;
+	}
+/* Location Input ------------------------------*/
+	#q-city {
+		text-indent: 36px;
+	}
+/* Location Icon ------------------------------*/
+	i.material-icons.bar {
+		position: absolute;
+		display: inline-block;
+		height: 100%;
+		line-height: 45px;
+		font-size: 20px;
+		left: 1em;
+		color: rgba(0,0,0,0.6);
+		cursor: pointer;
+	}
+	i.material-icons.bar:hover,
+	i.material-icons.bar.active{
+		color: #2196f3;
+		color: #08c;
 	}

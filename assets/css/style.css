@@ -32,14 +32,17 @@ p {
 		width: 100%;
 		background-color: #000;
 		opacity: 0.1;
-		z-index: 901;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
 	}
 
-
+/* Ghost ------------------------------*/
+	.ghost {
+		display: inline-block;
+		position: absolute;
+	}
 /* Filtering ------------------------------*/
 	.body-nav .input-field input {
 		color: #000;
@@ -139,8 +142,77 @@ p {
 	.side-nav .collapsible .chip-bag,
 	.chip-bag {
 		padding: 0 5%;
-		margin-bottom: 15px;
+		/*margin-bottom: 15px;*/
 		position: relative;
 		line-height: 25px;
 		min-height: 0;
 	}
+/*------------------------------------------------------------*/
+/* feed-printed */
+	.feed-printed #banner {
+		height: initial;
+		padding: 50px;
+		background-position-y: 70%;
+	}
+	.feed-printed #page1 {
+		display: block;
+	}
+	.feed-printed #pg-1 {
+		display: initial;
+	}
+	/*.feed-printed .banner-body {
+		margin-top: 0px;
+	}*/
+	.feed-printed #scroll-to-top {
+		display: inline-block;
+	}
+	.feed-printed #banner .row {
+		margin-bottom: 0;
+	}
+
+/*------------------------------------------------------------*/
+/*Attribution*/
+	.attribution {
+		display: inline-block;
+		position: relative;
+		height: 20px;
+		line-height: 20px;
+		color: #333;
+	}
+	.attribution img {
+		float: right;
+		margin-left: 4px;
+		margin-top: 2px;
+	}
+
+
+/*------------------------------------------------------------*/
+/* Navs */
+	nav ul a.header-link,
+	nav ul a {
+		display: inline-block;
+		border-radius: 4px;
+		background-color: transparent;
+		color: #fff;
+		box-shadow: none;
+		font-weight: 500;
+		font-size: 1.2rem;
+		text-transform: uppercase;
+		padding: 0 1rem;
+		transition: color 200ms;
+	}
+	nav ul a.header-link:hover,
+	nav ul a:hover {
+		color: #eee;
+		text-decoration: underline;
+	}
+/*------------------------------------------------------------*/
+/* Lone Icons */
+.alone i.material-icons {
+	float: left;
+	margin: 0;
+}
+a.alone {
+	padding: 0 1rem;
+}
+/*------------------------------------------------------------*/
