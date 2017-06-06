@@ -27,6 +27,8 @@
 	<!-- <link type="text/css" rel="stylesheet" href="assets/libs/materialize.min.css" media="screen,projection" /> -->
 	<!-- Firebase UI CDN -->
 	<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" />
+	<!-- <link type="text/css" rel="stylesheet" href="assets/libs/nouislider.css" /> -->
+	<link type="text/css" rel="stylesheet" href="assets/libs/nouislider.min.css" />
 	<!-- Jobba CSS -->
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 	<link href="assets/css/materialize-overrides.css" rel="stylesheet">
@@ -43,6 +45,7 @@
 	<link href="assets/css/data-analysis.css" rel="stylesheet">
 	<link href="assets/css/conditional.css" rel="stylesheet">
 	<link href="assets/css/resume.css" rel="stylesheet">
+	<link href="assets/css/map-modal.css" rel="stylesheet">
 
 </head>
 
@@ -50,7 +53,8 @@
 <!--=============================================-->
   
     <nav id="main-nav" class="transparent header row" role="navigation">
-        <div class="nav-wrapper container col s12 m10 offset-m1 xl6 offset-xl3">
+        <!-- <div class="nav-wrapper container col s12 m10 offset-m1 xl6 offset-xl3"> -->
+        <div class="nav-wrapper">
         <!-- Header Nav -->
 	         <ul id="main-nav-body" class="left hide-on-med-and-down">
 				<li> <a href="#!" class="header-link login sign-in btn" id="signInWithGithub" title="Sign in with Github">
@@ -88,13 +92,17 @@
     </nav>
 
 <!-- Banner =============================================-->
-	<div id="banner" class="blue-grey darken-3 landing valign-wrapper row">
+	<div id="banner" class="landing valign-wrapper row">
 		<span id="banner-cover" class="ghost photo-tint"></span>
 		<form class="col s12 xl8 offset-xl2">
-			<div class="row">
-				<span id="banner-logo-wrap" class="last-search wrap col s12">
+		<div class="row">
+				<div id="banner-logo-wrap" class="last-search wrap">
 					<img id="banner-logo" class="logo logo-text feature-logo" src="assets/icons/jobba-final-text-only-white.png" alt="Jobba">
-					</span>
+					<span class="progress-bar feature-logo"> </span>
+					</div>
+			
+		</div>
+			<div class="row">
 				<!-- <div class="bar input-field input-text-wrap col s10 offset-s1 m6 offset-m1 l6 offset-l1 xl7"> -->
 				<div class="bar input-field input-text-wrap col s10 offset-s1 m8 offset-m2 l6 offset-l1 xl6">
 					<input id="search" placeholder="Search for Jobs" type="text" class="bar validate">
@@ -108,7 +116,7 @@
 				<div class="bar input-button input-field col s10 offset-s1 m2 l1 xl2">
 					<button id="submit" class="bar btn waves-effect waves-light" type="submit" name="action">
 						<i class="material-icons">search</i>
-						<span class="progress-bar"></span>
+						<!-- <span class="progress-bar"></span> -->
 					</button>
 					</div>
 				<span id="last-search" class="last-search wrap col s10 offset-s1 m8 offset-m2 l6 offset-l1 xl6">
@@ -133,15 +141,18 @@
 		<div id="main-body-nav" class="row body-nav">
 			<div class="col s12 m10 offset-m1">
 				<!-- <a id="main-side-nav-link" href="#!" data-activates="nav-mobile" class="pin-target button-collapse float-left"> <i class="main-nav-menu-icon material-icons">menu</i> </a> -->
-				<a id="filter-side-nav-link" href="#!" data-activates="filter-side-nav" class="btn button-collapse waves-effect waves-light">
-					<i class="material-icons float-left">sort</i> Filter / Sort</a>
+				<a id="filter-side-nav-link" href="#!" data-activates="filter-side-nav" class="btn button-collapse compact-ready waves-effect waves-light">
+					<i class="material-icons">sort</i></a>
 
-				<a id="salary-trigger" href="#salaryAnalysis" class="btn button-collapse waves-effect waves-light">
+				<a id="salary-trigger" href="#salaryAnalysis" class="btn button-collapse compact-ready waves-effect waves-light">
 					<!-- <i class="material-icons float-left">insert_chart</i>  -->
 					<!-- <i class="material-icons float-left">attach_money</i>  -->
-					<i class="material-icons float-left">show_chart</i> 
+					<i class="material-icons">show_chart</i> 
 					<!-- <i class="material-icons float-left">work</i> -->
-					<span class="job-position-target"></span> Job Report</a>
+					<span class="job-position-target"></span></a>
+				<a id="map-trigger" href="#map-modal" class="btn button-collapse compact-ready waves-effect waves-light alone">
+					<i class="material-icons">location_on</i>
+				</a>
 			</div>
 		</div>
 	<!-- Feed Details =========================-->
@@ -295,6 +306,7 @@
 				</li>
 			</ul>
 		</li>
+		<!-- Sort By -->
 		<li class="no-padding">
 			<ul class="collapsible collapsible-accordion">
 				<li>
@@ -310,6 +322,34 @@
 				</li>
 			</ul>
 		</li>
+		<!-- Date Range -->
+		<!-- <li id="date-range" class="no-padding ">
+			<ul class="collapsible collapsible-accordion">
+				<li>
+					<a class="collapsible-header">Date Range<i class="arrow-icon material-icons"></i></a>
+					<div class="collapsible-body">
+							<div id="date-slider" class="range-input"></div>						
+					</div>
+				</li>
+			</ul>
+		</li> -->
+		<!-- byDate Filter (since date range is having issues right now) -->
+		<li id="dateFilters" class="no-padding">
+			<ul class="collapsible collapsible-accordion">
+				<li>
+					<a class="collapsible-header">Filter by Age<i class="arrow-icon material-icons"></i></a>
+					<div class="collapsible-body sideNavForm horizontal-options">
+						<ul>
+							<li class=""><a href="#!" data-age="1">day</a></li>
+							<li class=""><a href="#!" data-age="7">week</a></li>
+							<li class=""><a href="#!" data-age="31">month</a></li>
+							<li class="selected"><a href="#!" data-age="365">year</a></li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</li>
+
 		<!-- Filter Terms -->
 		<li id="termFilters" class="no-padding">
 			<ul class="collapsible collapsible-accordion">
@@ -347,26 +387,48 @@
 						<form class="sideNavForm">
 							<ul id="filter-source" class="filter-listener">
 								<li class="input-field">
-									<input type="checkbox" id="sourceGithub" class="filterSourceInput filterInput filled-in" name="filterSource" value="Github" data-select="true" checked="checked" />
+									<input type="checkbox" id="sourceGithub" class="filterSourceInput filterInput filled-in" name="filterSource" value="Github" data-select="true" checked="checked"/>
+									<!-- <input type="checkbox" id="sourceGithub" class="filterSourceInput filterInput filled-in" name="filterSource" value="Github" data-select="true" checked/> -->
 									<label for="sourceGithub">Github</label>
 								</li>
 								<li class="input-field">
-									<input type="checkbox" id="sourceIndeed" class="filterSourceInput filterInput filled-in" name="filterSource" value="Indeed" data-select="true" checked="checked" />
+									<input type="checkbox" id="sourceIndeed" class="filterSourceInput filterInput filled-in" name="filterSource" value="Indeed" data-select="true" checked="checked"/>
+									<!-- <input type="checkbox" id="sourceIndeed" class="filterSourceInput filterInput filled-in" name="filterSource" value="Indeed" data-select="true" checked/> -->
 									<label for="sourceIndeed">Indeed</label>
 								</li>
 								<li class="input-field">
-									<input type="checkbox" id="sourceDice" class="filterSourceInput filterInput filled-in" name="filterSource" value="Dice" data-select="true" checked="checked" />
+									<input type="checkbox" id="sourceDice" class="filterSourceInput filterInput filled-in" name="filterSource" value="Dice" data-select="true" checked="checked"/>
+									<!-- <input type="checkbox" id="sourceDice" class="filterSourceInput filterInput filled-in" name="filterSource" value="Dice" data-select="true" checked/> -->
 									<label for="sourceDice">Dice</label>
 								</li>
 								<li class="input-field">
-									<input type="checkbox" id="sourceAuthenticJobs" class="filterSourceInput filterInput filled-in" name="filterSource" value="Authentic Jobs" data-select="true" checked="checked" />
+									<input type="checkbox" id="sourceAuthenticJobs" class="filterSourceInput filterInput filled-in" name="filterSource" value="Authentic Jobs" data-select="true" checked="checked"/>
+									<!-- <input type="checkbox" id="sourceAuthenticJobs" class="filterSourceInput filterInput filled-in" name="filterSource" value="Authentic Jobs" data-select="true" checked/> -->
 									<label for="sourceAuthenticJobs">Authentic Jobs</label>
 								</li>
 								<li class="input-field">
-									<input type="checkbox" id="sourceLinkUp" class="filterSourceInput filterInput filled-in" name="filterSource" value="LinkUp" data-select="true" checked="checked" />
+									<input type="checkbox" id="sourceLinkUp" class="filterSourceInput filterInput filled-in" name="filterSource" value="LinkUp" data-select="true" checked="checked"/>
+									<!-- <input type="checkbox" id="sourceLinkUp" class="filterSourceInput filterInput filled-in" name="filterSource" value="LinkUp" data-select="true" checked/> -->
 									<label for="sourceLinkUp">LinkUp</label>
 								</li>
 							</ul>
+						</form>
+					</div>
+				</li>
+			</ul>
+		</li>
+		<!-- Filter Locations -->
+		<li id="locationFilters" class="no-padding">
+			<ul class="collapsible collapsible-accordion">
+				<li>
+					<a class="collapsible-header">Filter Locations<i class="arrow-icon material-icons"></i></a>
+					<div class="collapsible-body">
+						<form class="sideNavForm">
+							<ul id="filter-location" class="filter-listener"> </ul>
+							<!--  -->
+							<!-- <ul id="filter-location" class="filter-listener overflow-wrap overflow-hidden"> -->
+							<!-- <li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="san francisco" data-select="true" checked="checked" id="#loc-0"><label for="loc-0">san francisco (51)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="san jose" data-select="true" checked="checked" id="#loc-1"><label for="loc-1">san jose (6)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="san mateo" data-select="true" checked="checked" id="#loc-2"><label for="loc-2">san mateo (4)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="pleasanton" data-select="true" checked="checked" id="#loc-3"><label for="loc-3">pleasanton (4)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="menlo park" data-select="true" checked="checked" id="#loc-4"><label for="loc-4">menlo park (3)</label></li><div class="below-fold"><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="redwood city" data-select="true" checked="checked" id="#loc-5"><label for="loc-5">redwood city (3)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="san ramon" data-select="true" checked="checked" id="#loc-6"><label for="loc-6">san ramon (3)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="fremont" data-select="true" checked="checked" id="#loc-7"><label for="loc-7">fremont (3)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="emeryville" data-select="true" checked="checked" id="#loc-8"><label for="loc-8">emeryville (2)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="palo alto" data-select="true" checked="checked" id="#loc-9"><label for="loc-9">palo alto (2)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="santa clara" data-select="true" checked="checked" id="#loc-10"><label for="loc-10">santa clara (2)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="cupertino" data-select="true" checked="checked" id="#loc-11"><label for="loc-11">cupertino (1)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="san francisco bay area" data-select="true" checked="checked" id="#loc-12"><label for="loc-12">san francisco bay area (1)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="mountain view" data-select="true" checked="checked" id="#loc-13"><label for="loc-13">mountain view (1)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="san leandro" data-select="true" checked="checked" id="#loc-14"><label for="loc-14">san leandro (1)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="hayward" data-select="true" checked="checked" id="#loc-15"><label for="loc-15">hayward (1)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="burlingame" data-select="true" checked="checked" id="#loc-16"><label for="loc-16">burlingame (1)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="san rafael" data-select="true" checked="checked" id="#loc-17"><label for="loc-17">san rafael (1)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="sunnyvale" data-select="true" checked="checked" id="#loc-18"><label for="loc-18">sunnyvale (1)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="richmond" data-select="true" checked="checked" id="#loc-19"><label for="loc-19">richmond (1)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="south san francisco" data-select="true" checked="checked" id="#loc-20"><label for="loc-20">south san francisco (1)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="san bruno" data-select="true" checked="checked" id="#loc-21"><label for="loc-21">san bruno (1)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="dublin" data-select="true" checked="checked" id="#loc-22"><label for="loc-22">dublin (1)</label></li></div><span class="show-more-btn">Show more locations...</span></ul> -->
+
 						</form>
 					</div>
 				</li>
@@ -377,6 +439,16 @@
 	        	</div> -->
 		<!-- <a id="applyFilters" class="fixedToBottom btn waves-effect waves-light" href="#!">Apply Filters</a> -->
 	</ul> <!-- /sideNav -->
+<!-- Map Modal -->
+	<div id="map-modal" class="modal modal-fixed-footer">
+		<div class="modal-content">
+			<h4>Map Modal</h4>
+			<div id="map"></div>
+		</div>
+		<div class="modal-footer">
+			<!-- <a href="#!" class="modal-action modal-close waves-effect btn-flat ">Agree</a> -->
+		</div>
+	</div>
 <!--=============================================-->
 	<!-- JS Links -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -390,6 +462,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.10.1/jquery.mark.es6.min.js"></script>
 	<!-- google maps -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4nu_5UhddgajGv7lS96ri7lsyyZ3vbjQ&libraries=places&language=en"></script>
+	<script src="assets/libs/nouislider.js"></script>
+	<script src="assets/libs/wNumb.js"></script>
 	<!-- Cities autocomplete -->
 	<script>
 	var locationOptions = {

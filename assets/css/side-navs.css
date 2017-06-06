@@ -39,7 +39,7 @@
 	.side-nav .collapsible-header.active i.material-icons,
 	.side-nav .collapsible-header.active {
 		/*background-color: #fff;*/
-		background-color: #111;
+		/*background-color: #111;*/
 		/*color: #333;*/
 	}
 
@@ -108,12 +108,15 @@
 	.sideNavForm.horizontal-options li a {
 
 		padding: 0;
+		color: rgba(0,0,0,0.4);
 	}
 
 	.sideNavForm.horizontal-options .selected a {
 		font-weight: 800;
-		font-style: italic;
-		color: #2196f3;
+		font-weight: 900;
+		/*color: #2196f3;*/
+		color: rgba(0,0,0,1);
+		text-decoration: underline;
 	}
 /*------------------------------------------------------------*/
 	.side-nav li.no-padding {
@@ -217,4 +220,93 @@
 	}
 
 /*------------------------------------------------------------*/
+/* Date Slider */
+	#date-range .collapsible-body {
+		height: 40px;
+		min-height: 40px;
+		padding: 4em 3em 3em;
+	}
+	#date-slider {
+		height: 4px;
+		border: none;
+		background-color: rgba(0,0,0,0.2);
+	}
+	.range-input .noUi-tooltip {
+		font-size: 14px;
+		height: 2em;
+		border-radius: 1em;
+		line-height: 2em;
+		width: 2em;
+		padding: 0;
+		background-color: transparent;
+		color: #333;
+		border: none;
+		outline: none;
+		bottom: 100%;
+	}
+	.range-input .noUi-handle::after,
+	.range-input .noUi-handle::before {
+		display: none;
+	}
+	.range-input .noUi-handle {
+		border: none;
+		height: 14px;
+		width: 14px;
+		border-radius: 7px;
+		background-color: #2196f3;
+		box-shadow: none;
+		cursor: pointer;
+		outline: none;
+		left: -5px;
+		top: -5px;
+	}
+	.range-input .noUi-connect {
+		background-color: #2196f3;
+	}
+	.range-input .noUi-target .noUi-active .noUi-tooltip,
+	.range-input .noUi-target .noUi-tooltip {
+		/*border-radius: 15px 15px 15px 0;*/
+		/*transform: rotate(-45deg) translate(23px,-25px);*/
+		/*background-color: #2196f3;*/
+	}
+	.noUi-tooltip span,
+	.noUi-tooltip .noUi-active span {
+		/*top: -10px;
+		left: 0px;
+		opacity: 1;*/
+	}
+	.noUi-tooltip .noUi-active span {
+		/*top: -40px;*/
+		/*opacity: 1;*/
+	}
 /*------------------------------------------------------------*/
+/* Location Filter Dropdowns */
+	#locationFilters .input-field input[type=checkbox] + label {
+		text-transform: capitalize;
+	}
+	.overflow-hidden {
+		/*height: 400px;*/
+		/*overflow: hidden;*/
+	}
+	.overflow-hidden .below-fold {
+		display: none;
+	}
+	span.show-more-btn {
+		position: relative;
+		display: block;
+		cursor: pointer;
+		padding-left: 32px;
+		margin-top: 4px;
+		font-weight: 500;
+		font-style: italic;
+			/*margin-top: -20px;
+			background-color: rgba(255,255,255,0.4);
+			height: 60px;
+			line-height: 90px;*/
+	}
+	span.show-more-btn:hover {
+		/*background-color: #ECF0F1;*/
+		text-decoration: underline;
+	}
+
+	.below-fold {}

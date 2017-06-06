@@ -15,6 +15,11 @@ allSaved: [
 	],
 partData: [],
 companyList: [],
+locationList: [],
+companyCounts: [],
+locationCounts: {},
+locationCounter: [],
+locationTally: [],
 printFrom: 'allResults',
 totalResultCount: 0,
 page: 1,
@@ -151,6 +156,37 @@ geolocation: {
 
 				}
 },
+map: {
+	el: '',
+	fx: 
+      function initMap() {
+        g.map.el = new google.maps.Map(document.getElementById('map'), {
+          zoom: 2,
+          center: new google.maps.LatLng(2.8,-187.3),
+          mapTypeId: 'roadmap'
+        });
+
+        // Create a <script> tag and set the USGS URL as the source.
+        var script = document.createElement('script');
+        // This example uses a local copy of the GeoJSON stored at
+        // http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp
+        script.src = 'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js';
+        document.getElementsByTagName('head')[0].appendChild(script);
+      }
+
+      // // Loop through the results array and place a marker for each
+      // // set of coordinates.
+      // window.eqfeed_callback = function(results) {
+      //   for (var i = 0; i < results.features.length; i++) {
+      //     var coords = results.features[i].geometry.coordinates;
+      //     var latLng = new google.maps.LatLng(coords[1],coords[0]);
+      //     var marker = new google.maps.Marker({
+      //       position: latLng,
+      //       map: map
+      //     });
+      //   }
+      // }
+},
 lastSearchLocal: {
 	save: 	function(q,city){
 				if (q == '' || city == '') return;
@@ -216,28 +252,54 @@ sortDateNewest:
 		function(){
 			var data = g.allResults;
 			// var data = sample;
+			var directory = g.atlasCleared;
 
-			var converted = data.map(function(di){
-				var d = moment().diff(moment(di.date, 'MMM-DD'), 'days');
-				var id = di.id;
-				var obj = {d,di};
+			var sorted = directory.map(function(clearedID){
+				var di = data[clearedID];
+				var age = moment().diff(moment(di.date, 'MMM D YY'), 'days');
+				var obj = {age,clearedID};
 				return obj;
 			}).sort(function(a,b){
-				return a.d - b.d;
+				return a.age - b.age;
 			}).map(function(x){
-				return x.di;
-			})
+				return x.clearedID;
+			});
 
-			g.partData = converted;
-			g.printFrom = 'partData';
-
-			// g.pagination();
+			console.log('sorted',sorted);
+			g.atlasSorted = sorted;
 		},
 toast: 
 		function(msg){
 			Materialize.toast(msg,2000);
 		},
+atlasCleared: [],
+atlasSorted: [],
 filter: {
+	atlas: {
+		source: [],
+		terms: [],
+		age: [],
+		distance: [],
+		location: [],
+		company: [],
+			},
+	atlasInit:
+			function(){
+				// var n = g.totalResultCount;
+				// var baseline = [];
+				// for (var i=0; i<g.totalResultCount; i++) {
+				// 	baseline.push[i];
+				// };
+				var a = g.filter.atlas;
+				a.source = a.terms = a.age = a.distance = a.location = a.company = [];
+				// g.atlasCleared = [];
+				for (var i=0; i<g.totalResultCount; i++) {
+					g.atlasCleared.push(i);
+				};
+
+			 	//Initiate byLocation and by Company as well
+			 	g.filter.byLocation.init();
+			},	
 	byTerms: {
 			whiteList: [],
 			blackList: [],
@@ -355,19 +417,29 @@ filter: {
 							// Return if can't find any match (matches are bad)
 							var blackCheck = black.indexOf(true); 
 							var whiteCheck = white.indexOf(false);
-							return blackCheck === -1 && whiteCheck === -1;
+							// return blackCheck === -1 && whiteCheck === -1;
 
+							// Trash testing
+							return blackCheck !== -1 && whiteCheck !== -1;
+						});
+
+						var mapped = filtered.map(function(jobObj){
+							return jobObj.id;
 						})
+
 
 						g.filter.byTerms.whiteList = inTerms;
 						g.filter.byTerms.blackList = exTerms;
 						g.partData = filtered;
 						g.filter.export();
+						g.filter.atlas.terms = mapped;
 					},
-		},
+			},
 	bySource: {
 			event: 
-					$('#filter-source').on('click','.filterSourceInput',function(event){
+					$('#filter-source').on('change','.filterSourceInput',function(event){
+						//  Switched from on click to change because on click was overriding the default click
+						// function from materilalizeCSS.
 						event.preventDefault();
 						var $t = $(this);
 						$t.toggleClass('data-hide');
@@ -387,34 +459,362 @@ filter: {
 			fx: 
 					function(hideList){
 						// If data already filtered, use it. Else, use all results
-						var data = g.partData;
-						if (data.length === 0) { data = g.allResults } 
+						// var data = g.partData;
+						// if (data.length === 0) { data = g.allResults } 
+						var data = g.allResults;
 
-						g.partData = data.filter(function(res){
+						// var filtered = data.filter(function(res){
+						// 	// Return if not found in hideList array
+						// 	var iof = hideList.indexOf(res.source);
+						// 	return iof === -1;
+						// });
+						// console.log('source filtered',filtered);
+						// g.partData = filtered;
+
+						var trash = data.filter(function(res){
 							// Return if not found in hideList array
 							var iof = hideList.indexOf(res.source);
-							return iof === -1;
+							return iof !== -1;
 						});
+						// g.partData = filtered;
+
+						var mapped = trash.map(function(jobObj){
+							return jobObj.id;
+						})
+						g.filter.atlas.source = mapped;
+						console.log('source atlas',mapped);
 
 						g.filter.export();
 					},
+			},
+	byLocation: {
+			event: 
+					function(){
+					// $('#filter-location').on('change','.filterLocationInput',function(event){
+						console.log('byLocation triggered');
+						//  Switched from on click to change because on click was overriding the default click
+						// function from materilalizeCSS.
+						// event.preventDefault();
+						var $t = $(this);
+						$t.toggleClass('data-hide');
+
+						var hidden = [];
+
+						$('.filterLocationInput.data-hide').each(function(){
+							var dataRep = $(this).attr('value');
+							hidden.push(dataRep);
+						});
+						console.log('hidden',hidden);
+
+						// Pass to global filter
+						g.filter.byLocation.fx(hidden);
+					// }),
+					},
+			processor: 
+					function(jobObj){
+							// Get unique locations and count repeats. Isolate city.
+							var loc = jobObj.location;
+							var split = loc.split(',');
+							var city = split[0].trim().toLowerCase();
+							var locIndex = g.locationList.indexOf(city);
+							// var count = 1;
+
+							// var obj = {
+							// 	location: city,
+							// 	n: 1,
+							// }
+							// var obj = {};
+							// // If current company had no matches, add name and general location to companyList
+							// if ( locIndex === -1 ) {
+							// 	// Add company, and start count at 1;
+							// 	obj[city]=1;
+							// 	g.locationCounts.push(obj);
+
+							// 	// List of unique cities
+							// 	g.locationList.push(city);
+							// }
+							// else {
+							// 	// Find current object the current count and increment
+							// 	for (var i=0; i<g.locationCounts.length; i++) {
+							// 		var li = g.locationCounts[i]
+							// 		// for( var key in g.locationCounts[i]){
+
+							// 			var locIndex = g.locationCounts[i][key].indexOf(city);
+							// 			if (locIndex === -1){
+							// 				var locO = g.locationCounts[i].city;
+							// 				var count = locO.n;
+							// 				locO.n = count+1;
+							// 				break;
+							// 			}
+							// 		// }
+							// 	};
+							// 	// g.locationCounts.push(obj);
+							// }
+
+								var Ob = {
+									name: city,
+									tally: 1,
+								};
+							// If current company had no matches, add name and general location to companyList
+							if ( locIndex === -1 ) {
+								// Add company, and start count at 1;
+								g.locationCounts[city] = 1;
+								g.locationList.push(city);
+								
+								g.locationTally.push(Ob);
+
+								var arr = [city,1];
+								g.locationCounter.push(arr);
+							}
+							else {
+								// Get the current count and increment
+								// Object
+								var count = g.locationCounts[city];
+								g.locationCounts[city] = count+1;
+
+								//Array of Objects
+								var target = g.locationTally[locIndex];
+								var n = target.tally;
+								g.locationTally[locIndex].tally = n+1;
+
+								// Array of arrays counter
+								var n = g.locationCounter[locIndex][1];
+								g.locationCounter[locIndex][1] = n+1;
+							}
+					},
+			init:
+				function(){
+					// var data = g.locationCounts;
+					// var arr = g.locationCounter;
+					var tally = g.locationTally;
+
+					// console.log('data',data);
+					// console.log('arr',arr);
+					console.log('tally',tally);
+
+					 // Sort by most popular first
+					var locSorted = tally.sort(function(a,b){
+						return b.tally-a.tally;
+					});
+					console.log('locSorted',locSorted);
+					g.locationTally = locSorted;
+					// .map(function(obj){
+					// 	var s = obj.name +'('+ obj.tally + ')'; 
+					// 	return s;
+					// });
+
+					var wrap = $('#filter-location');
+					var cutoff = 8;
+					var belowFold = $('<div>');
+						belowFold.addClass('below-fold');
+
+					// Print each city in filter menu
+					for (var i=0; i<locSorted.length; i++) {
+						var loc = locSorted[i].name;
+						var nospace = loc.replace(/\s/g, '');
+						var id = 'loc-'+i
+						var n = locSorted[i].tally;
+						var str = loc +' ('+ n + ')';
+						console.log('str',str);
+
+						var li = $('<li>');
+							li.addClass('input-field');
+						
+						var input = $('<input>');
+							input.addClass('filterLocationInput filterInput filled-in');
+							input.attr({
+								'type': 'checkbox',
+								'name': 'filterLocation',
+								'value': loc,
+								'data-select': true,
+								'checked': 'checked',
+								'id': '#'+id,
+							});
+							
+						var label = $('<label>');
+							label.attr('for',id);
+							label.text(str);
+							
+						li.append(input);
+						li.append(label);
+
+						if (i <= cutoff-1) {
+							$('#filter-location').append(li);
+						}
+						else {
+							belowFold.append(li);
+						}
+					};
+					// Add below fold content to menu
+					wrap.append(belowFold);
+
+					if (locSorted.length > cutoff){
+						var btn = $('<span>');
+							btn.addClass('show-more-btn');
+							btn.text('Show more...');
+							btn.on('click', function(e){
+								e.preventDefault();
+								var wrap = $(this).parent('.overflow-wrap');
+								// wrap.toggleClass('overflow-hidden');
+								var isHidden = wrap.hasClass('overflow-hidden');
+								
+								if (isHidden) {
+									wrap.removeClass('overflow-hidden');
+									$(this).text('Show fewer...');
+								}
+								else {
+									wrap.addClass('overflow-hidden');
+									$(this).text('Show more...');
+								}
+							});
+
+						wrap.append(btn);
+						wrap.addClass('overflow-hidden overflow-wrap');
+					}
+
+
+					// document.getElementById('filter-location').addEventListener('change',g.filter.byLocation.event(event));
+					$('#filter-location').on('change',function(e){
+						e.preventDefault();
+						g.filter.byLocation.event();
+					})
+
+				},
+			fx: 
+				function(hidden){ // Filter by Location!!!
+					var data = g.allResults;
+
+					var filtered = data.filter(function(res){
+						var split = res.location.split(',');
+						var city = split[0].trim().toLowerCase();
+						var iof = hidden.indexOf(city);
+						return iof === -1;
+					});
+
+					// Temporary map for atlas
+					var noFlyList = filtered.map(function(jobObj){
+						return jobObj.id;
+					}) 
+					
+					g.filter.atlas.location = noFlyList;
+					g.filter.export();
+				},
+			},
+	byCompany: {
+			processor: 
+					function(jobObj){
+							// Get listing's company
+							var company = jobObj.company.toLowerCase();
+
+							// Compare with existing companies. Only add if unique
+							var companyIndex = g.companyList.indexOf(company);
+
+							// var countObj = {
+							// 	company: company,
+							// 	n: 1,
+							// }
+
+							// If current company had no matches, add name and general location to companyList
+							if ( companyIndex === -1 ) {
+								// var obj = {
+								// 	'name': company,
+								// 	'sourceID': jobObj.sourceID,
+								// 	'id': jobObj.id,
+								// 	'location': jobObj.location,
+								// };
+								// Add company, and start count at 1;
+								// g.companyCounts.push(countObj);
+
+								// List of unique companies
+								g.companyList.push(company); // expendable
+							}
+							else {
+								// Get the current count and increment
+								// var count = g.companyCounts[company];
+								// countObj.n = count+1;
+								// g.companyCounts.push(countObj);
+								// g.companyCounts[company] = count+1;
+							}
+					},
+			fx: 
+				function(){
+
+				},
+			},
+	byAge: {
+		event: $('#dateFilters').on('click','.sideNavForm a',function(e){
+					e.preventDefault();
+					var ageLimit = parseInt($(this).attr('data-age'));
+					g.filter.byAge.fx(ageLimit);
+				}),
+		fx: 
+				function(ageLimit){
+					var data = g.allResults;
+
+					// var filtered = data.filter(function(res){
+					// 	var date = res.date;
+					// 	var daysAgo = moment().diff(moment(date, 'MMM-DD YY'), 'days');
+					// 	console.log('daysAgo',daysAgo);
+					// 	return daysAgo <= ageLimit ;
+					// });
+
+					var trash = data.filter(function(res){
+						var date = res.date;
+						var daysAgo = moment().diff(moment(date, 'MMM-DD YY'), 'days');
+						return daysAgo > ageLimit ; //return all the ones to be filtered out
+					});
+
+					var mapped = trash.map(function(jobObj){
+						return jobObj.id; //return ids for each job
+					});
+
+					// g.partData = filtered;
+					g.filter.atlas.age = mapped;
+					g.filter.export();
+
+				}
 		},
 	export:
 			function(){
-				// console.log('g.partData.length',g.partData.length);
-				// console.log('g.partData',g.partData);
+				console.log('g.filter.atlas',g.filter.atlas);
+				var combined = [];
+				var atlas = g.filter.atlas;
 
+				$.each(atlas,function(k,v){
+					var length = v.length;
+					var unique = v.filter(function(id){
+						var iof = combined.indexOf(id);
+						return iof === -1;
+					});
+					combined = combined.concat(unique);
+				});
+
+				console.log('combined',combined);		
+
+				// Print results that pass
+				var passed = g.allResults.filter(function(r){
+					var rID = r.id;
+					var iof = combined.indexOf(rID);
+					return iof === -1; // return if not found in trash
+				});
+				g.atlasCleared = passed.map(function(jobObj){
+					return jobObj.id;
+				});
+				console.log('g.atlasCleared',g.atlasCleared);
+
+				// Call for sort by newest
+				g.sortDateNewest();
 				// Update where to print from
-				g.printFrom = 'partData';
+				// g.printFrom = 'partData';
 
 				// In event filtering didn't remove anything
-				if ( g.partData.length === g.totalResultCount ) {
+				if ( g.atlasCleared.length === g.totalResultCount ) {
 					g.toast("The filters did not remove any results. Showing all results");
-					g.printFrom = 'allResults';
+					// g.printFrom = 'allResults';
 				}
 
 				// Update amount of results after filters
-				$('#result-count').text(g[g.printFrom].length);
+				$('#result-count').text(g.atlasCleared.length);
 
 				g.paginationSet();
 			},
@@ -446,7 +846,6 @@ checkStatus:
 				console.log('all apis done');
 
 
-				g.sortDateNewest();
 
 				// change run status
 				g.apisRunning = false;
@@ -458,7 +857,11 @@ checkStatus:
 				$('#progress-wrap').hide();
 				$('.progress-target').css('width','0%');
 
-				
+				//Initialize, Reinitialize filter atlas
+				g.filter.atlasInit();
+
+				// Sort by Newest
+				g.sortDateNewest();
 
 				// Toast!
 				Materialize.toast(g.totalResultCount + ' job listings found!',4000);
@@ -472,7 +875,17 @@ getItemsPerPage:
 		$('#per-page-options').on('click','.pagination-num-opt', function(event){
 			event.preventDefault();
 			g.itemsPerPage = parseInt($(this).text());
+			// Remove selected class and apply to new one
+			// $('#per-page-options .selected').removeClass('selected');
+			// $(this).parent('li').addClass('selected');
 			g.paginationSet();
+		}),
+menuSelectionListener:
+		$('.horizontal-options').on('click','a', function(event){
+			event.preventDefault();
+			// Remove selected class and apply to new one
+			$('.horizontal-options .selected').removeClass('selected');
+			$(this).parent('li').addClass('selected');
 		}),
 dedup:
 		function(jobObj){
@@ -619,22 +1032,9 @@ printManager:
 			g.totalResultCount++;
 			$('#result-count').text(g.totalResultCount);
 
-			// Analyze individual listing
-				// Get listing's company
-				var company = jobObj.company;
-
-				// Compare with existing companies. Only add if unique
-				var companyIndex = g.companyList.indexOf(company);
-
-				// If current company had no matches, add to companyList
-				if ( companyIndex === -1 ) {
-					g.companyList.push(company);
-					// console.log('g.companyList',g.companyList);
-				}
-
-				// for (var i=0; i<g.companyList.length; i++) {
-				// 	companyIndex = g.companyList.indexOf(company);
-				// };
+			// Analyze Listing Company
+			g.filter.byCompany.processor(jobObj);
+			g.filter.byLocation.processor(jobObj);
 
 
 			// Show link in pagination nav if enough results
@@ -744,7 +1144,11 @@ paginationSet:
 			// else { 
 			// 	resultCount = g.totalResultCount 
 			// }	
-			resultCount = g[g.printFrom].length;
+			// resultCount = g[g.printFrom].length;
+
+			// Number of results to show is total results - ones being filtered out
+			resultCount = g.atlasCleared.length;
+			
 			// Display message saying there are no results
 			if (resultCount === 0) {
 				$('html').addClass('no-results');
@@ -795,14 +1199,15 @@ paginationSet:
 				$('#pg-control-wrap').append(li);
 			};
 
+
 			// Call pagination to print 1st page
 			g.page = 1;
 			g.pagination();
 
 
-			console.log('numberOfPages',numberOfPages);
-			console.log('resultCount',resultCount);
-			console.log('g.itemsPerPage',g.itemsPerPage);
+			// console.log('numberOfPages',numberOfPages);
+			// console.log('resultCount',resultCount);
+			// console.log('g.itemsPerPage',g.itemsPerPage);
 		},
 pagination: 
 		function(){	
@@ -812,7 +1217,7 @@ pagination:
 			var end = g.page * g.itemsPerPage;
 
 			// Account for last page
-			var length = g[g.printFrom].length;
+			var length = g.atlasCleared.length;
 			if (end >= length) {
 				end = length;
 			}
@@ -825,11 +1230,18 @@ pagination:
 			$('#feed').empty();          
 
 			// Loop through listings from start to end in allResultsStr array
+			// var atlas = g.atlasCleared;
+			var atlas = g.atlasSorted;
+
 			for (var i=start; i<end; i++) {
 				// Set current index in global
 				g.resultNumber = i+1;
 				// Print each listing
-				g.print(g[g.printFrom][i]);
+				var ai = atlas[i];
+				// console.log('ai',ai);
+				var aRai = g.allResults[ai];
+				// console.log('aRai',aRai);
+				g.print(aRai);
 			};
 
 			g.markTerms();
@@ -870,7 +1282,9 @@ print:
 			}
 
 			// Convert date to days ago
-			var daysAgo = moment(date,'MMM-DD').fromNow();
+			// var daysAgo = moment(date,'MMM-DD').fromNow(true);
+			var d = moment().diff(moment(date, 'MMM DD YY'), 'days');
+			var daysAgo = d + 'd'
 
 			// var metaArray = [location, date, source];
 			// var metaArray = [
@@ -915,7 +1329,7 @@ print:
 				
 				var subheadDate = $('<span>');
 					subheadDate.addClass('date');
-					subheadDate.text(date);
+					subheadDate.text(daysAgo);
 
 					subheadlineEl.append(subheadCompany);
 					subheadlineEl.append(subheadLocation);
@@ -1065,6 +1479,12 @@ reset:
 			// Clear previous results
 			g.allResultsStr = [];
 			g.allResults = [];
+			g.companyList = [];
+			g.locationList = [];
+			g.companyCounts = {};
+			g.locationCounts = {};
+
+
 
 			// Reset Pagination: Remove active class from current page
 			$('.pagination').find('.active').removeClass('active');
@@ -1206,7 +1626,7 @@ analysis: {
 
 			}).fail(function(){
 				console.log('fail');
-				g.apiError;
+				g.api.ajaxError;
 			});
 		}
 	}
@@ -1217,14 +1637,6 @@ api:
 		ajaxError: 	
 				function(){
 					console.log('apiError');
-					// Change status to fail.
-					// g.apiCheck++;
-					// g.checkStatus();
-					// console.log('g.apiCheck',g.apiCheck);
-				},
-		ajaxAlways:	
-				function(){
-					console.log('ajaxAlways');
 					// Change status to fail.
 					g.apiCheck++;
 					g.checkStatus();
@@ -1273,13 +1685,16 @@ api:
 							var ji = jobsResults[i];
 							g.allRawData.push(ji);
 
+							// Clean up location data
+							var loc = ji.location.trim();
+
 							// Send to Global Print Function
 							var jobJSON = {
 								"title":  ji.title,
 								"jobPosition": ji.title,
 								"company": ji.company,
-								"location": ji.location,
-								"date": moment(ji.created_at).format("MMM D"),
+								"location": loc,
+								"date": moment(ji.created_at).format("MMM D YY"),
 								"source": "Github",
 								"sourceID": ji.id,
 								"description": ji.description,
@@ -1294,11 +1709,11 @@ api:
 						} // end for loop
 
 						// Change status to done.
-						// g.apiCheck++;
-						// g.checkStatus();
+						g.apiCheck++;
+						g.checkStatus();
 						// console.log('g.apiCheck',g.apiCheck);
-							// var apiIndex = g.api.github.apiIndex;
-							// g.apiStatus[apiIndex] = 'done';
+							var apiIndex = g.api.github.apiIndex;
+							g.apiStatus[apiIndex] = 'done';
 
 						// Notify console of end
 					},
@@ -1308,7 +1723,7 @@ api:
 							type:'GET',
 							url: qURL,
 							timeout: g.api.timeout
-						}).done(mycallback).fail(g.api.ajaxError()).always(g.api.ajaxAlways());
+						}).done(mycallback).fail(g.api.ajaxError);
 					}
 			},
 
@@ -1366,7 +1781,7 @@ api:
 								"jobPosition:": ji.jobtitle,
 								"company": ji.company,
 								"location": ji.city,
-								"date": moment(ji.date).format("MMM D"),
+								"date": moment(ji.date).format("MMM D YY"),
 								"source": "Indeed",
 								"sourceID": ji.jobkey,
 								"description": ji.snippet,
@@ -1387,7 +1802,7 @@ api:
 						// Change status to done.
 						g.apiCheck++;
 						g.checkStatus();
-						console.log('g.apiCheck',g.apiCheck);
+						// console.log('g.apiCheck',g.apiCheck);
 							var apiIndex = g.api.indeed.apiIndex;
 							g.apiStatus[apiIndex] = 'done';
 
@@ -1397,15 +1812,7 @@ api:
 						$.ajax({
 							type:'GET',
 							url: qURL,
-						}).done(mycallback).fail(function(){
-							//Create a new function to process errors
-							console.log('ajaxCall fail');
-							g.apiError();
-							// Change status to fail.
-							// g.apiStatus[g.api.indeed.apiIndex] = 'fail';
-							var apiIndex = g.api.indeed.apiIndex;
-							g.apiStatus[apiIndex] = 'fail';
-						});
+						}).done(mycallback).fail(g.api.ajaxError);
 					}
 			},
 
@@ -1496,7 +1903,7 @@ api:
 									"jobPosition:": ji.jobTitle,
 									"company": ji.company,
 									"location": ji.location,
-									"date": moment(ji.date).format("MMM D"),
+									"date": moment(ji.date).format("MMM D YY"),
 									"source": "Dice",
 									"sourceID": sourceID,
 									"description": "For job details, visit Dice's website.",
@@ -1514,12 +1921,12 @@ api:
 							} // end for loop
 
 						// Change status to done.
-						// g.apiStatus[g.api.dice.apiIndex] = 'done';
-						// g.apiCheck++;
-						// g.checkStatus();
+						g.apiStatus[g.api.dice.apiIndex] = 'done';
+						g.apiCheck++;
+						g.checkStatus();
 						// console.log('g.apiCheck',g.apiCheck);
-							// var apiIndex = g.api.dice.apiIndex;
-							// g.apiStatus[apiIndex] = 'done';
+							var apiIndex = g.api.dice.apiIndex;
+							g.apiStatus[apiIndex] = 'done';
 
 						}	
 
@@ -1530,7 +1937,7 @@ api:
 							type:'GET',
 							url: qURL,
 							timeout: g.api.timeout
-						}).done(mycallback).fail(g.api.ajaxError()).always(g.api.ajaxAlways());
+						}).done(mycallback).fail(g.api.ajaxError);
 					}
 			},
 
@@ -1642,7 +2049,7 @@ api:
 								"jobPosition:": ji.title,
 								"company": companyValue,
 								"location": locationValue,
-								"date": moment(ji.post_date).format("MMM D"),
+								"date": moment(ji.post_date).format("MMM D YY"),
 								"source": "Authentic Jobs",
 								"sourceID": ji.id,
 								"description": ji.description,
@@ -1664,7 +2071,7 @@ api:
 						// Change status to done.
 						g.apiCheck++;
 						g.checkStatus();
-						console.log('g.apiCheck',g.apiCheck);
+						// console.log('g.apiCheck',g.apiCheck);
 							var apiIndex = g.api.authentic.apiIndex;
 							g.apiStatus[apiIndex] = 'done';
 
@@ -1674,14 +2081,7 @@ api:
 						$.ajax({
 							type:'GET',
 							url: qURL,
-						}).done(mycallback).fail(function(){
-							//Create a new function to process errors
-							console.log('ajaxCall fail');
-							g.apiError();
-							// Change status to fail.
-							var apiIndex = g.api.authentic.apiIndex;
-							g.apiStatus[apiIndex] = 'fail';
-						});
+						}).done(mycallback).fail(g.api.ajaxError);
 					}
 			},	
 			
@@ -1753,7 +2153,7 @@ api:
 							jobDate = jobsResults[i].job_date_added;
 
 							// Format date using moment.js
-							var dateFormatted = moment(jobDate).format("MMM D");
+							var dateFormatted = moment(jobDate).format("MMM D YY");
 
 							// Send to Global Print Function
 							var jobJSON = {
@@ -1774,7 +2174,7 @@ api:
 						// Change status to done.
 						g.apiCheck++;
 						g.checkStatus();
-						console.log('g.apiCheck',g.apiCheck);
+						// console.log('g.apiCheck',g.apiCheck);
 						var apiIndex = g.api.linkup.apiIndex;
 						g.apiStatus[apiIndex] = 'done';
 					},
@@ -1783,14 +2183,7 @@ api:
 						$.ajax({
 							type:'GET',
 							url: qURL,
-						}).done(mycallback).fail(function(){
-							//Create a new function to process errors
-							console.log('ajaxCall fail');
-							g.apiError();
-							// Change status to fail.
-							var apiIndex = g.api.linkup.apiIndex;
-							g.apiStatus[apiIndex] = 'fail';
-						});
+						}).done(mycallback).fail(g.api.ajaxError);
 					}
 			}
 	}

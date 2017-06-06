@@ -1,0 +1,13 @@
+/*
+	Map Modal
+*/
+
+#map-modal {
+	height: 95vh;
+	width: 95vw;
+}
+
+/* Google maps insists on having this explicit height */
+#map {
+	height: 100%;
+}
