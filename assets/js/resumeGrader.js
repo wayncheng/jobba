@@ -38,15 +38,16 @@ $(document).ready(function(){
 						convertPdfToText(URL.createObjectURL($("#file-select").get(0).files[0]));
 						return;
   					}
-  					if(sFileExtension === "doc"){
-  						var fr = new FileReader(); // FileReader instance
-					  	fr.readAsText(files[0],"UTF-8");
-						fr.onload = function () {
-							fileContent = fr.result;
-							ajaxCall(fileContent);
-						};
-						return;
-  					}
+  					//Commenting the code for file extension doc, as it is not working in right manner..
+  				// 	if(sFileExtension === "doc"){
+  				// 		var fr = new FileReader(); // FileReader instance
+					 //  	fr.readAsText(files[0],"UTF-8");
+						// fr.onload = function () {
+						// 	fileContent = fr.result;
+						// 	ajaxCall(fileContent);
+						// };
+						// return;
+  				// 	}
   					if(sFileExtension === "txt"){
   						console.log("Found TXT File");
   						var fr = new FileReader(); // FileReader instance
@@ -174,7 +175,7 @@ $(document).ready(function(){
 	
 		  
 		 function convertPdfToText(urlPDF){
-		 	
+		 	pdfText="";
 		 	PDFJS.getDocument({url: urlPDF}).then(function (pdf) {
             var pdfDocument = pdf;
             var pagesPromises = [];
