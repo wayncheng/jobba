@@ -1,23 +1,78 @@
 footer {
-	background-color: #666;
-	color: #eee;
-	display: none;
+	background-color: #999;
+	/*display: none;*/
+	font-size: 16px;
 }
 
 .footer-container.row {
 	margin: 0;
-	padding: 40px 0;
+	padding: 3em 0;
 }
 .footer-wrap {
-	outline: 1px solid red;
 	text-align: center;
+	height: initial;
+}
+footer a {
+	color: #fff;
+	opacity: 0.8;
+	transition: opacity 300ms;
+}
+footer a:hover {
+	/*text-decoration: underline;*/
+	opacity: 1;
 }
 
-#ftr-link-wrap a.sec-link {
+/* Copyright caption */
+#ftr-caption-wrap {
+	font-size: 14px;
+	height: initial;
+	line-height: 1em;
+	padding: 0;
+	/*margin-top: 1.5em;*/
+	color: rgba(255,255,255,0.5);
+}
+
+
+/* Alternate */
+div#ftr-main-wrap {
+	position: relative;
+	padding: 0 1em;
+}
+#ftr-main-wrap .col {
+	margin-bottom: 1em;
+}
+a.sec-link {
 	display: block;
+	height: 1.5em;
+	line-height: 1.5em;
+	/*padding: 0 4px;*/
+	text-align: right;
+	margin-left: auto;
+	width: initial;
+	position: relative;
 }
 
-#ftr-logo {
-	height: 40px;
+a#logo-link{
+	height: 3em;
+	padding: .5em 1em;
 	width: initial;
+	display: inline-block;
+	float: left;
+	opacity: 0.81;
+	border-radius: 5px;
+	transition: all 500ms;
+}
+img#ftr-logo {
+	height: 100%;
+	width: initial;
+	float: left;
+	margin: 0;
+}
+a#logo-link:hover { background-color: rgba(0,0,0,0.2) }
+
+@media all and (max-width: 600px){
+	#ftr-main-wrap .col a {
+		float: none;
+		text-align: center;
+	}
 }
