@@ -3,6 +3,7 @@ body {
 	/*background-color: #fafafa;*/
 	/*background-color: rgba(255,255,255,0.9);*/
 	background-color: #fff;
+	font-family: 'Roboto','Helvetica Neue','Helvetica','Arial',sans-serif;
 }
 p {
 	margin: 0;

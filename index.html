@@ -46,6 +46,7 @@
 	<link href="assets/css/conditional.css" rel="stylesheet">
 	<link href="assets/css/resume.css" rel="stylesheet">
 	<link href="assets/css/map-modal.css" rel="stylesheet">
+	<link href="assets/css/footer.css" rel="stylesheet">
 
 </head>
 
@@ -211,6 +212,24 @@
 			</div>
 		</div> <!-- /pagination-row -->
 	</div> <!-- /page1 -->
+<!-- Footer ================================-->
+<footer>
+	<div class="footer-container row">
+		<div id="ftr-title-wrap" class="footer-wrap ftr-section col s12 m6">
+			<img id="ftr-logo" class="headline" src="assets/icons/jobba-final-text-only-white.png" alt="Jobba">
+		</div>
+		<div id="ftr-link-wrap" class="footer-wrap ftr-section col s12 m6">
+			<h5 class="sec-title">Links</h5>
+			<a href="index.html" class="sec-link">Jobba Home</a>
+			<a href="https://github.com/wayncheng/jobba" class="sec-link">View on Github</a>
+			<a href="credits.html" class="sec-link">Credits</a>
+		</div>
+		<div id="ftr-caption-wrap" class="footer-wrap ftr-section col s12">
+			<p class="subheadline">© 2017 Copyright Wayne Cheng, Priyanka Arora, Novia Lim, Jonathan Thinh</p>
+		</div>
+	</div>
+</footer>
+
 <!-- Saved Jobs Modal ======================-->
 	<div id="saved-jobs-modal" class="modal bottom-sheet">
 		<div class="modal-content">
@@ -425,10 +444,19 @@
 					<div class="collapsible-body">
 						<form class="sideNavForm">
 							<ul id="filter-location" class="filter-listener"> </ul>
-							<!--  -->
-							<!-- <ul id="filter-location" class="filter-listener overflow-wrap overflow-hidden"> -->
-							<!-- <li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="san francisco" data-select="true" checked="checked" id="#loc-0"><label for="loc-0">san francisco (51)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="san jose" data-select="true" checked="checked" id="#loc-1"><label for="loc-1">san jose (6)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="san mateo" data-select="true" checked="checked" id="#loc-2"><label for="loc-2">san mateo (4)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="pleasanton" data-select="true" checked="checked" id="#loc-3"><label for="loc-3">pleasanton (4)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="menlo park" data-select="true" checked="checked" id="#loc-4"><label for="loc-4">menlo park (3)</label></li><div class="below-fold"><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="redwood city" data-select="true" checked="checked" id="#loc-5"><label for="loc-5">redwood city (3)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="san ramon" data-select="true" checked="checked" id="#loc-6"><label for="loc-6">san ramon (3)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="fremont" data-select="true" checked="checked" id="#loc-7"><label for="loc-7">fremont (3)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="emeryville" data-select="true" checked="checked" id="#loc-8"><label for="loc-8">emeryville (2)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="palo alto" data-select="true" checked="checked" id="#loc-9"><label for="loc-9">palo alto (2)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="santa clara" data-select="true" checked="checked" id="#loc-10"><label for="loc-10">santa clara (2)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="cupertino" data-select="true" checked="checked" id="#loc-11"><label for="loc-11">cupertino (1)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="san francisco bay area" data-select="true" checked="checked" id="#loc-12"><label for="loc-12">san francisco bay area (1)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="mountain view" data-select="true" checked="checked" id="#loc-13"><label for="loc-13">mountain view (1)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="san leandro" data-select="true" checked="checked" id="#loc-14"><label for="loc-14">san leandro (1)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="hayward" data-select="true" checked="checked" id="#loc-15"><label for="loc-15">hayward (1)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="burlingame" data-select="true" checked="checked" id="#loc-16"><label for="loc-16">burlingame (1)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="san rafael" data-select="true" checked="checked" id="#loc-17"><label for="loc-17">san rafael (1)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="sunnyvale" data-select="true" checked="checked" id="#loc-18"><label for="loc-18">sunnyvale (1)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="richmond" data-select="true" checked="checked" id="#loc-19"><label for="loc-19">richmond (1)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="south san francisco" data-select="true" checked="checked" id="#loc-20"><label for="loc-20">south san francisco (1)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="san bruno" data-select="true" checked="checked" id="#loc-21"><label for="loc-21">san bruno (1)</label></li><li class="input-field"><input class="filterLocationInput filterInput filled-in" type="checkbox" name="filterLocation" value="dublin" data-select="true" checked="checked" id="#loc-22"><label for="loc-22">dublin (1)</label></li></div><span class="show-more-btn">Show more locations...</span></ul> -->
-
+						</form>
+					</div>
+				</li>
+			</ul>
+		</li>
+		<!-- Filter Company -->
+		<li id="companyFilters" class="no-padding">
+			<ul class="collapsible collapsible-accordion">
+				<li>
+					<a class="collapsible-header">Filter Companies<i class="arrow-icon material-icons"></i></a>
+					<div class="collapsible-body">
+						<form class="sideNavForm">
+							<ul id="filter-company" class="filter-listener"> </ul>
 						</form>
 					</div>
 				</li>
