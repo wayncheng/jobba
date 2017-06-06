@@ -7,6 +7,9 @@
         #resume-modal{
             max-height:700px;
         }
+         #resume-modal h4{
+            color: #26a69a;
+        }
         .resume-result{
             background: #e2e2e2;
             margin: 2px 0 0 2px;
@@ -64,6 +67,7 @@
             margin:auto;
             line-height: 40px;
             padding:10px;
+            top: 40%;
         }
 
         #resumeText {
