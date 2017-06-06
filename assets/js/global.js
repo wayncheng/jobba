@@ -1427,7 +1427,7 @@ ajax_for_googleMaps:
 				g.googleMaps_latLng = [];
 			for(var i=0; i< g.companyLocationList.length; i++){	
 
-				var q_url = 'https://crossorigin.me/https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyCqrPL7NGZ91Z_Dw7FOxLEyOF2Uc4cVqpc'
+				var q_url = 'https://crossorigin.me/https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyAMi4D8mMbs7bI7lFkxo7dmlwpR0yRGrJA'
 					+'&query='+encodeURIComponent(g.companyLocationList[i]);
 				console.log("Before calling google maps api..",q_url);
 				//ajax google api req to get json output
