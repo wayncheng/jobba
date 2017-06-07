@@ -51,7 +51,7 @@ $("#map-trigger").on("click",function(){
 
   
        var script = document.createElement('script');
-        script.src = 'https://cors.now.sh/https://www.bing.com/api/maps/mapcontrol?callback=loadMapScenario';
+        script.src = 'https://www.bing.com/api/maps/mapcontrol?callback=loadMapScenario';
         document.getElementsByTagName('head')[0].appendChild(script);
 
        // <script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?callback=loadMapScenario' async defer></script>
