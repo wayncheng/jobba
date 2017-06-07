@@ -1352,7 +1352,7 @@ pagination:
 			};
 
 			// console.log("CALLING GOOGLE MAPS AJAX....");
-			g.ajax_for_googleMaps();
+			// g.ajax_for_googleMaps();
 			g.markTerms();
 
 		},
