@@ -77,7 +77,7 @@
 		margin-right: 0px;
 	}
 	.body-nav #salary-trigger::after {
-		content: " Analysis";
+		content: " Salary";
 	}
 	.body-nav #filter-side-nav-link::after {
 		content: " Filter / Sort";

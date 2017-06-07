@@ -2,17 +2,12 @@
 	Data Analysis
 */
 
-
-/*.data-wrap .col 	{ outline: 1px solid red; }
-.data-wrap h5 		{ outline: 1px solid red; }
-.data-wrap p.label 	{ outline: 1px solid red; }*/
-
 .full-screen.data-modal {
 	text-align: center;
 	width: 95%;
 	max-width: 1000px;
 	height: 90vh;
-	max-height: 900px;
+	max-height: 1400px;
 }
 .data-modal .modal-content {
 	padding: 24px 0;
@@ -63,25 +58,12 @@
 		text-align: center;
 	}
 
-
-	#pay-low { 
-		/*background-color: red;*/
-		/*background-color: #ff5252;*/
-		/*background-color: #ff9100 ;*/
-		/*background-color: #aeea00 ;*/
-	}
 	#pay-median { 
 		/*background-color: yellow;*/
 		/*background-color: #ffea00;  */
 		/*background-color: #64dd17 ;  */
 		background-color: #00e676;
 	}
-	#pay-high { 
-		/*background-color: green;*/
-		/*background-color: #00e676; */
-		/*background-color: #00c853 ; */
-	}
-
 
 /* Table ------------------------------*/
 	#nextJobSec .section-title {
@@ -148,3 +130,157 @@
 		padding: 10px;
 	}
 }
+
+
+
+/* Star Scale -----------------------------------------------------*/
+	.star-scale div {
+		/*outline: 1px solid red;*/
+	}
+	/*.star-scale i.material-icons {
+		font-size: 2em;
+		height: 1em;
+		width: 1em;
+	}*/
+	/*div.star-base {
+		position: relative;
+		font-size: 12px;
+		width: 240px;
+		height: 43px;
+		background-image: url(../icons/5star-border-white.svg);
+	}
+	div.star-rating {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		background-image: url(../icons/5star-filled-white.svg);
+	}*/
+	#overall-rating-wrap, #rating-wrap ul {
+		/*outline: 1px solid red;*/
+	}	
+
+	#overall-rating-stars {
+		display: inline-block;
+
+	}
+	#overall-rating-stars.star-rating i.material-icons{
+		font-size: 56px; 
+		letter-spacing: -10px;
+	}
+	
+	#overall-rating-wrap {
+	}
+/* Company Info ---------------------------------------------------*/
+	ul#ratings-summary {
+		width: 100%;
+		max-width: 400px;
+		margin: 0 auto;
+	}
+	#ratings-summary h3 {
+		/*font-size: 56px;*/
+		line-height: 1em;
+		font-size: 64px;
+		padding: 10px 20px;
+		background-color: rgba(81,81,81,.24);
+		border-radius: 8px;
+		float: left;
+		display: inline-block;
+		font-weight: 900;
+		letter-spacing: -2px;
+	}
+	#ratings-summary li {
+		text-align: center;
+		margin: 0;
+	}
+	#rating-wrap .col {
+		text-align: right;
+	}
+
+	#company-details a {
+		color: #fff;
+		text-decoration: underline;
+	}
+	#company-details li {
+		margin-left: 64px;
+	}
+
+	img#companySquareLogo {
+		height: 48px;
+		width: initial;
+		float: left;
+	}
+
+
+	.alternate #ratings-breakdwon li {
+		margin: 5px 0;
+		font-size: 16px;
+		color: #aaa;
+	}
+	#ratings-breakdown span.target {
+		font-weight: 600;
+		color: #fff
+	}
+
+/* Featured Review ---------------------------------------------------*/
+	#featuredReview.section {
+		padding: 40px;
+	}
+
+	/*.full-screen.data-modal p.review-body span,*/
+	/*.full-screen.data-modal p.review-body,*/
+	p.review-body {
+		text-align: left;
+		margin-bottom: 20px;
+	}
+
+	#fr-pros::before {
+		content: "Pros: ";
+		font-weight: 800;
+	}
+	#fr-cons::before {
+		content: "Cons: ";
+		font-weight: 800;
+	}
+	.eyebrow {
+		font-size: 18px;
+	}
+
+	/* Featured review headline */
+	.sec-headline {
+		font-size: 48px;
+	}
+	.sec-headline span {
+		display: inline-block;
+		width: 60%;
+	}
+	.sec-headline i.material-icons {
+		font-size: 2em;
+		width: initial;
+		text-align: left;
+		margin: 0 5% 0 0;
+		float: right;
+	}
+	i.material-icons.flipped {
+		float: left;
+		text-align: right;
+		margin: 0 5% 0 0;
+	    transform: scale(-1);
+	    -moz-transform: scale(-1);
+	    -webkit-transform: scale(-1);
+	    -ms-transform: scale(-1);
+	}
+/* Before Labels ------------------------------*/
+	#cultureValues::before 			{ content: "Culture & Values:" }
+	#seniorLeadership::before 		{ content: "Senior Leadership:" }
+	#compensationBenefits::before 	{ content: "Compensation & Benefits:" }
+	#careerOpportunities::before 	{ content: "Career Opportunities:" }
+	#workLifeBalance::before 		{ content: "Work/Life Balance:" }
+	#recommendToFriend::before 		{ content: "Recommend to Friend:" }
+	#companyWebsite::before 		{ content: "Website:" }
+	#companyIndustry::before 		{ content: "Industry:" }
+
+	#ratings-breakdown li::before {
+		margin-right: 1em;
+	}

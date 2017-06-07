@@ -7,6 +7,7 @@ $(document).ready(function () {
 
 	$('#feed, #saved-feed').on('click','.save-wrap',function(event){
 		event.preventDefault();
+		event.stopPropagation();
 		var $t = $(this);
 		
 		// Icon Change

@@ -94,6 +94,8 @@ geolocation: {
 					};
 
 					function geoSuccess(position) {
+						// Let user know that location is being grabbed
+						$('#q-city').attr('placeholder', 'Grabbing your location...');
 
 						startPos = position;
 						// document.getElementById('startLat').innerHTML = startPos.coords.latitude;
@@ -106,6 +108,8 @@ geolocation: {
 						g.geolocation.convert(latlng); // Send to function to convert coordinates to city
 					};
 					function geoError(error) {
+						// Let user know that location couldn't be grabbed
+						$('#q-city').attr('placeholder', 'Location not found. Please enter a city');
 						console.log('Error occurred. Error code: ' + error.code);
 			            
 						// When user play punk and dont enter a location
@@ -138,6 +142,8 @@ geolocation: {
 				    	type: 'GET',
 				    	url: qURL,
 				    }).done(function(response){
+						// Reset to default
+						$('#q-city').attr('placeholder', 'Location');
 				    	// var r = response.results[0].address_components;
 				    	// var city = r[0].short_name;
 				    	// var state = r[2].short_name;
@@ -160,6 +166,8 @@ geolocation: {
 					    	// Re-evaluate for submission
 					    	g.submitCheck();
 				    	}
+
+
 
 				    });
 
@@ -255,6 +263,11 @@ apiCheckpoint: 'processing',
 apiCheck: 0,
 apisRunning: false,
 prevCheck: 0,
+sortDateNewestEvent:
+		$('#sortDateNewest').on('click',function(e){
+			e.preventDefault();
+			g.filter.export();
+		}),
 sortDateNewest:
 		function(){
 			var data = g.allResults;
@@ -272,9 +285,31 @@ sortDateNewest:
 				return x.clearedID;
 			});
 
-			console.log('sorted',sorted);
+			console.log('sorted by newest',sorted);
 			g.atlasSorted = sorted;
 		},
+sortDateOldest:
+		$('#sortDateOldest').on('click',function(){
+			var data = g.allResults;
+			// var data = sample;
+			var directory = g.atlasCleared;
+
+			var sorted = directory.map(function(clearedID){
+				var di = data[clearedID];
+				var age = moment().diff(moment(di.date, 'MMM D YY'), 'days');
+				var obj = {age,clearedID};
+				return obj;
+			}).sort(function(a,b){
+				return b.age - a.age;
+			}).map(function(x){
+				return x.clearedID;
+			});
+
+			console.log('sorted by oldest',sorted);
+			g.atlasSorted = sorted;
+			// Trigger reprint
+			g.pagination();
+		}),
 toast: 
 		function(msg){
 			Materialize.toast(msg,2000);
@@ -401,7 +436,8 @@ filter: {
 						var data = g.allResults;
 
 						var filtered = data.filter(function(res){
-							var str = res.title.toUpperCase();
+							var str = res.title.toUpperCase() + res.description.toUpperCase();
+
 
 							var black = exTerms.map(function(term){
 								term = term.toUpperCase().trim();
@@ -428,19 +464,21 @@ filter: {
 							// return blackCheck === -1 && whiteCheck === -1;
 
 							// Trash testing
-							return blackCheck !== -1 && whiteCheck !== -1;
+							return blackCheck !== -1 || whiteCheck !== -1;
 						});
 
 						var mapped = filtered.map(function(jobObj){
 							return jobObj.id;
 						})
 
+						console.log('filtered',filtered);
+						console.log('mapped',mapped);
 
+						g.filter.atlas.terms = mapped;
 						g.filter.byTerms.whiteList = inTerms;
 						g.filter.byTerms.blackList = exTerms;
-						g.partData = filtered;
+						// g.partData = filtered;
 						g.filter.export();
-						g.filter.atlas.terms = mapped;
 					},
 			},
 	bySource: {
@@ -517,39 +555,6 @@ filter: {
 							var split = loc.split(',');
 							var city = split[0].trim().toLowerCase();
 							var locIndex = g.locationList.indexOf(city);
-							// var count = 1;
-
-							// var obj = {
-							// 	location: city,
-							// 	n: 1,
-							// }
-							// var obj = {};
-							// // If current company had no matches, add name and general location to companyList
-							// if ( locIndex === -1 ) {
-							// 	// Add company, and start count at 1;
-							// 	obj[city]=1;
-							// 	g.locationCounts.push(obj);
-
-							// 	// List of unique cities
-							// 	g.locationList.push(city);
-							// }
-							// else {
-							// 	// Find current object the current count and increment
-							// 	for (var i=0; i<g.locationCounts.length; i++) {
-							// 		var li = g.locationCounts[i]
-							// 		// for( var key in g.locationCounts[i]){
-
-							// 			var locIndex = g.locationCounts[i][key].indexOf(city);
-							// 			if (locIndex === -1){
-							// 				var locO = g.locationCounts[i].city;
-							// 				var count = locO.n;
-							// 				locO.n = count+1;
-							// 				break;
-							// 			}
-							// 		// }
-							// 	};
-							// 	// g.locationCounts.push(obj);
-							// }
 
 								var Ob = {
 									name: city,
@@ -916,7 +921,6 @@ filter: {
 				// In event filtering didn't remove anything
 				if ( g.atlasCleared.length === g.totalResultCount ) {
 					g.toast("The filters did not remove any results. Showing all results");
-					// g.printFrom = 'allResults';
 				}
 
 				// Update amount of results after filters
@@ -1352,7 +1356,7 @@ pagination:
 			};
 
 			// console.log("CALLING GOOGLE MAPS AJAX....");
-			g.ajax_for_googleMaps();
+			// g.ajax_for_googleMaps();
 			g.markTerms();
 
 		},
@@ -1472,6 +1476,19 @@ print:
 			// 		p.text(metaArray[i].value);
 			// 		bodyEl.append(p);
 			// };
+			var companyTrigger = $('<a>');
+				companyTrigger.addClass('company-trigger compact-trigger compact-ready tooltipped');
+				companyTrigger.attr({
+					'href': '#company-modal',
+					'data-position': 'bottom',
+					'data-tooltip': 'View company reviews',
+					'data-delay': '50'
+					});
+				var companyIcon = $('<i>')
+					companyIcon.addClass('material-icons');
+					companyIcon.text('business');
+				companyTrigger.append(companyIcon);
+
 
 			var companyWrap = $('<p>');
 				companyWrap.addClass('meta-detail');
@@ -1503,6 +1520,7 @@ print:
 
 			
 			// meta
+			bodyEl.append(companyTrigger);
 			bodyEl.append(companyWrap);
 			bodyEl.append(locationWrap);
 			bodyEl.append(dateWrap);
@@ -1528,6 +1546,8 @@ print:
 			listingEl.append(bodyEl);
 
 			$('#feed').append(listingEl);
+			// Tooltipss
+			$('.tooltipped').tooltip({delay:50});
 
 		},
 ajax_for_googleMaps: 
@@ -1603,42 +1623,6 @@ markTerms:
 			if (g.filter.byTerms.whiteList.length !== 0){
 				$('.listing').mark(g.filter.byTerms.whiteList);
 			}
-			// var options = {
-			//     "element": "mark",
-			//     "className": "",
-			//     "exclude": [],
-			//     "separateWordSearch": true,
-			//     "accuracy": "partially",
-			//     "diacritics": true,
-			//     "synonyms": {},
-			//     "iframes": false,
-			//     "iframesTimeout": 5000,
-			//     "acrossElements": false,
-			//     "caseSensitive": false,
-			//     "ignoreJoiners": false,
-			//     "wildcards": "disabled",
-			//     "each": function(node){
-			//         // node is the marked DOM element
-			//     },
-			//     "filter": function(textNode, foundTerm, totalCounter, counter){
-			//         // textNode is the text node which contains the found term
-			//         // foundTerm is the found search term
-			//         // totalCounter is a counter indicating the total number of all marks
-			//         //              at the time of the function call
-			//         // counter is a counter indicating the number of marks for the found term
-			//         return true; // must return either true or false
-			//     },
-			//     "noMatch": function(term){
-			//         // term is the not found term
-			//     },
-			//     "done": function(counter){
-			//         // counter is a counter indicating the total number of all marks
-			//     },
-			//     "debug": false,
-			//     "log": window.console
-			// };
-			// $(".context").mark("test", options);
-
 		},
 reset: 
 		function(){
@@ -1806,18 +1790,16 @@ analysis: {
 				var payLow = Math.round(r.payLow/100)/10 +'k';
 				var payMedian = Math.round(r.payMedian/100)/10 +'k';
 				var payHigh = Math.round(r.payHigh/100)/10 +'k';
-				console.log('pays',payLow, payMedian, payHigh);
 				$('#pay-low').text(payLow);
 				$('#pay-median').text(payMedian);
 				$('#pay-high').text(payHigh);
-
+				
 				// Next Job Table
+				$('#nextJobAnalysis tbody').empty();
 				var nextArr = r.results;
-				console.log('nextArr',nextArr);
 				var keys = ['nextJobTitle','medianSalary','frequency','frequencyPercent','nationalJobCount'];
 				for (var i=0; i<nextArr.length; i++) {
 					var io = nextArr[i];
-					console.log('io',io);
 					var tr = $('<tr>');
 
 					var titleEl = $('<td>');
@@ -1898,6 +1880,8 @@ analysis: {
 				g.api.ajaxError();
 			});
 		}
+	},
+	company: {
 	}
 },
 api: 
