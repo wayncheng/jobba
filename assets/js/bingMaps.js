@@ -50,7 +50,7 @@ $("#map-trigger").on("click",function(){
        // companyLocationList = (jobba.googleMaps_latLng);
 
        var script = document.createElement('script');
-        script.src = 'http://www.bing.com/api/maps/mapcontrol?callback=loadMapScenario';
+        script.src = 'https://cors.now.sh/http://www.bing.com/api/maps/mapcontrol?callback=loadMapScenario';
         document.getElementsByTagName('head')[0].appendChild(script);
 
        // <script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?callback=loadMapScenario' async defer></script>
