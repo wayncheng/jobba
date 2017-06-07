@@ -1550,17 +1550,20 @@ print:
 // 				url: q_url,
 // 				}).done(function(result){
 
+
 // 					console.log("THE RESULT IS:::: " +result);
-				
+		
 // 				var jsonResponse = JSON.parse(JSON.stringify(result));
 // 				// console.log("RESPONSE RESULTS ===== ",result.results);
 // 				// console.log("RESPONSE GEOMETRY ===== ",result.results[0].geometry);
 // 				// console.log("RESPONSE LOCATION ===== ",result.results[0].geometry.location);
 // 				// console.log("RESPONSE LATTITUDE ===== ",result.results[0].geometry.location.lat);
 
-// 				console.log("TITLE ==== ",jsonResponse);
 
-// 				if(result.error_message !== 'You have exceeded your daily request quota for this API.'){
+				// console.log("TITLE ==== ",jsonResponse);
+
+				if((result.error_message !== 'You have exceeded your daily request quota for this API.') && result.status === "OK"){
+
 
 // 					 lat_long_obj = {"title": result.results[0].name , "lat" : result.results[0].geometry.location.lat, "lng" : result.results[0].geometry.location.lng};
 // 					//lat_long_obj = {"lat" : "33.123", "lng" : "-114.245"};
