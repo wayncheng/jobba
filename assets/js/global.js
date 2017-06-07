@@ -15,6 +15,7 @@ report:
 			console.log('atlasCleared',g.atlasCleared);
 			console.log('atlasSorted',g.atlasSorted);
 		},
+salaryData: {},
 allRawData: [],
 allResults: [],
 allResultsStr: [],
@@ -581,13 +582,13 @@ filter: {
 				function(){
 					var tally = g.locationTally;
 
-					console.log('tally',tally);
+					// console.log('tally',tally);
 
 					 // Sort by most popular first
 					var locSorted = tally.sort(function(a,b){
 						return b.tally-a.tally;
 					});
-					console.log('locSorted',locSorted);
+					// console.log('locSorted',locSorted);
 					g.locationTally = locSorted;
 
 					// var wrap = $('<ul>');
@@ -603,7 +604,7 @@ filter: {
 						var id = 'loc-'+i
 						var n = locSorted[i].tally;
 						var str = loc +' ('+ n + ')';
-						console.log('str',str);
+						// console.log('str',str);
 
 						var li = $('<li>');
 							li.addClass('input-field');
@@ -744,13 +745,13 @@ filter: {
 				function(){
 					var tally = g.companyTally;
 
-					console.log('tally',tally);
+					// console.log('tally',tally);
 
 					 // Sort by most popular first
 					var compSorted = tally.sort(function(a,b){
 						return b.tally-a.tally;
 					});
-					console.log('compSorted',compSorted);
+					// console.log('compSorted',compSorted);
 					g.companyTally = compSorted;
 
 					// var wrap = $('<ul>');
@@ -766,7 +767,7 @@ filter: {
 						var id = 'comp-'+i
 						var n = compSorted[i].tally;
 						var str = comp +' ('+ n +')';
-						console.log('str',str);
+						// console.log('str',str);
 
 						var li = $('<li>');
 							li.addClass('input-field');
@@ -1549,7 +1550,7 @@ ajax_for_googleMaps:
 				url: q_url,
 				}).done(function(result){
 
-					// console.log("THE RESULT IS:::: " +result);
+					console.log("THE RESULT IS:::: " +result);
 				
 				var jsonResponse = JSON.parse(JSON.stringify(result));
 				// console.log("RESPONSE RESULTS ===== ",result.results);
@@ -1557,23 +1558,36 @@ ajax_for_googleMaps:
 				// console.log("RESPONSE LOCATION ===== ",result.results[0].geometry.location);
 				// console.log("RESPONSE LATTITUDE ===== ",result.results[0].geometry.location.lat);
 
-				// console.log("TITLE ==== ",jsonResponse);
+				console.log("TITLE ==== ",jsonResponse);
+
+
+					console.log("THE RESULT IS:::: " +result);
+		
+				var jsonResponse = JSON.parse(JSON.stringify(result));
+				// console.log("RESPONSE RESULTS ===== ",result.results);
+				// console.log("RESPONSE GEOMETRY ===== ",result.results[0].geometry);
+				// console.log("RESPONSE LOCATION ===== ",result.results[0].geometry.location);
+				// console.log("RESPONSE LATTITUDE ===== ",result.results[0].geometry.location.lat);
+
+
+				console.log("TITLE ==== ",jsonResponse);
 
 				if((result.error_message !== 'You have exceeded your daily request quota for this API.') && result.status === "OK"){
+
 
 					 lat_long_obj = {"title": result.results[0].name , "lat" : result.results[0].geometry.location.lat, "lng" : result.results[0].geometry.location.lng};
 					//lat_long_obj = {"lat" : "33.123", "lng" : "-114.245"};
 
 					g.googleMaps_latLng.push(lat_long_obj);
 
-					// console.log('Google API result',JSON.stringify(g.googleMaps_latLng));
+					console.log('Google API result',JSON.stringify(g.googleMaps_latLng));
 					localStorage.setItem("companyLocationList",JSON.stringify(g.googleMaps_latLng));
 				}
 				
 
 			}).fail(function(error){
 				console.log('fail',error.code);
-				// g.apiError;
+				g.api.ajaxError();
 			});
 
 
@@ -1781,20 +1795,107 @@ analysis: {
 				url: qURL,
 			}).done(function(result){
 				var r = result.response;
-				var jobTitle = r.jobTitle;
-				var payHigh = r.payHigh;
-				var payLow = r.payLow;
-				var payMedian = r.payMedian;
 				console.log('Glassdoor done',result);
-				// console.log('Title: ' + result.response.jobTitle)
+				jobba.salaryData = r;
+				var attribution = r.attributionURL;
 
-			// console.log("pay high, low, median "+ payHigh +" "+ payLow + " "+ payMedian);
-
+				//  Query title
+				var jobTitle = r.jobTitle;
 				$('.job-position-target').text(jobTitle);
+
+				var payLow = Math.round(r.payLow/100)/10 +'k';
+				var payMedian = Math.round(r.payMedian/100)/10 +'k';
+				var payHigh = Math.round(r.payHigh/100)/10 +'k';
+				console.log('pays',payLow, payMedian, payHigh);
+				$('#pay-low').text(payLow);
+				$('#pay-median').text(payMedian);
+				$('#pay-high').text(payHigh);
+
+				// Next Job Table
+				var nextArr = r.results;
+				console.log('nextArr',nextArr);
+				var keys = ['nextJobTitle','medianSalary','frequency','frequencyPercent','nationalJobCount'];
+				for (var i=0; i<nextArr.length; i++) {
+					var io = nextArr[i];
+					console.log('io',io);
+					var tr = $('<tr>');
+
+					var titleEl = $('<td>');
+						titleEl.addClass('col0');
+						titleEl.text(io.nextJobTitle);
+
+					var salaryEl = $('<td>');
+					var salVal = Math.round(io.medianSalary/1000)+'k'
+						salaryEl.addClass('col1');
+						salaryEl.text(salVal);
+
+					var freqEl = $('<td>');
+					// var freqText =io.frequency + freqPctVal; 
+					var freqText =io.frequency; 
+						freqEl.addClass('col2');
+						freqEl.text(freqText);
+
+						var freqPctEl = $('<span>');
+						var freqPctVal = ' ['+ Math.round(io.frequencyPercent) +'%]';
+							freqPctEl.addClass('freq-pct');
+							freqPctEl.text(freqPctVal);
+					freqEl.append(freqPctEl);
+
+					var jobCountEl = $('<td>');
+					var jobCount = io.nationalJobCount;
+
+						if (jobCount > 999) jobCount = Math.round(jobCount/1000) +'k';
+						else if (jobCount > 999999) jobCount = Math.round(jobCount/1000000) +'m';
+					
+						jobCountEl.addClass('col3');
+						jobCountEl.text(jobCount);
+
+
+						// for each value in each column
+						// for (var j=0; j < keys.length; j++) {
+						// 	var k = keys[j];
+						// 	var v = io[k];
+						// 	console.log('kv',k,v);
+						// 	var td = $('<td>');
+						// 		td.addClass('col'+j);
+
+						// 	if (j===1) {
+						// 		// Salary ROunded
+						// 		v = '$ '+ Math.round(v/1000)+'k';
+						// 		// v = Math.round(v/100)/10 +'k' // Salary Round to 1 decimal
+						// 	}
+						// 	else if (j===3) {
+						// 		// v = Math.round(v*10)/10;  // Convert 19.123491234 to 19.1
+						// 		v = Math.round(v) +'%';
+						// 	}
+						// 	else if (j===4){
+						// 		if (v > 999) {
+						// 			v = Math.round(v/1000)+'k';
+						// 		}
+						// 		else if (v > 999999) {
+						// 			v = Math.round(v/1000000) + 'm';
+						// 		}
+						// 	}
+
+
+
+
+						// 		td.text(v);
+						// 		console.log('td',td);
+						// 		tr.append(td);
+						// };
+					tr.append(titleEl);
+					tr.append(salaryEl);
+					tr.append(freqEl);
+					tr.append(jobCountEl);
+					// append row to tbody
+					$('#nextJobAnalysis tbody').append(tr);
+				};
+
 
 			}).fail(function(){
 				console.log('fail');
-				g.api.ajaxError;
+				g.api.ajaxError();
 			});
 		}
 	}
@@ -1804,7 +1905,7 @@ api:
 		timeout: 5000,
 		ajaxError: 	
 				function(){
-					console.log('apiError');
+					console.log('ajaxError');
 					// Change status to fail.
 					g.apiCheck++;
 					g.checkStatus();

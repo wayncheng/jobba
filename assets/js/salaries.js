@@ -24,20 +24,57 @@ $('#submit').on('click',function(event){
 				url: qURL,
 			}).done(function(result){
 				var r = result.response;
-				var jobTitle = r.jobTitle;
-				var payHigh = r.payHigh;
-				var payLow = r.payLow;
-				var payMedian = r.payMedian;
 				console.log('Glassdoor done',result);
-				// console.log('Title: ' + result.response.jobTitle)
+				jobba.salaryData = r;
+				var attribution = r.attributionURL;
 
-			// console.log("pay high, low, median "+ payHigh +" "+ payLow + " "+ payMedian);
-
+				//  Query title
+				var jobTitle = r.jobTitle;
 				$('.job-position-target').text(jobTitle);
 
+
+				//  Pay Range Info
+						// 114091.81 --> 1140.9181 --> 1141 --> 114.1
+				// 	function convertToK(salary){
+				// 		var k = Math.round(salary/100)/10;
+				// 		return k+'k';
+				// 	};
+				// var payLow = convertToK(r.payLow);
+				// var payMedian = convertToK(r.payMedian);
+				// var payHigh = convertToK(r.payHigh);
+
+				var payLow = Math.round(r.payLow/100)/10;
+				var payMedian = Math.round(r.payMedian/100)/10;
+				var payHigh = Math.round(r.payHigh/100)/10;
+				console.log('pays',payLow, payMedian, payHigh);
+				$('#pay-low').text(payLow);
+				$('#pay-median').text(payMedian);
+				$('#pay-high').text(payHigh);
+
+				// Next Job Table
+				var nextArr = r.results;
+				console.log('nextArr',nextArr);
+				var keys = ['frequency','frequencyPercent','medianSalary','nationalJobCount','nextJobTitle'];
+				for (var i=0; i<nextArr.length; i++) {
+					var io = nextArr[i];
+					console.log('io',io);
+					var tr = $('<tr>');
+						// for each value in each column
+						for (var j=0; j < keys.length; j++) {
+							// var KEY = keys[i];
+							var VAL = io[keys[j]];
+							var td = $('<td>');
+								td.addClass('col-'+(j));
+								td.text(VAL);
+							tr.apppend(td);
+						};
+					// append row to tbody
+					$('#nextJobAnalysis tbody').append(tr);
+				};
+
+
 			}).fail(function(){
-				console.log('fail');
-				jobba.apiError;
+				jobba.api.ajaxError();
 			});
 	
 

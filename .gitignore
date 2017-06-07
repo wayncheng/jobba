@@ -1,3 +1,8 @@
 cfg.js
 dist/*
 gulpfile.js
+functions/*
+database.rules.json
+firebase.json
+pub/index.html
+.firebaserc

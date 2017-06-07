@@ -24,8 +24,8 @@ $(document).ready(function(){
       opacity: .5, // Opacity of modal background
       inDuration: 300, // Transition in duration
       outDuration: 200, // Transition out duration
-      startingTop: '4%', // Starting top style attribute
-      endingTop: '10%', // Ending top style attribute
+      startingTop: '2%', // Starting top style attribute
+      endingTop: '5%', // Ending top style attribute
       ready: function() { 
 	      // Callback for Modal open. Modal and trigger parameters available.
         console.log('modal open');

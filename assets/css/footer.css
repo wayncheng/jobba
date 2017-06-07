@@ -1,7 +1,10 @@
 footer {
-	background-color: #999;
+	background-color: rgba(0,0,0,0.81);
+	background-color: rgba(81,81,81,.81);
+	background-color: rgba(24,24,24,.81);
+	background-color: rgba(8,8,8,.81);
 	/*display: none;*/
-	font-size: 16px;
+	font-size: 14px;
 }
 
 .footer-container.row {
@@ -22,14 +25,17 @@ footer a:hover {
 	opacity: 1;
 }
 
-/* Copyright caption */
+/* Copyright caption ------------------------------ */
 #ftr-caption-wrap {
-	font-size: 14px;
+	font-size: 12px;
 	height: initial;
 	line-height: 1em;
 	padding: 0;
 	/*margin-top: 1.5em;*/
 	color: rgba(255,255,255,0.5);
+}
+#ftr-caption-wrap p.subheadline {
+	font-size: 	inherit;
 }
 
 
@@ -39,12 +45,12 @@ div#ftr-main-wrap {
 	padding: 0 1em;
 }
 #ftr-main-wrap .col {
-	margin-bottom: 1em;
+	/*margin-bottom: 1em;*/
 }
 a.sec-link {
 	display: block;
-	height: 1.5em;
-	line-height: 1.5em;
+	height: 1.2em;
+	line-height: 1.2em;
 	/*padding: 0 4px;*/
 	text-align: right;
 	margin-left: auto;
@@ -54,7 +60,7 @@ a.sec-link {
 
 a#logo-link{
 	height: 3em;
-	padding: .5em 1em;
+	padding: .2em;
 	width: initial;
 	display: inline-block;
 	float: left;
@@ -73,6 +79,6 @@ a#logo-link:hover { background-color: rgba(0,0,0,0.2) }
 @media all and (max-width: 600px){
 	#ftr-main-wrap .col a {
 		float: none;
-		text-align: center;
+		/*text-align: center;*/
 	}
 }
