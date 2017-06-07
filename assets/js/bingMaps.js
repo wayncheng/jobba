@@ -49,6 +49,7 @@ $("#map-trigger").on("click",function(){
       // ajax_for_googleMap();
        // companyLocationList = (jobba.googleMaps_latLng);
 
+  
        var script = document.createElement('script');
         script.src = 'https://cors.now.sh/https://www.bing.com/api/maps/mapcontrol?callback=loadMapScenario';
         document.getElementsByTagName('head')[0].appendChild(script);
