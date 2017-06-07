@@ -41,22 +41,40 @@
             left: 0;
       }
 
+/* No Results ------------------------------*/
+      /* subs hidden by default */
+      .feed.sub, .modal .sub, .sub {
+            display: none;
+      }
+      
+      /* If EMPTY RETURN */
+      .empty-return .sub {
+            display: block;
+      }
+      .empty-return.modal .modal-content {
+            display: none;
+      }
 /* Do Not Disturb ------------------------------*/
       .do-not-disturb #banner .feature-logo.progress-bar {
             width: 0%;
+      }
+      .do-not-disturb footer {
+            display: none;
       }
 
 
 /* @media ---------------------------------------*/
 
       @media all and (max-width: 700px) {
-            .compact-ready {
-                  padding: 0 1rem;
-            }
-            .compact-ready::after {
-                  display: none;
-            }
-            .compact-ready i.material-icons {
-                  margin-right: 0px;
+            /* Collapse body nav*/
+            .compact-ready { padding: 0 1rem; }
+            .compact-ready::after { display: none; }
+            .compact-ready i.material-icons { margin-right: 0px; }
+            span.job-position-target { display: none; }
+
+            /* make feed wider on small screens*/
+            #feed {
+                  width: 100%;
+                  margin: 0;
             }
       }
