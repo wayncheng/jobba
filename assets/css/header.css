@@ -43,3 +43,34 @@
 		/*box-shadow: inset 0px 0px 5px 2px rgba(0,0,0,0.3);*/
 	}
 
+/* Collapsed Mobile Side Nav ------------------------------*/
+	#nav-mobile li {
+		text-align: center;
+	}
+	#nav-mobile a.btn.header-link {
+		color: #fff;
+	}
+	#nav-mobile a.header-link.persistent {
+		color: #666;
+		display: inline-block;
+		margin: 0 auto;
+	}
+
+/* Close buttons ------------------------------*/
+	a.close-btn:hover {
+		color: initial;
+		text-decoration: none; 
+	}
+
+	/* Close icon on left aligned side-nav */
+	#nav-mobile.side-nav a.close-btn {
+		text-align: center;
+	}
+	#nav-mobile.side-nav i.material-icons {
+		float: right;
+		position: absolute;	
+		top: 	0;
+		right: 	0;
+		/*margin-left: 32px;*/
+		/*margin-right: 0px; */
+	}

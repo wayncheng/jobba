@@ -67,13 +67,13 @@
 				<li> <a href="#saved-jobs-modal" class="header-link" id="displayJobs" title="View Saved Jobs">
                     Saved Jobs 
                     </a> </li>
-				<li> <a href="#resume-modal" class="header-link" id="resumeGrader" title="Resume Grader">
+				<li> <a href="#resume-modal" class="header-link persistent" id="resumeGrader" title="Resume Grader">
                 	Resume Grader 
                 	</a> </li>
 				</ul>
 		<!-- Collapsed Nav (Mobile) -->
 			<ul id="nav-mobile" class="side-nav">
-				<li> <a class="close-btn" href="#!">Close Main Menu<i class="material-icons">clear_all</i></a> </li>
+				<li> <a class="close-btn" href="#!">Close Main Menu<i class="material-icons">close</i></a> </li>
 				<li> <a href="#!" class="header-link login sign-in btn" id="signInWithGithubSide" title="Sign in with Github">
                     Github Login 
                     </a> </li>
@@ -83,7 +83,7 @@
 				<li> <a href="#saved-jobs-modal" class="header-link" id="displayJobs" title="View Saved Jobs">
                     Saved Jobs 
                     </a> </li>
-				<li> <a href="#resume-modal" class="header-link" id="resumeGrader" title="Resume Grader">
+				<li> <a href="#resume-modal" class="header-link persistent" id="resumeGrader" title="Resume Grader">
                     Resume Grader 
                     </a> </li>
 				</ul>
@@ -170,26 +170,6 @@
 			<!-- Feed -->
 			<div class="col s12 m10 offset-m1 xl6 offset-xl3">
 				<ul id="feed" class="collapsible popout" data-collapsible="accordion">
-					<!-- Sample Feed -->
-					<li class="listing" data-index="82" data-company="Blueshift Labs Inc." data-source="Indeed" data-source-id="Indeed=163a55ef3f505dd8">
-						<div class="collapsible-header"><span class="listing-number ghost">1</span>
-							<h2 class="headline">Software Engineer - Full Stack</h2>
-							<h3 class="subheadline">
-								<span class="company">Blueshift Labs Inc.</span>
-								<span class="location">San Francisco</span>
-								<span class="date">Jun 1</span>
-							</h3>
-						</div>
-						<span class="save-wrap ghost" data-saved="false"></span>
-						<div class="collapsible-body" style="display: none;">
-							<p class="meta-detail location">San Francisco</p>
-							<p class="meta-detail date">Jun 1</p>
-							<p class="meta-detail source sourceURL"><a href="http://www.indeed.com/viewjob?jk=163a55ef3f505dd8&amp;qd=Uo-IYiYZ3OusGsmXskjLo_L0C1sZT5fgBK5KF9k_dVSXfL3kBu2B_4ccHh0oaer6o8UTtLw4Tqk7fveGxOBx73TRGqHCG3dqVGyVy54huL1gYYn9SuRHy5EIcKNmYwgHAhmS4Wuh_6q86t95gN2cFA&amp;indpubnum=422492215893931&amp;atk=1bhhglohp182a3aj" alt="View this job listing on the original site">Indeed</a></p>
-							<p class="meta-detail description-label"></p>
-							<div class="meta-detail description">Blueshift Labs is looking for an extraordinary full stack software <b><mark data-markjs="true">developer</mark></b> with focus on frontend to reimagine how companies engage with their customers....</div>
-						</div>
-					</li>
-
 					<!-- /////////////////// -->
 					<!-- TARGET RESULTS HERE -->
 					<!-- /////////////////// -->
@@ -217,12 +197,12 @@
 	<div class="footer-container row">
 		<div id="ftr-main-wrap" class="footer-wrap ftr-section col s12">
 			<div class="row">
-				<div class="col s12 m5 offset-m1 l4 offset-l2">
+				<div class="col s5 m5 offset-m1 l4 offset-l2">
 					<a id="logo-link" href="index.html" class="">
 						<img id="ftr-logo" class="headline" src="assets/icons/jobba-final-text-only-white.png" alt="Jobba">
 						</a>
 				</div>
-				<div class="col s12 m5 l4 ">
+				<div class="col s7 m5 l4 ">
 					<a href="https://github.com/wayncheng/jobba" class="sec-link">View on Github</a>
 					<a href="credits.html" class="sec-link">Credits</a>
 				</div>
@@ -247,39 +227,53 @@
 		</div>
 	</div>
 <!-- Salary Modal ======================-->
-	<div id="salaryAnalysis" class="data-modal modal modal-fixed-footer">
+	<div id="salaryAnalysis" class="data-modal modal full-screen">
 		<div class="modal-content">
-			<h4><span class="job-position-target">[Position]</span> Job Report</h4>
+			<h4><span class="job-position-target">Whatever</span> Job Report</h4>
 			<a class="attribution" href='https://www.glassdoor.com/index.htm'>powered by <img src='https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search' /></a>
 			<div class=""> 
 				<div id="salary-info-wrap" class="data-wrap row">
-					<div class="divider"></div>
-					<div class="section">
+					<!-- <div class="divider"></div> -->
+					
+					<div class="section row alternate">
 						<h4 class="section-title">Expected Pay Range</h4>
-						<div class="col s4 salary-info">
-							<h5><span id="pay-low" class="target">10k</span></h5>
+						<div class="col s12 m3 offset-m1 l2 offset-l3 salary-info">
+							<h5><span id="pay-low" class="target">0k</span></h5>
 							<p class="label">Low</p>
 						</div>
-						<div class="col s4 salary-info">
+						<div class="col s12 m4 l2 salary-info">
 							<h5><span id="pay-median" class="target">50k</span></h5>
 							<p class="label">Median</p>
 						</div>
-						<div class="col s4 salary-info">
-							<h5><span id="pay-high" class="target">120k</span></h5>
+						<div class="col s12 m3 l2 salary-info">
+							<h5><span id="pay-high" class="target">100k</span></h5>
 							<p class="label">High</p>
 						</div>
 					</div>
-					<div class="divider"></div>
-					<div class="section">
-						<h4 class="section-title">Expected Pay Range</h4>
+					<!-- <div class="divider"></div> -->
+
+					<div id="nextJobSec" class="section">
+						<h4 class="section-title">Next Position Trends</h4>
+						<table id="nextJobAnalysis" class="highlight">	
+								<thead>	
+									<tr>
+										<th class="col0">Job Title</th>
+										<th class="col1">Median Pay</th>
+										<th class="col2">Freq. (%)</th>
+										<!-- <th class="col3">Freq (%)</th> -->
+										<th class="col3">National Count</th>
+									</tr>
+								</thead>
+								<tbody> </tbody>
+						</table>
 						
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="modal-footer">
-			<!-- <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a> -->
-		</div>
+		<!-- <div class="modal-footer">
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+		</div> -->
 	</div>
 
 
@@ -514,8 +508,8 @@
 
 	<script src="assets/js/login.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/checkjobs.js" type="text/javascript" charset="utf-8"></script>
-	<!-- <script src="assets/js/global.js" type="text/javascript" charset="utf-8"></script> -->
-	<script src="assets/js/global.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="assets/js/global.js" type="text/javascript" charset="utf-8"></script>
+	<!-- <script src="assets/js/global.min.js" type="text/javascript" charset="utf-8"></script> -->
 	<script src="assets/js/materialize-init.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/script.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assets/js/filter-sort.js" type="text/javascript" charset="utf-8"></script>

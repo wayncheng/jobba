@@ -7,58 +7,144 @@
 .data-wrap h5 		{ outline: 1px solid red; }
 .data-wrap p.label 	{ outline: 1px solid red; }*/
 
-.data-modal {
+.full-screen.data-modal {
 	text-align: center;
+	width: 95%;
+	max-width: 1000px;
+	height: 90vh;
+	max-height: 900px;
+}
+.data-modal .modal-content {
+	padding: 24px 0;
 }
 .data-wrap.row {
 	padding: 20px 0;
 }
-.data-wrap col {
+.data-wrap .col.salary-info {
 	text-align: center;
+	margin-bottom: 12px;
 }
 .data-modal .section-title {
-	font-size: 24px;
-	font-weight: 500;
-}
-
-.data-wrap .salary-info h5{
-	display: block;
-	width: initial;
-	margin: 0 auto;
-	text-align: center;
-	font-size: 3rem;
-	padding: 1rem;
-}
-.salary-info span::before {
-	content: "$";
-}
-
-.data-wrap .salary-info span {
 	font-size: 30px;
-	padding: .5rem 1.5rem;
-	border-radius: 4px;
-	background-color: rgba(0,0,0,0.15);
+	font-weight: 500;
+		display: block;
+		width: initial;
+		margin: 0 auto;
+		text-align: center;
+		padding: 1rem;
+		margin-bottom: 24px;
 }
 
-.data-wrap p.label {
-	font-size: 20px;
-	text-align: center;
-}
+/* Sections ------------------------------*/
+	.data-modal .section.alternate {
+		background-color: #2ecc71;
+		/*background-color: #00c853;*/
+		/*background-color: #43a047;*/
+		background-color: #27ae60;
+		color: #fff;
+		padding: 32px 0;
+	}
+/* Salary ------------------------------*/
+	.salary-info span::before {
+		content: "$";
+	}
+
+	.data-wrap .salary-info span {
+		font-size: 30px;
+		padding: .5rem 1.5rem;
+		border-radius: 4px;
+		background-color: rgba(0,0,0,0.15);
+		background-color: rgba(24,24,24,.24);
+		background-color: rgba(81,81,81,.24);
+	}
+
+	.data-wrap p.label {
+		font-size: 20px;
+		text-align: center;
+	}
 
 
-#pay-low { 
-	/*background-color: red;*/
-	/*background-color: #ff5252;*/
-	/*background-color: #ff9100 ;*/
-	/*background-color: #aeea00 ;*/
+	#pay-low { 
+		/*background-color: red;*/
+		/*background-color: #ff5252;*/
+		/*background-color: #ff9100 ;*/
+		/*background-color: #aeea00 ;*/
+	}
+	#pay-median { 
+		/*background-color: yellow;*/
+		/*background-color: #ffea00;  */
+		/*background-color: #64dd17 ;  */
+		background-color: #00e676;
+	}
+	#pay-high { 
+		/*background-color: green;*/
+		/*background-color: #00e676; */
+		/*background-color: #00c853 ; */
+	}
+
+
+/* Table ------------------------------*/
+	#nextJobSec .section-title {
+		margin: 0;
+	}
+	.data-modal table {
+		min-width: 285px;
+		max-width: 700px;
+		margin: 0 auto;
+	}
+	table td, table th {
+		display: inline-block;
+		font-size: 12px;
+		line-height: 1.1em;
+		text-transform: capitalize;
+		/*outline: 1px solid red;*/
+		min-width: 60px;
+		width: 22%;
+		text-align: center;
+		letter-spacing: -0.4px;
+		word-spacing: 1px;
+	}
+	table th {
+		font-weight: 700;
+	}
+	table td {
+		padding: 5px;
+		font-weight: 400;
+	}
+	
+	/* First column */
+	table th.col0, table td.col0 {
+		min-width: 85px;
+		width: 34%;
+		text-align: right;
+		/*font-weight: 500;*/
+	}
+	table th.col0 {
+		/*text-align: center;*/
+	}
+
+	/* percent spans */
+	span.freq-pct {
+		/*font-style: italic;*/
+		/*font-size: 90%;*/
+		line-height: inherit;
+		margin-left: 2px;
+		/*font-weight: 900;*/
+		color: rgba(24,24,24,.81);
+	}
+@media all and (max-width: 450px) {
+	.data-modal .modal-content {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	.data-modal table .col0 {
+		width: 85px;
+	}
 }
-#pay-median { 
-	/*background-color: yellow;*/
-	/*background-color: #ffea00;  */
-	/*background-color: #64dd17 ;  */
-}
-#pay-high { 
-	background-color: green;
-	background-color: #00e676; 
-	/*background-color: #00c853 ; */
+@media all and (min-width: 700px) {
+	table td, table th {
+		font-size: 14px;
+		line-height: 1.5em;
+		padding: 10px;
+	}
 }
