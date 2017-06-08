@@ -15,10 +15,6 @@
 		background-position: 50% 50%;
 
 	}
-	.landing #banner {
-		height: 100vh;
-		padding: 0;
-	}
 	#banner form {
 		z-index: 910;
 	}
