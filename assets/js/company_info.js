@@ -1,13 +1,19 @@
 // Company info
 	function emptyReturn(){
-		console.log('Empty return from Glassdoor API');
-		$('#company-modal').addClass('empty-return');
-		Materialize.toast('Oops! Looks like this company does not exist in Glassdoor yet');
 	};
 
+	// Trigger open 
+	function triggerOpen(e){
+		console.log('external trigger');
+		e.preventDefault();
+		$('#company-modal').modal('open'); 
+	}
+	// Trigger ajax on listing header click
+	$('#feed').on('click', '.company-trigger',triggerOpen);
 
-	$('#feed').on('click', '.company-trigger',function(event){
-		event.preventDefault();
+	// Get company info on listing click
+	$('#feed').on('click','.collapsible-header',function(e){
+		e.preventDefault();
 		var companyName = $(this).parents('.listing').attr("data-company");
 		console.log("company name: "+ companyName);
 		// Remove empty return class from company modal
@@ -21,7 +27,19 @@
 			// Check if return is empty, If yes, bail out
 			var len = result.response.employers.length;
 			if (len == 0){
-				emptyReturn();
+				console.log('Empty return from Glassdoor API');
+				$('#company-modal').addClass('empty-return');
+				$(this).parents('.listing').addClass('empty-return');
+				// Materialize.toast('Oops! Looks like this company does not exist in Glassdoor yet', 3000);
+				
+				var trigger = $(this).parents('.listing').find('.company-trigger');
+					// trigger.off('click',triggerOpen);
+					trigger.css({
+						'color':'#cccccc',
+						'pointer-events': 'none',
+					});
+					trigger.hide();
+					// trigger.removeClass('company-trigger');
 				return;
 			}
 
@@ -146,8 +164,6 @@
 					ratingWrap.css('background-color','#27ae60');
 				}
 
-			// Trigger modal open
-			$('#company-modal').modal('open'); 
 			// console.log("Company Review: " + industry + " " + overallRating + " " + seniorLeadershiptRating + " ");
 			// console.log("Featured Review /w pros and cons: " + jobTitle + " " + pros + " " + cons);
 
@@ -155,6 +171,5 @@
 			jobba.api.ajaxError();
 		});
 
-		
 	});
 

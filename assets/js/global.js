@@ -45,7 +45,7 @@ geolocation: {
 						e.preventDefault();
 						$(this).addClass('active'); // turn blue
 
-						g.geolocation.get();ll
+						g.geolocation.get();
 					}),
 	removeTrigger: $('#q-city').on('keyup',function(e){
 						e.preventDefault();
@@ -245,6 +245,7 @@ lastSearchLocal: {
 		$('#last-search-trigger').on('click',function(e){
 			e.preventDefault();
 			
+			g.reset();
 			// Get values from the target spans in HTML and use those set the main search values 
 			var lastq = $('#last-search-q').text();
 			var lastcity = $('#last-search-city').text();
@@ -1645,6 +1646,8 @@ reset:
 			g.allResults = [];
 			g.companyList = [];
 			g.locationList = [];
+			g.companyCounter = g.locationCounter = [];
+			g.atlasCleared = g.atlasSorted = [];
 			g.companyCounts = {};
 			g.locationCounts = {};
 
