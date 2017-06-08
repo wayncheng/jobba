@@ -5,7 +5,7 @@ function loadMapScenario() {
                 var points = jobba.companyLocationList;
 
                 var map = new Microsoft.Maps.Map(document.getElementById('map'), {
-                    credentials: 'AgGEsp9I45TTP7nNh3ehLbqyUf7GtNaahE1CMfzaoJEuf_KCWX3VYJEQ2QRl7Etn'
+                    credentials: 'AgGEsp9I45TTP7nNh3ehLbqyUf7GtNaahE1CMfzaoJEuf_KCWX3VYJEQ2QRl7Etn',
                 });
 
                 // for(var i=0; i< points.length; i++){
