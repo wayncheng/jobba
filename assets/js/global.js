@@ -1262,6 +1262,7 @@ paginationSet:
 			if (resultCount === 0) {
 				$('html').addClass('no-results');
 				console.log('No Results to Show');
+				$("#noResultsDiv").show();
 				// var $div = $('<div>');
 				// 	$div.addClass('no-results');
 				// var $h2 = $('<h2>');
@@ -1274,6 +1275,8 @@ paginationSet:
 			}
 			else {
 				$('html').removeClass('no-results');
+				$("#noResultsDiv").hide();
+
 			}
 			// Count number of pages in results
 			numberOfPages = parseInt(resultCount / g.itemsPerPage);
@@ -2177,6 +2180,8 @@ api:
 
 							} // end for loop
 
+						}	//end of else loop
+
 						// Change status to done.
 						g.apiStatus[g.api.dice.apiIndex] = 'done';
 						g.apiCheck++;
@@ -2184,8 +2189,6 @@ api:
 						// console.log('g.apiCheck',g.apiCheck);
 							var apiIndex = g.api.dice.apiIndex;
 							g.apiStatus[apiIndex] = 'done';
-
-						}	
 
 					},
 				ajaxCall: 
