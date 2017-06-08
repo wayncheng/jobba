@@ -1,8 +1,8 @@
 
-		var latLng;
+        var latLng;
       var map;
       var companyLocationList;
-	function initMap() {
+    function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           zoom: 7, 
           center: new google.maps.LatLng(companyLocationList[0].lat,companyLocationList[0].lng),
@@ -26,7 +26,7 @@
 
 $("#map-trigger").on("click",function(){
 
-	   // companyLocationList = JSON.parse(localStorage.getItem("companyLocationList"));
+       // companyLocationList = JSON.parse(localStorage.getItem("companyLocationList"));
      companyLocationList = (jobba.googleMaps_latLng);
 
 
@@ -38,6 +38,6 @@ $("#map-trigger").on("click",function(){
       var script = document.createElement('script');
         script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCqrPL7NGZ91Z_Dw7FOxLEyOF2Uc4cVqpc&callback=initMap';
         document.getElementsByTagName('head')[0].appendChild(script);
-	
+    
 
   });
