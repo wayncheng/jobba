@@ -54,6 +54,17 @@
       .empty-return.modal .modal-content {
             display: none;
       }
+/* Landing------------------------------*/
+      
+      .landing #banner {
+            height: 100vh;
+            padding: 0;
+      }
+      .landing #page1,
+      .landing footer {
+            display: none;
+      }
+
 /* Do Not Disturb ------------------------------*/
       .do-not-disturb #banner .feature-logo.progress-bar {
             width: 0%;
