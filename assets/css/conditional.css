@@ -54,6 +54,17 @@
       .empty-return.modal .modal-content {
             display: none;
       }
+      .empty-return.modal .sub {
+            height: 100%;
+            width: 100%;
+            font-size: 40px;
+            background-color: #ccc;
+            padding: 25% 20px;
+      }
+      .empty-return .sub h2 {
+            font-size: inherit;
+            margin: 0;
+      }
 /* Landing------------------------------*/
       
       .landing #banner {
