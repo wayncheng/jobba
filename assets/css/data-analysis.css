@@ -173,6 +173,14 @@
 	
 	#overall-rating-wrap {
 	}
+/*-----------------------------------------------------------------*/
+	.row div.sec-col {
+		padding: 0;
+	}
+	#company-details li, 
+	#ratings-breakdown li {
+		font-size: 24px;
+	}
 /* Company Info ---------------------------------------------------*/
 	ul#ratings-summary {
 		width: 100%;
@@ -194,94 +202,196 @@
 	#ratings-summary li {
 		text-align: center;
 		margin: 0;
+		font-size: 16px;
 	}
 	#rating-wrap .col {
-		text-align: right;
+		text-align: center;
+		margin-bottom: 20px;
 	}
-
+/* Company Details ------------------------------*/
+	ul#company-details {
+		text-align: center;
+		background-color: rgba(81,81,81,.24);
+		padding: 24px 0;
+	}
 	#company-details a {
 		color: #fff;
-		text-decoration: underline;
+		border-bottom: 1px solid #fff;
+		padding-bottom: 1px;
 	}
 	#company-details li {
-		margin-left: 64px;
-	}
-
-	img#companySquareLogo {
-		height: 48px;
-		width: initial;
-		float: left;
-	}
-
-
-	.alternate #ratings-breakdwon li {
-		margin: 5px 0;
+		/*margin-left: 64px;*/
+		margin-left: 0;
 		font-size: 16px;
-		color: #aaa;
+		font-weight: 300;
 	}
-	#ratings-breakdown span.target {
-		font-weight: 600;
-		color: #fff
+	#company-details li::before {
+		/*margin-right: 10px;*/
+		font-weight: 500;
+	}
+	img#companySquareLogo {
+		height: 64px;
+		width: initial;
+		/*float: left;*/
+		border-radius: 8px;
+	}
+	li#companyName {
+		font-size: 36px;
+	}
+/* Ratings Breakdown ------------------------------*/
+	ul#ratings-breakdown {
+		display: inline-block;
+		margin: 0 auto;
+		width: initial;
+	}
+	#ratings-breakdown li {
+		text-align: left;
+		letter-spacing: -0.5px;
+		font-weight: 300;
+		font-size: 24px;
 	}
 
+	#ratings-breakdown span.target {
+		font-weight: 900;
+		color: #fff;
+		display: inline-block;
+		height: 100%;
+		letter-spacing: -1px;
+		/*margin: -4px 0;*/
+	}
+
+	/* Before Labels ------------------------------*/
+		#cultureValues::after 			{ content: "Culture & Values" }
+		#seniorLeadership::after 		{ content: "Senior Leadership" }
+		#compensationBenefits::after 	{ content: "Compensation & Benefits" }
+		#careerOpportunities::after 	{ content: "Career Opportunities" }
+		#workLifeBalance::after 		{ content: "Work/Life Balance" }
+		#recommendToFriend::after 		{ content: "Recommend to Friend" }
+		#companyWebsite::before 		{ content: "Website: " }
+		#companyIndustry::before 		{ content: "Industry: " }
+
+		#ratings-breakdown li::after {
+			margin-left: 16px;
+		}
+
+	/* Recommend to Friend adjustment for no decimal */
+	#recommendToFriend span.target {
+		display: inline-block;
+		width: 1.4em;
+		text-align: center;
+		letter-spacing: 0px; 
+	}
 /* Featured Review ---------------------------------------------------*/
 	#featuredReview.section {
 		padding: 40px;
 	}
 
-	/*.full-screen.data-modal p.review-body span,*/
-	/*.full-screen.data-modal p.review-body,*/
+	/* Review Pros/Cons Text */
 	p.review-body {
 		text-align: left;
-		margin-bottom: 20px;
+		margin-top: 20px;
+		font-size: 18px;
+		text-align: center;
+		text-align: justify;
+		line-height: 1.3em;
 	}
-
+	p.review-body::before {
+		font-size: 30px;
+		line-height: 16px;
+	}
 	#fr-pros::before {
-		content: "Pros: ";
+		content: "Pros ";
 		font-weight: 800;
 	}
 	#fr-cons::before {
-		content: "Cons: ";
+		content: "Cons ";
 		font-weight: 800;
 	}
+
+	/* Review details */
+	p.review-detail {
+		font-size: 16px;
+		font-style: italic;
+		line-height: 1.2em;
+		/*text-align: left;*/
+	}
+
+	/* Eyebrow */
 	.eyebrow {
-		font-size: 18px;
+		font-size: 22px;
 	}
 
 	/* Featured review headline */
-	.sec-headline {
-		font-size: 48px;
+	.data-modal .sec-headline {
+		font-size: 32px;
+		text-align: center;
+		position: relative;
+		letter-spacing: -1px;
+		width: 100%;
+		margin: 0 auto;
+		line-height: 1.2em;
 	}
+	/*.sec-headline {*/
 	.sec-headline span {
+		/*display: inline-block;*/
+		/*width: 90%;*/
 		display: inline-block;
-		width: 60%;
+		margin: 12px 0;
+		font-size: 36px;
+			/*width: 90%;*/
+			/*width: initial;*/
+			/*text-align: left;*/
 	}
 	.sec-headline i.material-icons {
 		font-size: 2em;
 		width: initial;
-		text-align: left;
-		margin: 0 5% 0 0;
-		float: right;
+		/*float: right;*/
+		/*text-align: left;*/
+		/*margin: 0 5% 0 0;*/
+		/*position: absolute;*/
+		margin: 0;
+		/*top: 0;*/
+		height: 32px;
+		line-height: 32px;
+		/*width: 16px;*/
+		display: block;
 	}
 	i.material-icons.flipped {
-		float: left;
-		text-align: right;
-		margin: 0 5% 0 0;
 	    transform: scale(-1);
 	    -moz-transform: scale(-1);
 	    -webkit-transform: scale(-1);
 	    -ms-transform: scale(-1);
+			/*float: left;
+			width: 10%;
+			margin-left: 5%;
+			display: inline-block;
+			font-size: 100px;
+			line-height: 1em;
+			height: 1em;*/
+		/*text-align: right;*/
+		/*margin: 0 5% 0 0;*/
+		/*margin: 0;*/
 	}
-/* Before Labels ------------------------------*/
-	#cultureValues::before 			{ content: "Culture & Values:" }
-	#seniorLeadership::before 		{ content: "Senior Leadership:" }
-	#compensationBenefits::before 	{ content: "Compensation & Benefits:" }
-	#careerOpportunities::before 	{ content: "Career Opportunities:" }
-	#workLifeBalance::before 		{ content: "Work/Life Balance:" }
-	#recommendToFriend::before 		{ content: "Recommend to Friend:" }
-	#companyWebsite::before 		{ content: "Website:" }
-	#companyIndustry::before 		{ content: "Industry:" }
-
-	#ratings-breakdown li::before {
-		margin-right: 1em;
+/* @media ---------------------------------------------------*/
+	@media all and (max-width: 600px) {
+		#ratings-summary h3 {
+			float: none;
+			display: block;
+			width: initial;
+		}
+		ul#company-details,
+		#ratings-summary h3 {
+			border-radius: 0px;
+		}
+		.data-modal .modal-content {
+			padding-left: 0px;
+			padding-right: 0px;
+		}
+		.data-modal .row {
+			margin-bottom: 0px;
+		}
+		#rating-wrap {
+			padding-top: 0;
+			padding-bottom: 0;
+		}
 	}
