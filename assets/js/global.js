@@ -1,5 +1,3 @@
-
-
 var g = {
 report:
 		function(){
