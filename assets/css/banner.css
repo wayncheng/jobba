@@ -117,18 +117,17 @@
 }
 
 /* Banner Image Alternates ------------------------------*/
-	#banner.bgimg-dune {
-		background-image: url(../img/wayne/banner-dune.jpg);
-	}
-	#banner.bgimg-antelope-flame {
-		background-image: url(../img/wayne/banner-antelope-flame.jpg);
-	}
-	#banner.bgimg-antelope-heart {
-		background-image: url(../img/wayne/banner-antelope-heart.jpg);
-	}
-	#banner.bgimg-goldengate {
-		background-image: url(../img/wayne/banner-goldengate.jpg);
-	}
-	#banner.bgimg-baybridge {
-		background-image: url(../img/wayne/banner-baybridge.jpg);
+	#banner.banner-dune           { background-image: url(../img/wayne/1920-q6/banner-dune.jpg); }
+	#banner.banner-antelope-flame { background-image: url(../img/wayne/1920-q6/banner-antelope-flame.jpg); }
+	#banner.banner-antelope-heart { background-image: url(../img/wayne/1920-q6/banner-antelope-heart.jpg); }
+	#banner.banner-goldengate     { background-image: url(../img/wayne/1920-q6/banner-goldengate.jpg); }
+	#banner.banner-baybridge      { background-image: url(../img/wayne/1920-q6/banner-baybridge.jpg); }
+
+	@media screen and (orientation: portrait){
+		#banner.banner-dune           { background-image: url(../img/wayne/mobile-q6p/banner-dune.jpg); }
+		#banner.banner-antelope-flame { background-image: url(../img/wayne/mobile-q6p/banner-antelope-flame.jpg); }
+		#banner.banner-antelope-heart { background-image: url(../img/wayne/mobile-q6p/banner-antelope-heart.jpg); }
+		#banner.banner-goldengate     { background-image: url(../img/wayne/mobile-q6p/banner-goldengate.jpg); }
+		#banner.banner-baybridge      { background-image: url(../img/wayne/mobile-q6p/banner-baybridge.jpg); }
+
 	}
