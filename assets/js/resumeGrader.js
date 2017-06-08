@@ -85,6 +85,9 @@ $(document).ready(function(){
 
 
 	function ajaxCall(fileContent){
+			// Wayne -- reveal result column
+			$('#resume-modal').addClass('results-shown');
+
 			var encodedFileContent = encodeURIComponent(fileContent);
 			console.log("Going to call rezscore api... ");
 			

@@ -1,0 +1,27 @@
+
+#saved-feed {
+	padding: 0;
+}
+#saved-feed .listing {
+	position: relative;
+}
+
+#saved-feed button.remove-btn, .remove-btn i.material-icons {
+	height: 20px;
+	width: 20px;
+	line-height: 20px;
+}
+#saved-feed button.remove-btn {
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	padding: 0;
+	background-color: #e74c3c;
+}
+#saved-feed .remove-btn:hover {
+	background-color: #c0392b;
+}
+#saved-feed .remove-btn i.material-icons {
+	margin: 0;
+	font-size: 16px;
+}

@@ -36,104 +36,125 @@ function firstJobLoad(){
 					var title = jobData[1].title;
 					var company = jobData[1].company;
 					var location = jobData[1].location;
-					var date = jobData[1].date;
+					var date = moment(jobData[1].date,'MMM D YY').format('MMM D, YYYY');
 					var source = jobData[1].source;
 					var description = jobData[1].description;
 					var url = jobData[1].url;
 					var jobIndex = index;
 					
 					// Convert date to days ago
-					var daysAgo = moment(jobData[1].date,'MMM-DD').fromNow();
+					var d = moment().diff(moment(date, 'MMM D YYYY'), 'days');
+					var daysAgo = d + 'd';
 
 
 				  // console.log("The saved job in display.js is: job title: "+title +" company: "+ company+ " location: " +location+ " Date: " +daysAgo+ " Source: " +source+ " Description: "+description+ "URL: "+url);    
 
-				  	var listingNumberEl = $('<span>');
-					listingNumberEl.addClass('listing-number ghost');
-					listingNumberEl.text(index);
+					var listingEl = $('<li>');
+						listingEl.addClass('listing');
+						listingEl.attr('data-index',jobIndex)
+						listingEl.attr('data-company',company);
+						listingEl.attr('data-source',source);
+						listingEl.attr('data-source-id',completeSourceID);
+						listingEl.attr('id',jobID);
 
-					// var metaArray = [location, date, source, url];
-					var metaArray = [
-						{ key: "location", value: location},
-						{ key: "date", value: daysAgo},
-						{ key: "source", value: source}
-					];
-
-					var wrap = $('<div>');
-						wrap.addClass('listing panel panel-default');
-						// wrap.attr('data-all',jobStr);
-						wrap.attr('data-index',jobIndex);
-						wrap.attr('data-company',company);
-						wrap.attr('id',jobID);
-
-					var body = $('<div>');
-						body.addClass('panel-body');
-
-					var h2 = $('<h2>');
-						h2.addClass('headline');
-						h2.text(title);
+					var listingNumberEl = $('<span>');
+						listingNumberEl.addClass('listing-number ghost');
+						listingNumberEl.text(index);
 					
-					var h5 = $('<h5>');
-						h5.addClass('company');
-						h5.text('('+ company +')');
+					var headerEl = $('<div>');
+						headerEl.addClass('collapsible-header');
 					
-					// var saveImg = $('<img>');
-					// 	saveImg.addClass('save-img');
-					// 	saveImg.attr('src',saveBtnImageSource);
-					// 	saveImg.attr('alt','Save this job listing');
+					var bodyEl = $('<div>');
+						bodyEl.addClass('collapsible-body');
 
-					// var saveWrap = $('<div>');
-					// 	saveWrap.addClass('save-wrap')
-					// 	saveWrap.html(saveImg);
+					var headlineEl = $('<h2>');
+						headlineEl.addClass('headline');
+						headlineEl.text(title);
 
-					// var d = $('<p>');
-					// 	d.addClass('description below-fold fold-hide');
-					// 	d.html(description);
+					var subheadlineEl = $('<h3>');
+						subheadlineEl.addClass('subheadline');
 
-					var removeBtn = $("<button>")
-						removeBtn.addClass("remove-btn");
-						removeBtn.text("x");
+						var subheadCompany = $('<span>');
+							subheadCompany.addClass('company');
+							subheadCompany.text(company);
+						
+						var subheadLocation = $('<span>');
+							subheadLocation.addClass('location');
+							subheadLocation.text(location);
+						
+						var subheadDate = $('<span>');
+							subheadDate.addClass('date');
+							subheadDate.text(daysAgo);
 
+							subheadlineEl.append(subheadCompany);
+							subheadlineEl.append(subheadLocation);
+							subheadlineEl.append(subheadDate);
+
+
+
+					var companyWrap = $('<p>');
+						companyWrap.addClass('meta-detail');
+						companyWrap.addClass('company');
+						companyWrap.text(company);
+
+					var locationWrap = $('<p>');
+						locationWrap.addClass('meta-detail');
+						locationWrap.addClass('location');
+						locationWrap.text(location);
+
+					var dateWrap = $('<p>');
+						dateWrap.addClass('meta-detail');
+						dateWrap.addClass('date');
+						dateWrap.text(date);
+					
 					// Original Source URL
 					var sourceWrap = $('<p>');
 						sourceWrap.addClass('meta-detail');
-						sourceWrap.addClass('details sourceURL');
+						sourceWrap.addClass('sourceURL');
 
 						var sourceURLLink = $('<a>');
 							sourceURLLink.attr('href',url);
 							sourceURLLink.attr('target',"_blank");
 							sourceURLLink.attr('alt', 'View this job listing on the original site');
-							sourceURLLink.text("Apply here");
+							sourceURLLink.text('Apply Here');
 							sourceWrap.append(sourceURLLink);
+					// Remove button
+					var removeBtn = $("<button>")
+						removeBtn.addClass("remove-btn");
+						// removeBtn.text("x");
+						var removeIcon = $('<i>');
+							removeIcon.addClass('.material-icons');
+							removeIcon.text('close');
+							removeBtn.append(removeIcon);
 
-					var metaWrap = $('<div>');
-						metaWrap.addClass('meta');
-
-					for (var i=0; i<metaArray.length; i++) {
-						var p = $('<p>');
-							p.addClass('meta-detail');
-							p.addClass(metaArray[i].key);
-							p.text(metaArray[i].value);
-							metaWrap.append(p);
-					};
 					
-					// Fold toggle
-					// var foldToggle = $('<div>').addClass('toggle-fold');
-					// 	foldToggle.attr('data-fold','closed');
+					// meta
+					bodyEl.append(companyWrap);
+					bodyEl.append(locationWrap);
+					bodyEl.append(dateWrap);
+					bodyEl.append(sourceWrap);
 
-					body.append(listingNumberEl);
-					body.append(h2);
-					body.append(h5);
-					// body.append(saveWrap);
-					body.append(metaWrap);
-					body.append(sourceWrap);
-					body.append(removeBtn);	
-					// body.append(foldToggle);
-					// body.append(d);
-					wrap.append(body);
-					$('#saved-feed').append(wrap);
-					$('#saved-feed').append("<hr>");
+					// Listing description except dice
+					if ( source != "Dice" ) {
+						var descriptionEl = $('<div>');
+							descriptionEl.addClass('meta-detail description');
+							descriptionEl.html(description);
 
+							bodyEl.append($('<p>').addClass('meta-detail description-label'));
+							bodyEl.append(descriptionEl);
+					}
+
+					// All Appends
+					headerEl.append(listingNumberEl);			
+					headerEl.append(headlineEl);			
+					headerEl.append(subheadlineEl);		
+					headerEl.append(removeBtn);				
+
+					listingEl.append(headerEl);
+					// listingEl.append(saveWrap);
+					listingEl.append(bodyEl);
+
+					$('#saved-feed').append(listingEl);
 					// console.log(jobData[1],jobData[0]);
 				});			
 			});			
@@ -181,115 +202,244 @@ function printSavedJobs() {
 
 					var index = 0;
 
-					allJobs.forEach(function(jobData){
+				allJobs.forEach(function(jobData){
 
-						index++;
+					index++;
 
-						// Variables for details to be written
-						var jobID = jobData[0];
-						var title = jobData[1].title;
-						var company = jobData[1].company;
-						var location = jobData[1].location;
-						var date = jobData[1].date;
-						var source = jobData[1].source;
-						var description = jobData[1].description;
-						var url = jobData[1].url;
-						var jobIndex = index;
-						
-						// Convert date to days ago
-						var daysAgo = moment(jobData[1].date,'MMM-DD').fromNow();
+					// Variables for details to be written
+					var jobID = jobData[0];
+					var title = jobData[1].title;
+					var company = jobData[1].company;
+					var location = jobData[1].location;
+					var date = moment(jobData[1].date,'MMM D YY').format('MMM D, YYYY');
+					var source = jobData[1].source;
+					var description = jobData[1].description;
+					var url = jobData[1].url;
+					var jobIndex = index;
+					
+					// Convert date to days ago
+					var d = moment().diff(moment(date, 'MMM D YYYY'), 'days');
+					var daysAgo = d + 'd';
 
 
-					  // console.log("The saved job in display.js is: job title: "+title +" company: "+ company+ " location: " +location+ " Date: " +daysAgo+ " Source: " +source+ " Description: "+description+ "URL: "+url);    
+				  // console.log("The saved job in display.js is: job title: "+title +" company: "+ company+ " location: " +location+ " Date: " +daysAgo+ " Source: " +source+ " Description: "+description+ "URL: "+url);    
 
-					  	var listingNumberEl = $('<span>');
+					var listingEl = $('<li>');
+						listingEl.addClass('listing');
+						listingEl.attr('data-index',jobIndex)
+						listingEl.attr('data-company',company);
+						listingEl.attr('data-source',source);
+						listingEl.attr('id',jobID);
+
+					var listingNumberEl = $('<span>');
 						listingNumberEl.addClass('listing-number ghost');
 						listingNumberEl.text(index);
+					
+					var headerEl = $('<div>');
+						headerEl.addClass('collapsible-header');
+					
+					var bodyEl = $('<div>');
+						bodyEl.addClass('collapsible-body');
 
-						// var metaArray = [location, date, source, url];
-						var metaArray = [
-							{ key: "location", value: location},
-							{ key: "date", value: daysAgo},
-							{ key: "source", value: source}
-						];
+					var headlineEl = $('<h2>');
+						headlineEl.addClass('headline');
+						headlineEl.text(title);
 
-						var wrap = $('<div>');
-							wrap.addClass('listing panel panel-default');
-							// wrap.attr('data-all',jobStr);
-							wrap.attr('data-index',jobIndex);
-							wrap.attr('data-company',company);
-							wrap.attr('id',jobID);
+					var subheadlineEl = $('<h3>');
+						subheadlineEl.addClass('subheadline');
 
-						var body = $('<div>');
-							body.addClass('panel-body');
-
-						var h2 = $('<h2>');
-							h2.addClass('headline');
-							h2.text(title);
+						var subheadCompany = $('<span>');
+							subheadCompany.addClass('company');
+							subheadCompany.text(company);
 						
-						var h5 = $('<h5>');
-							h5.addClass('company');
-							h5.text('('+ company +')');
+						var subheadLocation = $('<span>');
+							subheadLocation.addClass('location');
+							subheadLocation.text(location);
 						
-						// var saveImg = $('<img>');
-						// 	saveImg.addClass('save-img');
-						// 	saveImg.attr('src',saveBtnImageSource);
-						// 	saveImg.attr('alt','Save this job listing');
+						var subheadDate = $('<span>');
+							subheadDate.addClass('date');
+							subheadDate.text(daysAgo);
 
-						// var saveWrap = $('<div>');
-						// 	saveWrap.addClass('save-wrap')
-						// 	saveWrap.html(saveImg);
+							subheadlineEl.append(subheadCompany);
+							subheadlineEl.append(subheadLocation);
+							subheadlineEl.append(subheadDate);
 
-						// var d = $('<p>');
-						// 	d.addClass('description below-fold fold-hide');
-						// 	d.html(description);
 
-						var removeBtn = $("<button>")
-							removeBtn.addClass("remove-btn");
-							removeBtn.text("x");
 
-						// Original Source URL
-						var sourceWrap = $('<p>');
-							sourceWrap.addClass('meta-detail');
-							sourceWrap.addClass('details sourceURL');
+					var companyWrap = $('<p>');
+						companyWrap.addClass('meta-detail');
+						companyWrap.addClass('company');
+						companyWrap.text(company);
 
-							var sourceURLLink = $('<a>');
-								sourceURLLink.attr('href',url);
-								sourceURLLink.attr('target',"_blank");
-								sourceURLLink.attr('alt', 'View this job listing on the original site');
-								sourceURLLink.text("Apply here");
-								sourceWrap.append(sourceURLLink);
+					var locationWrap = $('<p>');
+						locationWrap.addClass('meta-detail');
+						locationWrap.addClass('location');
+						locationWrap.text(location);
 
-						var metaWrap = $('<div>');
-							metaWrap.addClass('meta');
+					var dateWrap = $('<p>');
+						dateWrap.addClass('meta-detail');
+						dateWrap.addClass('date');
+						dateWrap.text(date);
+					
+					// Original Source URL
+					var sourceWrap = $('<p>');
+						sourceWrap.addClass('meta-detail');
+						sourceWrap.addClass('sourceURL');
 
-						for (var i=0; i<metaArray.length; i++) {
-							var p = $('<p>');
-								p.addClass('meta-detail');
-								p.addClass(metaArray[i].key);
-								p.text(metaArray[i].value);
-								metaWrap.append(p);
-						};
+						var sourceURLLink = $('<a>');
+							sourceURLLink.attr('href',url);
+							sourceURLLink.attr('target',"_blank");
+							sourceURLLink.attr('alt', 'View this job listing on the original site');
+							sourceURLLink.text('Apply Here');
+							sourceWrap.append(sourceURLLink);
+
+					// Remove button
+					var removeBtn = $("<button>")
+						removeBtn.addClass("remove-btn btn waves-effect waves-light ghost");
+						// removeBtn.text("x");
+						var removeIcon = $('<i>');
+							removeIcon.addClass('material-icons');
+							removeIcon.text('close');
+							removeBtn.append(removeIcon);
+
+					
+					// meta
+					bodyEl.append(companyWrap);
+					bodyEl.append(locationWrap);
+					bodyEl.append(dateWrap);
+					bodyEl.append(sourceWrap);
+
+					// Listing description except dice
+					if ( source != "Dice" ) {
+						var descriptionEl = $('<div>');
+							descriptionEl.addClass('meta-detail description');
+							descriptionEl.html(description);
+
+							bodyEl.append($('<p>').addClass('meta-detail description-label'));
+							bodyEl.append(descriptionEl);
+					}
+
+					// All Appends
+					headerEl.append(listingNumberEl);			
+					headerEl.append(headlineEl);			
+					headerEl.append(subheadlineEl);		
+					headerEl.append(removeBtn);		
+
+					listingEl.append(headerEl);
+					listingEl.append(bodyEl);
+
+					$('#saved-feed').append(listingEl);
+					// console.log(jobData[1],jobData[0]);
+				});		
+					// allJobs.forEach(function(jobData){
+
+					// 	index++;
+
+					// 	// Variables for details to be written
+					// 	var jobID = jobData[0];
+					// 	var title = jobData[1].title;
+					// 	var company = jobData[1].company;
+					// 	var location = jobData[1].location;
+					// 	var date = jobData[1].date;
+					// 	var source = jobData[1].source;
+					// 	var description = jobData[1].description;
+					// 	var url = jobData[1].url;
+					// 	var jobIndex = index;
 						
-						// Fold toggle
-						// var foldToggle = $('<div>').addClass('toggle-fold');
-						// 	foldToggle.attr('data-fold','closed');
+					// 	// Convert date to days ago
+					// 	var daysAgo = moment(jobData[1].date,'MMM-DD').fromNow();
 
-						body.append(listingNumberEl);
-						body.append(h2);
-						body.append(h5);
-						// body.append(saveWrap);
-						body.append(metaWrap);
-						body.append(sourceWrap);
-						body.append(removeBtn);	
-						// body.append(foldToggle);
-						// body.append(d);
-						wrap.append(body);
-						$('#saved-feed').append(wrap);
-						$('#saved-feed').append("<hr>");
 
-						// console.log(jobData[1],jobData[0]);
-					});			
+					//   // console.log("The saved job in display.js is: job title: "+title +" company: "+ company+ " location: " +location+ " Date: " +daysAgo+ " Source: " +source+ " Description: "+description+ "URL: "+url);    
+
+					//   	var listingNumberEl = $('<span>');
+					// 	listingNumberEl.addClass('listing-number ghost');
+					// 	listingNumberEl.text(index);
+
+					// 	// var metaArray = [location, date, source, url];
+					// 	var metaArray = [
+					// 		{ key: "location", value: location},
+					// 		{ key: "date", value: daysAgo},
+					// 		{ key: "source", value: source}
+					// 	];
+
+					// 	var wrap = $('<div>');
+					// 		wrap.addClass('listing panel panel-default');
+					// 		// wrap.attr('data-all',jobStr);
+					// 		wrap.attr('data-index',jobIndex);
+					// 		wrap.attr('data-company',company);
+					// 		wrap.attr('id',jobID);
+
+					// 	var body = $('<div>');
+					// 		body.addClass('panel-body');
+
+					// 	var h2 = $('<h2>');
+					// 		h2.addClass('headline');
+					// 		h2.text(title);
+						
+					// 	var h5 = $('<h5>');
+					// 		h5.addClass('company');
+					// 		h5.text('('+ company +')');
+						
+					// 	// var saveImg = $('<img>');
+					// 	// 	saveImg.addClass('save-img');
+					// 	// 	saveImg.attr('src',saveBtnImageSource);
+					// 	// 	saveImg.attr('alt','Save this job listing');
+
+					// 	// var saveWrap = $('<div>');
+					// 	// 	saveWrap.addClass('save-wrap')
+					// 	// 	saveWrap.html(saveImg);
+
+					// 	// var d = $('<p>');
+					// 	// 	d.addClass('description below-fold fold-hide');
+					// 	// 	d.html(description);
+
+					// 	var removeBtn = $("<button>")
+					// 		removeBtn.addClass("remove-btn");
+					// 		removeBtn.text("x");
+
+					// 	// Original Source URL
+					// 	var sourceWrap = $('<p>');
+					// 		sourceWrap.addClass('meta-detail');
+					// 		sourceWrap.addClass('details sourceURL');
+
+					// 		var sourceURLLink = $('<a>');
+					// 			sourceURLLink.attr('href',url);
+					// 			sourceURLLink.attr('target',"_blank");
+					// 			sourceURLLink.attr('alt', 'View this job listing on the original site');
+					// 			sourceURLLink.text("Apply here");
+					// 			sourceWrap.append(sourceURLLink);
+
+					// 	var metaWrap = $('<div>');
+					// 		metaWrap.addClass('meta');
+
+					// 	for (var i=0; i<metaArray.length; i++) {
+					// 		var p = $('<p>');
+					// 			p.addClass('meta-detail');
+					// 			p.addClass(metaArray[i].key);
+					// 			p.text(metaArray[i].value);
+					// 			metaWrap.append(p);
+					// 	};
+						
+					// 	// Fold toggle
+					// 	// var foldToggle = $('<div>').addClass('toggle-fold');
+					// 	// 	foldToggle.attr('data-fold','closed');
+
+					// 	body.append(listingNumberEl);
+					// 	body.append(h2);
+					// 	body.append(h5);
+					// 	// body.append(saveWrap);
+					// 	body.append(metaWrap);
+					// 	body.append(sourceWrap);
+					// 	body.append(removeBtn);	
+					// 	// body.append(foldToggle);
+					// 	// body.append(d);
+					// 	wrap.append(body);
+					// 	$('#saved-feed').append(wrap);
+					// 	$('#saved-feed').append("<hr>");
+
+					// 	// console.log(jobData[1],jobData[0]);
+					// });			
 				});			
 
 			}

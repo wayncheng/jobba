@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <!-- <html class="landing no-results feed-printed"> -->
+
+<!-- <html class="landing no-results"> -->
 <html class="landing">
+<!-- <html class="logged-in"> -->
+<!-- <html> -->
 <head>
-	<!-- Jobba beta (6/7/17 7:21) -->
+	<!-- Jobba beta (6/8/17 1:41) -->
 	<title>Jobba</title>
 	<meta charset="UTF-8">
 	<meta name="author" content="Wayne Cheng">
@@ -47,6 +51,8 @@
 	<link href="assets/css/resume.css" rel="stylesheet">
 	<link href="assets/css/map-modal.css" rel="stylesheet">
 	<link href="assets/css/footer.css" rel="stylesheet">
+	<link href="assets/css/saved-jobs-modal.css" rel="stylesheet">
+	<link href="assets/css/modal.css" rel="stylesheet">
 	<link href="assets/css/conditional.css" rel="stylesheet">
 	<style>
 	</style>
@@ -374,19 +380,31 @@
 <!-- Resume Modal=============================================-->
 	<div id="resume-modal" class="modal bottom-sheet">
 		<div class="modal-content">
-			<h4>How does your resume score? Find out now!</h4>
-			<h5>Upload Your Resume(.pdf/.txt) OR paste your resume below :</h5>
+			<div class="row headline-row">
+				<h4>How does your resume score? Find out now!</h4>
+				<h5>Upload Your Resume(.pdf/.txt) OR paste your resume below :</h5>
+			</div>
 			<div id="upload-resume" class="row">
-				<div class="col s6 ">
+				<div id="form-col" class="col s12 m6">
 					<form id="file-form" method="POST">
-						<input type="file" name="uploadResume" id="file-select">
-						<br>
-						<br>
-						<textarea class="form-control" id="resumeText"></textarea>
-						<a href="#" class="btn btn-info" id="upload-button">Submit</a>
+
+					    <div class="file-field input-field">
+					      <div class="btn upload-btn">
+					        <span>Upload File</span>
+					        <input type="file" name="uploadResume" id="file-select" placeholder="Select your resume file (.pdf or .txt)">
+					      </div>
+					      <div class="file-path-wrapper">
+					        <input class="file-path validate" type="text">
+					      </div>
+					    </div>
+						<!-- <input type="file" name="uploadResume" id="file-select"> -->
+						<!-- <br> -->
+						<!-- <br> -->
+						<textarea class="form-control" id="resumeText" placeholder="Paste your resume here"></textarea>
+						<a href="#" class="btn" id="upload-button">Submit</a>
 					</form>
 				</div>
-				<div class="col s6 push-s1 ">
+				<div id="result-col" class="col s12 m6">
 					<div id="result">
 						<div class="progress">
 							<div class="indeterminate"></div>
@@ -613,6 +631,20 @@
     <script src="assets/js/bingMaps.js"></script>
 
 	<!-- <script src="assets/js/salaries.js" type="text/javascript" charset="utf-8"></script> -->
+	<script>
+		$(document).ready(function(){
+			function getRandomIntInclusive(min, max) {
+			  min = Math.ceil(min);
+			  max = Math.floor(max);
+			  return Math.floor(Math.random() * (max - min + 1)) + min;
+			}
+			var bgimgArr = ['bgimg-dune','bgimg-antelope-flame','bgimg-antelope-heart','bgimg-goldengate','bgimg-baybridge'];
+			var randomNum = getRandomIntInclusive(0,4);
+			var bgClass = bgimgArr[randomNum];
+
+			$('#banner').addClass(bgClass);
+		})
+	</script>
 	<script src="assets/js/company_info.js" type="text/javascript" charset="utf-8"></script>
         <!-- Auth state listener -->
         <script type="text/javascript">
@@ -684,7 +716,6 @@
         //     ';
         // }
     </script>
-
 </body>
 
 </html>
