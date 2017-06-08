@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Complex icons</title>
+    
+  </head>
+  <body>
+    <script type='text/javascript' src='assets/js/include.js' ></script>
+<script type="text/javascript">
+var timoutInterval
+function keyStroke(){
+clearTimeout(timoutInterval)
+timoutInterval =setTimeout( ajaxDYM(),500)
+}
+ 
+function fixSuggestions(link){
+   SearchBoxText = document.getElementById('SearchBox').value = link.innerHTML;
+     link.innerHTML = "";
+}
+ 
+function ajaxDYM(){
+  var SearchBoxText = document.getElementById('SearchBox').value;
+  
+  o = $Spelling.AjaxDidYouMean(SearchBoxText)
+  
+  o.onDidYouMean = function(result){
+      var oSuggestionLink= document.getElementById('suggestionLink');
+    if(result){
+  
+    oSuggestionLink.innerHTML = result
+  }else{
+    oSuggestionLink.innerHTML = ""; 
+  } 
+  }
+}
+ 
+</script>
+ 
+<input type='text' id="SearchBox" name="SearchBox" onKeyUp="keyStroke()" value="Hello"/>
+<div >Did You Mean:<a id='suggestionLink' href='#' onclick='fixSuggestions(this); return false;'></a></div>
+</html>
