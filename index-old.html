@@ -6,7 +6,7 @@
 <!-- <html class="logged-in"> -->
 <!-- <html> -->
 <head>
-	<!-- Jobba beta (6/8/17 1:59) -->
+	<!-- Jobba beta (6/8/17 1:41) -->
 	<title>Jobba</title>
 	<meta charset="UTF-8">
 	<meta name="author" content="Wayne Cheng">
@@ -112,16 +112,16 @@
 		</div>
 			<div class="row">
 				<!-- <div class="bar input-field input-text-wrap col s10 offset-s1 m6 offset-m1 l6 offset-l1 xl7"> -->
-				<div class="bar input-field input-text-wrap col s10 offset-s1 m8 offset-m2 l5 offset-l1 xl5">
+				<div class="bar input-field input-text-wrap col s10 offset-s1 m8 offset-m2 l6 offset-l1 xl6">
 					<input id="search" placeholder="Search for Jobs" type="text" class="bar validate">
 					</div>
 				<!-- <div class="bar input-field input-text-wrap col s10 offset-s1 m3 l3 xl4"> -->
-				<div class="bar input-field input-text-wrap col s10 offset-s1 m6 offset-m2 l4 xl4">
+				<div class="bar input-field input-text-wrap col s10 offset-s1 m6 offset-m2 l3 xl4">
 					<i id="location-icon" class="material-icons bar tooltipped" data-position="right" data-delay="50" data-tooltip="Use Current Location">my_location</i>
 					<input id="q-city" placeholder="Location" type="text" class="bar validate">
 					</div>
 				<!-- <div class="bar input-button input-field col s10 offset-s1 m1 l1 xl1"> -->
-				<div class="bar input-button input-field col s10 offset-s1 m2 l1 xl1">
+				<div class="bar input-button input-field col s10 offset-s1 m2 l1 xl2">
 					<button id="submit" class="bar btn waves-effect waves-light" type="submit" name="action">
 						<i class="material-icons">search</i>
 						<!-- <span class="progress-bar"></span> -->
@@ -140,7 +140,7 @@
 			<div class="progress-target">
 				<img src="assets/icons/loadingicons/fox-trot-right@0.8.gif" alt="">
 			</div>
-			<!-- <span class="loading-text ghost">Fetching Results...</span> -->
+			<span class="loading-text ghost">Fetching Results...</span>
 		</div>
 	</div>
 <!-- Page 1 =============================================-->
@@ -153,9 +153,9 @@
 					<i class="material-icons">sort</i></a>
 
 				<a id="salary-trigger" href="#salaryAnalysis" class="btn button-collapse compact-ready waves-effect waves-light">
-					<!-- <i class="material-icons">insert_chart</i>  -->
-					<i class="material-icons">attach_money</i> 
-					<!-- <i class="material-icons">show_chart</i>  -->
+					<!-- <i class="material-icons float-left">insert_chart</i>  -->
+					<!-- <i class="material-icons float-left">attach_money</i>  -->
+					<i class="material-icons">show_chart</i> 
 					<!-- <i class="material-icons float-left">work</i> -->
 					<span class="job-position-target"></span></a>
 				<a id="map-trigger" href="#map-modal" class="btn button-collapse compact-ready waves-effect waves-light alone">
@@ -292,7 +292,7 @@
 <!-- Company Modal ======================-->
 	<div id="company-modal" class="data-modal modal full-screen">
 		<div class="modal-content">
-			<h4><span class="company-name-target">JobbaCorp</span> Reviews</h4>
+			<h4><span class="company-name-target">CyberCoders</span> Company Reviews</h4>
 			<a class="attribution" href='https://www.glassdoor.com/index.htm'>powered by <img src='https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search' /></a>
 			<div id="company-info-wrap" class="data-wrap row">
 					<div id="rating-wrap" class="section row alternate">
@@ -302,54 +302,48 @@
 							<ul id="ratings-summary">
 								<!-- <h3 class="ratings-headline"> <span class="company-name target">CyberCoders</span> </h3> -->
 								<li id="overall-rating-wrap">
-									<h3 id="overall-rating-number">5.0</h3>
 									<div id="overall-rating-stars" class="star-rating">
 										<i class="material-icons">star</i>
 										<i class="material-icons">star</i>
 										<i class="material-icons">star</i>
 										<i class="material-icons">star</i>
-										<i class="material-icons">star</i>
+										<i class="material-icons">star_border</i>
 									</div>
+									<h3 id="overall-rating-number">4.0</h3>
 								</li>
-								<li id="number-of-reviews">Based on <span class="target">1738</span> reviews.</li>
+								<li id="number-of-reviews">Based on <span class="target">186</span> reviews.</li>
 							</ul>
 						</div>
 						<div class="row">
 							
-									<div class="col sec-col s12 m12 l6 xl5">
-										<ul id="company-details">
-											<img id="companySquareLogo" src="assets/icons/jobba-final-sq-blackOnWhite.png">
-											<li id="companyName">
-												<span class="target">Jobba Corp.</span>
-												</li>
-											<li id="companyWebsite"><a href="www.cybercoders.com" class="target">jobba.us</a></li>
-											<li id="companyIndustry"><span class="target">Job Portal, Wizardry</span></li>
-										</ul>
-									</div>
-
-									<div class="col sec-col s12 m12 l6 xl5 offset-xl1">
+									<div class="col s12 m6 l4  offset-l2">
 											<ul id="ratings-breakdown">
-												<li id="cultureValues"><span class="target">4.8</span></li>
-												<li id="seniorLeadership"><span class="target">5.0</span></li>
-												<li id="compensationBenefits"><span class="target">4.8</span></li>
-												<li id="careerOpportunities"><span class="target">4.9</span></li>
-												<li id="workLifeBalance"><span class="target">4.6</span></li>
-												<li id="recommendToFriend"><span class="target">98</span></li>
+												<li id="cultureValues"><span class="target">3.9</span></li>
+												<li id="seniorLeadership"><span class="target">3.7</span></li>
+												<li id="compensationBenefits"><span class="target">4.1</span></li>
+												<li id="careerOpportunities"><span class="target">3.9</span></li>
+												<li id="workLifeBalance"><span class="target">3.6</span></li>
+												<li id="recommendToFriend"><span class="target">78</span></li>
 											</ul>
 									</div>
 
 
+									<div class="col s12 m6 l4">
+										<ul id="company-details">
+											<img id="companySquareLogo" src="https://media.glassdoor.com/sqll/245479/cybercoders-squarelogo-1459359719539.png">
+											<li id="companyWebsite"><a href="www.cybercoders.com" class="target">www.cybercoders.com</a></li>
+											<li id="companyIndustry"><span class="target">Staffing &amp; Outsourcing</span></li>
+										</ul>
+									</div>
 								</div>
 					</div>
 					<!-- <div class="divider"></div> -->
 					<div id="featuredReview" class="section">
 						<p class="eyebrow">Featured Review</p>
 								<h4 class="sec-headline">
-									<!-- <i class="flipped material-icons">format_quote</i> -->
-									<span class="target">	
-									A real opportunity to do extremely well if you put the work in
-									</span>
-								<!-- <i class="material-icons">format_quote</i> -->
+								<i class="flipped material-icons">format_quote</i>
+									<span class="target">	A real opportunity to do extremely well if you put the work in</span>
+								<i class="material-icons">format_quote</i>
 								</h4>
 						<p id="review-date" class="review-detail">Date Reviewed: <span class="target">April 13, 2017 2:52pm</span></p>
 						<p id="review-position" class="review-detail">Position: <span class="target">Executive Recruiter</span></p>
@@ -374,9 +368,9 @@
 
 			</div>
 		</div>
-		<div class="modal-footer">
+		<!-- <div class="modal-footer">
 			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-		</div>
+		</div> -->
 		<div class="company-modal sub valign-wrapper">
 			<h2 class="no-results">Sorry, there are no results that match your search criteria.</h2>
 		</div>
@@ -584,15 +578,27 @@
 		<!-- <a id="applyFilters" class="fixedToBottom btn waves-effect waves-light" href="#!">Apply Filters</a> -->
 	</ul> <!-- /sideNav -->
 <!-- Map Modal -->
-	<div id="map-modal" class="modal modal-fixed-footer full-screen">
+	<!-- <div id="map-modal" class="modal">
 		<div class="modal-content">
 			<h4>Map Modal</h4>
+			<div id="mymap"></div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-action modal-close waves-effect btn-flat ">Agree</a>
+		</div>
+	</div> -->
+<!-- <div id="map"></div> -->
+<div id="map-modal" class="modal modal-fixed-footer full-screen" onload="loadMapScenario();">
+		<div class="modal-content">
+			<h4>Map Modal</h4>
+
 			<div id="map"></div>
 		</div>
-		<!-- <div class="modal-footer">
-			<a href="#!" class="modal-action modal-close waves-effect btn-flat ">Agree</a>
-		</div> -->
+		<div class="modal-footer">
+			<!-- <a href="#!" class="modal-action modal-close waves-effect btn-flat ">Agree</a> -->
+		</div>
 	</div>
+
 <!--=============================================-->
 	<!-- JS Links -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -644,21 +650,11 @@
 			  max = Math.floor(max);
 			  return Math.floor(Math.random() * (max - min + 1)) + min;
 			}
-			var bgimgArr = ['banner-dune','banner-antelope-flame','banner-antelope-heart','banner-goldengate','banner-baybridge'];
+			var bgimgArr = ['bgimg-dune','bgimg-antelope-flame','bgimg-antelope-heart','bgimg-goldengate','bgimg-baybridge'];
 			var randomNum = getRandomIntInclusive(0,4);
 			var bgClass = bgimgArr[randomNum];
+
 			$('#banner').addClass(bgClass);
-			
-
-			// // Mobile sources for efficiency
-			// if ()
-			// var path1 = 'assets/img/';
-			// var pathTarget = 'mobile-q6p/';
-			// var fileName = bgClass + '.png';
-			// var src = path1 + pathTarget + fileName;
-
-			// $('#banner').css('background-image','url("'+ src +'")');
-
 		})
 	</script>
 	<script src="assets/js/company_info.js" type="text/javascript" charset="utf-8"></script>
