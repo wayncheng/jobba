@@ -32,7 +32,6 @@
 	<link type="text/css" rel="stylesheet" href="assets/libs/nouislider.min.css" />
 	<!-- Jobba CSS -->
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-	<link href="assets/libs/vegas.min.css" rel="stylesheet">
 	<link href="assets/css/materialize-overrides.css" rel="stylesheet">
 	<link href="assets/css/style.css" rel="stylesheet">
 	<link href="assets/css/header.css" rel="stylesheet">
@@ -50,26 +49,11 @@
 	<link href="assets/css/map-modal.css" rel="stylesheet">
 	<link href="assets/css/footer.css" rel="stylesheet">
 	<style>
-		#banner-background {
-			height: 100vh;
-			width: 100%;
-			z-index: 800;
-			display: block;
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			margin: 0;
-		}
-		#banner {
-			background-color: transparent;
-		}
 	</style>
 </head>
 
 <body>
 <!--=============================================-->
-  	<div id="banner-background"></div>
     <nav id="main-nav" class="transparent header row" role="navigation">
         <!-- <div class="nav-wrapper container col s12 m10 offset-m1 xl6 offset-xl3"> -->
         <div class="nav-wrapper">
@@ -611,7 +595,6 @@
 	<!-- End of Cities autocomplete -->
 	<!-- <script src="assets/js/firebase-init.js" type="text/javascript" charset="utf-8"></script> -->
  
-	<script src="assets/libs/vegas.min.js"></script>
 	<script src="assets/js/getCurrentUser.js" type="text/javascript" charset="utf-8"></script>
     <script src="assets/js/resumeGrader.js" type="text/javascript" charset="utf-8"></script>
     <script src="assets/js/pdf.js" type="text/javascript" charset="utf-8"></script>
@@ -631,30 +614,6 @@
 
 	<!-- <script src="assets/js/salaries.js" type="text/javascript" charset="utf-8"></script> -->
 	<script src="assets/js/company_info.js" type="text/javascript" charset="utf-8"></script>
-<script>
-	// Slideshow
-	$('#banner-background').vegas({
-		delay: 15000,
-		timer: false,
-		shuffle: true,
-		slides: [
-			{ src: 'assets/img/wayne/banner-dune.jpg' },
-			{ src: 'assets/img/wayne/banner-antelope-flame.jpg' },
-			{ src: 'assets/img/wayne/banner-antelope-heart.jpg' },
-			{ src: 'assets/img/wayne/banner-baybridge.jpg' },
-			{ src: 'assets/img/wayne/banner-beijing.jpg' },
-			{ src: 'assets/img/wayne/banner-coronado.jpg' },
-			{ src: 'assets/img/wayne/banner-goldengate.jpg' },
-			{ src: 'assets/img/wayne/banner-greatwall.jpg' },
-			{ src: 'assets/img/wayne/banner-horseshoebend.jpg' },
-			{ src: 'assets/img/wayne/banner-sd-airport.jpg' },
-			{ src: 'assets/img/wayne/banner-sd-day.jpg' },
-			{ src: 'assets/img/wayne/banner-sd-night.jpg' },
-			{ src: 'assets/img/wayne/banner-sf.jpg' }
-		],
-		transition: 'slideUp'
-	})
-</script>
         <!-- Auth state listener -->
         <script type="text/javascript">
 
