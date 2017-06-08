@@ -10,7 +10,8 @@
 		position: relative;
 		z-index: 900;
 		background-color: transparent;
-		background-image: url(../img/wayne/banner-dune.jpg);
+		background-color: #34495e;
+		/*background-image: url(../img/wayne/banner-dune.jpg);*/
 		background-size: cover;
 		background-position: 50% 50%;
 
@@ -20,6 +21,7 @@
 	}
 	#banner .photo-tint {
 		z-index: 902;
+		opacity: 0.1;
 	}
 /* Banner Logo */
 	#banner-logo-wrap {
@@ -113,3 +115,20 @@
 		display: none;
 	}
 }
+
+/* Banner Image Alternates ------------------------------*/
+	#banner.bgimg-dune {
+		background-image: url(../img/wayne/banner-dune.jpg);
+	}
+	#banner.bgimg-antelope-flame {
+		background-image: url(../img/wayne/banner-antelope-flame.jpg);
+	}
+	#banner.bgimg-antelope-heart {
+		background-image: url(../img/wayne/banner-antelope-heart.jpg);
+	}
+	#banner.bgimg-goldengate {
+		background-image: url(../img/wayne/banner-goldengate.jpg);
+	}
+	#banner.bgimg-baybridge {
+		background-image: url(../img/wayne/banner-baybridge.jpg);
+	}

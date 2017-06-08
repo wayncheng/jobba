@@ -82,3 +82,42 @@
             display: none;
             color: #3F547F;
         }
+
+
+
+/* Resume Grade Modifications by Wayne */
+
+
+    #upload-button {
+        float: right;
+        margin-top: 8px;
+    }
+    #resume-modal textarea {
+        background-color: rgba(81,81,81,0.04);
+        border-radius: 8px;
+        padding: 4px 8px;
+        outline: none;
+        border: 1px solid rgba(81,81,81,0.08);
+    }
+
+    #resume-modal textarea:focus {
+        background-color: #fff;
+
+    }
+    #resume-modal #form-col {
+        margin: 0 auto;
+        float: none;
+    }
+    #resume-modal .headline-row h4 {
+        color: #2980b9;
+    }
+/* Resume Results shown  ---------------------------------------*/
+    #resume-modal #result-col {
+        display: none;
+    }
+      #resume-modal.results-shown #form-col {
+            float: left;
+      }
+      #resume-modal.results-shown #result-col {
+            display: block;
+      }

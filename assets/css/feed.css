@@ -9,15 +9,18 @@
 	}
 
 /* Feed ------------------------------*/
+	#saved-feed.collapsible li.listing,
 	#feed.collapsible li.listing {
 		position: relative;
 	}
+	#saved-feed .collapsible-header,
 	#feed .collapsible-header {
 		padding: 1rem;
 		padding: 1.5rem 15px 1.5rem 1rem;
 		background-color: #ffffff;
 		/*background-color: #fefefe;*/
 	}
+	#saved-feed .collapsible-body,
 	#feed .collapsible-body {
 		background-color: #ffffff;
 		/*background-color: #fdfdfd;*/

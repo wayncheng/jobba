@@ -46,14 +46,21 @@
 /* Collapsed Mobile Side Nav ------------------------------*/
 	#nav-mobile li {
 		text-align: center;
+		margin-bottom: 15px;
 	}
 	#nav-mobile a.btn.header-link {
 		color: #fff;
 	}
+	#nav-mobile a.header-link,
 	#nav-mobile a.header-link.persistent {
 		color: #666;
+	}
+	#nav-mobile a.header-link.persistent {
 		display: inline-block;
 		margin: 0 auto;
+	}
+	#nav-mobile a.header-link:hover {
+		text-decoration: none;
 	}
 
 /* Close buttons ------------------------------*/
