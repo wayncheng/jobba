@@ -14,6 +14,8 @@ $(document).ready(function(){
 		      $("#upload-button").html("Uploading...");
 			  $("#grade,#advice,#error").empty();
 		      $(".progress").show();
+		      $('#grade').hide();
+		      $('#advice').hide();
 			  $("#result").addClass("previewMessage resume-result");
 
   				var files = fileSelect.files;
@@ -59,6 +61,8 @@ $(document).ready(function(){
 						fr.onerror = function(){
 							console.log("ERROR OCCURRED ==",fr.error);
 							$(".progress").hide();
+							$('#grade').show();
+							$('#advice').show();
 							$("#error").text("File Not Uploaded.");
 							$("#upload-button").html("Submit");
 						};
@@ -68,6 +72,8 @@ $(document).ready(function(){
   						//generate error that File not Supported
   						console.log("Error occurred while getting file.");
 						$(".progress").hide();
+						$('#grade').show();
+						$('#advice').show();
 						$("#upload-button").html("Submit");
   						$("#error").text("File Extension Not Supported.");
   					}
@@ -76,6 +82,8 @@ $(document).ready(function(){
   					//validation on file input and text area
   					if(handleFileSelect(fileSelect,rText) === 0){
 						$(".progress").hide();
+						$('#grade').show();
+						$('#advice').show();
 						$("#upload-button").html("Submit");
 			  			return;
 			  		} 
@@ -107,6 +115,8 @@ $(document).ready(function(){
 
 				if(errorCode.text()){
 					$(".progress").hide();
+					$('#grade').show();
+					$('#advice').show();
 					$("#error").html(errorCode.text());
 		      		$("#upload-button").html("Submit");
 
@@ -116,9 +126,14 @@ $(document).ready(function(){
 				var jsonResponse = JSON.parse(JSON.stringify(xml2json(response)));
 
 				 $(".progress").hide();
+				 $('#grade').show();
+				 $('#advice').show();
 				 if(jsonResponse.rezscore.score){
 		      		$("#upload-button").html("Submit");
 				 	$("#grade").html(jsonResponse.rezscore.score.grade);
+				 	// Change color function (Wayne was here)//////
+				 	changeColor(jsonResponse.rezscore.score.grade);
+				 	///////////////////////////////////////////////
 				 	var tips = jsonResponse.rezscore.advice.tip;
 				 	if(tips.length > 0){
 					 	for(var j=0; j<tips.length; j++){
@@ -141,6 +156,8 @@ $(document).ready(function(){
 				//Create a new function to process errors
 				console.log('fail', error.code);
 				$(".progress").hide();
+				$('#grade').show();
+				$('#advice').show();
 				$("#error").text("Error ocurred : "+error.code);
 		      	$("#upload-button").html("Submit");
 
@@ -283,3 +300,19 @@ function xml2json(xml) {
 
 
 
+function changeColor(grade){
+	console.log('grade',grade);
+	var letterGrade = grade[0];
+	console.log('letterGrade',letterGrade);
+	var grade = $('#grade');
+
+	if ( letterGrade == 'A' || letterGrade == 'B') {
+		grade.css('background-color','#2ecc71')
+	}
+	else if ( letterGrade ==  'C') {
+		grade.css('background-color','#f39c12')
+	}
+	else {
+		grade.css('background-color', '#e74c3c')
+	}
+}
