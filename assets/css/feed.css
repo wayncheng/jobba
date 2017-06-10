@@ -27,11 +27,14 @@
 		padding: 1.5rem 4rem;
 		position: relative;
 	}
-	.headline, .company {
+	.headline, .subheadline {
 		/* Match indent */
 		margin: 0;
-		margin-left: 35px;
-		overflow: hidden;
+		padding-left: 35px;
+		/*margin-left: 35px;*/
+		/*overflow: hidden;*/
+		min-height: 22px;
+		height: initial;
 	}
 	.headline {
 		display: block;
@@ -39,7 +42,7 @@
 		/*font-weight: 600;*/
 		font-size: 17.5px;
 		/*margin-right: 10px;*/
-		height: 22px;
+		/*height: 22px;*/
 		line-height: 22px;
 		letter-spacing: -0.2px;
 	}
@@ -48,9 +51,12 @@
 		font-weight: 300;
 		font-weight: 400;
 		font-size: 14px;
-		height: 16px;
+		/*height: 16px;*/
+		min-height: 16px;
 		line-height: 16px;
 		margin: 0;
+		overflow: hidden;
+		/*padding-left: 35px;*/
 		letter-spacing: -0.1px;
 		/*color: rgba(0,0,0,0.7);*/
 
@@ -65,6 +71,13 @@
 	}
 	.subheadline span.date {
 		float: right;
+		position: absolute;
+		right: 15px;
+		bottom: 15px;
+		bottom: 1.5rem;
+		/*box-shadow: 0px 0px 0px 5px rgba(255,255,255,1);*/
+		border-left: 12px solid #fff;
+		background-color: rgba(255,255,255,1);
 	}
 	.subheadline span.company::after {
 		content: ',';

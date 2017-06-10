@@ -44,7 +44,7 @@ $(document).ready(function(){
 	$('.chips').material_chip();
 	
 	// Tooltipss
-	$('.tooltipped').tooltip({delay:50});
+	// $('.tooltipped').tooltip({delay:50});
 	
 	// Date Slider
 	// var slider = document.getElementById('date-slider');
