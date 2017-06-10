@@ -139,7 +139,9 @@
 				$('#recommendToFriend .target').text(recommendToFriendRating);
 
 				$('#companySquareLogo').attr('src',squareLogo);
+
 				$('#companyWebsite .target').attr('href',website).text(website);
+				$('#companyName .target').text(name);
 				$('#companyIndustry .target').text(industryName);
 
 				$('#featuredReview .sec-headline .target').text(headline);
