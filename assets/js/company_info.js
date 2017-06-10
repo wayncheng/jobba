@@ -8,15 +8,28 @@
 		e.preventDefault();
 		$('#company-modal').modal('open'); 
 	}
+
+
+
+
+
+
 	// Trigger ajax on listing header click
 	$('#feed').on('click', '.company-trigger',triggerOpen);
 
 	// Get company info on listing click
 	$('#feed').on('click','.collapsible-header',function(e){
 		e.preventDefault();
-		var companyName = $(this).parents('.listing').attr("data-company");
+		var $listing = $(this).parents('.listing');
+
+		// Abort if already active, or has empty return
+		// Prevents API calls on close as well as unecessary calls
+		if ($listing.hasClass('active') || $listing.hasClass('empty-return')) return;
+		
+
+
+		var companyName = $listing.attr("data-company");
 		console.log("company name: "+ companyName);
-		// Remove empty return class from company modal
 
 		var qURL = 'https://cors-anywhere.herokuapp.com/http://api.glassdoor.com/api/api.htm?t.p=151095&t.k=dSWk91gUjq3&userip='+jobba.userIP+'&useragent=&format=json&v=1&action=employers&q='+companyName;
 		
@@ -24,29 +37,33 @@
 			type:'GET',
 			url: qURL,
 		}).done(function(result){
+			var r = result.response;
+			
 			// Check if return is empty, If yes, bail out
-			var len = result.response.employers.length;
+			var len = r.employers.length;
 			if (len == 0){
 				console.log('Empty return from Glassdoor API');
 				$('#company-modal').addClass('empty-return');
-				$(this).parents('.listing').addClass('empty-return');
-				// Materialize.toast('Oops! Looks like this company does not exist in Glassdoor yet', 3000);
-				
-				var trigger = $(this).parents('.listing').find('.company-trigger');
-					// trigger.off('click',triggerOpen);
-					trigger.css({
-						'color':'#cccccc',
-						'pointer-events': 'none',
-					});
-					trigger.hide();
-					// trigger.removeClass('company-trigger');
+				$listing.addClass('empty-return');
+				return;
+			}
+			// Check if Featured Review exists
+			var rf = r.employers[0].featuredReview;
+			if ($.isEmptyObject(rf) === true) {
+				console.log('No featured review');
+				$('#company-modal').addClass('empty-return');
+				$listing.addClass('empty-return');
 				return;
 			}
 
-			$('#company-modal').removeClass('empty-return');
-			console.log('done - Company info',result);
-			var r = result.response;
 
+
+
+
+			$('#company-modal').removeClass('empty-return');  // Remove empty return class from company modal
+			console.log('done - Company info',result);
+
+			//  COMPANY INFO AND RATINGS
 				attributionURL = r.attributionURL,
 				re = r.employers[0],
 				name = re.name,
@@ -64,29 +81,6 @@
 				recommendToFriendRating = re.recommendToFriendRating,
 						sectorName = re.sectorName,
 						industryName = re.industryName;
-			
-			var rf = re.featuredReview,
-				currentJob = rf.currentJob,
-				// 2017-05-14 10:47:31.71 (raw)
-				reviewDateTime = moment(rf.reviewDateTime,'YYYY-MM-DD HH:mm:ss.SS').format('MMM D, YYYY'),
-				jobTitle = rf.jobTitle,
-				location = rf.location,
-				headline = rf.headline,
-				pros = rf.pros,
-				cons = rf.cons,
-				overallNumeric = rf.overallNumeric,
-						attributionURL = rf.attributionURL,
-						jobTitleFromDb = rf.jobTitleFromDb,
-						overall = rf.overall;
-
-			var rc = re.ceo,
-				ceoName = rc.name,
-				ceoTitle = rc.title,
-				ceoNumberOfRatings = rc.numberOfRatings,
-				ceoPctApprove = rc.pctApprove,
-				ceoPctDisapprove = rc.pctDisapprove;
-
-
 
 				var starWrap = $('#overall-rating-stars');
 					starWrap.empty();
@@ -128,6 +122,18 @@
 
 
 
+				// Change background-color of rating wrap depending on the rating
+				var ratingWrap = $('#rating-wrap');
+				if ( overallRating <= 2 ) {
+					ratingWrap.css('background-color','#e74c3c');
+				}
+				else if (overallRating <= 3.5) {
+					ratingWrap.css('background-color','#f39c12');
+				}
+				else {
+					ratingWrap.css('background-color','#27ae60');
+				}
+
 				$('.company-name-target').text(name);
 				$('#overall-rating-number').text(overallRating);
 				$('#number-of-reviews .target').text(numberOfRatings);
@@ -144,27 +150,48 @@
 				$('#companyName .target').text(name);
 				$('#companyIndustry .target').text(industryName);
 
-				$('#featuredReview .sec-headline .target').text(headline);
-				$('#review-date .target').text(reviewDateTime);
-				$('#review-position .target').text(jobTitle);
-				$('#review-currentjob .target').text(currentJob);
-				$('#review-location .target').text(location);
-				$('#review-overall .target').text(overallNumeric);
+			//  FEATURED REVIEW
 
-				$('#fr-pros .target').text(pros);
-				$('#fr-cons .target').text(cons);
+					var currentJob = rf.currentJob,
+						// 2017-05-14 10:47:31.71 (raw)
+						reviewDateTime = moment(rf.reviewDateTime,'YYYY-MM-DD HH:mm:ss.SS').format('MMM D, YYYY'),
+						jobTitle = rf.jobTitle,
+						location = rf.location,
+						headline = rf.headline,
+						pros = rf.pros,
+						cons = rf.cons,
+						overallNumeric = rf.overallNumeric,
+								attributionURL = rf.attributionURL,
+								jobTitleFromDb = rf.jobTitleFromDb,
+								overall = rf.overall;
 
-				// Change background-color of rating wrap depending on the rating
-				var ratingWrap = $('#rating-wrap');
-				if ( overallRating <= 2 ) {
-					ratingWrap.css('background-color','#e74c3c');
-				}
-				else if (overallRating <= 3.5) {
-					ratingWrap.css('background-color','#f39c12');
-				}
-				else {
-					ratingWrap.css('background-color','#27ae60');
-				}
+						$('#featuredReview .sec-headline .target').text(headline);
+						$('#review-date .target').text(reviewDateTime);
+						$('#review-position .target').text(jobTitle);
+						$('#review-currentjob .target').text(currentJob);
+						$('#review-location .target').text(location);
+						$('#review-overall .target').text(overallNumeric);
+
+						$('#fr-pros .target').text(pros);
+						$('#fr-cons .target').text(cons);
+				
+
+			// CEO - not using right now
+				// var rc = re.ceo,
+				// // Check if CEO exists
+				// if (rc.isEmptyObject() === true) {
+				// 	console.log('rc.isEmptyObject()',rc.isEmptyObject());
+				// 	return;
+				// }
+				// else {
+				// ceoName = rc.name,
+				// ceoTitle = rc.title,
+				// ceoNumberOfRatings = rc.numberOfRatings,
+				// ceoPctApprove = rc.pctApprove,
+				// ceoPctDisapprove = rc.pctDisapprove;
+				// }
+
+
 
 			// console.log("Company Review: " + industry + " " + overallRating + " " + seniorLeadershiptRating + " ");
 			// console.log("Featured Review /w pros and cons: " + jobTitle + " " + pros + " " + cons);

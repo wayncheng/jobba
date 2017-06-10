@@ -47,7 +47,7 @@
             display: none;
       }
       
-      /* If EMPTY RETURN */
+/* Empty Glassdoor Return ------------------------------*/
       .empty-return .sub {
             display: block;
       }
@@ -64,6 +64,10 @@
       .empty-return .sub h2 {
             font-size: inherit;
             margin: 0;
+      }
+      /* IMPORTANT. HIDE COMPANY MODAL TRIGGER */
+      .listing.empty-return .company-trigger {
+            display: none;
       }
 /* Landing------------------------------*/
       
@@ -102,4 +106,6 @@
                   width: 100%;
                   margin: 0;
             }
-      }
+      }    
+
+/* @media for screens/mobile ------------------------------*/
