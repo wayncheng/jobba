@@ -28,7 +28,7 @@ $(document).ready(function(){
       endingTop: '5%', // Ending top style attribute
       ready: function() { 
 	      // Callback for Modal open. Modal and trigger parameters available.
-        console.log('modal open');
+        // console.log('modal open');
       },
       complete: function() { 
       	// Callback for Modal close
