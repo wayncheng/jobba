@@ -99,7 +99,7 @@
 		<span id="banner-cover" class="ghost photo-tint"></span>
 		<form class="col s12 xl8 offset-xl2">
 		<div class="row">
-				<div id="banner-logo-wrap" class="last-search wrap">
+				<div id="banner-logo-wrap" class="">
 					<img id="banner-logo" class="logo logo-text feature-logo" src="assets/icons/jobba-final-text-only-white.png" alt="Jobba">
 					<span class="progress-bar feature-logo"> </span>
 					</div>
@@ -156,9 +156,9 @@
 				<a id="map-trigger" href="#map-modal" class="btn button-collapse compact-ready waves-effect waves-light alone">
 					<i class="material-icons">location_on</i>
 				</a>
-				<a id="company-trigger" href="#company-modal" class="btn button-collapse compact-ready waves-effect waves-light alone">
+				<!-- <a id="company-trigger" href="#company-modal" class="btn button-collapse compact-ready waves-effect waves-light alone">
 					<i class="material-icons">business</i>
-				</a>
+				</a> -->
 					<!-- <i class="material-icons">business_center</i> -->
 			</div>
 		</div>
@@ -640,7 +640,7 @@
 			var bgimgArr = ['banner-dune','banner-antelope-flame','banner-antelope-heart','banner-goldengate','banner-baybridge'];
 			var randomNum = getRandomIntInclusive(0,4);
 			var bgClass = bgimgArr[randomNum];
-			$('#banner').addClass(bgClass);
+			$('html').addClass(bgClass);
 			
 
 			// // Mobile sources for efficiency

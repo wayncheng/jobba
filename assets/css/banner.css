@@ -117,11 +117,29 @@
 }
 
 /* Banner Image Alternates ------------------------------*/
-	#banner.banner-dune           { background-image: url(../img/wayne/1920-q6/banner-dune.jpg); }
-	#banner.banner-antelope-flame { background-image: url(../img/wayne/1920-q6/banner-antelope-flame.jpg); }
-	#banner.banner-antelope-heart { background-image: url(../img/wayne/1920-q6/banner-antelope-heart.jpg); }
-	#banner.banner-goldengate     { background-image: url(../img/wayne/1920-q6/banner-goldengate.jpg); }
-	#banner.banner-baybridge      { background-image: url(../img/wayne/1920-q6/banner-baybridge.jpg); }
+	.banner-dune           #banner { background-image: url(../img/wayne/1920-q6/banner-dune.jpg); }
+	.banner-antelope-flame #banner { background-image: url(../img/wayne/1920-q6/banner-antelope-flame.jpg); }
+	.banner-antelope-heart #banner { background-image: url(../img/wayne/1920-q6/banner-antelope-heart.jpg); }
+	.banner-goldengate     #banner { background-image: url(../img/wayne/1920-q6/banner-goldengate.jpg); }
+	.banner-baybridge      #banner { background-image: url(../img/wayne/1920-q6/banner-baybridge.jpg); }
+
+	/*.banner-dune           #submit { background-color: #3498db; }*/
+	/*.banner-antelope-flame #submit { background-color: #3498db; }*/
+	/*.banner-antelope-heart #submit { background-color: #3498db; }*/
+	/*.banner-goldengate     #submit { background-color: #3498db; }*/
+	.banner-baybridge      #submit { background-color: #f4511e; }
+	
+	/*.banner-dune           {}*/
+	/*.banner-antelope-flame {}*/
+	/*.banner-antelope-heart {}*/
+	/*.banner-baybridge      {}*/
+	.banner-goldengate #banner .photo-tint { opacity: 0.34; }
+	/*.banner-goldengate #header-side-nav-link,*/
+	/*.banner-goldengate #main-nav-body a.header-link {
+		color: rgba(0,0,0,0.81);
+	}*/
+	/*.banner-goldengate #main-nav-body a.header-link.btn {color: #eee; }*/
+
 
 	@media screen and (orientation: portrait){
 		#banner.banner-dune           { background-image: url(../img/wayne/mobile-q6p/banner-dune.jpg); }

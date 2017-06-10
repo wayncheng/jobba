@@ -148,28 +148,6 @@ p {
 		line-height: 25px;
 		min-height: 0;
 	}
-/*------------------------------------------------------------*/
-/* feed-printed */
-	.feed-printed #banner {
-		height: initial;
-		padding: 50px;
-		background-position-y: 70%;
-	}
-	.feed-printed #page1 {
-		display: block;
-	}
-	.feed-printed #pg-1 {
-		display: initial;
-	}
-	/*.feed-printed .banner-body {
-		margin-top: 0px;
-	}*/
-	.feed-printed #scroll-to-top {
-		display: inline-block;
-	}
-	.feed-printed #banner .row {
-		margin-bottom: 0;
-	}
 
 /*------------------------------------------------------------*/
 /*Attribution*/
