@@ -158,6 +158,9 @@
 		left: 0;
 		background-image: url(../icons/5star-filled-white.svg);
 	}*/
+	#company-info-wrap {
+		padding-bottom: 0;
+	}
 	#overall-rating-wrap, #rating-wrap ul {
 		/*outline: 1px solid red;*/
 	}	
@@ -213,6 +216,8 @@
 		text-align: center;
 		background-color: rgba(81,81,81,.24);
 		padding: 24px 0;
+		/*padding: 0;*/
+		margin: 0;
 	}
 	#company-details a {
 		color: #fff;
