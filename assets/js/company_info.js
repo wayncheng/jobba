@@ -4,7 +4,6 @@
 
 	// Trigger open 
 	function triggerOpen(e){
-		console.log('external trigger');
 		e.preventDefault();
 		$('#company-modal').modal('open'); 
 	}
@@ -100,14 +99,16 @@
 				var star=$('<i>').addClass('material-icons');
 				if ( decimal < 0.75 && decimal >= 0.25 ) {
 					star.text('star_half');
+					starWrap.append(star);
 				}
-				else if ( decimal < 0.25 ) {
+				else if ( decimal < 0.25 && decimal > 0 ) {
 					star.text('star_border');
+					starWrap.append(star);
 				}
-				else {
+				else if ( decimal >= 0.75) {
 					star.text('star');
+					starWrap.append(star);
 				}
-				starWrap.append(star);
 
 				// Add empty stars
 				// var emptyStars = 5 - Math.round(overallRating);
