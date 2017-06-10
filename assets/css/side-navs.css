@@ -310,3 +310,7 @@
 	}
 
 	.below-fold {}
+	
+	ul#filter-location {
+		padding-bottom: 5px;
+	}

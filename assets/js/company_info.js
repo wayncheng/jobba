@@ -147,7 +147,10 @@
 
 				$('#companySquareLogo').attr('src',squareLogo);
 
-				$('#companyWebsite .target').attr('href',website).text(website);
+				$('#companyWebsite .target').text(website).attr({
+					'href': 'http://'+ website,
+					'target': '_blank'
+				});
 				$('#companyName .target').text(name);
 				$('#companyIndustry .target').text(industryName);
 
