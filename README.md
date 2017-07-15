@@ -22,15 +22,15 @@
 
 - - -
 
-Team Member: Wayne Cheng
+#### Team Member: Wayne Cheng
 
 - - -
 
-Team Member: Priyanka Arora
+#### Team Member: Priyanka Arora
 
 - - -
 
-Team Member: Jonathan Thinh
+#### Team Member: Jonathan Thinh
 
 
 
