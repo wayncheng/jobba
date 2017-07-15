@@ -14,7 +14,7 @@
     
 * Google Firebase Authentification
     
-* Google Firebase Save Job Search Features
+* Google Firebase save/display job search features
 
 * Job search title autocomplete dropdown
 
