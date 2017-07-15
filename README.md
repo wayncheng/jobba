@@ -10,15 +10,15 @@
 
 #### Implementation:
 
-    * Ajax call to web API (Indeed, Github Jobs API)
+* Ajax call to web API (Indeed, Github Jobs API)
     
-    * Google Firebase Authentification
+* Google Firebase Authentification
     
-    * Google Firebase Save Job Search Features
+* Google Firebase Save Job Search Features
 
-    * Presentation video
+* Presentation video
 
-    * Presentation slides
+* Presentation slides
 
 - - -
 
