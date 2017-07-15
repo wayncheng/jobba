@@ -1,4 +1,4 @@
-# Jobba [http://jobba.us](http://jobba.us)
+# Jobba ([http://jobba.us](http://jobba.us))
 ### Simplifying the search for your next job. The ultimate job search portal. Aggregates jobs from Indeed, Github Jobs, Dice, Authentic Jobs and Linkup. Additional features includes resume grader, salary analysis and company reviews. 
 
 ### Team Member Contributions
