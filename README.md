@@ -3,12 +3,12 @@
 
 ### Team Member Contributions
 
-Project Manager: Novia Lim
+####Project Manager: Novia Lim
 
 * Establishes scope by studying strategic project drivers
 * Drive team to complete project according to pre-defined timeline 
 
-Implementations
+#####Implementation:
 
     * Ajax call to web API (Indeed, Github Jobs API)
     
