@@ -16,6 +16,10 @@
     
 * Google Firebase Save Job Search Features
 
+* Job search title autocomplete dropdown
+
+* Location search autocomplete integration with Google Geocoding API
+
 * Presentation video
 
 * Presentation slides
